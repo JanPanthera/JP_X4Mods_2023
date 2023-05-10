@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="JP_AnotherExplorerS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
+
+   <order id="JP_AnotherExplorerS" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{1001, 11284}{8888888, 499}" description="Explores a Sector for Stations and/or Jumpgates." category="navigation" infinite="true" allowinloop="false">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR" text="{1001, 11284}" comment="Sector" type="object" default="this.ship.sector">
+            <input_param name="class" value="[class.sector]"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" text="Debug" type="bool" default="true" advanced="true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <skill min="0"/>
+      <requires>
+         <match shiptype="shiptype.lasertower" negate="true"/>
+      </requires>
+   </order>
+
+   <interrupts>
+      <handler ref="SectorChangeHandler"/>
+      <handler ref="TargetInvalidHandler"/>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG">
+         <set_value name="$DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
+         <set_value name="$DebugScriptName" exact="'JP_AnotherExplorer'"/>
+         <set_value name="$DebugFileName" exact="this.ship.idcode + '.' + $DebugScriptName + '.xml.log'"/>
+         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait min="500ms" max="1000ms"/>
+
+         <set_value name="$UnknownObject" exact="null"/>
+         <create_list name="$UnknownObjects"/>
+
+         <find_object name="$UnknownObjects" space="$SECTOR" multiple="true">
+            <match knownto="$Ship.owner" negate="true"/>
+            <match_any>
+               <match class="[class.station, class.gate, class.highwayentrygate, class.highwayexitgate]"/>
+            </match_any>
+         </find_object>
+
+         <do_if value="$DEBUG">
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'UnknownOnjects: ' + @$UnknownObjects.count"/>
+            <do_for_each name="$_UnknownObject" in="$UnknownObjects">
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'UnknownOnject: ' + @$_UnknownObject.knownname + ' ~ Distance: ' + $Ship.distanceto.{@$_UnknownObject}"/>
+            </do_for_each>
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <create_list name="$Points"/>
+
+
+         <set_value name="$Radius" exact="60km"/>
+         <set_value name="$AngleStep" exact="60"/>
+         <do_all exact="5" counter="$_it">
+            <set_value name="$Angle" exact="0"/>
+            <do_all exact="7" counter="$_jt">
+               <set_value name="$_Radians" exact="($Angle * pi / 180)"/>
+               <set_value name="$_X" exact="$Radius * cos($_Radians)"/>
+               <set_value name="$_Z" exact="$Radius * sin($_Radians)"/>
+               <append_to_list name="$Points" exact="[$_X, $_Z]"/>
+            </do_all>
+            <set_value name="$Radius" exact="$Radius + 60km"/>
+            <set_value name="$Angle" exact="$AngleStep" operation="add"/>
+         </do_all>
+            <create_position name="$_position" x="$_Point.{1}" z="$_Point.{2}" y="0"/>
+
+         <do_for_each name="$Position" in="$Positions">
+            <create_order id="'MoveGeneric'" object="$Ship" immediate="true">
+               <param name="destination" value="$TargedSector"/>
+               <param name="position" value="$Position"/>
+               <param name="uselocalhighways" value="false"/>
+            </create_order>
+         </do_for_each>
+
+         <resume label="FINISH_LBL"/>
+
+         <!-- 
+             for (let angle = 0; angle < 360; angle += angleStep) {
+                  const radians = angle * Math.PI / 180;
+                  const x = Math.round(canvas.width / 2 + radius * Math.cos(radians));
+                  const y = Math.round(canvas.height / 2 + radius * Math.sin(radians));
+                  points.push({x: x, y: y});
+             }
+         -->
+
+         <resume label="RESUME_LBL"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <do_if value="$DEBUG">
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Finished ~~'"/>
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <label name="CLEANUP_LBL"/>
+         <remove_value name="$DebugFileName"/>
+         <remove_value name="$DebugScriptName"/>
+         <remove_value name="$DebugFolderName"/>
+
+         <label name="END_LBL"/>
+         <wait exact="1ms"/>
+         <set_order_syncpoint_reached order="this.ship.defaultorder"/>
+         <cancel_order order="this.ship.defaultorder"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+      <remove_value name="$DebugFileName"/>
+      <remove_value name="$DebugScriptName"/>
+      <remove_value name="$DebugFolderName"/>
+   </on_abort>
+
+</aiscript>
