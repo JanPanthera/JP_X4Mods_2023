@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="JP_SpiralExplorer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
+
+   <order id="JP_SpiralExplorer" name="_{8888888, 1097}SpiralExplorer{8888888, 1099}" description="Explores a sector by flying a spiral." category="navigation" infinite="true" allowinloop="false">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR" text="{1001, 11284}" comment="Sector" type="sector" default="this.ship.sector"/>
+         <param name="CENTER" text="{8888888, 1005}" comment="Center" type="position" default="[this.ship.sector, position.[0, 0, 0]]">
+            <input_param name="type" value="class.sector"/>
+         </param>
+         <param name="IN_TO_OUT" text="{8888888, 1000}" comment="In to Out?" type="bool" default="true"/>
+         <param name="RADAR_RANGE" text="{8888888, 1001}" comment="Radar range" type="length" default="80km">
+            <input_param name="min" value="10km"/>
+            <input_param name="max" value="120km"/>
+            <input_param name="step" value="5km"/>
+         </param>
+         <param name="START_RADIUS" text="{8888888, 1002}" comment="Start orbit" type="number" default="1">
+            <input_param name="min" value="1"/>
+            <input_param name="max" value="10"/>
+            <input_param name="step" value="1"/>
+         </param>
+         <param name="RADIUS_COUNT" text="{8888888, 1003}" comment="Orbit count" type="number" default="4">
+            <input_param name="min" value="1"/>
+            <input_param name="max" value="10"/>
+            <input_param name="step" value="1"/>
+         </param>
+         <param name="CIRCLE_PRECISION" text="{8888888, 1004}" comment="Orbit precision" type="number" default="60">
+            <input_param name="min" value="5"/>
+            <input_param name="max" value="90"/>
+            <input_param name="step" value="5"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" text="Debug" type="number" default="0" advanced="true">
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="2"/>
+            <input_param name="step" value="1"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <skill min="0"/>
+      <requires>
+         <match shiptype="shiptype.lasertower" negate="true"/>
+      </requires>
+      <location object="$SECTOR" position="$POSITION" condition="@$SECTOR and @$POSITION"/>
+   </order>
+
+   <interrupts>
+      <handler ref="SectorChangeHandler"/>
+      <handler ref="TargetInvalidHandler"/>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG == 1">
+         <set_value name="$DebugScriptName" exact="'JP_SpiralExplorer'"/>
+         <set_value name="$DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
+         <set_value name="$DebugFileName" exact="this.ship.idcode + '.' + $DebugScriptName + '.xml.log'"/>
+         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <create_list name="$Positions"/>
+         <do_if value="$CENTER.{1} != $SECTOR">
+            <set_value name="$CENTER" exact="[$SECTOR, position.[0, 0, 0]]"/>
+         </do_if>
+         <create_position name="$Position" x="$CENTER.{2}.x" z="$CENTER.{2}.z" y="0"/>
+         <append_to_list name="$Positions" exact="$Position"/>
+
+         <set_value name="$_it" exact="$START_RADIUS"/>
+         <set_value name="$Radius" exact="$RADAR_RANGE"/>
+         <do_while value="$_it le $RADIUS_COUNT">
+            <set_value name="$_CurrentAngle" exact="($CIRCLE_PRECISION * $_it) - $CIRCLE_PRECISION"/>
+            <do_all exact="((360 / $CIRCLE_PRECISION) + 1)" counter="$_jt">
+               <set_value name="$_Radians" exact="($_CurrentAngle * pi / 180)"/>
+               <create_position name="$Position" x="(($Radius * $_it) * cos($_Radians)) + $CENTER.{2}.x" z="(($Radius * $_it) * sin($_Radians)) + $CENTER.{2}.z" y="0"/>
+               <append_to_list name="$Positions" exact="$Position"/>
+               <set_value name="$_CurrentAngle" exact="$CIRCLE_PRECISION" operation="add"/>
+            </do_all>
+            <set_value name="$_it" exact="1" operation="add"/>
+            <wait exact="1ms"/>
+         </do_while>
+
+         <do_if value="$DEBUG gt 1">
+            <do_for_each name="$_Position" in="$Positions">
+               <set_value name="$POSITION" exact="$_Position"/>
+               <create_order id="'MoveGeneric'" object="$Ship" immediate="true">
+                  <param name="destination" value="$SECTOR"/>
+                  <param name="position" value="$POSITION"/>
+               </create_order>
+            </do_for_each>
+         </do_if>
+
+         <do_if value="$IN_TO_OUT">
+            <do_for_each name="$_Position" in="$Positions">
+               <set_value name="$POSITION" exact="$_Position"/>
+               <move_to destination="$SECTOR" object="$Ship" forceposition="true" travel="true">
+                  <position value="$_Position"/>
+               </move_to>
+            </do_for_each>
+         </do_if>
+         <do_else>
+            <do_for_each name="$_Position" in="$Positions" reverse="true">
+               <set_value name="$POSITION" exact="$_Position"/>
+               <move_to destination="$SECTOR" object="$Ship" forceposition="true" travel="true">
+                  <position value="$_Position"/>
+               </move_to>
+            </do_for_each>
+         </do_else>
+
+         <resume label="FINISH_LBL"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <do_if value="$DEBUG == 1">
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Finished ~~'"/>
+            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <label name="CLEANUP_LBL"/>
+         <remove_value name="$Positions"/>
+
+         <label name="END_LBL"/>
+         <set_order_syncpoint_reached order="this.ship.defaultorder"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

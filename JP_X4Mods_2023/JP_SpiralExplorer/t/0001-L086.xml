@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simplified Chinese ~~ 简体中文 -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- JP_SpiralExplorer -->
+      <t id="1000">In to Out?</t>
+      <t id="1001">Radar range</t>
+      <t id="1002">Start orbit</t>
+      <t id="1003">Orbit count</t>
+      <t id="1004">Orbit precision</t>
+      <t id="1004">Center</t>
+      <t id="1097">\033#B600CCCC#</t>
+      <t id="1098">\033#FF00CC66#</t>
+      <t id="1099">\033X</t>
+   </page>
+</language>
