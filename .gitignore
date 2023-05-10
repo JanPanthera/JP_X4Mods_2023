@@ -1,0 +1,12 @@
+# Folders
+.vs
+_gsdata_
+_UnpackedGameFiles
+JP_X4Mods_Old
+
+# Files
+*.xsd
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
