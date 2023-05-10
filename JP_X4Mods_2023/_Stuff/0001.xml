@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default ~~ English -->
+<language>
+   <page id="8888888" voice="no">
+
+      <!-- JP_AbandonedShipExplorer -->
+      <t id="100">Enemy Sectors?</t>
+      <t id="101">Neutral Sectors?</t>
+      <t id="102">Friendly Sectors?</t>
+      <t id="110">Message when arrived?</t>
+      <t id="111">Wait at the abandoned ship?</t>
+      <t id="112">How long to wait?</t>
+      <t id="113">Place navigation beacons?</t>
+      <t id="114">Restock navigation beacons?</t>
+      <t id="115">Amount to restock</t>
+      <t id="116">Abandoned Ship</t>
+      <t id="117">I arrived at the abandoned ship.</t>
+      <t id="118">Wait time:</t>
+      <t id="119">No free storage room for restocking navigation beacons!</t>
+      <t id="120">No navigation beacons on board and restocking turned off, going idle...</t>
+      <t id="160">Order settings saved.</t>
+      <t id="161">Order settings have been reset.</t>
+      <t id="180">Idle Time</t>
+      <t id="181">Idle: Follow?</t>
+      <t id="182">Who to follow?</t>
+      <t id="183">Idle: Docking?</t>
+      <t id="184">Where to dock?</t>
+      <t id="185">Idle: Random movement?</t>
+      <t id="186">In which sector?</t>
+      <t id="187">Idle: Move to?</t>
+      <t id="188">Where to move?</t>
+      <t id="194">Add Order tag?</t>
+      <t id="195">Save Order Settings?</t>
+      <t id="196">Reset Order Settings?</t>
+      <t id="197">\033#B600CCCC#</t>
+      <t id="198">\033#FF00CC66#</t>
+      <t id="199">\033X</t>
+
+      <!-- JP_AddTag -->
+      <t id="200">Own Ship/Station</t>
+      <t id="201">Object with tag as name</t>
+      <t id="202">Tag position</t>
+      <t id="203">Add to Ship/Station?</t>
+      <t id="204">Add to Subordinates?</t>
+      <t id="205">Add to subordinated Fleets?</t>
+      <t id="206">Colorize Tag?</t>
+      <t id="207">Colorize Name?</t>
+      <t id="230">Save Names?</t>
+      <t id="231">Load Names?</t>
+      <t id="232">Reset Names?</t>
+      <t id="233">Delete Names?</t>
+      <t id="234">Apply to Ship/Station?</t>
+      <t id="235">Apply to Subordinates?</t>
+      <t id="236">Apply to subordinated Fleets?</t>
+      <t id="237">Apply to all?</t>
+      <t id="260">Order settings saved.</t>
+      <t id="261">Order settings resetted.</t>
+      <t id="262">Names saved.</t>
+      <t id="263">Names loaded.</t>
+      <t id="264">Names resetted.</t>
+      <t id="265">Names deleted.</t>
+      <t id="270">Transparency</t>
+      <t id="271">Red</t>
+      <t id="272">Green</t>
+      <t id="273">Blue</t>
+      <t id="295">Save Order Settings?</t>
+      <t id="296">Reset Order Settings?</t>
+      <t id="297">\033#B600CCCC#</t>
+      <t id="298">\033#FF00CC66#</t>
+      <t id="299">\033X</t>
+
+      <!-- JP_AnotherAutoSave -->
+      <t id="300">Automatic saving in \033#FFA95908#%1\033X seconds.</t>
+      <t id="301">Automatic saving in \033#FFA95908#%1\033X second.</t>
+      <t id="302">Saving...</t>
+
+      <!--  JP_AnotherExplorerV3 -->
+      <t id="400">Unknown Sectors?</t>
+      <t id="410">Jump Gates?</t>
+      <t id="411">Stations?</t>
+      <t id="470">\033#FFCEFBA1# ~ Idle - following..\033X</t>
+      <t id="471">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
+      <t id="472">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
+      <t id="473">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
+      <t id="474">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
+      <t id="480">Idle actions?</t>
+      <t id="481">Idle Time</t>
+      <t id="482">Idle: Follow?</t>
+      <t id="483">Who to follow?</t>
+      <t id="484">Idle: Docking?</t>
+      <t id="485">Where to dock?</t>
+      <t id="486">Idle: Random movement?</t>
+      <t id="487">In which sector?</t>
+      <t id="488">Idle: Move to?</t>
+      <t id="489">Where to move?</t>
+      <t id="491">Add Order tag?</t>
+      <t id="492">Order tag position</t>
+      <t id="493">Save Order Settings?</t>
+      <t id="494">Reset Order Settings?</t>
+      <t id="495">Order settings saved.</t>
+      <t id="496">Order settings resetted.</t>
+      <t id="497">\033#B600CCCC#</t>
+      <t id="498">\033#FF00CC66#</t>
+      <t id="499">\033X</t>
+
+      <!-- JP_AnotherFleetBehavior -->
+      <t id="594">Add order tag?</t>
+      <t id="595">Save Settings?</t>
+      <t id="596">Delete Settings?</t>
+      <t id="597">\033#B600CCCC#</t>
+      <t id="598">\033#FF00CC66#</t>
+      <t id="599">\033X</t>
+
+      <!-- JP_CheatAIOrders -->
+      <t id="600">Boarding experience?</t>
+      <t id="601">Engineering experience?</t>
+      <t id="602">Management experience?</t>
+      <t id="603">Morale experience?</t>
+      <t id="604">Piloting experience?</t>
+      <t id="620">Whole Fleet?</t>
+      <t id="697">\033#B600CCCC#</t>
+      <t id="698">\033#FF00CC66#</t>
+      <t id="699">\033X</t>
+
+      <!--  JP_CollectDroppedCargo -->
+      <t id="700">Use whitelist?</t>
+      <t id="701">Wares whitelist</t>
+      <t id="710">Sell collected Cargo?</t>
+      <t id="711">Selling range?</t>
+      <t id="712">Prefer own stations?</t>
+      <t id="720">Cargo transfer?</t>
+      <t id="721">Transfer Target</t>
+      <t id="722">Cargo bay is full and automatic selling and Cargo transfer are disabled. Going idle..</t>
+      <t id="780">Idle Time</t>
+      <t id="781">Idle: Follow?</t>
+      <t id="782">Who to follow?</t>
+      <t id="783">Idle: Docking?</t>
+      <t id="784">Where to dock?</t>
+      <t id="785">Idle: Random movement?</t>
+      <t id="786">In which sector?</t>
+      <t id="787">Idle: Move to?</t>
+      <t id="788">Where to move?</t>
+      <t id="791">Add Order tag?</t>
+      <t id="792">Order tag position</t>
+      <t id="793">Save Order Settings?</t>
+      <t id="794">Reset Order Settings?</t>
+      <t id="795">Order settings saved.</t>
+      <t id="796">Order settings resetted.</t>
+      <t id="797">\033#B600CCCC#</t>
+      <t id="798">\033#FF00CC66#</t>
+      <t id="799">\033X</t>
+
+      <!-- JP_CollectPlaceables -->
+      <t id="810">Collect Mines?</t>
+      <t id="811">Collect Satellites?</t>
+      <t id="812">Collect Navigation Beacons?</t>
+      <t id="813">Collect Resource Probes?</t>
+      <t id="814">Collect Laser Towers?</t>
+      <t id="820">Sell Placeables?</t>
+      <t id="821">Selling range?</t>
+      <t id="822">Prefer best price?</t>
+      <t id="823">Prefer own stations?</t>
+      <t id="830">Sell satellites Mk1?</t>
+      <t id="831">Sell satellites Mk2?</t>
+      <t id="832">Sell resourceprobes?</t>
+      <t id="833">Sell Navigationbecaons?</t>
+      <t id="834">Sell Mines?</t>
+      <t id="835">Sell tracker Mines?</t>
+      <t id="836">Sell Friend/Foe Mines?</t>
+      <t id="837">Sell Lasertowers Mk1?</t>
+      <t id="838">Sell Lasertowers Mk2?</t>
+      <t id="870">\033#FFCEFBA1# ~ Idle - following..\033X</t>
+      <t id="871">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
+      <t id="872">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
+      <t id="873">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
+      <t id="874">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
+      <t id="880">Idle actions?</t>
+      <t id="881">Idle Time</t>
+      <t id="882">Idle: Follow?</t>
+      <t id="883">Who to follow?</t>
+      <t id="884">Idle: Docking?</t>
+      <t id="885">Where to dock?</t>
+      <t id="886">Idle: Random movement?</t>
+      <t id="887">In which sector?</t>
+      <t id="888">Idle: Move to?</t>
+      <t id="889">Where to move?</t>
+      <t id="891">Add Order tag?</t>
+      <t id="892">Order tag position</t>
+      <t id="893">Save Order Settings?</t>
+      <t id="894">Reset Order Settings?</t>
+      <t id="895">Order settings saved.</t>
+      <t id="896">Order settings resetted.</t>
+      <t id="897">\033#B600CCCC#</t>
+      <t id="898">\033#FF00CC66#</t>
+      <t id="899">\033X</t>
+
+      <!-- JP_DataVaultExplorer -->
+      <t id="900">Enemy Sectors?</t>
+      <t id="901">Neutral Sectors?</t>
+      <t id="902">Friendly Sectors?</t>
+      <t id="910">Restock navigation beacons?</t>
+      <t id="911">Amount to restock</t>
+      <t id="994">Add order tag?</t>
+      <t id="997">\033#B600CCCC#</t>
+      <t id="998">\033#FF00CC66#</t>
+      <t id="999">\033X</t>
+
+      <!-- JP_SpiralExplorer -->
+      <t id="1097">\033#B600CCCC#</t>
+      <t id="1098">\033#FF00CC66#</t>
+      <t id="1099">\033X</t>
+
+      <!-- JP_MultiRename -->
+      <t id="1100">Add Tag?</t>
+      <t id="1101">Tag position</t>
+      <t id="1102">Colorize Tag?</t>
+      <t id="1103">Object with Tag</t>
+      <t id="1104">Add Class tag?</t>
+      <t id="1105">Class Tag position</t>
+      <t id="1106">Colorize Class Tag?</t>
+      <t id="1107">Class Tag enclosing signs</t>
+      <t id="1108">Add Type name?</t>
+      <t id="1109">Type name position</t>
+      <t id="1110">Colorize Type name?</t>
+      <t id="1111">Type name enclosing signs</t>
+      <t id="1112">Add Model name?</t>
+      <t id="1113">Model name position</t>
+      <t id="1114">Colorize Model name?</t>
+      <t id="1115">Model name enclosing signs</t>
+      <t id="1116">Remove Sentinel Tag?</t>
+      <t id="1117">Remove Vanguard Tag?</t>
+      <t id="1118">Short Sentinel Tag?</t>
+      <t id="1119">Short Vanguard Tag?</t>
+      <t id="1120">Use numbering?</t>
+      <t id="1121">Number position</t>
+      <t id="1122">Colorize Numbering?</t>
+      <t id="1123">Number enclosing signs</t>
+      <t id="1124">Sort XL to S?</t>
+      <t id="1125">Add Faction name?</t>
+      <t id="1126">Faction name position</t>
+      <t id="1128">Colorize Faction name?</t>
+      <t id="1129">Faction name enclosing signs</t>
+      <t id="1130">Add Order name?</t>
+      <t id="1131">Order name position</t>
+      <t id="1132">Colorize Order name?</t>
+      <t id="1133">Order name enclosing signs</t>
+      <t id="1134">Add Assignment name?</t>
+      <t id="1135">Assignment name position</t>
+      <t id="1136">Colorize Assignment name?</t>
+      <t id="1137">Assignment name enclosing signs</t>
+      <t id="1138">Add Fleet name?</t>
+      <t id="1139">Fleet name position</t>
+      <t id="1140">Colorize Fleet name?</t>
+      <t id="1141">Fleet name enclosing signs</t>
+      <t id="1142">Add DPS Tag?</t>
+      <t id="1143">DPS Tag position</t>
+      <t id="1144">Colorize DPS Tag?</t>
+      <t id="1145">DPS Tag enclosing signs</t>
+      <t id="1146">Rename Commander?</t>
+      <t id="1147">Rename Fleet?</t>
+      <t id="1148">Rename subordinated Fleets?</t>
+      <t id="1149">Reset Colors?</t>
+      <t id="1150">Save Commanders name?</t>
+      <t id="1151">Save Subordinates names?</t>
+      <t id="1152">Save Subordinates names sub Fleets?</t>
+      <t id="1153">Load Commanders name?</t>
+      <t id="1154">Load Subordinates names?</t>
+      <t id="1155">Load Subordinates names sub Fleets?</t>
+      <t id="1156">Reset Commanders name?</t>
+      <t id="1157">Reset Subordinates names?</t>
+      <t id="1158">Reset Subordinates names sub Fleets?</t>
+      <t id="1159">Delete Commanders name?</t>
+      <t id="1160">Delete Subordinates names?</t>
+      <t id="1161">Delete Subordinates names sub Fleets?</t>
+      <t id="1170">Transparency</t>
+      <t id="1171">Red</t>
+      <t id="1172">Green</t>
+      <t id="1173">Blue</t>
+      <t id="1180">V*</t>
+      <t id="1181">S*</t>
+      <t id="1195">Save Settings?</t>
+      <t id="1196">Delete Settings?</t>
+      <t id="1197">\033#B600CCCC#</t>
+      <t id="1198">\033#FF00CC66#</t>
+      <t id="1199">\033X</t>
+
+      <!-- JP_NumberMyShips -->
+      <t id="1200">Subordinated fleets?</t>
+      <t id="1201">Number at front?</t>
+      <t id="1202">Number at end?</t>
+      <t id="1203">Sort XL to S?</t>
+      <t id="1204">Colorize Number?</t>
+      <t id="1205">Colorize Name?</t>
+      <t id="1270">Transparency</t>
+      <t id="1271">Red</t>
+      <t id="1272">Green</t>
+      <t id="1273">Blue</t>
+      <t id="1295">Save Settings?</t>
+      <t id="1296">Delete Settings?</t>
+      <t id="1297">\033#B600CCCC#</t>
+      <t id="1298">\033#FF00CC66#</t>
+      <t id="1299">\033X</t>
+
+      <!-- JP_SatelliteDropper -->
+      <t id="1400">Restock mk1 satellites?</t>
+      <t id="1401">Restock mk2 satellites?</t>
+      <t id="1402">Restock Amount</t>
+      <t id="1420">Jump Gates?</t>
+      <t id="1421">Active Jump Gates?</t>
+      <t id="1422">Inactive Jump Gates?</t>
+      <t id="1423">Accelerators?</t>
+      <t id="1424">Active Accelerators?</t>
+      <t id="1425">Inactive Accelerators?</t>
+      <t id="1430">Stations?</t>
+      <t id="1431">Wharfs?</t>
+      <t id="1432">Shipyards?</t>
+      <t id="1433">Equipmentdocks?</t>
+      <t id="1434">Trading Stations?</t>
+      <t id="1435">Defence Stations?</t>
+      <t id="1436">Pirate Bases?</t>
+      <t id="1437">Faction Headquarters?</t>
+      <t id="1438">Non Special Stations?</t>
+      <t id="1470">\033#FFCEFBA1# ~ Idle - following..\033X</t>
+      <t id="1471">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
+      <t id="1472">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
+      <t id="1473">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
+      <t id="1474">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
+      <t id="1480">Idle actions?</t>
+      <t id="1481">Idle Time</t>
+      <t id="1482">Idle: Follow?</t>
+      <t id="1483">Who to follow?</t>
+      <t id="1484">Idle: Docking?</t>
+      <t id="1485">Where to dock?</t>
+      <t id="1486">Idle: Random movement?</t>
+      <t id="1487">In which sector?</t>
+      <t id="1488">Idle: Move to?</t>
+      <t id="1489">Where to move?</t>
+      <t id="1491">Add Order tag?</t>
+      <t id="1492">Order tag position</t>
+      <t id="1493">Save Order Settings?</t>
+      <t id="1494">Reset Order Settings?</t>
+      <t id="1495">Order settings saved.</t>
+      <t id="1496">Order settings resetted.</t>
+      <t id="1497">\033#B600CCCC#</t>
+      <t id="1498">\033#FF00CC66#</t>
+      <t id="1499">\033X</t>
+
+      <!-- JP_SetFleetNameColor -->
+      <t id="1600">Reset fleet name?</t>
+      <t id="1670">Transparency</t>
+      <t id="1671">Red</t>
+      <t id="1672">Green</t>
+      <t id="1673">Blue</t>
+      <t id="1695">Save Settings?</t>
+      <t id="1696">Delete Settings?</t>
+      <t id="1697">\033#B600CCCC#</t>
+      <t id="1698">\033#FF00CC66#</t>
+      <t id="1699">\033X</t>
+
+      <!-- JP_ShowMePlayerStuffDestroyed -->
+      <t id="1700">is under attack!</t>
+      <t id="1701">was destroyed!</t>
+
+      <!-- JP_StationAutoCreditTransfer -->
+      <t id="1800">Money transferred to</t>
+      <t id="1797">\033#B600CCCC#</t>
+      <t id="1799">\033X</t>
+
+      <!-- JP_TradeSubscriptionExplorer -->
+      <t id="1970">\033#FFCEFBA1# ~ Idle - following..\033X</t>
+      <t id="1971">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
+      <t id="1972">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
+      <t id="1973">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
+      <t id="1974">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
+      <t id="1980">Idle actions?</t>
+      <t id="1981">Idle Time</t>
+      <t id="1982">Idle: Follow?</t>
+      <t id="1983">Who to follow?</t>
+      <t id="1984">Idle: Docking?</t>
+      <t id="1985">Where to dock?</t>
+      <t id="1986">Idle: Random movement?</t>
+      <t id="1987">In which sector?</t>
+      <t id="1988">Idle: Move to?</t>
+      <t id="1989">Where to move?</t>
+      <t id="1991">Add Order tag?</t>
+      <t id="1992">Order tag position</t>
+      <t id="1993">Save Order Settings?</t>
+      <t id="1994">Reset Order Settings?</t>
+      <t id="1995">Order settings saved.</t>
+      <t id="1996">Order settings resetted.</t>
+      <t id="1997">\033#B600CCCC#</t>
+      <t id="1998">\033#FF00CC66#</t>
+      <t id="1999">\033X</t>
+
+      <!--  JP_CollectDroppedInventory -->
+      <t id="2080">Idle Time</t>
+      <t id="2081">Idle: Follow?</t>
+      <t id="2082">Who to follow?</t>
+      <t id="2083">Idle: Docking?</t>
+      <t id="2084">Where to dock?</t>
+      <t id="2085">Idle: Random movement?</t>
+      <t id="2086">In which sector?</t>
+      <t id="2087">Idle: Move to?</t>
+      <t id="2088">Where to move?</t>
+      <t id="2091">Add Order tag?</t>
+      <t id="2092">Order tag position</t>
+      <t id="2093">Save Order Settings?</t>
+      <t id="2094">Reset Order Settings?</t>
+      <t id="2095">Order settings saved.</t>
+      <t id="2096">Order settings resetted.</t>
+      <t id="2097">\033#B600CCCC#</t>
+      <t id="2098">\033#FF00CC66#</t>
+      <t id="2099">\033X</t>
+
+      <!-- JP_CollectMyScatteredInventoryItems -->
+      <t id="2180">Idle Time</t>
+      <t id="2181">Idle: Follow?</t>
+      <t id="2182">Who to follow?</t>
+      <t id="2183">Idle: Docking?</t>
+      <t id="2184">Where to dock?</t>
+      <t id="2185">Idle: Random movement?</t>
+      <t id="2186">In which sector?</t>
+      <t id="2187">Idle: Move to?</t>
+      <t id="2188">Where to move?</t>
+      <t id="2191">Add Order tag?</t>
+      <t id="2192">Order tag position</t>
+      <t id="2193">Save Order Settings?</t>
+      <t id="2194">Reset Order Settings?</t>
+      <t id="2195">Order settings saved.</t>
+      <t id="2196">Order settings resetted.</t>
+      <t id="2197">\033#B600CCCC#</t>
+      <t id="2198">\033#FF00CC66#</t>
+      <t id="2199">\033X</t>
+
+   </page>
+</language>
