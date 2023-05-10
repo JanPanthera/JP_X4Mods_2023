@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Script uses these Parameters !!
+~~~~~~~~~~~~~
+$RESTOCK_SATELLITES_MK1
+$RESTOCK_SATELLITES_MK2
+$RESTOCK_AMOUNT
+~~~~~~~~~~~~~
+$DEBUG
+~~~~~~~~~~~~~
+$Ship
+$DebugFolderName
+$DebugScriptName
+$DebugFileName
+~~~~~~~~~~~~~
+-->
+
+<!-- Return parameter
+-->
+
+<aiscript name="JP_Lib_RestockSatellites_SD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <interrupts>
+      <library>
+         <actions name="JP_Lib_RestockSatellites_SD">
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <set_value name="$_Satellite" exact="if $RESTOCK_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro"/>
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'Satellites in cargo of the ship: ' + $Ship.ammostorage.{$_Satellite}.count"/>
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+            <do_if value="$Ship.ammostorage.{$_Satellite}.count lt $RESTOCK_AMOUNT">
+
+               <set_value name="$_RestockTable" exact="table[]"/>
+               <set_value name="$_RestockTable.{$_Satellite}" exact="$RESTOCK_AMOUNT"/>
+
+               <set_value name="$_RestockAmount" exact="$RESTOCK_AMOUNT - $Ship.ammostorage.{$_Satellite}.count"/>
+
+               <find_station name="$_Stations" space="player.galaxy" multiple="true">
+                  <match knownto="$Ship.owner"/>
+                  <match checkoperational="true"/>
+                  <match cansupplyclass="$Ship.class"/>
+                  <match_relation_to faction="$Ship.owner" comparison="ge" relation="neutral"/>
+               </find_station>
+
+               <do_if value="$DEBUG gt 0">
+                  <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Stations.count: ' + $_Stations.count"/>
+                  <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+               </do_if>
+
+               <do_if value="$_Stations.count gt 0">
+                  <do_if value="$_Stations.count gt 1">
+                     <sort_list list="$_Stations" sortbyvalue="loop.element.distanceto.{$Ship}"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG">
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Station" in="$_Stations">
+                        <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Station: ' + $_Station.knownname"/>
+                     </do_for_each>
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <set_value name="$_RestockStation" exact="$_Stations.{1}"/>
+                  <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_Satellite.ware} * $_RestockAmount)Cr"/>
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_RestockTable: ' + @$_RestockTable"/>
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_RestockPrice: ' + @$_RestockPrice"/>
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_RestockStation: ' + @$_RestockStation.knownname"/>
+                     <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <add_build_to_modify_ship buildobject="$Ship" object="$_RestockStation" ammo="$_RestockTable" price="$_RestockPrice" immediate="true" result="$_Result"/>
+                  <do_if value="not $_Result">
+                     <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $Ship.knownname + ' [' + $Ship.idcode + ']\n\n' + '{8888888, 1450}'"/>
+                     <do_if value="$DEBUG gt 0">
+                        <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                        <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'add_build_to_modify_ship failed to create the order.'"/>
+                        <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                     </do_if>
+                  </do_if>
+
+               </do_if>
+
+               <do_if value="$_Stations.count le 0">
+                  <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $Ship.knownname + ' [' + $Ship.idcode + ']\n\n' + '{8888888, 1450}'"/>
+               </do_if>
+
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <remove_value name="$_Result"/>
+            <remove_value name="$_Stations"/>
+            <remove_value name="$_Satellite"/>
+            <remove_value name="$_RestockPrice"/>
+            <remove_value name="$_RestockTable"/>
+            <remove_value name="$_RestockAmount"/>
+            <remove_value name="$_RestockStation"/>
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Finished ~~'"/>
+               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+      </library>
+   </interrupts>
+
+</aiscript>
