@@ -3,30 +3,39 @@
 <language>
    <page id="8888888" voice="no">
       <!-- JP_SatelliteDropper -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Restock mk1 satellites?</t>
       <t id="1401">Restock mk2 satellites?</t>
-      <t id="1402">Restock Amount</t>
-      <t id="1420">Jump Gates?</t>
-      <t id="1421">Active Jump Gates?</t>
-      <t id="1422">Inactive Jump Gates?</t>
+      <t id="1402">Restock amount</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1420">Jump gates?</t>
+      <t id="1421">Active jump gates?</t>
+      <t id="1422">Inactive jump gates?</t>
       <t id="1423">Accelerators?</t>
-      <t id="1424">Active Accelerators?</t>
-      <t id="1425">Inactive Accelerators?</t>
+      <t id="1424">Active accelerators?</t>
+      <t id="1425">Inactive accelerators?</t>
+      <t id="1426">Superhighways?</t>
+      <t id="1427">Active superhighways?</t>
+      <t id="1428">Inactive superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Stations?</t>
       <t id="1431">Wharfs?</t>
       <t id="1432">Shipyards?</t>
-      <t id="1433">Equipmentdocks?</t>
-      <t id="1434">Trading Stations?</t>
-      <t id="1435">Defence Stations?</t>
-      <t id="1436">Pirate Bases?</t>
-      <t id="1437">Faction Headquarters?</t>
-      <t id="1438">Non Special Stations?</t>
+      <t id="1433">Equipment docks?</t>
+      <t id="1434">Trading stations?</t>
+      <t id="1435">Pirate bases?</t>
+      <t id="1436">Scrap processing facilities?</t>
+      <t id="1437">Defense stations?</t>
+      <t id="1438">Faction Headquarters?</t>
+      <t id="1439">Non Special Stations?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">No Station available for restocking satellites.</t>
       <t id="1470">\033#FFCEFBA1# ~ Idle - following..\033X</t>
       <t id="1471">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
       <t id="1472">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
       <t id="1473">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
       <t id="1474">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Idle actions?</t>
       <t id="1481">Idle Time</t>
       <t id="1482">Idle: Follow?</t>
@@ -37,14 +46,18 @@
       <t id="1487">In which sector?</t>
       <t id="1488">Idle: Move to?</t>
       <t id="1489">Where to move?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1491">Add Order tag?</t>
       <t id="1492">Order tag position</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1493">Save Order Settings?</t>
       <t id="1494">Reset Order Settings?</t>
       <t id="1495">Order settings saved.</t>
       <t id="1496">Order settings resetted.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1497">\033#B600CCCC#</t>
       <t id="1498">\033#FF00CC66#</t>
       <t id="1499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

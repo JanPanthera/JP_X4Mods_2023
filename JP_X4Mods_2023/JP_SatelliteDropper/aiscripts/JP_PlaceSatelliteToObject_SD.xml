@@ -11,8 +11,6 @@
       <param name="DEBUG" type="internal" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     </params>
-    <location object="@$LOCATION_OBJECT_USED_IN_UI" condition="@$LOCATION_OBJECT_USED_IN_UI.isclass.{class.component}"/>
-    <location object="@$OBJECT.sector" position="@$LOCATION_OBJECT_USED_IN_UI" condition="@$LOCATION_OBJECT_USED_IN_UI != null and @$LOCATION_OBJECT_USED_IN_UI != class.component"/>
   </order>
 
   <interrupts>
@@ -32,7 +30,6 @@
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <set_value name="$Ship" exact="this.ship"/>
     <set_value name="$ExpMultiplier" exact="0.89"/>
-    <set_value name="$LOCATION_OBJECT_USED_IN_UI" exact="(if $ONE_PER_SECTOR then $OBJECT.sector.coreposition else $OBJECT)"/>
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <do_if value="$DEBUG gt 0">
       <set_value name="$DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
