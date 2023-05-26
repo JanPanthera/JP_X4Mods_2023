@@ -4,9 +4,10 @@
    <page id="8888888" voice="no">
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1400">Mk1 Satelliten aufstocken?</t>
-      <t id="1401">Mk2 Satelliten aufstocken?</t>
-      <t id="1402">Nachfüllmenge</t>
+      <t id="1400">Mk1 Satelliten?</t>
+      <t id="1401">Mk2 Satelliten?</t>
+      <t id="1402">Satelliten aufstocken?</t>
+      <t id="1403">Nachfüllmenge</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1420">Sprungtore?</t>
       <t id="1421">Aktive Sprungtore?</t>
@@ -29,7 +30,11 @@
       <t id="1438">Fraktionshauptquartiere?</t>
       <t id="1439">Nicht spezialisierte Stationen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">No Station available for restocking satellites.</t>
+      <t id="1450">Es ist keine Station verfügbar, um Satelliten nachzufüllen.</t>
+      <t id="1451">Keine Satelliten verfügbar und die Nachfüllung von Satelliten ist deaktiviert.</t>
+      <t id="1452">Wir haben nicht genug Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
+      <t id="1453">Die Erstellung des Befehls zur Auffüllung ist fehlgeschlagen.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">\033#FFCEFBA1# ~ Leerlauf - folgen..\033X</t>
       <t id="1471">\033#FFCEFBA1# ~ Leerlauf - andocken an %1\033X</t>
       <t id="1472">\033#FFCEFBA1# ~ Leerlauf - zufälliges bewegen..\033X</t>

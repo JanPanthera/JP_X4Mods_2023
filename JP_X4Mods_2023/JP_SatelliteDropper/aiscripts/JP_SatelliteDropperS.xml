@@ -13,9 +13,10 @@
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="RESTOCK_SATELLITES_MK1" text="{8888888, 1400}" comment="Restock mk1 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{1} else true"/>
-         <param name="RESTOCK_SATELLITES_MK2" text="{8888888, 1401}" comment="Restock mk2 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{2} else false"/>
-         <param name="RESTOCK_AMOUNT" text="{8888888, 1402}" comment="Restock amount?" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{3} else 10">
+         <param name="PLACE_SATELLITES_MK1" text="{8888888, 1400}" comment="Place mk1 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{1} else true"/>
+         <param name="PLACE_SATELLITES_MK2" text="{8888888, 1401}" comment="Place mk2 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{2} else false"/>
+         <param name="RESTOCK_SATELLITES" text="{8888888, 1402}" comment="Restock satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{3} else false"/>
+         <param name="RESTOCK_AMOUNT" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{4} else 10">
             <input_param name="min" value="0"/>
             <input_param name="max" value="(if this.ship.ammostorage.deployable.capacity gt 0 then this.ship.ammostorage.deployable.capacity else 0)"/>
             <input_param name="step" value="1"/>
@@ -25,51 +26,51 @@
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="JUMP_GATES" text="{8888888, 1420}" comment="Jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{4} else true"/>
-         <param name="ACTIVE_JUMP_GATES" text="- {8888888, 1421}" comment="Active jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{5} else true"/>
-         <param name="INACTIVE_JUMP_GATES" text="- {8888888, 1422}" comment="Inactive jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{6} else true"/>
-         <param name="ACCELERATORS" text="{8888888, 1423}" comment="Accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{7} else true"/>
-         <param name="ACTIVE_ACCELERATORS" text="- {8888888, 1424}" comment="Active accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{8} else true"/>
-         <param name="INACTIVE_ACCELERATORS" text="- {8888888, 1425}" comment="Inactive accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{9} else true"/>
-         <param name="SUPER_HIGHWAYS" text="{8888888, 1426}" comment="Superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{10} else true"/>
-         <param name="ACTIVE_SUPER_HIGHWAYS" text="- {8888888, 1427}" comment="Active superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{11} else true"/>
-         <param name="INACTIVE_SUPER_HIGHWAYS" text="- {8888888, 1428}" comment="Inactive superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{12} else true"/>
+         <param name="JUMP_GATES" text="{8888888, 1420}" comment="Jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{5} else true"/>
+         <param name="ACTIVE_JUMP_GATES" text="- {8888888, 1421}" comment="Active jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{6} else true"/>
+         <param name="INACTIVE_JUMP_GATES" text="- {8888888, 1422}" comment="Inactive jump gates?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{7} else true"/>
+         <param name="ACCELERATORS" text="{8888888, 1423}" comment="Accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{8} else true"/>
+         <param name="ACTIVE_ACCELERATORS" text="- {8888888, 1424}" comment="Active accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{9} else true"/>
+         <param name="INACTIVE_ACCELERATORS" text="- {8888888, 1425}" comment="Inactive accelerators?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{10} else true"/>
+         <param name="SUPER_HIGHWAYS" text="{8888888, 1426}" comment="Superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{11} else true"/>
+         <param name="ACTIVE_SUPER_HIGHWAYS" text="- {8888888, 1427}" comment="Active superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{12} else true"/>
+         <param name="INACTIVE_SUPER_HIGHWAYS" text="- {8888888, 1428}" comment="Inactive superhighways?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{13} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="STATIONS" text="{8888888, 1430}" comment="Stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{13} else true"/>
-         <param name="WHARFS" text="- {8888888, 1431}" comment="Wharfs?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{14} else true"/>
-         <param name="SHIPYARDS" text="- {8888888, 1432}" comment="Shipyards?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{15} else true"/>
-         <param name="EQUIPMENTDOCKS" text="- {8888888, 1433}" comment="Equipment docks?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{16} else true"/>
-         <param name="TRADING_STATIONS" text="- {8888888, 1434}" comment="Trading stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{17} else true"/>
-         <param name="PIRATE_BASES" text="- {8888888, 1435}" comment="Pirate bases?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{18} else true"/>
-         <param name="RECYCLING_STATIONS" text="- {8888888, 1436}" comment="Scrap processing facilities?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{19} else true"/>
-         <param name="DEFENCE_STATIONS" text="- {8888888, 1437}" comment="Defense stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{20} else true"/>
-         <param name="FACTION_HEADQUARTERS" text="- {8888888, 1438}" comment="Faction Headquarters?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{21} else true"/>
-         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 1439}" comment="Non Special Stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{22} else false"/>
+         <param name="STATIONS" text="{8888888, 1430}" comment="Stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{14} else true"/>
+         <param name="WHARFS" text="- {8888888, 1431}" comment="Wharfs?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{15} else true"/>
+         <param name="SHIPYARDS" text="- {8888888, 1432}" comment="Shipyards?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{16} else true"/>
+         <param name="EQUIPMENTDOCKS" text="- {8888888, 1433}" comment="Equipment docks?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{17} else true"/>
+         <param name="TRADING_STATIONS" text="- {8888888, 1434}" comment="Trading stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{18} else true"/>
+         <param name="PIRATE_BASES" text="- {8888888, 1435}" comment="Pirate bases?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{19} else true"/>
+         <param name="RECYCLING_STATIONS" text="- {8888888, 1436}" comment="Scrap processing facilities?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{20} else true"/>
+         <param name="DEFENCE_STATIONS" text="- {8888888, 1437}" comment="Defense stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{21} else true"/>
+         <param name="FACTION_HEADQUARTERS" text="- {8888888, 1438}" comment="Faction Headquarters?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{22} else true"/>
+         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 1439}" comment="Non Special Stations?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{23} else false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="IDLE_TIME" text="{8888888, 1481}" comment="Idle Time" type="time" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{23} else 600s">
+         <param name="IDLE_TIME" text="{8888888, 1481}" comment="Idle Time" type="time" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{24} else 600s">
             <input_param name="min" value="60s"/>
             <input_param name="max" value="3600s"/>
             <input_param name="step" value="10s"/>
          </param>
-         <param name="IDLE_MOVE_TO" text="{8888888, 1488}" comment="Idle: Move to?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{24} else true"/>
-         <param name="WHERE_TO_MOVE" text="- {8888888, 1489}" comment="Where to move?" type="position" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{25} else [this.ship.sector, position.[0, 0, 0]]">
+         <param name="IDLE_MOVE_TO" text="{8888888, 1488}" comment="Idle: Move to?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{25} else true"/>
+         <param name="WHERE_TO_MOVE" text="- {8888888, 1489}" comment="Where to move?" type="position" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{26} else [this.ship.sector, position.[0, 0, 0]]">
             <input_param name="class" value="class.sector"/>
          </param>
-         <param name="IDLE_FOLLOW" text="{8888888, 1482}" comment="Idle: Follow?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{26} else false"/>
-         <param name="WHO_TO_FOLLOW" text="- {8888888, 1483}" comment="Who to follow?" type="object" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{27} else null">
+         <param name="IDLE_FOLLOW" text="{8888888, 1482}" comment="Idle: Follow?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{27} else false"/>
+         <param name="WHO_TO_FOLLOW" text="- {8888888, 1483}" comment="Who to follow?" type="object" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{28} else null">
             <input_param name="class" value="[class.ship]"/>
             <input_param name="owner" value="this.ship.owner"/>
          </param>
-         <param name="IDLE_DOCKING" text="{8888888, 1484}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{28} else false"/>
-         <param name="WHERE_TO_DOCK" text="- {8888888, 1485}" comment="Where to dock?" type="object" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{29} else null">
+         <param name="IDLE_DOCKING" text="{8888888, 1484}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{29} else false"/>
+         <param name="WHERE_TO_DOCK" text="- {8888888, 1485}" comment="Where to dock?" type="object" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{30} else null">
             <input_param name="class" value="if this.ship.isclass.[class.ship_s, class.ship_xs] then [class.station, class.ship_m, class.ship_l, class.ship_xl] else [class.station, class.ship_l, class.ship_xl]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -90,7 +91,7 @@
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" text="Debug" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{30} else 100" advanced="true">
+         <param name="DEBUG" text="Debug" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{31} else 100" advanced="true">
             <input_param name="step" value="100"/>
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
@@ -123,21 +124,19 @@
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$Ship" exact="this.ship"/>
-      <set_value name="$LOCATION" exact="[$SECTOR, position.[0, 0, 0]]"/>
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$LOCATION" exact="[$SECTOR, null]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$DEBUG">
-         <set_value name="$DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
-         <set_value name="$DebugScriptName" exact="'JP_SatelliteDropperS'"/>
-         <set_value name="$DebugFileName" exact="$Ship.idcode + '.' + $DebugScriptName + '.xml.log'"/>
-         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-         <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'JP_SatelliteDropperS'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$SAVE_ORDER_SETTINGS">
          <create_list name="$_SettingsList"/>
          <append_list_elements name="$_SettingsList" other="[
-                            $RESTOCK_SATELLITES_MK1, $RESTOCK_SATELLITES_MK2, $RESTOCK_AMOUNT,
+                            $PLACE_SATELLITES_MK1, $PLACE_SATELLITES_MK2, $RESTOCK_SATELLITES, $RESTOCK_AMOUNT,
                             $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
                             $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
@@ -157,28 +156,23 @@
             </do_for_each>
          </do_else>
          <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'global.$SatelliteDropperS_Settings'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SatelliteDropperS_Settings'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
             <do_for_each name="$_Setting" in="global.$SatelliteDropperS_Settings" counter="$_it">
-               <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="global.$SatelliteDropperS_Settings.{$_it}"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="global.$SatelliteDropperS_Settings.{$_it}"/>
             </do_for_each>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $Ship.knownname + ' [' + $Ship.idcode + ']\n\n' + '{8888888, 1495}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1495}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <do_if value="global.$SatelliteDropperS_Settings?">
             <remove_value name="global.$SatelliteDropperS_Settings"/>
          </do_if>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $Ship.knownname + ' [' + $Ship.idcode + ']\n\n' + '{8888888, 1496}'"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <!-- Remove later? -->
-      <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
-         <set_value name="$Quit" exact="true"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1496}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -186,183 +180,116 @@
    <attention min="unknown">
       <actions>
 
-         <do_if value="$Quit?">
-            <resume label="FINISH_LBL"/>
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
 
-         <label name="INIT_LBL"/>
-         <wait min="500ms" max="1000ms"/>
-
          <!--<set_value name="$_OrderTag" exact="if $ORDER_TAG_POSITION == 0 then '#SD-S ' else ' #SD-S'"/>
-         <substitute_text source="$Ship.knownname" text="$_ResultName">
+         <substitute_text source="$_Ship.knownname" text="$_ResultName">
             <replace string="('\033#FFA95908#' + $_OrderTag + '\033X')" with="''"/>
          </substitute_text>
-         <do_if value="$Ship.knownname == $_ResultName">
-            <set_object_name object="$Ship" name="(if $ORDER_TAG_POSITION == 0 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '') + $Ship.knownname + (if $ORDER_TAG_POSITION == 1 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '')"/>
+         <do_if value="$_Ship.knownname == $_ResultName">
+            <set_object_name object="$_Ship" name="(if $ORDER_TAG_POSITION == 0 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '') + $_Ship.knownname + (if $ORDER_TAG_POSITION == 1 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '')"/>
          </do_if>
          <remove_value name="$_OrderTag"/>-->
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="RESUME_LBL"/>
-         <wait min="500ms" max="1000ms"/>
+         <label name="RESTOCK_LBL"/>
+         <wait exact="1ms"/>
 
-         <!-- just for the ui -->
-         <set_command command="command.scan"/>
-         <set_command_action commandaction="commandaction.calculating"/>
-
-         <!-- If allowed we first check if we need to restock -->
-         <do_if value="$RESTOCK_SATELLITES_MK1 or $RESTOCK_SATELLITES_MK2">
-            <include_interrupt_actions ref="JP_Lib_RestockSatellites_SD"/>
-         </do_if>
-
-         <!-- just for the ui -->
-         <set_command command="command.scan"/>
-         <set_command_action commandaction="commandaction.calculating"/>
-
-         <!-- Return value ~~ $_FoundObjects -->
-         <include_interrupt_actions ref="JP_Lib_GetNearestObjectToMark_SD"/>
-
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <!--<set_value name="$_RadarRange" exact="if $RESTOCK_SATELLITES_MK1 then 30km else 75km"/>
-         <create_list name="$_Objects"/>
-         <do_for_each name="$_FoundObject" in="$_FoundObjects">
-            <create_position name="$_Position" object="$_FoundObject" space="$_FoundObject.sector"/>
-            <append_to_list name="$_Objects" exact="$_Position"/>
-         </do_for_each>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Objects: ' + $_Objects"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <create_list name="$_Satellites"/>
-
-         <do_while value="$_Objects.count gt 0">
-            <set_value name="$_MaxDistanceObject" exact="$_Objects.{1}"/>
-            <set_value name="$_MaxDistance" exact="sqrt(($_MaxDistanceObject.x)^2 + ($_MaxDistanceObject.y)^2 + ($_MaxDistanceObject.z)^2)"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <set_value name="$_Distance" exact="sqrt(($_Object.x)^2 + ($_Object.y)^2 + ($_Object.z)^2)"/>
-               <do_if value="$_Distance gt $_MaxDistance">
-                  <set_value name="$_MaxDistance" exact="$_Distance"/>
-                  <set_value name="$_MaxDistanceObject" exact="$_Object"/>
-               </do_if>
-            </do_for_each>
-            <append_to_list name="$_Satellites" exact="$_MaxDistanceObject"/>
-            <create_list name="$_RemainingObjects"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <set_value name="$_Distance" exact="sqrt(($_Object.x - $_MaxDistanceObject.x)^2 + ($_Object.y - $_MaxDistanceObject.y)^2 + ($_Object.z - $_MaxDistanceObject.z)^2)"/>
-               <do_if value="$_Distance gt $_RadarRange">
-                  <append_to_list name="$_RemainingObjects" exact="$_Object"/>
-               </do_if>
-            </do_for_each>
-            <set_value name="$_Objects" exact="$_RemainingObjects"/>
-         </do_while>-->
-
-         <set_value name="$_RadarRange" exact="if $RESTOCK_SATELLITES_MK1 then 30km else 75km"/>
-         <create_list name="$_Objects"/>
-         <do_for_each name="$_FoundObject" in="$_FoundObjects">
-            <create_position name="$_Position" object="$_FoundObject" space="$_FoundObject.sector"/>
-            <append_to_list name="$_Objects" exact="$_Position"/>
-         </do_for_each>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Objects: ' + $_Objects"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <create_list name="$_Satellites"/>
-
-         <do_while value="$_Objects.count gt 0">
-            <set_value name="$_MaxCoverObject" exact="$_Objects.{1}"/>
-            <set_value name="$_MaxCover" exact="0"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <create_list name="$_ObjectsInRange"/>
-               <do_for_each name="$_PotentialObject" in="$_Objects">
-                  <set_value name="$_Distance" exact="sqrt(($_PotentialObject.x - $_Object.x)^2 + ($_PotentialObject.y - $_Object.y)^2 + ($_PotentialObject.z - $_Object.z)^2)"/>
-                  <do_if value="$_Distance le $_RadarRange">
-                     <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
-                  </do_if>
-               </do_for_each>
-               <do_if value="$_ObjectsInRange.count gt $_MaxCover">
-                  <set_value name="$_MaxCover" exact="$_ObjectsInRange.count"/>
-                  <set_value name="$_MaxCoverObject" exact="$_Object"/>
-               </do_if>
-            </do_for_each>
-            <append_to_list name="$_Satellites" exact="$_MaxCoverObject"/>
-            <create_list name="$_RemainingObjects"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <set_value name="$_Distance" exact="sqrt(($_Object.x - $_MaxCoverObject.x)^2 + ($_Object.y - $_MaxCoverObject.y)^2 + ($_Object.z - $_MaxCoverObject.z)^2)"/>
-               <do_if value="$_Distance gt $_RadarRange">
-                  <append_to_list name="$_RemainingObjects" exact="$_Object"/>
-               </do_if>
-            </do_for_each>
-            <set_value name="$_Objects" exact="$_RemainingObjects"/>
-         </do_while>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Satellites: ' + $_Satellites"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <do_for_each name="$_Satellite" in="$_Satellites">
-            <wait exact="2s"/>
-            <set_value name="$LOCATION" exact="[$SECTOR, $_Satellite]"/>
-         </do_for_each>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'$_Satellites: ' + $_Satellites"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <set_value name="$Quit" exact="true"/>
-
-         <do_if value="$Quit">
+         <!-- Check if we need to restock satellites -->
+         <run_script name="'jp.lib.SD.RestockSatellites'">
+            <save_retval name="RESULT" variable="$_Result"/>
+         </run_script>
+         <do_if value="$_Result == 'Terminate'">
             <resume label="FINISH_LBL"/>
          </do_if>
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <!-- Get Unmarked Objects according to players settings -->
+         <do_if value="not $_SatellitesPositions?">
+            <run_script name="'jp.lib.SD.GetObjectsToMark'">
+               <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
+            </run_script>
+         </do_if>
+
+         <!-- Calculate "optimal" positions for the satellites to reduce satellite count and overlapping -->
+         <!-- Input value ~~ $_FoundObjects -->
+         <!-- Return value ~~ $_SatellitesPositions -->
+         <do_if value="not $_SatellitesPositions?">
+            <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'">
+               <param name="OBJECTS" value="$_FoundObjects"/>
+               <save_retval name="_SatellitesPositions" variable="$_SatellitesPositions"/>
+            </run_script>
+            <remove_value name="$_FoundObjects"/>
+            <do_if value="$_Result == 'Terminate'">
+               <resume label="FINISH_LBL"/>
+            </do_if>
+         </do_if>
+
+         <do_if value="$DEBUG gt 1000">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_SatellitePosition" in="$_SatellitesPositions">
+               <wait exact="2s"/>
+               <get_safe_pos result="$_SafePos" sector="$SECTOR" value="$_SatellitePosition"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_SatellitePosition: ' + $_SatellitePosition + ' ~ ' + '$_SafePos: ' + $_SafePos"/>
+               <set_value name="$LOCATION" exact="[$SECTOR, $_SafePos]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <!-- Placement Logic -->
+         <!-- 
+            go through the $_SatellitesPositions one by one and place a satellite.
+            if we get out of saatellites go restock if allowed and continue.
+            if not allowed give the player a message and quit the script.
+         -->
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Satellite amount in cargo: ' + $_Ship.ammostorage.{if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro}.count"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <do_for_each name="$_SatellitePosition" in="$_SatellitesPositions">
+            <do_if value="$_Ship.ammostorage.{if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro}.count gt 0">
+               <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToPosition'">
+                  <param name="POSITION" value="$_SatellitePosition"/>
+                  <param name="SECTOR" value="$SECTOR"/>
+                  <param name="DEBUG" value="$DEBUG"/>
+               </create_order>
+            </do_if>
+            <do_else>
+               <resume label="RESTOCK_LBL"/>
+            </do_else>
+         </do_for_each>
+
          <resume label="RESUME_LBL"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait min="500ms" max="1000ms"/>
          <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $DebugScriptName + '.xml ~ Finished ~~'"/>
-            <debug_to_file directory="$DebugFolderName" name="$DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <label name="CLEANUP_LBL"/>
-         <wait min="500ms" max="1000ms"/>
-         <remove_value name="$DebugFileName"/>
-         <remove_value name="$DebugScriptName"/>
-         <remove_value name="$DebugFolderName"/>
-         <remove_value name="$Quit"/>
-         <remove_value name="$Ship"/>
-         <remove_value name="$_FoundObject"/>
-
-         <label name="END_LBL"/>
-         <wait min="500ms" max="1000ms"/>
          <set_order_syncpoint_reached order="this.ship.defaultorder"/>
          <cancel_order order="this.ship.defaultorder"/>
+         <wait exact="1ms"/>
 
       </actions>
    </attention>
 
    <on_abort>
-      <remove_value name="$_FoundStationsSector"/>
-      <remove_value name="$_FoundStation"/>
-      <remove_value name="$DebugFileName"/>
-      <remove_value name="$DebugScriptName"/>
-      <remove_value name="$DebugFolderName"/>
-      <remove_value name="$Quit"/>
-      <remove_value name="$Ship"/>
+      <remove_value name="this.$LOCATION"/>
    </on_abort>
 
 </aiscript>

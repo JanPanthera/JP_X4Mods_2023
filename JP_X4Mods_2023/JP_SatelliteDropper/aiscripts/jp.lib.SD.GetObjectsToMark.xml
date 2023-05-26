@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.SD.GetObjectsToMark" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SECTOR" default="this.ship.defaultorder.$SECTOR"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="JUMP_GATES"              default="this.ship.defaultorder.$JUMP_GATES"/>
+      <param name="ACTIVE_JUMP_GATES"       default="this.ship.defaultorder.$ACTIVE_JUMP_GATES"/>
+      <param name="INACTIVE_JUMP_GATES"     default="this.ship.defaultorder.$INACTIVE_JUMP_GATES"/>
+      <param name="ACCELERATORS"            default="this.ship.defaultorder.$ACCELERATORS"/>
+      <param name="ACTIVE_ACCELERATORS"     default="this.ship.defaultorder.$ACTIVE_ACCELERATORS"/>
+      <param name="INACTIVE_ACCELERATORS"   default="this.ship.defaultorder.$INACTIVE_ACCELERATORS"/>
+      <param name="SUPER_HIGHWAYS"          default="this.ship.defaultorder.$SUPER_HIGHWAYS"/>
+      <param name="ACTIVE_SUPER_HIGHWAYS"   default="this.ship.defaultorder.$ACTIVE_SUPER_HIGHWAYS"/>
+      <param name="INACTIVE_SUPER_HIGHWAYS" default="this.ship.defaultorder.$INACTIVE_SUPER_HIGHWAYS"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="STATIONS"             default="this.ship.defaultorder.$STATIONS"/>
+      <param name="WHARFS"               default="this.ship.defaultorder.$WHARFS"/>
+      <param name="SHIPYARDS"            default="this.ship.defaultorder.$SHIPYARDS"/>
+      <param name="EQUIPMENTDOCKS"       default="this.ship.defaultorder.$EQUIPMENTDOCKS"/>
+      <param name="TRADING_STATIONS"     default="this.ship.defaultorder.$TRADING_STATIONS"/>
+      <param name="PIRATE_BASES"         default="this.ship.defaultorder.$PIRATE_BASES"/>
+      <param name="RECYCLING_STATIONS"   default="this.ship.defaultorder.$RECYCLING_STATIONS"/>
+      <param name="DEFENCE_STATIONS"     default="this.ship.defaultorder.$DEFENCE_STATIONS"/>
+      <param name="FACTION_HEADQUARTERS" default="this.ship.defaultorder.$FACTION_HEADQUARTERS"/>
+      <param name="NON_SPECIAL_STATIONS" default="this.ship.defaultorder.$NON_SPECIAL_STATIONS"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="DEBUG" default="this.ship.defaultorder.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <interrupts>
+      <handler ref="SectorChangeHandler"/>
+      <handler ref="TargetInvalidHandler"/>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.SD.GetObjectsToMark'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.scan"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
+
+         <!-- If $SECTOR is null we search the galaxy else only $SECTOR -->
+         <create_list name="$_Sectors"/>
+         <do_if value="$SECTOR == null">
+            <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
+               <match knownto="$_Ship.owner"/>
+               <match_gate_distance object="$_Ship" min="0"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.objectactivity" group="$blacklistgroup"/>
+            </find_sector>
+            <do_if value="$_Sectors.count gt 1">
+               <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+            </do_if>
+         </do_if>
+         <do_else>
+            <append_to_list name="$_Sectors" exact="$SECTOR"/>
+         </do_else>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sectors.count: ' + $_Sectors.count"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_Sector" in="$_Sectors">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: ' + $_Sector.knownname + ' ~ ' + $_Ship.gatedistance.{$_Sector}"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <do_for_each name="$_Sector" in="$_Sectors">
+
+            <create_list name="$_FoundObjects"/>
+
+            <do_if value="$JUMP_GATES">
+               <do_if value="$ACTIVE_JUMP_GATES">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="true"/>
+                     <match macro="[macro.props_gates_anc_gate_macro, macro.props_gates_anc_gate_anim_macro, macro.props_ter_gate_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+               <do_if value="$INACTIVE_JUMP_GATES">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="false"/>
+                     <match macro="[macro.props_gates_anc_gate_macro, macro.props_gates_anc_gate_anim_macro, macro.props_ter_gate_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+            </do_if>
+
+            <do_if value="$ACCELERATORS">
+               <do_if value="$ACTIVE_ACCELERATORS">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="true"/>
+                     <match macro="[macro.props_gates_orb_accelerator_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+               <do_if value="$INACTIVE_ACCELERATORS">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="false"/>
+                     <match macro="[macro.props_gates_orb_accelerator_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+            </do_if>
+
+            <do_if value="$SUPER_HIGHWAYS">
+               <do_if value="$ACTIVE_SUPER_HIGHWAYS">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="true"/>
+                     <match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+               <do_if value="$INACTIVE_SUPER_HIGHWAYS">
+                  <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match active="false"/>
+                     <match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>
+                     <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+                  </find_object>
+               </do_if>
+            </do_if>
+
+            <do_if value="$STATIONS">
+               <create_list name="$_Stations"/>
+               <find_station name="$_Stations" space="$_Sector" multiple="true">
+                  <match knownto="$_Ship.owner"/>
+                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+               </find_station>
+               <do_for_each name="$_Station" in="$_Stations">
+                  <do_if value="$_Station.iswharf and $WHARFS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.isshipyard and $SHIPYARDS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.isequipmentdock and $EQUIPMENTDOCKS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.istradestation and $TRADING_STATIONS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.ispiratebase and $PIRATE_BASES">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.isrecyclingfacility and $RECYCLING_STATIONS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and $DEFENCE_STATIONS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.isfactionheadquarters and $FACTION_HEADQUARTERS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+                  <do_if value="$_Station.iswharf == false and
+                                   $_Station.isshipyard == false and
+                                   $_Station.isequipmentdock == false and
+                                   $_Station.istradestation == false and
+                                   $_Station.ispiratebase == false and
+                                   $_Station.isrecyclingfacility == false and
+                                   $_Station.isdefencestation == false and
+                                   $_Station.isfactionheadquarters == false and
+                                   $NON_SPECIAL_STATIONS">
+                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+                     <continue/>
+                  </do_if>
+               </do_for_each>
+               <remove_value name="$_Stations"/>
+            </do_if>
+
+            <create_list name="$_AlreadyMarked"/>
+            <do_for_each name="$_FoundObject" in="$_FoundObjects">
+               <create_list name="$_FoundSatellites"/>
+               <find_object space="$_FoundObject.sector" name="$_FoundSatellites" multiple="true">
+                  <match owner="$_Ship.owner"/>
+                  <match deployablecategory="deployablecategory.satellite"/>
+               </find_object>
+               <do_if value="$_FoundSatellites.count gt 0">
+                  <do_for_each name="$_FoundSatellite" in="$_FoundSatellites">
+                     <do_if value="$_FoundObject.distanceto.{$_FoundSatellite} lt ($_FoundSatellite.maxradarrange * 0.98)">
+                        <append_to_list name="$_AlreadyMarked" exact="$_FoundObject"/>
+                        <break/>
+                     </do_if>
+                  </do_for_each>
+               </do_if>
+               <remove_value name="$_FoundSatellites"/>
+            </do_for_each>
+            <remove_from_list name="$_FoundObjects" list="$_AlreadyMarked"/>
+            <remove_value name="$_AlreadyMarked"/>
+
+            <do_if value="$_FoundObjects.count gt 0">
+               <do_if value="$_FoundObjects.count gt 1">
+                  <sort_list list="$_FoundObjects" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
+               </do_if>
+               <do_if value="$DEBUG gt 0">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector.knownname: ' + $_Sector.knownname"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundObjects.count: ' + $_FoundObjects.count"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <do_for_each name="$_FoundObject" in="$_FoundObjects">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundObject: ' + $_FoundObject.knownname + ' ~ ' + $_FoundObject.class + ' ~ ' + $_FoundObject.position"/>
+                  </do_for_each>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+               </do_if>
+               <break/>
+            </do_if>
+         </do_for_each>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait min="500ms" max="1000ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ Finished ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return>
+            <retval name="_FoundObjects" value="$_FoundObjects"/>
+         </return>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>
