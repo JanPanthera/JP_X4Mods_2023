@@ -16,8 +16,8 @@
          <param name="PLACE_SATELLITES_MK1" text="{8888888, 1400}" comment="Place mk1 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{1} else true"/>
          <param name="PLACE_SATELLITES_MK2" text="{8888888, 1401}" comment="Place mk2 satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{2} else false"/>
          <param name="RESTOCK_SATELLITES" text="{8888888, 1402}" comment="Restock satellites?" type="bool" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{3} else false"/>
-         <param name="RESTOCK_AMOUNT" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{4} else 10">
-            <input_param name="min" value="0"/>
+         <param name="RESTOCK_MAX_AMOUNT" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropperS_Settings? then global.$SatelliteDropperS_Settings.{4} else 10">
+            <input_param name="min" value="1"/>
             <input_param name="max" value="(if this.ship.ammostorage.deployable.capacity gt 0 then this.ship.ammostorage.deployable.capacity else 0)"/>
             <input_param name="step" value="1"/>
          </param>
@@ -125,7 +125,11 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_SatelliteMacro" exact="if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro"/>
+      <set_value name="$_RadarRange" exact="if $PLACE_SATELLITES_MK1 then 30km else 75km"/>
       <set_value name="$LOCATION" exact="[$SECTOR, null]"/>
+      <set_value name="global.$SD_SectorBlacklist" exact="table[]" chance="(if not global.$SD_SectorBlacklist? then 100 else 0)"/>
+      <set_value name="global.$SD_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -136,7 +140,7 @@
       <do_if value="$SAVE_ORDER_SETTINGS">
          <create_list name="$_SettingsList"/>
          <append_list_elements name="$_SettingsList" other="[
-                            $PLACE_SATELLITES_MK1, $PLACE_SATELLITES_MK2, $RESTOCK_SATELLITES, $RESTOCK_AMOUNT,
+                            $PLACE_SATELLITES_MK1, $PLACE_SATELLITES_MK2, $RESTOCK_SATELLITES, $RESTOCK_MAX_AMOUNT,
                             $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
                             $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
@@ -186,90 +190,77 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
 
-         <!--<set_value name="$_OrderTag" exact="if $ORDER_TAG_POSITION == 0 then '#SD-S ' else ' #SD-S'"/>
-         <substitute_text source="$_Ship.knownname" text="$_ResultName">
-            <replace string="('\033#FFA95908#' + $_OrderTag + '\033X')" with="''"/>
-         </substitute_text>
-         <do_if value="$_Ship.knownname == $_ResultName">
-            <set_object_name object="$_Ship" name="(if $ORDER_TAG_POSITION == 0 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '') + $_Ship.knownname + (if $ORDER_TAG_POSITION == 1 then ('\033#FFA95908#' + $_OrderTag + '\033X') else '')"/>
-         </do_if>
-         <remove_value name="$_OrderTag"/>-->
+         <set_object_name object="$_Ship" name="'\033#FFA95908##SD-S\033X ~ ' + $_Ship.knownname"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <label name="RESTOCK_LBL"/>
-         <wait exact="1ms"/>
-
-         <!-- Check if we need to restock satellites -->
-         <run_script name="'jp.lib.SD.RestockSatellites'">
-            <save_retval name="RESULT" variable="$_Result"/>
-         </run_script>
-         <do_if value="$_Result == 'Terminate'">
-            <resume label="FINISH_LBL"/>
-         </do_if>
 
          <label name="RESUME_LBL"/>
          <wait exact="1ms"/>
 
-         <!-- Get Unmarked Objects according to players settings -->
-         <do_if value="not $_SatellitesPositions?">
-            <run_script name="'jp.lib.SD.GetObjectsToMark'">
-               <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
-            </run_script>
-         </do_if>
+         <set_value name="$_SatellitesCount" exact="$_Ship.ammostorage.{$_SatelliteMacro}.count"/>
 
-         <!-- Calculate "optimal" positions for the satellites to reduce satellite count and overlapping -->
-         <!-- Input value ~~ $_FoundObjects -->
-         <!-- Return value ~~ $_SatellitesPositions -->
-         <do_if value="not $_SatellitesPositions?">
-            <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'">
-               <param name="OBJECTS" value="$_FoundObjects"/>
-               <save_retval name="_SatellitesPositions" variable="$_SatellitesPositions"/>
+         <do_if value="$_SatellitesCount == 0">
+            <do_if value="not $RESTOCK_SATELLITES">
+               <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1451}'"/>
+               <do_if value="$DEBUG gt 0">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'{8888888, 1451}'"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+               </do_if>
+               <resume label="FINISH_LBL"/>
+            </do_if>
+            <run_script name="'jp.lib.SD.RestockSatellites'">
+               <param name="SATELLITE_MACRO" value="$_SatelliteMacro"/>
+               <param name="RESTOCK_MAX_AMOUNT" value="$RESTOCK_MAX_AMOUNT"/>
+               <save_retval name="RESULT" variable="$_Result"/>
             </run_script>
-            <remove_value name="$_FoundObjects"/>
             <do_if value="$_Result == 'Terminate'">
                <resume label="FINISH_LBL"/>
             </do_if>
+            <set_value name="$_SatellitesCount" exact="$_Ship.ammostorage.{$_SatelliteMacro}.count"/>
          </do_if>
 
-         <do_if value="$DEBUG gt 1000">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_SatellitePosition" in="$_SatellitesPositions">
-               <wait exact="2s"/>
-               <get_safe_pos result="$_SafePos" sector="$SECTOR" value="$_SatellitePosition"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_SatellitePosition: ' + $_SatellitePosition + ' ~ ' + '$_SafePos: ' + $_SafePos"/>
-               <set_value name="$LOCATION" exact="[$SECTOR, $_SafePos]"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <!-- Placement Logic -->
-         <!-- 
-            go through the $_SatellitesPositions one by one and place a satellite.
-            if we get out of saatellites go restock if allowed and continue.
-            if not allowed give the player a message and quit the script.
-         -->
-
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Satellite amount in cargo: ' + $_Ship.ammostorage.{if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro}.count"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <do_for_each name="$_SatellitePosition" in="$_SatellitesPositions">
-            <do_if value="$_Ship.ammostorage.{if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro}.count gt 0">
-               <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToPosition'">
-                  <param name="POSITION" value="$_SatellitePosition"/>
-                  <param name="SECTOR" value="$SECTOR"/>
-                  <param name="DEBUG" value="$DEBUG"/>
-               </create_order>
+         <create_list name="$_FoundObjects"/>
+         <run_script name="'jp.lib.SD.GetObjectsToMark'">
+            <param name="SECTOR" value="$SECTOR"/>
+            <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
+         </run_script>
+         <do_if value="$_FoundObjects.count le 0">
+            <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1454}'"/>
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'{8888888, 1454}'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
             </do_if>
-            <do_else>
-               <resume label="RESTOCK_LBL"/>
-            </do_else>
-         </do_for_each>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <create_list name="$_SatellitesPositions"/>
+         <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'">
+            <param name="OBJECTS" value="$_FoundObjects"/>
+            <param name="RADAR_RANGE" value="$_RadarRange"/>
+            <save_retval name="_SatellitesPositions" variable="$_SatellitesPositions"/>
+            <save_retval name="_Result" variable="$_Result"/>
+         </run_script>
+         <remove_value name="$_FoundObjects"/>
+         <do_if value="$_Result == 'Terminate' or $_SatellitesPositions.count le 0">
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Failed to retrieve optimal satellite positions.'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <set_value name="$_MaxOrderCount" exact="(if ($_SatellitesPositions.count gt $_SatellitesCount) then $_SatellitesCount else $_SatellitesPositions.count)"/>
+         <do_all counter="$_it" exact="$_MaxOrderCount">
+            <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToPosition'">
+               <param name="SECTOR" value="$SECTOR"/>
+               <param name="POSITION" value="$_SatellitesPositions.{$_it}"/>
+               <param name="SATELLITE_MACRO" value="$_SatelliteMacro"/>
+               <param name="DEBUG" value="$DEBUG"/>
+            </create_order>
+         </do_all>
 
          <resume label="RESUME_LBL"/>
 

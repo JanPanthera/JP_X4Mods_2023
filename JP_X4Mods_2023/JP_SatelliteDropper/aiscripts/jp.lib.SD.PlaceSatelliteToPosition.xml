@@ -2,11 +2,12 @@
 
 <aiscript name="jp.lib.SD.PlaceSatelliteToPosition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_SD_PlaceSatelliteToPosition" name="PlaceSatelliteToPosition" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_SD_PlaceSatelliteToPosition" name="{8888888, 1440}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="POSITION" type="internal" default="null"/>
          <param name="SECTOR" type="internal" default="null"/>
+         <param name="POSITION" type="internal" default="null"/>
+         <param name="SATELLITE_MACRO" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -51,15 +52,18 @@
          
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.move" param="$POSITION"/>
+         <set_command command="command.move" param="$SECTOR"/>
 
          <get_safe_pos result="$_SafePos" sector="$SECTOR" value="$POSITION"/>
          <set_value name="$LOCATION" exact="[$SECTOR, $_SafePos]"/>
-         <move_to object="$_Ship" destination="$SECTOR">
+         <move_to object="$_Ship" destination="$SECTOR" travel="true">
             <position value="$_SafePos"/>
          </move_to>
 
-         <launch_satellite  object="$_Ship" macro="if $_Ship.defaultorder.$PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro"/>
+         <wait exact="1s"/>
+         
+         <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
+         <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $SATELLITE_MACRO.name +  '\033X\033#FF00CCCC#' + ' ~ ' + $SECTOR.knownname + '\033X'"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'" factor="$_ExpMultiplier"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service" factor="$_ExpMultiplier"/>

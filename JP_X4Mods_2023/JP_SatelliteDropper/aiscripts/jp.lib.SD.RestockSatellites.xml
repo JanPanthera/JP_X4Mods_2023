@@ -4,12 +4,10 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="PLACE_SATELLITES_MK1" default="this.ship.defaultorder.$PLACE_SATELLITES_MK1"/>
-      <param name="PLACE_SATELLITES_MK2" default="this.ship.defaultorder.$PLACE_SATELLITES_MK2"/>
-      <param name="RESTOCK_SATELLITES"   default="this.ship.defaultorder.$RESTOCK_SATELLITES"/>
-      <param name="RESTOCK_AMOUNT"       default="this.ship.defaultorder.$RESTOCK_AMOUNT"/>
+      <param name="SATELLITE_MACRO" default="null"/>
+      <param name="RESTOCK_MAX_AMOUNT" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="this.ship.defaultorder.$DEBUG"/>
+      <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
@@ -29,20 +27,23 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_Satellite" exact="if $PLACE_SATELLITES_MK1 then ware.satellite_mk1.objectmacro else ware.satellite_mk2.objectmacro"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.SD.RestockSatellites'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
-         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ Started ~~' + '\n'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
       <actions>
+
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -52,35 +53,6 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <!-- No Satellites available and restocking of satellites turned off. -->
-         <do_if value="$_Ship.ammostorage.{$_Satellite}.count == 0 and not $RESTOCK_SATELLITES">
-            <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropper' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1451}'"/>
-            <do_if value="$DEBUG gt 0">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'{8888888, 1451}'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-            </do_if>
-            <set_value name="$_Result" exact="'Terminate'"/>
-            <resume label="FINISH_LBL"/>
-         </do_if>
-
-         <set_value name="$_RestockAmount" exact="$RESTOCK_AMOUNT - $_Ship.ammostorage.{$_Satellite}.count"/>
-         <do_if value="$_RestockAmount le 0">
-            <do_if value="$DEBUG gt 0">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Nothing to do.'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-            </do_if>
-            <resume label="FINISH_LBL"/>
-         </do_if>
-
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Satellites in cargo of the ship: ' + $_Ship.ammostorage.{$_Satellite}.count"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'We go restock: ' + $_RestockAmount + ' Satellites'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
          <find_station name="$_Stations" space="player.galaxy" multiple="true">
             <match knownto="$_Ship.owner"/>
             <match checkoperational="true"/>
@@ -88,7 +60,7 @@
             <match_relation_to faction="$_Ship.owner" comparison="ge" relation="neutral"/>
          </find_station>
          <do_if value="$_Stations.count gt 1">
-            <sort_list list="$_Stations" sortbyvalue="loop.element.distanceto.{$_Ship}"/>
+            <sort_list list="$_Stations" sortbyvalue="loop.element.gatedistance.{$_Ship}"/>
          </do_if>
 
          <do_if value="$DEBUG gt 0">
@@ -113,10 +85,11 @@
             <resume label="FINISH_LBL"/>
          </do_if>
 
+         <set_value name="$_AmountToRestock" exact="$RESTOCK_MAX_AMOUNT - $_Ship.ammostorage.{$SATELLITE_MACRO}.count"/>
          <set_value name="$_RestockTable" exact="table[]"/>
-         <set_value name="$_RestockTable.{$_Satellite}" exact="$RESTOCK_AMOUNT"/>
+         <set_value name="$_RestockTable.{$SATELLITE_MACRO}" exact="$_AmountToRestock"/>
          <set_value name="$_RestockStation" exact="$_Stations.{1}"/>
-         <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_Satellite.ware} * $_RestockAmount)Cr"/>
+         <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$SATELLITE_MACRO.ware} * $_AmountToRestock)Cr"/>
          <remove_value name="$_Stations"/>
 
          <do_if value="$DEBUG gt 0">
@@ -140,6 +113,7 @@
          </do_if>
 
          <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_RestockTable" price="$_RestockPrice" immediate="true" result="$_Result"/>
+
          <!-- The restocking command creation has failed. -->
          <do_if value="not $_Result">
             <set_value name="$_ResumeCounter" exact="if not $_ResumeCounter? then 0 else ($_ResumeCounter + 1)"/>
@@ -157,20 +131,20 @@
             <resume label="RESUME_LBL"/>
          </do_if>
 
-
          <set_value name="$_Result" exact="'Success'"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait min="500ms" max="1000ms"/>
          <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ Finished ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
+         <wait exact="1ms"/>
+
          <return>
-            <retval name="RESULT" value="@$_Result"/>
+            <retval name="_Result" value="$_Result"/>
          </return>
 
       </actions>

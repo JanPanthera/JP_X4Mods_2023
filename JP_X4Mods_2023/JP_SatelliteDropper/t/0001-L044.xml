@@ -30,10 +30,13 @@
       <t id="1438">Faction Headquarters?</t>
       <t id="1439">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1440">Place satellite to position</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">There is no station available for restocking satellites.</t>
       <t id="1451">No Satellites available and restocking of satellites turned off.</t>
       <t id="1452">We do not have enough money available for restocking the satellites.</t>
       <t id="1453">The restocking command creation has failed.</t>
+      <t id="1454">There are no objects in the specified sector that we need to mark.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">\033#FFCEFBA1# ~ Idle - following..\033X</t>
       <t id="1471">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
