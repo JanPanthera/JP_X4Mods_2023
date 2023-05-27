@@ -36,6 +36,16 @@
                <remove_value name="global.$SD_SectorBlacklist"/>
             </do_if>
 
+            <do_if value="$DEBUG gt 0 and global.$SD_SectorBlacklist?">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SD_SectorBlacklist.keys.count: %1'.[global.$SD_SectorBlacklist.keys.count] "/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Entry" valuename="$_Value" in="global.$SD_SectorBlacklist">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'%1 [%2] ~ %3'.[$_Entry.knownname, $_Entry.idcode, @$_Value.knownname]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
             <do_if value="$DEBUG gt 0">

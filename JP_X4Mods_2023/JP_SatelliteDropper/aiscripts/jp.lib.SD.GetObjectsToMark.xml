@@ -64,7 +64,7 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
-         
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_command command="command.scan"/>
@@ -82,8 +82,35 @@
                <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                <match_use_blacklist object="$_Ship" type="blacklisttype.objectactivity" group="$blacklistgroup"/>
             </find_sector>
+            <create_list name="$_BlacklistedSectors"/>
+            <do_for_each valuename="$_Value" in="global.$SD_SectorBlacklist">
+               <do_if value="$_Value != null">
+                  <append_to_list name="$_BlacklistedSectors" exact="$_Value"/>
+               </do_if>
+            </do_for_each>
+            <remove_from_list name="$_Sectors" list="$_BlacklistedSectors"/>
+            <remove_value name="$_BlacklistedSectors"/>
             <do_if value="$_Sectors.count gt 1">
-               <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+               <!-- Are there more than one sectors with a jump count of 0? mini sectors in one "noraml" sector
+               Sort all mini sectors to distance and normal sectors to gatedistance -->
+               <create_list name="$_InSector"/>
+               <do_for_each name="$_Sector" in="$_Sectors">
+                  <do_if value="$_Ship.gatedistance.{$_Sector} == 0">
+                     <append_to_list name="$_InSector" exact="$_Sector"/>
+                  </do_if>
+               </do_for_each>
+               <do_if value="$_InSector.count gt 0">
+                  <remove_from_list name="$_Sectors" list="$_InSector"/>
+                  <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+                  <sort_list list="$_InSector" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
+                  <append_list_elements name="$_InSector" other="$_Sectors"/>
+                  <set_value name="$_Sectors" exact="$_InSector"/>
+               </do_if>
+               <do_else>
+                  <!-- Only 1 sector with jump count 0 or only sectors with jumpcount gt 0 -->
+                  <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+               </do_else>
+               <remove_value name="$_InSector"/>
             </do_if>
          </do_if>
          <do_else>
@@ -264,6 +291,7 @@
 
          <wait exact="1ms"/>
 
+         <set_value name="global.$SD_SectorBlacklist.{this.ship}" exact="$_FoundObjects.{1}.sector"/>
          <return>
             <retval name="_FoundObjects" value="$_FoundObjects"/>
          </return>
