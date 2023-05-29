@@ -3,6 +3,136 @@
 <mdscript name="JP_SatelliteDropper_MD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
    <cues>
 
+      <cue name="JP_Cleanup_MD" instantiate="true" checkinterval="1s">
+         <conditions>
+            <check_any>
+               <check_value value="global.$SatelliteDropper_Settings?"/>
+               <check_value value="global.$SD_IdleShips?"/>
+               <check_value value="global.$SD_SectorBlacklist?"/>
+            </check_any>
+         </conditions>
+         <actions>
+
+            <set_value name="$DEBUG" exact="100"/>
+
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'JP_Cleanup_MD'"/>
+               <set_value name="$_DebugFileName" exact="'jp.Cleanup.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="global.$SatelliteDropper_Settings?">
+               <do_if value="global.$SatelliteDropper_Settings.count != 32">
+                  <remove_value name="global.$SatelliteDropper_Settings"/>
+               </do_if>
+            </do_if>
+
+            <do_if value="global.$SD_IdleShips?">
+               <do_if value="global.$SD_IdleShips.count == 0">
+                  <remove_value name="global.$SD_IdleShips"/>
+               </do_if>
+            </do_if>
+
+            <do_if value="global.$SD_SectorBlacklist?">
+               <do_if value="global.$SD_SectorBlacklist.count == 0">
+                  <remove_value name="global.$SD_SectorBlacklist"/>
+               </do_if>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+      </cue>
+
+      <cue name="JP_ManageIdleReturnHome_MD" instantiate="true" checkinterval="1s">
+         <conditions>
+            <check_value value="global.$SD_IdleShips?"/>
+         </conditions>
+         <actions>
+
+            <set_value name="$DEBUG" exact="100"/>
+
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'JP_ManageIdleReturnHome_MD'"/>
+               <set_value name="$_DebugFileName" exact="'jp.ManageIdleReturnHome.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="@global.$SD_IdleShips"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+            <do_if value="global.$SD_IdleShips.keys.count gt 0">
+               <do_for_each name="$_Ship" valuename="$_IdleStartTime" in="global.$SD_IdleShips">
+
+                  <set_value name="$_RemoveFromList" exact="false"/>
+                  <set_value name="$_IdleOrderPresent" exact="false"/>
+
+                  <do_for_each name="$_Order" in="$_Ship.orders">
+                     <do_if value="$_Order.id == 'JP_lib_SD_IdleReturnHome'">
+                        <set_value name="$_IdleOrderPresent" exact="true"/>
+                        <break/>
+                     </do_if>
+                  </do_for_each>
+
+                  <do_if value="not $_IdleOrderPresent and $_Ship.defaultorder.id != 'JP_SatelliteDropperG' and $_Ship.defaultorder.id != 'JP_SatelliteDropperS' and $_Ship.defaultorder.id != 'Assist'">
+                     <set_value name="$_RemoveFromList" exact="true"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_IdleOrderPresent: ' + $_IdleOrderPresent"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'time to idle: ' + @$_Ship.defaultorder.$IDLE_TIME"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Actual time idleing: ' + (player.age - $_IdleStartTime)"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <do_if value="$_IdleOrderPresent">
+                     <do_if value="((player.age - $_IdleStartTime) gt $_Ship.defaultorder.$IDLE_TIME)">
+                        <!--<set_value name="$_RemoveFromList" exact="true"/>-->
+                        <do_if value="$DEBUG gt 0">
+                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'TEST'"/>
+                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                        </do_if>
+                     </do_if>
+                  </do_if>
+
+                  <do_if value="$_RemoveFromList?" chance="0">
+                     <cancel_all_orders object="$_Ship"/>
+                     <remove_value name="global.$SD_IdleShips.{$_Ship}"/>
+                     <break/>
+                  </do_if>
+
+               </do_for_each>
+            </do_if>
+
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+      </cue>
+
       <cue name="JP_ManageSectorBlacklist_MD" instantiate="true" checkinterval="1s">
          <conditions>
             <check_value value="global.$SD_SectorBlacklist?"/>
@@ -14,7 +144,7 @@
             <do_if value="$DEBUG gt 0">
                <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
                <set_value name="$_DebugScriptName" exact="'JP_ManageSectorBlacklist_MD'"/>
-               <set_value name="$_DebugFileName" exact="'jp.SatelliteDropper.md.xml.log'"/>
+               <set_value name="$_DebugFileName" exact="'jp.ManageSectorBlacklist.md.xml.log'"/>
                <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
                <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
             </do_if>
@@ -32,9 +162,6 @@
                   <break/>
                </do_if>
             </do_for_each>
-            <do_if value="global.$SD_SectorBlacklist.keys.count == 0">
-               <remove_value name="global.$SD_SectorBlacklist"/>
-            </do_if>
 
             <do_if value="$DEBUG gt 0 and global.$SD_SectorBlacklist?">
                <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
