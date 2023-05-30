@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.SD.PlaceSatelliteToObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <order id="JP_lib_SD_PlaceSatelliteToObject" name="PlaceSatelliteToObject" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OBJECT" type="internal" default="null"/>
+         <param name="SATELLITE_MACRO" type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
+   </order>
+
+   <interrupts>
+      <handler ref="SectorChangeHandler"/>
+      <handler ref="TargetInvalidHandler"/>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_ExpMultiplier" exact="0.89"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.SD.PlaceSatelliteToObject'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.move" param="$OBJECT"/>
+
+         <get_safe_pos result="$_SafePos" sector="$OBJECT.sector" object="$OBJECT"/>
+         <set_value name="$LOCATION" exact="[$OBJECT.sector, $_SafePos]"/>
+         <move_to object="$_Ship" destination="$OBJECT.sector" travel="true">
+            <position value="$_SafePos"/>
+         </move_to>
+
+         <wait exact="1s"/>
+
+         <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
+
+         <do_if value="$OBJECT.class == class.gate">
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $OBJECT.sector.knownname + ' --> ' + $OBJECT.exit.sector.knownname + '\033X'"/>
+         </do_if>
+         <do_if value="$OBJECT.class == class.highwayentrygate">
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $_Ship.sector.knownname + ' --> ' + $OBJECT.exit.sector.knownname + '\033X'"/>
+         </do_if>
+         <do_if value="$OBJECT.class == class.station">
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $OBJECT.sector.knownname + '\033X'"/>
+         </do_if>
+
+         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'" factor="$_ExpMultiplier"/>
+         <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service" factor="$_ExpMultiplier"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <wait exact="1ms"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

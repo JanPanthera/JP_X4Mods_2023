@@ -32,13 +32,13 @@
             </do_if>
 
             <do_if value="global.$SD_IdleShips?">
-               <do_if value="global.$SD_IdleShips.count == 0">
+               <do_if value="global.$SD_IdleShips.keys.count == 0">
                   <remove_value name="global.$SD_IdleShips"/>
                </do_if>
             </do_if>
 
             <do_if value="global.$SD_SectorBlacklist?">
-               <do_if value="global.$SD_SectorBlacklist.count == 0">
+               <do_if value="global.$SD_SectorBlacklist.keys.count == 0">
                   <remove_value name="global.$SD_SectorBlacklist"/>
                </do_if>
             </do_if>

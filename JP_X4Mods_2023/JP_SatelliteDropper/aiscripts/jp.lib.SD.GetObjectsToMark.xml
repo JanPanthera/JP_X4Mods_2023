@@ -6,28 +6,28 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SECTOR" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="JUMP_GATES"              default="this.ship.defaultorder.$JUMP_GATES"/>
-      <param name="ACTIVE_JUMP_GATES"       default="this.ship.defaultorder.$ACTIVE_JUMP_GATES"/>
-      <param name="INACTIVE_JUMP_GATES"     default="this.ship.defaultorder.$INACTIVE_JUMP_GATES"/>
-      <param name="ACCELERATORS"            default="this.ship.defaultorder.$ACCELERATORS"/>
-      <param name="ACTIVE_ACCELERATORS"     default="this.ship.defaultorder.$ACTIVE_ACCELERATORS"/>
-      <param name="INACTIVE_ACCELERATORS"   default="this.ship.defaultorder.$INACTIVE_ACCELERATORS"/>
-      <param name="SUPER_HIGHWAYS"          default="this.ship.defaultorder.$SUPER_HIGHWAYS"/>
-      <param name="ACTIVE_SUPER_HIGHWAYS"   default="this.ship.defaultorder.$ACTIVE_SUPER_HIGHWAYS"/>
-      <param name="INACTIVE_SUPER_HIGHWAYS" default="this.ship.defaultorder.$INACTIVE_SUPER_HIGHWAYS"/>
+      <param name="JUMP_GATES"              default="null"/>
+      <param name="ACTIVE_JUMP_GATES"       default="null"/>
+      <param name="INACTIVE_JUMP_GATES"     default="null"/>
+      <param name="ACCELERATORS"            default="null"/>
+      <param name="ACTIVE_ACCELERATORS"     default="null"/>
+      <param name="INACTIVE_ACCELERATORS"   default="null"/>
+      <param name="SUPER_HIGHWAYS"          default="null"/>
+      <param name="ACTIVE_SUPER_HIGHWAYS"   default="null"/>
+      <param name="INACTIVE_SUPER_HIGHWAYS" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="STATIONS"             default="this.ship.defaultorder.$STATIONS"/>
-      <param name="WHARFS"               default="this.ship.defaultorder.$WHARFS"/>
-      <param name="SHIPYARDS"            default="this.ship.defaultorder.$SHIPYARDS"/>
-      <param name="EQUIPMENTDOCKS"       default="this.ship.defaultorder.$EQUIPMENTDOCKS"/>
-      <param name="TRADING_STATIONS"     default="this.ship.defaultorder.$TRADING_STATIONS"/>
-      <param name="PIRATE_BASES"         default="this.ship.defaultorder.$PIRATE_BASES"/>
-      <param name="RECYCLING_STATIONS"   default="this.ship.defaultorder.$RECYCLING_STATIONS"/>
-      <param name="DEFENCE_STATIONS"     default="this.ship.defaultorder.$DEFENCE_STATIONS"/>
-      <param name="FACTION_HEADQUARTERS" default="this.ship.defaultorder.$FACTION_HEADQUARTERS"/>
-      <param name="NON_SPECIAL_STATIONS" default="this.ship.defaultorder.$NON_SPECIAL_STATIONS"/>
+      <param name="STATIONS"             default="null"/>
+      <param name="WHARFS"               default="null"/>
+      <param name="SHIPYARDS"            default="null"/>
+      <param name="EQUIPMENTDOCKS"       default="null"/>
+      <param name="TRADING_STATIONS"     default="null"/>
+      <param name="PIRATE_BASES"         default="null"/>
+      <param name="RECYCLING_STATIONS"   default="null"/>
+      <param name="DEFENCE_STATIONS"     default="null"/>
+      <param name="FACTION_HEADQUARTERS" default="null"/>
+      <param name="NON_SPECIAL_STATIONS" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="this.ship.defaultorder.$DEBUG"/>
+      <param name="DEBUG" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
@@ -83,9 +83,9 @@
                <match_use_blacklist object="$_Ship" type="blacklisttype.objectactivity" group="$blacklistgroup"/>
             </find_sector>
             <create_list name="$_BlacklistedSectors"/>
-            <do_for_each valuename="$_Value" in="global.$SD_SectorBlacklist">
-               <do_if value="$_Value != null">
-                  <append_to_list name="$_BlacklistedSectors" exact="$_Value"/>
+            <do_for_each name="$__Ship" valuename="$__Sector" in="global.$SD_SectorBlacklist">
+               <do_if value="$__Ship != $_Ship and $_Value != null">
+                  <append_to_list name="$_BlacklistedSectors" exact="$__Ship"/>
                </do_if>
             </do_for_each>
             <remove_from_list name="$_Sectors" list="$_BlacklistedSectors"/>
@@ -116,16 +116,6 @@
          <do_else>
             <append_to_list name="$_Sectors" exact="$SECTOR"/>
          </do_else>
-
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sectors.count: ' + $_Sectors.count"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_Sector" in="$_Sectors">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: ' + $_Sector.knownname + ' ~ ' + $_Ship.gatedistance.{$_Sector}"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
 
          <do_for_each name="$_Sector" in="$_Sectors">
 
@@ -174,7 +164,8 @@
                   <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                      <match knownto="$_Ship.owner"/>
                      <match active="true"/>
-                     <match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>
+                     <match macro="[macro.he_gen_superhighway_entrance_01_macro]"/>
+                     <!--<match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>-->
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
@@ -182,7 +173,8 @@
                   <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                      <match knownto="$_Ship.owner"/>
                      <match active="false"/>
-                     <match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>
+                     <match macro="[macro.he_gen_superhighway_entrance_01_macro]"/>
+                     <!--<match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>-->
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
@@ -267,19 +259,15 @@
                <do_if value="$_FoundObjects.count gt 1">
                   <sort_list list="$_FoundObjects" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
                </do_if>
-               <do_if value="$DEBUG gt 0">
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector.knownname: ' + $_Sector.knownname"/>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundObjects.count: ' + $_FoundObjects.count"/>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                  <do_for_each name="$_FoundObject" in="$_FoundObjects">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundObject: ' + $_FoundObject.knownname + ' ~ ' + $_FoundObject.class + ' ~ ' + $_FoundObject.position"/>
-                  </do_for_each>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-               </do_if>
+               <set_value name="$SECTOR" exact="$_Sector"/>
                <break/>
             </do_if>
+
          </do_for_each>
+
+         <do_if value="$_FoundObjects.count == 0">
+            <set_value name="$SECTOR" exact="null"/>
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -291,9 +279,9 @@
 
          <wait exact="1ms"/>
 
-         <set_value name="global.$SD_SectorBlacklist.{this.ship}" exact="$_FoundObjects.{1}.sector"/>
          <return>
             <retval name="_FoundObjects" value="$_FoundObjects"/>
+            <retval name="_Sector" value="$SECTOR"/>
          </return>
 
       </actions>

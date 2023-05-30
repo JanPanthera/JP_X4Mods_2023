@@ -50,37 +50,19 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="@$OBJECTS == null">
-            <do_if value="$DEBUG">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'OBJECTS is null'"/>
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-            </do_if>
-            <resume label="FINISH_LBL"/>
-            <set_value name="$_Result" exact="'Terminate'"/>
-         </do_if>
-
-         <create_list name="$_Objects"/>
-         <do_for_each name="$_FoundObject" in="$OBJECTS">
-            <create_position name="$_Position" object="$_FoundObject" space="$_FoundObject.sector"/>
-            <append_to_list name="$_Objects" exact="$_Position"/>
-         </do_for_each>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Objects: ' + $_Objects"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
          <create_list name="$_SatellitesPositions"/>
+         <create_list name="$_Objects"/>
+         <append_list_elements name="$_Objects" other="$OBJECTS"/>
+
+         <create_list name="$_Test"/>
 
          <do_while value="$_Objects.count gt 0">
-            <set_value name="$_MaxCoverObject" exact="$_Objects.{1}"/>
             <set_value name="$_MaxCover" exact="0"/>
+            <set_value name="$_MaxCoverObject" exact="$_Objects.{1}"/>
             <do_for_each name="$_Object" in="$_Objects">
                <create_list name="$_ObjectsInRange"/>
                <do_for_each name="$_PotentialObject" in="$_Objects">
-                  <set_value name="$_Distance" exact="sqrt(($_PotentialObject.x - $_Object.x)^2 + ($_PotentialObject.y - $_Object.y)^2 + ($_PotentialObject.z - $_Object.z)^2)"/>
+                  <set_value name="$_Distance" exact="$_Object.distanceto.{$_PotentialObject}"/>
                   <do_if value="$_Distance le $RADAR_RANGE">
                      <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
                   </do_if>
@@ -91,9 +73,11 @@
                </do_if>
             </do_for_each>
             <append_to_list name="$_SatellitesPositions" exact="$_MaxCoverObject"/>
+            <set_value name="$_SatelliteMacro" exact="if $_MaxCover gt 1 then ware.satellite_mk2.objectmacro else ware.satellite_mk2.objectmacro"/>
+            <append_to_list name="$_Test" exact="[$_MaxCoverObject, $_SatelliteMacro]"/>
             <create_list name="$_RemainingObjects"/>
             <do_for_each name="$_Object" in="$_Objects">
-               <set_value name="$_Distance" exact="sqrt(($_Object.x - $_MaxCoverObject.x)^2 + ($_Object.y - $_MaxCoverObject.y)^2 + ($_Object.z - $_MaxCoverObject.z)^2)"/>
+               <set_value name="$_Distance" exact="$_Object.distanceto.{$_MaxCoverObject}"/>
                <do_if value="$_Distance gt $RADAR_RANGE">
                   <append_to_list name="$_RemainingObjects" exact="$_Object"/>
                </do_if>
@@ -104,6 +88,7 @@
          <do_if value="$DEBUG">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_SatellitesPositions: ' + $_SatellitesPositions"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Test: ' + $_Test"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
