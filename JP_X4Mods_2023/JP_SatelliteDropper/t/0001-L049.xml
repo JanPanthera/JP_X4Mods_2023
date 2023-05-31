@@ -33,7 +33,7 @@
       <t id="1440">Platziere Satellit an Position</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Es ist keine Station verfügbar, um Satelliten nachzufüllen.</t>
-      <t id="1451">Keine Satelliten verfügbar und die Nachfüllung von Satelliten ist deaktiviert.</t>
+      <t id="1451">Keine oder nicht genügend Satelliten verfügbar und die Nachfüllung von Satelliten ist deaktiviert.\nBei Benutzung von beiden Satellitentypen muss mindestens jeweils einer verfügbar sein.</t>
       <t id="1452">Wir haben nicht genug Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
       <t id="1453">Die Erstellung des Befehls zur Auffüllung ist fehlgeschlagen.</t>
       <t id="1454">Es gibt keine Objekte im angegebenen Sektor, die wir markieren müssen.</t>

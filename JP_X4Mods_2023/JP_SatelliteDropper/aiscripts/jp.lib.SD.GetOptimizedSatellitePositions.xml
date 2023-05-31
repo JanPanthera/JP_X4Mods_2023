@@ -72,9 +72,8 @@
                   <set_value name="$_MaxCoverObject" exact="$_Object"/>
                </do_if>
             </do_for_each>
-            <append_to_list name="$_SatellitesPositions" exact="$_MaxCoverObject"/>
-            <set_value name="$_SatelliteMacro" exact="if $_MaxCover gt 1 then ware.satellite_mk2.objectmacro else ware.satellite_mk2.objectmacro"/>
-            <append_to_list name="$_Test" exact="[$_MaxCoverObject, $_SatelliteMacro]"/>
+            <set_value name="$_SatelliteMacro" exact="if $_MaxCover gt 1 then ware.satellite_mk2.objectmacro else ware.satellite_mk1.objectmacro"/>
+            <append_to_list name="$_SatellitesPositions" exact="[$_MaxCoverObject, $_SatelliteMacro]"/>
             <create_list name="$_RemainingObjects"/>
             <do_for_each name="$_Object" in="$_Objects">
                <set_value name="$_Distance" exact="$_Object.distanceto.{$_MaxCoverObject}"/>
@@ -84,13 +83,6 @@
             </do_for_each>
             <set_value name="$_Objects" exact="$_RemainingObjects"/>
          </do_while>
-
-         <do_if value="$DEBUG">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_SatellitesPositions: ' + $_SatellitesPositions"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Test: ' + $_Test"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
 
          <set_value name="$_Result" exact="'Success'"/>
 

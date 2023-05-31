@@ -4,7 +4,8 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SATELLITE_MACRO" default="null"/>
+      <param name="PLACE_SATELLITES_MK1" default="null"/>
+      <param name="PLACE_SATELLITES_MK2" default="null"/>
       <param name="RESTOCK_MAX_AMOUNT" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
@@ -63,16 +64,6 @@
             <sort_list list="$_Stations" sortbyvalue="loop.element.gatedistance.{$_Ship}"/>
          </do_if>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Stations found: ' + $_Stations.count"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_Station" in="$_Stations">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Station: ' + $_Station.knownname"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
          <!-- There is no station available for restocking satellites. -->
          <do_if value="$_Stations.count le 0">
             <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropper' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1450}'"/>
@@ -85,19 +76,27 @@
             <resume label="FINISH_LBL"/>
          </do_if>
 
-         <set_value name="$_AmountToRestock" exact="$RESTOCK_MAX_AMOUNT - $_Ship.ammostorage.{$SATELLITE_MACRO}.count"/>
-         <set_value name="$_RestockTable" exact="table[]"/>
-         <set_value name="$_RestockTable.{$SATELLITE_MACRO}" exact="$_AmountToRestock"/>
          <set_value name="$_RestockStation" exact="$_Stations.{1}"/>
-         <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$SATELLITE_MACRO.ware} * $_AmountToRestock)Cr"/>
          <remove_value name="$_Stations"/>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockTable: ' + $_RestockTable"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockPrice: ' + $_RestockPrice.formatted.{'%.s %Cr'}"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockStation: ' + $_RestockStation.knownname"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         <set_value name="$_RestockTable" exact="table[]"/>
+         <set_value name="$_RestockPrice" exact="0Cr"/>
+
+         <set_value name="$_MaxAmountToRestock" exact="$RESTOCK_MAX_AMOUNT"/>
+         <do_if value="$PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2">
+            <set_value name="$_MaxAmountToRestock" exact="($_MaxAmountToRestock / 2)i"/>
+         </do_if>
+
+         <do_if value="$PLACE_SATELLITES_MK1">
+            <set_value name="$_SatelliteMacroMk1" exact="ware.satellite_mk1.objectmacro"/>
+            <set_value name="$_RestockTable.{$_SatelliteMacroMk1}" exact="$_MaxAmountToRestock"/>
+            <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_SatelliteMacroMk1.ware} * $_RestockTable.{$_SatelliteMacroMk1})Cr" operation="add"/>
+         </do_if>
+
+         <do_if value="$PLACE_SATELLITES_MK2">
+            <set_value name="$_SatelliteMacroMk2" exact="ware.satellite_mk2.objectmacro"/>
+            <set_value name="$_RestockTable.{$_SatelliteMacroMk2}" exact="$_MaxAmountToRestock"/>
+            <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_SatelliteMacroMk2.ware} * $_RestockTable.{$_SatelliteMacroMk2})Cr" operation="add"/>
          </do_if>
 
          <!-- We do not have enough money available for restocking the satellites. -->
