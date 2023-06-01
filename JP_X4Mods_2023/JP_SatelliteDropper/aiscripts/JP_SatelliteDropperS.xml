@@ -68,9 +68,9 @@
          <param name="WHO_TO_FOLLOW" text="- {8888888, 1484}" comment="Who to follow?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{28} else null">
             <input_param name="class" value="[class.ship]"/>
          </param>
-         <param name="IDLE_DOCKING" text="{8888888, 1484}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{29} else false"/>
-         <param name="FIND_STATION" text="{8888888, 1485}" comment="Find a Station?" type="bool" default="true"/>
-         <param name="WHERE_TO_DOCK" text="- {8888888, 1486}" comment="Where to dock?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{30} else null">
+         <param name="IDLE_DOCKING" text="{8888888, 1485}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{29} else false"/>
+         <param name="FIND_STATION" text="- {8888888, 1486}" comment="Find a Station?" type="bool" default="true"/>
+         <param name="WHERE_TO_DOCK" text="- {8888888, 1487}" comment="Where to dock?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{30} else null">
             <input_param name="class" value="if this.ship.isclass.[class.ship_s, class.ship_xs] then [class.station, class.ship_m, class.ship_l, class.ship_xl] else [class.station, class.ship_l, class.ship_xl]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
