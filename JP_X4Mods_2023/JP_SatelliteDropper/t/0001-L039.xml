@@ -3,48 +3,61 @@
 <language>
    <page id="8888888" voice="no">
       <!-- JP_SatelliteDropper -->
-      <t id="1400">Rifornire i satelliti mk1?</t>
-      <t id="1401">Rifornire i satelliti mk2?</t>
-      <t id="1402">Quantità Di Rifornimento</t>
-      <t id="1420">Saltare I Cancelli?</t>
-      <t id="1421">Cancelli Di Salto Attivi?</t>
-      <t id="1422">Cancelli Di Salto Inattivi?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1400">Satelliti Mk1?</t>
+      <t id="1401">Satelliti Mk2?</t>
+      <t id="1402">Rifornire i satelliti?</t>
+      <t id="1403">Quantità di rifornimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1420">Portali di salto?</t>
+      <t id="1421">Portali di salto attivi?</t>
+      <t id="1422">Portali di salto inattivi?</t>
       <t id="1423">Acceleratori?</t>
-      <t id="1424">Acceleratori Attivi?</t>
-      <t id="1425">Acceleratori Inattivi?</t>
+      <t id="1424">Acceleratori attivi?</t>
+      <t id="1425">Acceleratori inattivi?</t>
+      <t id="1426">Superstrade?</t>
+      <t id="1427">Superstrade attive?</t>
+      <t id="1428">Superstrade inattive?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Stazioni?</t>
-      <t id="1431">Pontili?</t>
+      <t id="1431">Moli?</t>
       <t id="1432">Cantieri navali?</t>
-      <t id="1433">Dotazionedocks?</t>
-      <t id="1434">Stazioni Commerciali?</t>
-      <t id="1435">Postazioni Di Difesa?</t>
-      <t id="1436">Basi Pirata?</t>
-      <t id="1437">Quartier Generale Della Fazione?</t>
-      <t id="1438">Stazioni Non Speciali?</t>
-      <t id="1450">No Station available for restocking satellites.</t>
-      <t id="1470">\033#FFCEFBA1# ~ Neutro - a seguire..\033X</t>
-      <t id="1471">\033#FFCEFBA1# ~ Neutro - attracco a %1\033X</t>
-      <t id="1472">\033#FFCEFBA1# ~ Neutro - muovendosi in modo casuale..\033X</t>
-      <t id="1473">\033#FFCEFBA1# ~ Neutro - passare alla posizione di attesa..\033X</t>
-      <t id="1474">\033#FFCEFBA1# ~ Neutro - passaggio al settore inattivo..\033X</t>
-      <t id="1480">Azioni inattive?</t>
-      <t id="1481">Tempo Di Inattività</t>
-      <t id="1482">Inattivo: seguire?</t>
-      <t id="1483">Chi seguire?</t>
-      <t id="1484">Inattivo: Attracco?</t>
-      <t id="1485">Dove attraccare?</t>
-      <t id="1486">Inattivo: movimento casuale?</t>
-      <t id="1487">In quale settore?</t>
-      <t id="1488">Inattivo: passa a?</t>
-      <t id="1489">Dove spostarsi?</t>
-      <t id="1491">Aggiungi tag ordine?</t>
-      <t id="1492">Posizione dell'etichetta di ordine</t>
-      <t id="1493">Salvare Le Impostazioni Dell'Ordine?</t>
-      <t id="1494">Ripristina Le Impostazioni Dell'Ordine?</t>
+      <t id="1433">Moli di attrezzatura?</t>
+      <t id="1434">Stazioni di commercio?</t>
+      <t id="1435">Basi dei pirati?</t>
+      <t id="1436">Impianti di lavorazione dei rottami?</t>
+      <t id="1437">Stazioni di difesa?</t>
+      <t id="1438">Quartier generale delle fazioni?</t>
+      <t id="1439">Stazioni non speciali?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1440">Posiziona il satellite alla posizione</t>
+      <t id="1441">Posiziona il satellite all'oggetto</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1450">Non ci sono stazioni disponibili per il rifornimento di satelliti.</t>
+      <t id="1451">Non ci sono abbastanza satelliti disponibili, e il rifornimento di satelliti è disattivato.\nQuando si utilizzano entrambi i tipi di satelliti, almeno uno di ciascuno deve essere disponibile.</t>
+      <t id="1452">Non abbiamo abbastanza soldi disponibili per il rifornimento dei satelliti.</t>
+      <t id="1453">La creazione del comando di rifornimento è fallita.</t>
+      <t id="1454">Non ci sono oggetti nel settore specificato che dobbiamo contrassegnare.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1480">Tempo di inattività</t>
+      <t id="1481">Inattivo: Spostarsi a?</t>
+      <t id="1482">Dove spostarsi?</t>
+      <t id="1483">Inattivo: Seguire?</t>
+      <t id="1484">Chi seguire?</t>
+      <t id="1485">Inattivo: Attraccare?</t>
+      <t id="1486">Trovare una Stazione?</t>
+      <t id="1487">Dove attraccare?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1491">Aggiungere tag d'ordine?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1493">Salvare le impostazioni dell'ordine?</t>
+      <t id="1494">Reset delle impostazioni dell'ordine?</t>
       <t id="1495">Impostazioni dell'ordine salvate.</t>
-      <t id="1496">Impostazioni ordine reimpostate.</t>
+      <t id="1496">Impostazioni dell'ordine ripristinate.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1497">\033#B600CCCC#</t>
       <t id="1498">\033#FF00CC66#</t>
       <t id="1499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

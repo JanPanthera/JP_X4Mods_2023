@@ -3,48 +3,61 @@
 <language>
    <page id="8888888" voice="no">
       <!-- JP_SatelliteDropper -->
-      <t id="1400">Reabastecer satélites mk1?</t>
-      <t id="1401">Reabastecer satélites mk2?</t>
-      <t id="1402">Quantidade De Reabastecimento</t>
-      <t id="1420">Portões De Salto?</t>
-      <t id="1421">Portões De Salto Activos?</t>
-      <t id="1422">Portões Inativos?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1400">Satélites Mk1?</t>
+      <t id="1401">Satélites Mk2?</t>
+      <t id="1402">Reabastecer satélites?</t>
+      <t id="1403">Quantidade de reabastecimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1420">Portais de salto?</t>
+      <t id="1421">Portais de salto ativos?</t>
+      <t id="1422">Portais de salto inativos?</t>
       <t id="1423">Aceleradores?</t>
-      <t id="1424">Aceleradores Activos?</t>
-      <t id="1425">Aceleradores Inactivos?</t>
+      <t id="1424">Aceleradores ativos?</t>
+      <t id="1425">Aceleradores inativos?</t>
+      <t id="1426">Superestradas?</t>
+      <t id="1427">Superestradas ativas?</t>
+      <t id="1428">Superestradas inativas?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Estações?</t>
-      <t id="1431">Wharfs?</t>
+      <t id="1431">Cais?</t>
       <t id="1432">Estaleiros?</t>
-      <t id="1433">Equipamento?</t>
-      <t id="1434">Estações De Comércio?</t>
-      <t id="1435">Postos De Defesa?</t>
-      <t id="1436">Bases Piratas?</t>
-      <t id="1437">Sede Da Facção?</t>
-      <t id="1438">Estações Não Especiais?</t>
-      <t id="1450">No Station available for restocking satellites.</t>
-      <t id="1470">\033#FFCEFBA1# ~ Neutro - Segue..\033X</t>
-      <t id="1471">\033#FFCEFBA1# ~ Neutro - atracando em %1\033X</t>
-      <t id="1472">\033#FFCEFBA1# ~ Neutro - movendo-se aleatoriamente..\033X</t>
-      <t id="1473">\033#FFCEFBA1# ~ Neutro - movendo para a posição de espera..\033X</t>
-      <t id="1474">\033#FFCEFBA1# ~ Neutro - movendo para o setor ocioso..\033X</t>
-      <t id="1480">Ações ociosas?</t>
-      <t id="1481">Tempo ocioso</t>
-      <t id="1482">Inativo: seguir?</t>
-      <t id="1483">Quem seguir?</t>
-      <t id="1484">Inativo: atracação?</t>
-      <t id="1485">Onde atracar?</t>
-      <t id="1486">Inativo: movimento aleatório?</t>
-      <t id="1487">Em qual setor?</t>
-      <t id="1488">Inativo: mover para?</t>
-      <t id="1489">Para onde ir?</t>
-      <t id="1491">Adicionar etiqueta de pedido?</t>
-      <t id="1492">Posição da tag do pedido</t>
-      <t id="1493">Salvar configurações do pedido?</t>
-      <t id="1494">Redefinir as configurações do pedido?</t>
-      <t id="1495">Configurações do pedido salvas.</t>
-      <t id="1496">Configurações do pedido redefinidas.</t>
+      <t id="1433">Docks de equipamentos?</t>
+      <t id="1434">Estações de comércio?</t>
+      <t id="1435">Bases piratas?</t>
+      <t id="1436">Instalações de processamento de sucata?</t>
+      <t id="1437">Estações de defesa?</t>
+      <t id="1438">Quartéis-generais da facção?</t>
+      <t id="1439">Estações não especiais?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1440">Colocar satélite na posição</t>
+      <t id="1441">Colocar satélite no objeto</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1450">Não há estação disponível para reabastecer os satélites.</t>
+      <t id="1451">Não há satélites suficientes disponíveis e o reabastecimento de satélites está desativado.\nQuando usar ambos os tipos de satélites, pelo menos um de cada tipo deve estar disponível.</t>
+      <t id="1452">Não temos dinheiro suficiente disponível para reabastecer os satélites.</t>
+      <t id="1453">A criação do comando de reabastecimento falhou.</t>
+      <t id="1454">Não há objetos no setor especificado que precisamos marcar.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1480">Tempo ocioso</t>
+      <t id="1481">Ocioso: Mover para?</t>
+      <t id="1482">Para onde mover?</t>
+      <t id="1483">Ocioso: Seguir?</t>
+      <t id="1484">Quem seguir?</t>
+      <t id="1485">Ocioso: Atracar?</t>
+      <t id="1486">Encontrar uma estação?</t>
+      <t id="1487">Onde atracar?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1491">Adicionar tag de ordem?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1493">Salvar configurações de ordem?</t>
+      <t id="1494">Redefinir configurações de ordem?</t>
+      <t id="1495">Configurações de ordem salvas.</t>
+      <t id="1496">Configurações de ordem redefinidas.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1497">\033#B600CCCC#</t>
       <t id="1498">\033#FF00CC66#</t>
       <t id="1499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

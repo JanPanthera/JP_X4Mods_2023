@@ -2,7 +2,7 @@
 
 <aiscript name="jp.lib.SD.PlaceSatelliteToObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_SD_PlaceSatelliteToObject" name="PlaceSatelliteToObject" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_SD_PlaceSatelliteToObject" name="{8888888, 1441}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="OBJECT" type="internal" default="null"/>
@@ -30,7 +30,6 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_ExpMultiplier" exact="0.89"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -44,6 +43,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
+         <wait exact="1s"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -63,28 +63,28 @@
 
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
 
+         <set_value name="$_DestinationName" exact="if @$OBJECT.exit.sector.knownname != null then @$OBJECT.exit.sector.knownname else '{1001, 9002}'"/>
          <do_if value="$OBJECT.class == class.gate">
-            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $OBJECT.sector.knownname + ' --> ' + $OBJECT.exit.sector.knownname + '\033X'"/>
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + @$OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + @$OBJECT.sector.knownname + ' --> ' + $_DestinationName + '\033X'"/>
          </do_if>
          <do_if value="$OBJECT.class == class.highwayentrygate">
-            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $_Ship.sector.knownname + ' --> ' + $OBJECT.exit.sector.knownname + '\033X'"/>
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + @$OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + @$_Ship.sector.knownname + ' --> ' + $_DestinationName + '\033X'"/>
          </do_if>
          <do_if value="$OBJECT.class == class.station">
-            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + $OBJECT.sector.knownname + '\033X'"/>
+            <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + @$OBJECT.knownname + '\033X\033#FF00CCCC#' + ' ~ ' + @$OBJECT.sector.knownname + '\033X'"/>
          </do_if>
 
-         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'" factor="$_ExpMultiplier"/>
-         <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service" factor="$_ExpMultiplier"/>
+         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'"/>
+         <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
+         <wait exact="1s"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
-
-         <wait exact="1ms"/>
 
       </actions>
    </attention>

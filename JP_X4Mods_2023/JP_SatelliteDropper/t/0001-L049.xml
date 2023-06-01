@@ -6,7 +6,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Mk1 Satelliten?</t>
       <t id="1401">Mk2 Satelliten?</t>
-      <t id="1402">Satelliten aufstocken?</t>
+      <t id="1402">Satelliten nachfüllen?</t>
       <t id="1403">Nachfüllmenge</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1420">Sprungtore?</t>
@@ -21,45 +21,37 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Stationen?</t>
       <t id="1431">Werften?</t>
-      <t id="1432">Raumdocks?</t>
+      <t id="1432">Schiffswerften?</t>
       <t id="1433">Ausrüstungsdocks?</t>
       <t id="1434">Handelsstationen?</t>
-      <t id="1435">Piraten-Basen?</t>
+      <t id="1435">Piratenbasen?</t>
       <t id="1436">Schrottverarbeitungsanlagen?</t>
       <t id="1437">Verteidigungsstationen?</t>
       <t id="1438">Fraktionshauptquartiere?</t>
-      <t id="1439">Nicht spezialisierte Stationen?</t>
+      <t id="1439">Nicht spezielle Stationen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Platziere Satellit an Position</t>
+      <t id="1440">Satellit an Position platzieren</t>
+      <t id="1441">Satellit an Objekt platzieren</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Es ist keine Station verfügbar, um Satelliten nachzufüllen.</t>
-      <t id="1451">Keine oder nicht genügend Satelliten verfügbar und die Nachfüllung von Satelliten ist deaktiviert.\nBei Benutzung von beiden Satellitentypen muss mindestens jeweils einer verfügbar sein.</t>
-      <t id="1452">Wir haben nicht genug Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
-      <t id="1453">Die Erstellung des Befehls zur Auffüllung ist fehlgeschlagen.</t>
+      <t id="1450">Es steht keine Station zur Verfügung, um Satelliten nachzufüllen.</t>
+      <t id="1451">Keine oder nicht genügend Satelliten vorhanden, und das Nachfüllen von Satelliten ist deaktiviert.\nWenn beide Satellitentypen verwendet werden, muss mindestens einer von jedem Typ verfügbar sein.</t>
+      <t id="1452">Wir haben nicht genügend Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
+      <t id="1453">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
       <t id="1454">Es gibt keine Objekte im angegebenen Sektor, die wir markieren müssen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1470">\033#FFCEFBA1# ~ Leerlauf - folgen..\033X</t>
-      <t id="1471">\033#FFCEFBA1# ~ Leerlauf - andocken an %1\033X</t>
-      <t id="1472">\033#FFCEFBA1# ~ Leerlauf - zufälliges bewegen..\033X</t>
-      <t id="1473">\033#FFCEFBA1# ~ Leerlauf - in Warteposition bewegen..\033X</t>
-      <t id="1474">\033#FFCEFBA1# ~ Leerlauf - in Leerlauf Sektor bewegen..\033X</t>
+      <t id="1480">Leerlaufzeit</t>
+      <t id="1481">Leerlauf: Bewegen zu?</t>
+      <t id="1482">Wohin bewegen?</t>
+      <t id="1483">Leerlauf: Folgen?</t>
+      <t id="1484">Wem folgen?</t>
+      <t id="1485">Leerlauf: Andocken?</t>
+      <t id="1486">Eine Station finden?</t>
+      <t id="1487">Wohin andocken?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Idle actions?</t>
-      <t id="1481">Idle Time</t>
-      <t id="1482">Idle: Follow?</t>
-      <t id="1483">Who to follow?</t>
-      <t id="1484">Idle: Docking?</t>
-      <t id="1485">Where to dock?</t>
-      <t id="1486">Idle: Random movement?</t>
-      <t id="1487">In which sector?</t>
-      <t id="1488">Idle: Move to?</t>
-      <t id="1489">Where to move?</t>
+      <t id="1491">Auftragskennzeichen hinzufügen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Befehlskürzel hinzufügen?</t>
-      <t id="1492">Befehlskürzel position</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Auftragseinstellungen Speichern?</t>
-      <t id="1494">Auftragseinstellungen Zurücksetzen?</t>
+      <t id="1493">Auftragseinstellungen speichern?</t>
+      <t id="1494">Auftragseinstellungen zurücksetzen?</t>
       <t id="1495">Auftragseinstellungen gespeichert.</t>
       <t id="1496">Auftragseinstellungen zurückgesetzt.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

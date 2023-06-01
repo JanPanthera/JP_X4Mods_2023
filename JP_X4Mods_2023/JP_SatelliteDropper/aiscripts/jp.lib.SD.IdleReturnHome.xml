@@ -123,8 +123,6 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <wait exact="1s"/>
-
       </actions>
    </attention>
 

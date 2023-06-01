@@ -5,9 +5,10 @@
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="OBJECTS" default="null"/>
-      <param name="RADAR_RANGE" default="null"/>
+      <param name="PLACE_SATELLITES_MK1" default="null"/>
+      <param name="PLACE_SATELLITES_MK2" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="this.ship.defaultorder.$DEBUG"/>
+      <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
@@ -28,6 +29,13 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2">
+         <set_value name="$_SatelliteMacros" exact="[[ware.satellite_mk2.objectmacro, 75km], [ware.satellite_mk1.objectmacro, 30km]]"/>
+      </do_if>
+      <do_else>
+         <set_value name="$_SatelliteMacros" exact="if $PLACE_SATELLITES_MK1 then [[ware.satellite_mk1.objectmacro, 30km]] else [[ware.satellite_mk2.objectmacro, 75km]]"/>
+      </do_else>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.SD.GetOptimizedSatellitePositions'"/>
@@ -40,6 +48,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
+         <wait exact="1s"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -51,54 +60,47 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <create_list name="$_SatellitesPositions"/>
-         <create_list name="$_Objects"/>
-         <append_list_elements name="$_Objects" other="$OBJECTS"/>
-
-         <create_list name="$_Test"/>
-
-         <do_while value="$_Objects.count gt 0">
-            <set_value name="$_MaxCover" exact="0"/>
-            <set_value name="$_MaxCoverObject" exact="$_Objects.{1}"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <create_list name="$_ObjectsInRange"/>
-               <do_for_each name="$_PotentialObject" in="$_Objects">
-                  <set_value name="$_Distance" exact="$_Object.distanceto.{$_PotentialObject}"/>
-                  <do_if value="$_Distance le $RADAR_RANGE">
-                     <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
+         <do_for_each name="$_SatelliteMacro" in="$_SatelliteMacros" counter="$_ActualIteration">
+            <do_while value="$OBJECTS.count gt 0">
+               <set_value name="$_MaxAmountCovered" exact="0"/>
+               <set_value name="$_MaxCoverObject" exact="$OBJECTS.{1}"/>
+               <do_for_each name="$_Object" in="$OBJECTS">
+                  <create_list name="$_ObjectsInRange"/>
+                  <do_for_each name="$_PotentialObject" in="$OBJECTS">
+                     <do_if value="$_Object.distanceto.{$_PotentialObject} le $_SatelliteMacro.{2}">
+                        <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
+                     </do_if>
+                  </do_for_each>
+                  <do_if value="$_ObjectsInRange.count gt $_MaxAmountCovered">
+                     <set_value name="$_MaxAmountCovered" exact="$_ObjectsInRange.count"/>
+                     <set_value name="$_MaxCoverObject" exact="$_Object"/>
                   </do_if>
                </do_for_each>
-               <do_if value="$_ObjectsInRange.count gt $_MaxCover">
-                  <set_value name="$_MaxCover" exact="$_ObjectsInRange.count"/>
-                  <set_value name="$_MaxCoverObject" exact="$_Object"/>
+               <do_if value="$_MaxAmountCovered == 1 and $_ActualIteration != $_SatelliteMacros.count">
+                  <break/>
                </do_if>
-            </do_for_each>
-            <set_value name="$_SatelliteMacro" exact="if $_MaxCover gt 1 then ware.satellite_mk2.objectmacro else ware.satellite_mk1.objectmacro"/>
-            <append_to_list name="$_SatellitesPositions" exact="[$_MaxCoverObject, $_SatelliteMacro]"/>
-            <create_list name="$_RemainingObjects"/>
-            <do_for_each name="$_Object" in="$_Objects">
-               <set_value name="$_Distance" exact="$_Object.distanceto.{$_MaxCoverObject}"/>
-               <do_if value="$_Distance gt $RADAR_RANGE">
-                  <append_to_list name="$_RemainingObjects" exact="$_Object"/>
-               </do_if>
-            </do_for_each>
-            <set_value name="$_Objects" exact="$_RemainingObjects"/>
-         </do_while>
-
-         <set_value name="$_Result" exact="'Success'"/>
+               <append_to_list name="$_SatellitesPositions" exact="[$_MaxCoverObject, $_SatelliteMacro.{1}]"/>
+               <create_list name="$_RemainingObjects"/>
+               <do_for_each name="$_Object" in="$OBJECTS">
+                  <do_if value="$_Object.distanceto.{$_MaxCoverObject} gt $_SatelliteMacro.{2}">
+                     <append_to_list name="$_RemainingObjects" exact="$_Object"/>
+                  </do_if>
+               </do_for_each>
+               <set_value name="$OBJECTS" exact="$_RemainingObjects"/>
+            </do_while>
+         </do_for_each>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
+         <wait exact="1s"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <wait exact="1ms"/>
-
          <return>
             <retval name="_SatellitesPositions" value="$_SatellitesPositions"/>
-            <retval name="_Result" value="$_Result"/>
          </return>
 
       </actions>

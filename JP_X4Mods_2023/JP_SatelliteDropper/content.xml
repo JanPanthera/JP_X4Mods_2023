@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_SatelliteDropper" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera" version="120" date="2023-05-03" save="0" enabled="1">
-  <text language="7"  name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="33" name="JP_SatelliteDropper" description="Place un satellite près de toutes stations ou portes spatiales." author="JanPanthera"/>
-  <text language="34" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="39" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="44" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="49" name="JP_SatelliteDropper" description="Lässt in der Nähe jedes Tores oder jeder Station einen Satelliten fallen." author="JanPanthera"/>
-  <text language="55" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="81" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="82" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="86" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
-  <text language="88" name="JP_SatelliteDropper" description="Drops near every Gate or Station a satellite." author="JanPanthera"/>
+<content id="JP_SatelliteDropper" name="JP_SatelliteDropper" description="This script empowers your ship to efficiently deploy satellites, optimize their placement, and automate restocking, enhancing your control and strategic capabilities in X4: Foundations." author="JanPanthera" version="100" date="2023-06-01" save="0" enabled="1">
+  <text language="7"  name="JP_SatelliteDropper" description="Этот скрипт дает вашему кораблю возможность эффективно размещать спутники, оптимизировать их размещение и автоматически пополнять запасы, улучшая ваш контроль и стратегические возможности в X4: Foundations." author="JanPanthera"/>
+  <text language="33" name="JP_SatelliteDropper" description="Ce script permet à votre vaisseau de déployer efficacement des satellites, d'optimiser leur placement et de reconstituer automatiquement les stocks, améliorant ainsi votre contrôle et vos capacités stratégiques dans X4: Foundations." author="JanPanthera"/>
+  <text language="34" name="JP_SatelliteDropper" description="Este script potencia tu nave para desplegar satélites de manera eficiente, optimizar su ubicación y realizar reposición automática, mejorando tu control y capacidades estratégicas en X4: Foundations." author="JanPanthera"/>
+  <text language="39" name="JP_SatelliteDropper" description="Questo script potenzia la tua nave consentendole di effettuare un efficiente dispiegamento di satelliti, ottimizzarne la posizione e automatizzare il rifornimento, migliorando il tuo controllo e le tue capacità strategiche in X4: Foundations." author="JanPanthera"/>
+  <text language="44" name="JP_SatelliteDropper" description="This script empowers your ship to efficiently deploy satellites, optimize their placement, and automate restocking, enhancing your control and strategic capabilities in X4: Foundations." author="JanPanthera"/>
+  <text language="48" name="JP_SatelliteDropper" description="Ten skrypt umożliwia twojemu statkowi skuteczne umieszczanie satelitów, optymalizację ich rozmieszczenia oraz automatyczne uzupełnianie zapasów, zwiększając kontrolę i możliwości strategiczne w X4: Foundations." author="JanPanthera"/>
+  <text language="49" name="JP_SatelliteDropper" description="Dieses Skript ermöglicht es deinem Schiff, Satelliten effizient zu platzieren, deren Anordnung zu optimieren und die Nachfüllung automatisch durchzuführen. Dadurch verbesserst du deine Kontrolle und strategischen Fähigkeiten in X4: Foundations." author="JanPanthera"/>
+  <text language="55" name="JP_SatelliteDropper" description="Este script potencializa a sua nave para implantar satélites de forma eficiente, otimizar seu posicionamento e realizar o abastecimento automático, melhorando seu controle e capacidades estratégicas no X4: Foundations." author="JanPanthera"/>
+  <text language="81" name="JP_SatelliteDropper" description="このスクリプトにより、あなたの船は効率的に衛星を展開し、配置を最適し、自動的に補充することが可能となり、X4: Foundationsにおける制御と戦略的な能力が向上します。" author="JanPanthera"/>
+  <text language="82" name="JP_SatelliteDropper" description="이 스크립트는 우주선이 위성을 효율적으로 배치하고 배치를 최적화하며 자동으로 보충하는 기능을 강화하여 X4: Foundations에서의 제어와 전략적 능력을 향상시킵니다." author="JanPanthera"/>
+  <text language="86" name="JP_SatelliteDropper" description="该脚本使您的飞船能够高效部署卫星，优化其位置，并自动补充，提升您在X4: Foundations中的控制和战略能力。" author="JanPanthera"/>
+  <text language="88" name="JP_SatelliteDropper" description="該腳本使您的飛船能夠有效部署衛星，優化其位置，並自動補充，提升您在X4: Foundations中的控制和戰略能力。" author="JanPanthera"/>
 </content>
