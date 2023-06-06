@@ -273,7 +273,7 @@
 
             <cue name="SD_ManageIdleReturnHome_MD" instantiate="true" checkinterval="1s">
                <conditions>
-                  <!--<check_value value="global.$SD_IdleShips?"/>-->
+                  <check_value value="global.$SD_IdleShips?"/>
                </conditions>
                <actions>
 
@@ -327,7 +327,7 @@
 
             <cue name="SD_ManageSectorBlacklist_MD" instantiate="true" checkinterval="1s">
                <conditions>
-                  <!--<check_value value="global.$SD_SectorBlacklist?"/>-->
+                  <check_value value="global.$SD_SectorBlacklist?"/>
                </conditions>
                <actions>
 
