@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- French -->
+<!-- French ~~ Français -->
 <language>
    <page id="8888888" voice="no">
       <!-- JP_AnotherExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="420">Portes de saut ?</t>
+      <t id="421">Portes de saut actives ?</t>
+      <t id="422">Portes de saut inactives ?</t>
+      <t id="423">Accélérateurs ?</t>
+      <t id="424">Accélérateurs actifs ?</t>
+      <t id="425">Accélérateurs inactifs ?</t>
+      <t id="426">Super autoroutes ?</t>
+      <t id="427">Super autoroutes actives ?</t>
+      <t id="428">Super autoroutes inactives ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="430">Stations ?</t>
+      <t id="431">Chantiers navals ?</t>
+      <t id="432">Cale sèche ?</t>
+      <t id="433">Docks d'équipement ?</t>
+      <t id="434">Stations de commerce ?</t>
+      <t id="435">Bases de pirates ?</t>
+      <t id="436">Installations de traitement des déchets ?</t>
+      <t id="437">Stations de défense ?</t>
+      <t id="438">Quartiers généraux de faction ?</t>
+      <t id="439">Stations non spéciales ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="441">Découvrir un objet inconnu</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="480">Temps d'inactivité</t>
+      <t id="481">Inactif: Déplacer vers?</t>
+      <t id="482">Où déplacer?</t>
+      <t id="483">Inactif: Suivre?</t>
+      <t id="484">Qui suivre?</t>
+      <t id="485">Inactif: Accostage?</t>
+      <t id="486">Trouver une station?</t>
+      <t id="487">Où accoster?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="491">Ajouter une balise de commande?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="493">Sauvegarder les paramètres de commande?</t>
+      <t id="494">Réinitialiser les paramètres de commande?</t>
+      <t id="495">Paramètres de commande sauvegardés.</t>
+      <t id="496">Paramètres de commande réinitialisés.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="497">\033#B600CCCC#</t>
+      <t id="498">\033#FF00CC66#</t>
+      <t id="499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Polish -->
+<!-- Polish ~~ Polski -->
 <language>
    <page id="8888888" voice="no">
       <!-- JP_AnotherExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="420">Bramy skokowe?</t>
+      <t id="421">Aktywne bramy skokowe?</t>
+      <t id="422">Nieaktywne bramy skokowe?</t>
+      <t id="423">Akceleratory?</t>
+      <t id="424">Aktywne akceleratory?</t>
+      <t id="425">Nieaktywne akceleratory?</t>
+      <t id="426">Super autostrady?</t>
+      <t id="427">Aktywne super autostrady?</t>
+      <t id="428">Nieaktywne super autostrady?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="430">Stacje?</t>
+      <t id="431">Doki?</t>
+      <t id="432">Stocznie?</t>
+      <t id="433">Doki sprzętowe?</t>
+      <t id="434">Stacje handlowe?</t>
+      <t id="435">Bazy piratów?</t>
+      <t id="436">Zakłady przetwarzania złomu?</t>
+      <t id="437">Stacje obronne?</t>
+      <t id="438">Siedziby frakcji?</t>
+      <t id="439">Nie specjalne stacje?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="441">Odkryj nieznany obiekt</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="480">Czas bezczynności</t>
+      <t id="481">Bezczynność: Przenieść do?</t>
+      <t id="482">Gdzie przenieść?</t>
+      <t id="483">Bezczynność: Podążać za?</t>
+      <t id="484">Za kim podążać?</t>
+      <t id="485">Bezczynność: Dokowanie?</t>
+      <t id="486">Znaleźć stację?</t>
+      <t id="487">Gdzie dokować?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="491">Dodać tag zamówienia?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="493">Zapisać ustawienia zamówienia?</t>
+      <t id="494">Zresetować ustawienia zamówienia?</t>
+      <t id="495">Ustawienia zamówienia zapisane.</t>
+      <t id="496">Ustawienia zamówienia zresetowane.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="497">\033#B600CCCC#</t>
+      <t id="498">\033#FF00CC66#</t>
+      <t id="499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

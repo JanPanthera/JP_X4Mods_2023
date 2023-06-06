@@ -3,8 +3,49 @@
 <language>
    <page id="8888888" voice="no">
       <!-- JP_AnotherExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="420">Jump gates?</t>
+      <t id="421">Active jump gates?</t>
+      <t id="422">Inactive jump gates?</t>
+      <t id="423">Accelerators?</t>
+      <t id="424">Active accelerators?</t>
+      <t id="425">Inactive accelerators?</t>
+      <t id="426">Superhighways?</t>
+      <t id="427">Active superhighways?</t>
+      <t id="428">Inactive superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="430">Stations?</t>
+      <t id="431">Wharfs?</t>
+      <t id="432">Shipyards?</t>
+      <t id="433">Equipment docks?</t>
+      <t id="434">Trading stations?</t>
+      <t id="435">Pirate bases?</t>
+      <t id="436">Scrap processing facilities?</t>
+      <t id="437">Defense stations?</t>
+      <t id="438">Faction Headquarters?</t>
+      <t id="439">Non Special Stations?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="441">Discover unknown Object</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="480">Idle Time</t>
+      <t id="481">Idle: Move to?</t>
+      <t id="482">Where to move?</t>
+      <t id="483">Idle: Follow?</t>
+      <t id="484">Who to follow?</t>
+      <t id="485">Idle: Docking?</t>
+      <t id="486">Find a Station?</t>
+      <t id="487">Where to dock?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="491">Add Order tag?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="493">Save Order Settings?</t>
+      <t id="494">Reset Order Settings?</t>
+      <t id="495">Order settings saved.</t>
+      <t id="496">Order settings reset.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="497">\033#B600CCCC#</t>
       <t id="498">\033#FF00CC66#</t>
       <t id="499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
