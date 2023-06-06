@@ -3,16 +3,16 @@
 <experiences>
    <experience id="JP_SHIP_SATELLITE_PLACE">
       <skill ref="piloting">
-         <individual base="1.0" falloff="0.80" limit="15"/>
-         <group base="1.0" falloff="0.70" limit="6"/>
+         <individual base="1.0" falloff="0.78" limit="15"/>
+         <group base="1.0" falloff="0.68" limit="6"/>
       </skill>
       <skill ref="engineering">
-         <individual base="1.0" falloff="0.78" limit="15"/>
-         <group base="1.0" falloff="0.68" limit="15"/>
+         <individual base="1.0" falloff="0.76" limit="15"/>
+         <group base="1.0" falloff="0.66" limit="15"/>
       </skill>
       <skill ref="morale">
-         <individual base="1.0" falloff="0.82" limit="15"/>
-         <group base="1.0" falloff="0.72" limit="15"/>
+         <individual base="1.0" falloff="0.80" limit="15"/>
+         <group base="1.0" falloff="0.70" limit="15"/>
       </skill>
    </experience>
 </experiences>

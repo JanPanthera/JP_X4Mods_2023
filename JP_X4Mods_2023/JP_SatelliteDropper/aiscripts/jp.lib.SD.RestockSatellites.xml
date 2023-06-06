@@ -41,7 +41,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -50,19 +50,36 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="RESUME_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
 
-         <set_command command="command.scan"/>
+         <set_command command="command.resupply"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
          <find_station name="$_Stations" space="player.galaxy" multiple="true">
             <match knownto="$_Ship.owner"/>
             <match checkoperational="true"/>
             <match cansupplyclass="$_Ship.class"/>
-            <match_relation_to faction="$_Ship.owner" comparison="ge" relation="neutral"/>
+            <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
          </find_station>
+
          <do_if value="$_Stations.count gt 1">
-            <sort_list list="$_Stations" sortbyvalue="loop.element.distanceto.{$_Ship}"/>
+            <create_list name="$_InSector"/>
+            <do_for_each name="$_Station" in="$_Stations">
+               <do_if value="$_Ship.gatedistance.{$_Station} == 0">
+                  <append_to_list name="$_InSector" exact="$_Station"/>
+               </do_if>
+            </do_for_each>
+            <do_if value="$_InSector.count gt 0">
+               <remove_from_list name="$_Stations" list="$_InSector"/>
+               <sort_list list="$_Stations" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+               <sort_list list="$_InSector" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
+               <append_list_elements name="$_InSector" other="$_Stations"/>
+               <set_value name="$_Stations" exact="$_InSector"/>
+            </do_if>
+            <do_else>
+               <sort_list list="$_Stations" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
+            </do_else>
+            <remove_value name="$_InSector"/>
          </do_if>
 
          <!-- There is no station available for restocking satellites. -->
@@ -136,7 +153,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -145,7 +162,7 @@
          <return>
             <retval name="_Result" value="$_Result"/>
          </return>
-         
+
       </actions>
    </attention>
 

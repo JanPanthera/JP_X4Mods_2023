@@ -8,7 +8,7 @@
       <param name="PLACE_SATELLITES_MK1" default="null"/>
       <param name="PLACE_SATELLITES_MK2" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="0"/>
+      <param name="DEBUG" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
@@ -48,7 +48,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -59,15 +59,22 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <create_list name="$_SatellitesPositions"/>
+         <create_list name="$_OptimizedObjects"/>
          <do_for_each name="$_SatelliteMacro" in="$_SatelliteMacros" counter="$_ActualIteration">
             <do_while value="$OBJECTS.count gt 0">
+               <wait exact="100ms"/>
                <set_value name="$_MaxAmountCovered" exact="0"/>
                <set_value name="$_MaxCoverObject" exact="$OBJECTS.{1}"/>
+               <set_value name="$_CanTheNextSatelliteCoverIt" exact="true"/>
                <do_for_each name="$_Object" in="$OBJECTS">
                   <create_list name="$_ObjectsInRange"/>
                   <do_for_each name="$_PotentialObject" in="$OBJECTS">
                      <do_if value="$_Object.distanceto.{$_PotentialObject} le $_SatelliteMacro.{2}">
+                        <do_if value="$_ActualIteration != $_SatelliteMacros.count">
+                           <do_if value="$_Object.distanceto.{$_PotentialObject} gt $_SatelliteMacros.{($_ActualIteration + 1)}.{2}">
+                              <set_value name="$_CanTheNextSatelliteCoverIt" exact="false"/>
+                           </do_if>
+                        </do_if>
                         <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
                      </do_if>
                   </do_for_each>
@@ -76,10 +83,10 @@
                      <set_value name="$_MaxCoverObject" exact="$_Object"/>
                   </do_if>
                </do_for_each>
-               <do_if value="$_MaxAmountCovered == 1 and $_ActualIteration != $_SatelliteMacros.count">
+               <do_if value="$_CanTheNextSatelliteCoverIt and $_ActualIteration != $_SatelliteMacros.count">
                   <break/>
                </do_if>
-               <append_to_list name="$_SatellitesPositions" exact="[$_MaxCoverObject, $_SatelliteMacro.{1}]"/>
+               <append_to_list name="$_OptimizedObjects" exact="[$_MaxCoverObject, $_SatelliteMacro.{1}]"/>
                <create_list name="$_RemainingObjects"/>
                <do_for_each name="$_Object" in="$OBJECTS">
                   <do_if value="$_Object.distanceto.{$_MaxCoverObject} gt $_SatelliteMacro.{2}">
@@ -93,14 +100,15 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
          <return>
-            <retval name="_SatellitesPositions" value="$_SatellitesPositions"/>
+            <!-- _OptimizedObjects ~ [[OBJECT, SatelliteMacro], [OBJECT, SatelliteMacro]] -->
+            <retval name="_OptimizedObjects" value="$_OptimizedObjects"/>
          </return>
 
       </actions>

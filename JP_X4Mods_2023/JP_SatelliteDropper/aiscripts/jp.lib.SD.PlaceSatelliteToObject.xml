@@ -43,7 +43,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -59,9 +59,13 @@
             <position value="$_SafePos"/>
          </move_to>
 
-         <wait exact="1s"/>
+         <stop_moving object="$_Ship" immediate="true"/>
+         <wait exact="1000ms"/>
 
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
+         <set_object_velocity object="$_Satellite">
+            <linear x="0" y="0" z="0"/>
+         </set_object_velocity>
 
          <set_value name="$_DestinationName" exact="if @$OBJECT.exit.sector.knownname != null then @$OBJECT.exit.sector.knownname else '{1001, 9002}'"/>
          <do_if value="$OBJECT.class == class.gate">
@@ -80,7 +84,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1s"/>
+         <wait exact="1000ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
