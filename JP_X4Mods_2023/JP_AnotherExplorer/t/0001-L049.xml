@@ -3,8 +3,49 @@
 <language>
    <page id="8888888" voice="no">
       <!-- JP_AnotherExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="420">Sprungtore?</t>
+      <t id="421">Aktive Sprungtore?</t>
+      <t id="422">Inaktive Sprungtore?</t>
+      <t id="423">Beschleuniger?</t>
+      <t id="424">Aktive Beschleuniger?</t>
+      <t id="425">Inaktive Beschleuniger?</t>
+      <t id="426">Superhighways?</t>
+      <t id="427">Aktive Superhighways?</t>
+      <t id="428">Inaktive Superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="430">Stationen?</t>
+      <t id="431">Werften?</t>
+      <t id="432">Schiffswerften?</t>
+      <t id="433">Ausrüstungsdocks?</t>
+      <t id="434">Handelsstationen?</t>
+      <t id="435">Piratenbasen?</t>
+      <t id="436">Schrottverarbeitungsanlagen?</t>
+      <t id="437">Verteidigungsstationen?</t>
+      <t id="438">Fraktionshauptquartiere?</t>
+      <t id="439">Nicht spezielle Stationen?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="441">Erkunde unbekanntes Objekt</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="480">Leerlaufzeit</t>
+      <t id="481">Leerlauf: Bewegen zu?</t>
+      <t id="482">Wohin bewegen?</t>
+      <t id="483">Leerlauf: Folgen?</t>
+      <t id="484">Wem folgen?</t>
+      <t id="485">Leerlauf: Andocken?</t>
+      <t id="486">Eine Station finden?</t>
+      <t id="487">Wohin andocken?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="491">Auftragskennzeichen hinzufügen?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="493">Auftragseinstellungen speichern?</t>
+      <t id="494">Auftragseinstellungen zurücksetzen?</t>
+      <t id="495">Auftragseinstellungen gespeichert.</t>
+      <t id="496">Auftragseinstellungen zurückgesetzt.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="497">\033#B600CCCC#</t>
       <t id="498">\033#FF00CC66#</t>
       <t id="499">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

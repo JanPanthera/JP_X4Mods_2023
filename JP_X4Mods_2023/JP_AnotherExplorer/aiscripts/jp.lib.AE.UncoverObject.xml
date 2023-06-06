@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.AE.UncoverObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <order id="JP_lib_AE_UncoverObject" name="{8888888, 441}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OBJECT" type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
+   </order>
+
+   <interrupts>
+      <handler ref="SectorChangeHandler"/>
+      <handler ref="TargetInvalidHandler"/>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.AE.UncoverObject'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1000ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.move" param="$OBJECT"/>
+
+         <get_safe_pos result="$_SafePos" sector="$OBJECT.sector" object="$OBJECT"/>
+         <set_value name="$LOCATION" exact="[$OBJECT.sector, $_SafePos]"/>
+
+         <label name="MOVING_LBL"/>
+         <move_to object="$_Ship" destination="$OBJECT.sector" travel="true">
+            <position value="$_SafePos"/>
+            <interrupt_after_time time="1s"/>
+         </move_to>
+         <check_object object="$OBJECT" result="$_Known">
+            <match knownto="$_Ship.owner"/>
+         </check_object>
+         <do_if value="not $_Known">
+            <resume label="MOVING_LBL"/>
+         </do_if>
+
+         <stop_moving object="$_Ship" immediate="true"/>
+         <wait exact="1000ms"/>
+
+         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_OBJECT_DISCOVERED'"/>
+         <apply_experience object="$_Ship" experience="'JP_SHIP_OBJECT_DISCOVERED'" role="entityrole.service"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1000ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

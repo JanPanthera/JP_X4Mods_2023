@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<aiscript name="JP_AnotherExplorerS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
+<aiscript name="JP_AnotherExplorerG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
 
-   <order id="JP_AnotherExplorerS" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{20001, 201}{8888888, 499}" description="Explores a Sector for Stations and/or Jumpgates." category="navigation" infinite="true" allowinloop="false">
+   <order id="JP_AnotherExplorerG" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{20001, 901}{8888888, 499}" description="Explores a Sector for Stations and/or Jumpgates." category="navigation" infinite="true" allowinloop="false">
       <params>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR" text="{20001, 201}" comment="Sector" type="object" default="this.ship.sector">
-            <input_param name="class" value="[class.sector]"/>
-         </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -84,7 +80,7 @@
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <skill min="20"/>
+      <skill min="45"/>
       <requires>
          <match shiptype="shiptype.lasertower" negate="true"/>
       </requires>
@@ -148,12 +144,12 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 495}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 495}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$AnotherExplorer_Settings"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 496}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 496}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
@@ -177,10 +173,10 @@
 
          <do_if value="$ADD_ORDER_TAG">
             <substitute_text source="$_Ship.knownname" text="$_ResultName">
-               <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
+               <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
             </substitute_text>
             <do_if value="$_Ship.knownname == $_ResultName">
-               <set_object_name object="$_Ship" name="'\033#FFA95908##AE-S\033X ~ ' + $_Ship.knownname"/>
+               <set_object_name object="$_Ship" name="'\033#FFA95908##AE-G\033X ~ ' + $_Ship.knownname"/>
             </do_if>
          </do_if>
 
@@ -191,7 +187,7 @@
 
          <create_list name="$_FoundObjects"/>
          <run_script name="'jp.lib.AE.GetObjectsToUncover'">
-            <param name="SECTOR"                  value="$SECTOR"/>
+            <param name="SECTOR"                  value="global.$AE_SectorBlacklist.{$_Ship}"/>
             <param name="JUMP_GATES"              value="$JUMP_GATES"/>
             <param name="ACTIVE_JUMP_GATES"       value="$ACTIVE_JUMP_GATES"/>
             <param name="INACTIVE_JUMP_GATES"     value="$INACTIVE_JUMP_GATES"/>
