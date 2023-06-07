@@ -1,5 +1,6 @@
 #SatelliteDropper
 
+v1.0.2
 ~ Added: Now, when the ship enters the idle state, 'Idle' will be appended to the ship's name.
 ~ Added: If you change a setting of the Sector or Galaxy script, it will now clear the orders list.
 ~ Added: I have included a description for the sector and galaxy order script, which will be visible when you hover over it.
