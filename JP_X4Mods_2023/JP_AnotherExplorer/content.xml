@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_AnotherExplorer" name="JP_AnotherExplorer" description="..." author="JanPanthera" version="100" date="2023-04-30" save="0" enabled="1">
-   <text language="7"  name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="33" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="34" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="39" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="44" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="48" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="49" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="55" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="81" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="82" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="86" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
-   <text language="88" name="JP_AnotherExplorer" description="..." author="JanPanthera"/>
+<content id="JP_AnotherExplorer" name="JP_AnotherExplorer" description="This script enables your ship to explore a sector or the entire galaxy by seeking out Stations, Jumpgates, Accelerators, and Superhighways." author="JanPanthera" version="101" date="2023-06-07" save="0" enabled="1">
+   <text language="7"  name="JP_AnotherExplorer" description="Этот скрипт позволяет вашему кораблю исследовать сектор или всю галактику, ища Станции, Врата, Ускорители и Супермагистрали." author="JanPanthera"/>
+   <text language="33" name="JP_AnotherExplorer" description="Ce script permet à votre vaisseau d'explorer un secteur ou l'ensemble de la galaxie en recherchant des Stations, des Portes de Saut, des Accélérateurs et des Super Autoroutes." author="JanPanthera"/>
+   <text language="34" name="JP_AnotherExplorer" description="Este script permite que tu nave explore un sector o la galaxia entera buscando Estaciones, Puertas de Salto, Aceleradores y Superautopistas." author="JanPanthera"/>
+   <text language="39" name="JP_AnotherExplorer" description="Questo script permette alla tua nave di esplorare un settore o l'intera galassia cercando Stazioni, Porte di Salto, Acceleratori e Superstrade." author="JanPanthera"/>
+   <text language="44" name="JP_AnotherExplorer" description="This script enables your ship to explore a sector or the entire galaxy by seeking out Stations, Jumpgates, Accelerators, and Superhighways." author="JanPanthera"/>
+   <text language="48" name="JP_AnotherExplorer" description="Ten skrypt umożliwia twojemu statkowi eksplorację sektora lub całej galaktyki poprzez szukanie Stacji, Bram Przeskokowych, Akceleratorów i Super autostrad." author="JanPanthera"/>
+   <text language="49" name="JP_AnotherExplorer" description="Dieses Skript ermöglicht es Ihrem Schiff, einen Sektor oder die gesamte Galaxie zu erkunden, indem es Stationen, Sprungtore, Beschleuniger und Superhighways sucht." author="JanPanthera"/>
+   <text language="55" name="JP_AnotherExplorer" description="Este script permite que sua nave explore um setor ou a galáxia inteira, procurando por Estações, Portais de Salto, Aceleradores e Superestradas." author="JanPanthera"/>
+   <text language="81" name="JP_AnotherExplorer" description="このスクリプトにより、あなたの船はステーション、ジャンプゲート、アクセラレータ、そしてスーパーハイウェイを探索して、セクターや全銀河を探索することができます。" author="JanPanthera"/>
+   <text language="82" name="JP_AnotherExplorer" description="이 스크립트를 사용하면 여러분의 배가 스테이션, 점프 게이트, 가속기, 그리고 슈퍼 하이웨이를 찾아 섹터나 전체 은하계를 탐사할 수 있습니다." author="JanPanthera"/>
+   <text language="86" name="JP_AnotherExplorer" description="此脚本使您的飞船能够通过寻找空间站，跳跃门，加速器和超级高速公路来探索某个星区或整个银河系。" author="JanPanthera"/>
+   <text language="88" name="JP_AnotherExplorer" description="此腳本使您的飛船能夠透過尋找空間站、跳躍門、加速器和超級高速公路來探索某個星區或整個銀河系。" author="JanPanthera"/>
 </content>

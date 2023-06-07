@@ -2,7 +2,7 @@
 
 <aiscript name="JP_AnotherExplorerG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
 
-   <order id="JP_AnotherExplorerG" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{20001, 901}{8888888, 499}" description="Explores a Sector for Stations and/or Jumpgates." category="navigation" infinite="true" allowinloop="false">
+   <order id="JP_AnotherExplorerG" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{20001, 901}{8888888, 499}" description="{8888888, 461}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
