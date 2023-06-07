@@ -11,3 +11,6 @@ v1.0.1
 
 v1.0.1 - minor update
 ~ Fixed: Description of the Sector version
+
+v1.0.2
+~ Fixed: Addressed the issue where the script was incorrectly using the translation files from SatelliteDropper, causing a "ReadText" error.
