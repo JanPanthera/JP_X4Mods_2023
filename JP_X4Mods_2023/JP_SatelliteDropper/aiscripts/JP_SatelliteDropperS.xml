@@ -131,7 +131,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
-         <set_value name="$_DebugScriptName" exact="'JP_SatelliteDropperG'"/>
+         <set_value name="$_DebugScriptName" exact="'JP_SatelliteDropperS'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -167,7 +167,7 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1495}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1495}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">

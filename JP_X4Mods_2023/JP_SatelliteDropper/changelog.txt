@@ -7,3 +7,7 @@ v1.0.2
 ~ Updated: Lowered the experience gain.
 ~ Updated: Enhanced the description of the mod in the extension menu.
 ~ Changed: I've relocated the section of the code that removes the OrderTag from the name to the cleanup section.
+
+v1.0.3
+~ Added: A check to ensure that only ships with the required skills can copy orders from their SatelliteDropper Commander.
+~ Fixed: The SatelliteDropper Sector version wouldn't clear its order list if the parameters were changed.

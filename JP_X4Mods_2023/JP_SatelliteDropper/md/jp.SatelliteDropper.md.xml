@@ -60,14 +60,16 @@
 
                   <!-- Update the params of all SatelliteDropper Subordinates -->
                   <do_for_each name="$_Ship" in="global.$SD_ShipsGroup">
-                     <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
-                        <do_if value="$_Subordinate.assignment == assignment.assist">
-                           <do_if value="$_Subordinate.defaultorder.id != 'JP_SatelliteDropperG'">
-                              <signal_cue_instantly cue="SD_UpdateFleetsOrderParams_MD" param="$_Ship"/>
-                              <break/>
+                     <do_if value="$_Ship.defaultorder.id == 'JP_SatelliteDropperG'">
+                        <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                           <do_if value="$_Subordinate.assignment == assignment.assist and ($_Subordinate.combinedskill ge $_Ship.defaultorder.requiredskill)">
+                              <do_if value="$_Subordinate.defaultorder.id != 'JP_SatelliteDropperG'">
+                                 <signal_cue_instantly cue="SD_UpdateFleetsOrderParams_MD" param="$_Ship"/>
+                                 <break/>
+                              </do_if>
                            </do_if>
-                        </do_if>
-                     </do_for_each>
+                        </do_for_each>
+                     </do_if>
                   </do_for_each>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -138,6 +140,7 @@
                <conditions>
                   <check_any>
                      <check_value value="global.$SatelliteDropper_Settings?"/>
+                     <check_value value="global.$SD_ShipsGroup?"/>
                   </check_any>
                </conditions>
                <actions>
@@ -156,12 +159,12 @@
                   <do_if value="@global.$SD_ShipsGroup.count gt 0">
                      <do_for_each name="$_Ship" in="global.$SD_ShipsGroup" reverse="true">
                         <do_if value="$_Ship.defaultorder.id" list="['JP_SatelliteDropperG', 'JP_SatelliteDropperS']" negate="true">
-                           <remove_from_group group="global.$SD_ShipsGroup" object="$_Ship"/>
                            <substitute_text source="$_Ship.knownname" text="$_ResultName">
                               <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
                               <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
                            </substitute_text>
                            <set_object_name object="$_Ship" name="$_ResultName"/>
+                           <remove_from_group group="global.$SD_ShipsGroup" object="$_Ship"/>
                         </do_if>
                      </do_for_each>
                   </do_if>
@@ -185,7 +188,7 @@
                <conditions>
                   <event_object_order_ready group="global.$SD_ShipsGroup"/>
                   <check_all>
-                     <check_value value="@event.param.id == 'JP_SatelliteDropperG'"/>
+                     <check_value value="@event.param.id == 'JP_SatelliteDropperG' or @event.param.id == 'JP_SatelliteDropperS'"/>
                   </check_all>
                </conditions>
                <actions>
@@ -233,7 +236,7 @@
                   <set_value name="$_Commander" exact="event.param"/>
 
                   <do_for_each name="$_Subordinate" in="$_Commander.subordinates">
-                     <do_if value="$_Subordinate.assignment == assignment.assist">
+                     <do_if value="$_Subordinate.assignment == assignment.assist and ($_Subordinate.combinedskill ge $_Commander.defaultorder.requiredskill)">
                         <cancel_all_orders object="$_Subordinate"/>
                         <set_object_velocity object="$_Subordinate">
                            <linear x="0" y="0" z="0"/>
