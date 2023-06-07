@@ -39,6 +39,9 @@
       <t id="1453">La creazione del comando di rifornimento è fallita.</t>
       <t id="1454">Non ci sono oggetti nel settore specificato che dobbiamo contrassegnare.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
+      <t id="1461">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade in tutta la galassia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Tempo di inattività</t>
       <t id="1481">Inattivo: Spostarsi a?</t>
       <t id="1482">Dove spostarsi?</t>

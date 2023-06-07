@@ -39,6 +39,9 @@
       <t id="1453">La creación del comando de reposición ha fallado.</t>
       <t id="1454">No hay objetos en el sector especificado que necesitemos marcar.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas dentro de un sector.</t>
+      <t id="1461">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas en toda la galaxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Tiempo de inactividad</t>
       <t id="1481">Inactivo: ¿Mover a?</t>
       <t id="1482">¿A dónde mover?</t>

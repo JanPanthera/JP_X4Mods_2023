@@ -39,6 +39,9 @@
       <t id="1453">Tworzenie polecenia uzupełnienia nie powiodło się.</t>
       <t id="1454">Nie ma obiektów w określonym sektorze, które musimy oznaczyć.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach wewnątrz sektora.</t>
+      <t id="1461">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach w całej galaktyce.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Czas bezczynności</t>
       <t id="1481">Bezczynność: Przenieść do?</t>
       <t id="1482">Gdzie przenieść?</t>

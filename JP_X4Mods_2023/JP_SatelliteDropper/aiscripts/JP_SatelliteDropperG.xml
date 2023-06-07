@@ -2,7 +2,7 @@
 
 <aiscript name="JP_SatelliteDropperG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
 
-   <order id="JP_SatelliteDropperG" name="_{8888888, 1497}SatelliteDropper - {8888888, 1499}{8888888, 1498}{20001, 901}{8888888, 1499}" category="navigation" infinite="true" allowinloop="false">
+   <order id="JP_SatelliteDropperG" name="_{8888888, 1497}SatelliteDropper - {8888888, 1499}{8888888, 1498}{20001, 901}{8888888, 1499}" description="{8888888, 1461}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="SECTOR" text="{20001, 201}" comment="Sector" type="internal" default="null"/>

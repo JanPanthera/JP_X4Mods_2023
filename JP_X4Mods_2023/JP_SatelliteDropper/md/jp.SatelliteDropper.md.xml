@@ -76,7 +76,7 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
-                  
+
                </actions>
             </cue>
 
@@ -157,6 +157,11 @@
                      <do_for_each name="$_Ship" in="global.$SD_ShipsGroup" reverse="true">
                         <do_if value="$_Ship.defaultorder.id" list="['JP_SatelliteDropperG', 'JP_SatelliteDropperS']" negate="true">
                            <remove_from_group group="global.$SD_ShipsGroup" object="$_Ship"/>
+                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                              <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+                              <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+                           </substitute_text>
+                           <set_object_name object="$_Ship" name="$_ResultName"/>
                         </do_if>
                      </do_for_each>
                   </do_if>
@@ -173,6 +178,21 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
 
+               </actions>
+            </cue>
+
+            <cue name="SD_EventOrderParamChangedCleanOrderList_MD" instantiate="true">
+               <conditions>
+                  <event_object_order_ready group="global.$SD_ShipsGroup"/>
+                  <check_all>
+                     <check_value value="@event.param.id == 'JP_SatelliteDropperG'"/>
+                  </check_all>
+               </conditions>
+               <actions>
+                  <cancel_all_orders object="event.object"/>
+                  <set_object_velocity object="event.object">
+                     <linear x="0" y="0" z="0"/>
+                  </set_object_velocity>
                </actions>
             </cue>
 
@@ -310,6 +330,10 @@
                                 ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_Ship.defaultorder.$IDLE_TIME))">
                            <cancel_all_orders object="$_Ship"/>
                            <remove_value name="global.$SD_IdleShips.{$_Ship}"/>
+                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                           </substitute_text>
+                           <set_object_name object="$_Ship" name="$_ResultName"/>
                         </do_if>
 
                      </do_for_each>
@@ -364,11 +388,6 @@
 
                         <!-- Remove from list and restore its original name -->
                         <do_if value="$_RemoveFromList == true">
-                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                              <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
-                              <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
-                           </substitute_text>
-                           <set_object_name object="$_Ship" name="$_ResultName"/>
                            <remove_value name="global.$SD_SectorBlacklist.{$_Ship}"/>
                            <break/>
                         </do_if>

@@ -39,6 +39,9 @@
       <t id="1453">A criação do comando de reabastecimento falhou.</t>
       <t id="1454">Não há objetos no setor especificado que precisamos marcar.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas dentro de um setor.</t>
+      <t id="1461">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Tempo ocioso</t>
       <t id="1481">Ocioso: Mover para?</t>
       <t id="1482">Para onde mover?</t>

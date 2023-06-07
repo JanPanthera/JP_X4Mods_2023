@@ -39,6 +39,9 @@
       <t id="1453">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
       <t id="1454">Es gibt keine Objekte im angegebenen Sektor, die wir markieren müssen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways innerhalb eines Sektors zu positionieren.</t>
+      <t id="1461">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways in der gesamten Galaxie zu positionieren.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Leerlaufzeit</t>
       <t id="1481">Leerlauf: Bewegen zu?</t>
       <t id="1482">Wohin bewegen?</t>

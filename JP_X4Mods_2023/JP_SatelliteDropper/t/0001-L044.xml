@@ -39,6 +39,9 @@
       <t id="1453">The restocking command creation has failed.</t>
       <t id="1454">There are no objects in the specified sector that we need to mark.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways inside a sector.</t>
+      <t id="1461">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways in the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Idle Time</t>
       <t id="1481">Idle: Move to?</t>
       <t id="1482">Where to move?</t>

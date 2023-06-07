@@ -56,6 +56,13 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
 
+         <substitute_text source="$_Ship.knownname" text="$_ResultName">
+            <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+         </substitute_text>
+         <do_if value="$_Ship.knownname == $_ResultName">
+            <set_object_name object="$_Ship" name="$_Ship.knownname + '\033#FFCEFBA1# ~ Idle\033X'"/>
+         </do_if>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_MOVE_TO_LBL"/>

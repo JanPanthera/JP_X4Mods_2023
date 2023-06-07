@@ -39,6 +39,9 @@
       <t id="1453">La création de la commande de réapprovisionnement a échoué.</t>
       <t id="1454">Il n'y a pas d'objets dans le secteur spécifié que nous devons marquer.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes à l'intérieur d'un secteur.</t>
+      <t id="1461">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes dans toute la galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1480">Temps d'inactivité</t>
       <t id="1481">Inactif: Déplacer vers?</t>
       <t id="1482">Où déplacer?</t>
