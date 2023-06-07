@@ -1,5 +1,6 @@
 #AnotherExplorer
 
+v1.0.1
 ~ Added: Now, when the ship enters the idle state, 'Idle' will be appended to the ship's name.
 ~ Added: If you change a setting of the Sector or Galaxy script, it will now clear the orders list.
 ~ Added: I have included a description for the sector and galaxy order script, which will be visible when you hover over it.
@@ -7,3 +8,6 @@
 ~ Updated: Enhanced the description of the mod in the extension menu.
 ~ Updated: Improved Russian language translation, thanks to alexalsp.
 ~ Changed: I've relocated the section of the code that removes the OrderTag from the name to the cleanup section.
+
+v1.0.1 - minor update
+~ Fixed: Description of the Sector version
