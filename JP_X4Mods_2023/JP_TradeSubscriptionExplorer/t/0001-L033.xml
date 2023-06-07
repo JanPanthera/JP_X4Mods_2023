@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- French ~~ Français -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- JP_TradeSubscriptionExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1931">Chantiers navals ?</t>
+      <t id="1932">Cale sèche ?</t>
+      <t id="1933">Docks d'équipement ?</t>
+      <t id="1934">Stations de commerce ?</t>
+      <t id="1935">Bases de pirates ?</t>
+      <t id="1936">Installations de traitement des déchets ?</t>
+      <t id="1937">Stations de défense ?</t>
+      <t id="1938">Quartiers généraux de faction ?</t>
+      <t id="1939">Stations non spéciales ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1941">Mettre à jour l'abonnement commercial</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1960">Ce script permet à votre vaisseau de mettre à jour automatiquement les abonnements commerciaux des stations dans un secteur spécifique.</t>
+      <t id="1961">Ce script permet à votre vaisseau de mettre à jour automatiquement les abonnements commerciaux des stations dans toute la galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1980">Temps d'inactivité</t>
+      <t id="1981">Inactif: Déplacer vers?</t>
+      <t id="1982">Où déplacer?</t>
+      <t id="1983">Inactif: Suivre?</t>
+      <t id="1984">Qui suivre?</t>
+      <t id="1985">Inactif: Accostage?</t>
+      <t id="1986">Trouver une station?</t>
+      <t id="1987">Où accoster?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1991">Ajouter une balise de commande?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1993">Sauvegarder les paramètres de commande?</t>
+      <t id="1994">Réinitialiser les paramètres de commande?</t>
+      <t id="1995">Paramètres de commande sauvegardés.</t>
+      <t id="1996">Paramètres de commande réinitialisés.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1997">\033#B600CCCC#</t>
+      <t id="1998">\033#FF00CC66#</t>
+      <t id="1999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

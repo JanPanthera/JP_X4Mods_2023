@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- JP_TradeSubscriptionExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1931">Cais?</t>
+      <t id="1932">Estaleiros?</t>
+      <t id="1933">Docks de equipamentos?</t>
+      <t id="1934">Estações de comércio?</t>
+      <t id="1935">Bases piratas?</t>
+      <t id="1936">Instalações de processamento de sucata?</t>
+      <t id="1937">Estações de defesa?</t>
+      <t id="1938">Quartéis-generais da facção?</t>
+      <t id="1939">Estações não especiais?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1941">Atualizar assinatura comercial</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1960">Este script permite que sua nave atualize automaticamente as assinaturas comerciais das estações em um setor específico.</t>
+      <t id="1961">Este script permite que sua nave atualize automaticamente as assinaturas comerciais das estações em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1980">Tempo ocioso</t>
+      <t id="1981">Ocioso: Mover para?</t>
+      <t id="1982">Para onde mover?</t>
+      <t id="1983">Ocioso: Seguir?</t>
+      <t id="1984">Quem seguir?</t>
+      <t id="1985">Ocioso: Atracar?</t>
+      <t id="1986">Encontrar uma estação?</t>
+      <t id="1987">Onde atracar?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1991">Adicionar tag de ordem?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1993">Salvar configurações de ordem?</t>
+      <t id="1994">Redefinir configurações de ordem?</t>
+      <t id="1995">Configurações de ordem salvas.</t>
+      <t id="1996">Configurações de ordem redefinidas.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1997">\033#B600CCCC#</t>
+      <t id="1998">\033#FF00CC66#</t>
+      <t id="1999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

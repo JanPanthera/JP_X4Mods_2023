@@ -1,0 +1,4 @@
+#TradeSubscriptionExplorer
+
+v2.0.0
+~ Initial release of the new TradeSubscriptionExplorer
