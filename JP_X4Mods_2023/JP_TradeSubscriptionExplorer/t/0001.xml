@@ -14,6 +14,7 @@
       <t id="1938">Faction Headquarters?</t>
       <t id="1939">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1940">Idle</t>
       <t id="1941">Update Tradesubscription</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">This script allows your ship to automatically update station trade subscriptions in a specific sector.</t>

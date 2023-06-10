@@ -1,4 +1,11 @@
 #TradeSubscriptionExplorer
 
-v2.0.0
+v2.0.0 -- Current Published version
 ~ Initial release of the new TradeSubscriptionExplorer
+
+v2.0.1 -- Current Unpublished version
+~ Added: A translation for IdleReturnHome.
+~ Changed: Modified the sector sorting process from a mix of distance and jump count checks to the usage of estimate_travel_time.
+~ Changed: Enhanced script execution speed by altering wait segments from 1000ms to 1ms.
+~ Optimized: The TradeSubscriptionExplorer fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
+~ Optimized: Generic code optimizations have been carried out for improved performance.

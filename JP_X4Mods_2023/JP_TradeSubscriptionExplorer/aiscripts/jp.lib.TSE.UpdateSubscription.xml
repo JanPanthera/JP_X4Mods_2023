@@ -11,11 +11,10 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
+      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
    </order>
 
    <interrupts>
-      <handler ref="SectorChangeHandler"/>
-      <handler ref="TargetInvalidHandler"/>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -42,7 +41,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -50,22 +49,38 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.move" param="$STATION"/>
+         <set_command command="command.investigate"/>
 
-         <get_safe_pos result="$_SafePos" sector="$STATION.sector" object="$STATION"/>
-         <set_value name="$LOCATION" exact="[$STATION.sector, $_SafePos]"/>
-
-         <label name="MOVING_LBL"/>
-         <move_to object="$_Ship" destination="$STATION.sector" travel="true">
-            <position value="$_SafePos"/>
-            <interrupt_after_time time="1s"/>
-         </move_to>
-         <do_if value="not $STATION.hastradesubscription">
-            <resume label="MOVING_LBL"/>
+         <do_if value="$_Ship.sector != $STATION.sector">
+            <set_value name="$LOCATION" exact="[$STATION.sector, null]"/>
+            <set_command_action commandaction="commandaction.flyingto" param="$STATION.sector"/>
+            <run_script name="'move.generic'">
+               <param name="destination" value="$STATION.sector"/>
+               <param name="endintargetzone" value="true"/>
+               <param name="recallsubordinates" value="false"/>
+               <param name="changecommandaction" value="false"/>
+               <param name="debugchance" value="0"/>
+            </run_script>
+            <stop_moving object="$_Ship"/>
          </do_if>
 
-         <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
+         <set_command_action commandaction="commandaction.flyingto" param="$STATION"/>
+         <get_safe_pos result="$_SafePos" sector="$STATION.sector" object="$STATION" radius="2km" max="4km" ignored="$_Ship" directionobject="$_Ship"/>
+         <set_value name="$LOCATION" exact="[$STATION.sector, $_SafePos]"/>
+
+         <label name="MOVE_LBL"/>
+         <wait exact="1ms"/>
+         <move_to object="$_Ship" destination="$STATION.sector" uselocalhighways="$_Ship.canenterhighway" travel="true" commandaction="false">
+            <position space="$STATION.sector" value="$_SafePos"/>
+            <interrupt_after_time time="1s"/>
+         </move_to>
+
+         <do_if value="not $STATION.hastradesubscription">
+            <resume label="MOVE_LBL"/>
+         </do_if>
+
+         <wait exact="2000ms"/>
+         <stop_moving object="$_Ship"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_TRADESUBSCRIPTION_UPDATED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_TRADESUBSCRIPTION_UPDATED'" role="entityrole.service"/>
@@ -73,7 +88,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_TradeSubscriptionExplorer" name="JP_TradeSubscriptionExplorer" description="This script allows your ship to automatically update station trade subscriptions in a specific sector or across the entire galaxy." author="JanPanthera" version="200" date="2023-06-07" save="0" enabled="1">
+<content id="JP_TradeSubscriptionExplorer" name="JP_TradeSubscriptionExplorer" description="This script allows your ship to automatically update station trade subscriptions in a specific sector or across the entire galaxy." author="JanPanthera" version="201" date="2023-06-10" save="0" enabled="1">
    <text language="7"  name="JP_TradeSubscriptionExplorer" description="Этот скрипт позволяет вашему кораблю автоматически обновлять подписки на торговлю станций в определенном секторе или по всей галактике." author="JanPanthera"/>
    <text language="33" name="JP_TradeSubscriptionExplorer" description="Ce script permet à votre vaisseau de mettre à jour automatiquement les abonnements commerciaux des stations dans un secteur spécifique ou dans toute la galaxie." author="JanPanthera"/>
    <text language="34" name="JP_TradeSubscriptionExplorer" description="Este script permite que tu nave actualice automáticamente las suscripciones comerciales de las estaciones en un sector específico o en toda la galaxia." author="JanPanthera"/>
