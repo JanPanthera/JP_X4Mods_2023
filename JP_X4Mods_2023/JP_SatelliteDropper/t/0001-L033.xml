@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Positionner le satellite</t>
       <t id="1441">Placer le satellite à l'objet</t>
+      <t id="1442">Au repos</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Il n'y a pas de station disponible pour le réapprovisionnement en satellites.</t>
       <t id="1451">Pas de satellites disponibles, ou pas assez, et le réapprovisionnement en satellites est désactivé.\nLors de l'utilisation des deux types de satellites, au moins un de chaque doit être disponible.</t>
       <t id="1452">Nous n'avons pas assez d'argent pour le réapprovisionnement des satellites.</t>
       <t id="1453">La création de la commande de réapprovisionnement a échoué.</t>
       <t id="1454">Il n'y a pas d'objets dans le secteur spécifié que nous devons marquer.</t>
+      <t id="1455">Toutes les stations disponibles n'ont pas actuellement assez de ressources pour fabriquer des satellites.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes à l'intérieur d'un secteur.</t>
       <t id="1461">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes dans toute la galaxie.</t>

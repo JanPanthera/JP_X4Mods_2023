@@ -2,7 +2,7 @@
 
 <aiscript name="jp.lib.SD.IdleReturnHome" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_SD_IdleReturnHome" name="IdleReturnHome" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_SD_IdleReturnHome" name="{8888888, 1442}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="IDLE_TIME"     type="internal" default="null"/>
@@ -20,8 +20,6 @@
    </order>
 
    <interrupts>
-      <handler ref="SectorChangeHandler"/>
-      <handler ref="TargetInvalidHandler"/>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -50,7 +48,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -66,18 +64,18 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_MOVE_TO_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$IDLE_MOVE_TO">
             <create_order object="$_Ship" id="'MoveWait'" immediate="true">
                <param name="destination" value="$WHERE_TO_MOVE"/>
-               <param name="timeout" value="$IDLE_TIME"/>
+               <param name="timeout" value="999h"/>
             </create_order>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_FOLLOW_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$IDLE_FOLLOW">
             <do_if value="$WHO_TO_FOLLOW == null">
                <set_value name="$IDLE_MOVE_TO" exact="true"/>
@@ -91,7 +89,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_DOCKING_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$IDLE_DOCKING">
             <do_if value="$WHERE_TO_DOCK == null or $FIND_STATION">
                <create_list name="$_FoundStations"/>
@@ -117,13 +115,13 @@
                <param name="destination" value="$WHERE_TO_DOCK"/>
                <param name="timeout" value="999h"/>
             </create_order>
-            <wait exact="1000ms"/>
+            <wait exact="1ms"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

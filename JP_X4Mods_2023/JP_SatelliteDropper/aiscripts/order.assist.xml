@@ -4,7 +4,47 @@
    <add sel="//do_if[@value='not $order.requiredskill or (this.combinedskill ge $order.requiredskill)']">
       <do_if value="$order.id == 'JP_SatelliteDropperG'">
          <set_value name="$added"/>
+         <run_script name="$scriptname">
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="PLACE_SATELLITES_MK1" value="$order.$PLACE_SATELLITES_MK1"/>
+            <param name="PLACE_SATELLITES_MK2" value="$order.$PLACE_SATELLITES_MK2"/>
+            <param name="RESTOCK_SATELLITES"   value="$order.$RESTOCK_SATELLITES"/>
+            <param name="RESTOCK_MAX_AMOUNT"   value="$order.$RESTOCK_MAX_AMOUNT"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="JUMP_GATES"              value="$order.$JUMP_GATES"/>
+            <param name="ACTIVE_JUMP_GATES"       value="$order.$ACTIVE_JUMP_GATES"/>
+            <param name="INACTIVE_JUMP_GATES"     value="$order.$INACTIVE_JUMP_GATES"/>
+            <param name="ACCELERATORS"            value="$order.$ACCELERATORS"/>
+            <param name="ACTIVE_ACCELERATORS"     value="$order.$ACTIVE_ACCELERATORS"/>
+            <param name="INACTIVE_ACCELERATORS"   value="$order.$INACTIVE_ACCELERATORS"/>
+            <param name="SUPER_HIGHWAYS"          value="$order.$SUPER_HIGHWAYS"/>
+            <param name="ACTIVE_SUPER_HIGHWAYS"   value="$order.$ACTIVE_SUPER_HIGHWAYS"/>
+            <param name="INACTIVE_SUPER_HIGHWAYS" value="$order.$INACTIVE_SUPER_HIGHWAYS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="STATIONS"             value="$order.$STATIONS"/>
+            <param name="WHARFS"               value="$order.$WHARFS"/>
+            <param name="SHIPYARDS"            value="$order.$SHIPYARDS"/>
+            <param name="EQUIPMENTDOCKS"       value="$order.$EQUIPMENTDOCKS"/>
+            <param name="TRADING_STATIONS"     value="$order.$TRADING_STATIONS"/>
+            <param name="PIRATE_BASES"         value="$order.$PIRATE_BASES"/>
+            <param name="RECYCLING_STATIONS"   value="$order.$RECYCLING_STATIONS"/>
+            <param name="DEFENCE_STATIONS"     value="$order.$DEFENCE_STATIONS"/>
+            <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
+            <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="IDLE_TIME"     value="$order.$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO"  value="$order.$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE" value="$order.$WHERE_TO_MOVE"/>
+            <param name="IDLE_FOLLOW"   value="$order.$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW" value="$order.$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING"  value="$order.$IDLE_DOCKING"/>
+            <param name="FIND_STATION"  value="$order.$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK" value="$order.$WHERE_TO_DOCK"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         </run_script>
       </do_if>
    </add>
-   
+
 </diff>

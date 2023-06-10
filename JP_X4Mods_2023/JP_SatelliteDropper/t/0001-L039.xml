@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Posiziona il satellite alla posizione</t>
       <t id="1441">Posiziona il satellite all'oggetto</t>
+      <t id="1442">Inattivo</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Non ci sono stazioni disponibili per il rifornimento di satelliti.</t>
       <t id="1451">Non ci sono abbastanza satelliti disponibili, e il rifornimento di satelliti è disattivato.\nQuando si utilizzano entrambi i tipi di satelliti, almeno uno di ciascuno deve essere disponibile.</t>
       <t id="1452">Non abbiamo abbastanza soldi disponibili per il rifornimento dei satelliti.</t>
       <t id="1453">La creazione del comando di rifornimento è fallita.</t>
       <t id="1454">Non ci sono oggetti nel settore specificato che dobbiamo contrassegnare.</t>
+      <t id="1455">Tutte le stazioni disponibili al momento non hanno abbastanza risorse per produrre satelliti.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
       <t id="1461">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade in tutta la galassia.</t>

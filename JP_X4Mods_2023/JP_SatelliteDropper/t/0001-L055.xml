@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Colocar satélite na posição</t>
       <t id="1441">Colocar satélite no objeto</t>
+      <t id="1442">Ocioso</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Não há estação disponível para reabastecer os satélites.</t>
       <t id="1451">Não há satélites suficientes disponíveis e o reabastecimento de satélites está desativado.\nQuando usar ambos os tipos de satélites, pelo menos um de cada tipo deve estar disponível.</t>
       <t id="1452">Não temos dinheiro suficiente disponível para reabastecer os satélites.</t>
       <t id="1453">A criação do comando de reabastecimento falhou.</t>
       <t id="1454">Não há objetos no setor especificado que precisamos marcar.</t>
+      <t id="1455">Todas as estações disponíveis no momento não têm recursos suficientes para fabricar satélites.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas dentro de um setor.</t>
       <t id="1461">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas em toda a galáxia.</t>

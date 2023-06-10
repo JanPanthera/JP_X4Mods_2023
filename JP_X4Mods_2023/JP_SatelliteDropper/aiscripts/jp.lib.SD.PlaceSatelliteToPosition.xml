@@ -13,11 +13,10 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
+      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
    </order>
 
    <interrupts>
-      <handler ref="SectorChangeHandler"/>
-      <handler ref="TargetInvalidHandler"/>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -44,7 +43,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -52,16 +51,30 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.move" param="$SECTOR"/>
+         <set_command command="command.investigate"/>
 
-         <get_safe_pos result="$_SafePos" sector="$SECTOR" value="$POSITION"/>
-         <set_value name="$LOCATION" exact="[$SECTOR, $_SafePos]"/>
-         <move_to object="$_Ship" destination="$SECTOR" travel="true">
-            <position value="$_SafePos"/>
+         <do_if value="$_Ship.sector != $SECTOR">
+            <set_value name="$LOCATION" exact="[$SECTOR, null]"/>
+            <set_command_action commandaction="commandaction.flyingto" param="$SECTOR"/>
+            <run_script name="'move.generic'">
+               <param name="destination" value="$SECTOR"/>
+               <param name="endintargetzone" value="true"/>
+               <param name="recallsubordinates" value="false"/>
+               <param name="changecommandaction" value="false"/>
+               <param name="debugchance" value="0"/>
+            </run_script>
+            <stop_moving object="$_Ship"/>
+         </do_if>
+
+         <set_command_action commandaction="commandaction.flyingto" param="$POSITION"/>
+         <set_value name="$LOCATION" exact="[$SECTOR, $POSITION]"/>
+
+         <move_to object="$_Ship" destination="$SECTOR" uselocalhighways="$_Ship.canenterhighway" travel="true" commandaction="false">
+            <position space="$SECTOR" value="$POSITION"/>
          </move_to>
 
-         <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
+         <wait exact="2000ms"/>
+         <stop_moving object="$_Ship"/>
 
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
          <set_object_velocity object="$_Satellite">
@@ -76,7 +89,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

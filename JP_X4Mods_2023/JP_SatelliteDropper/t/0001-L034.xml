@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Colocar satélite en posición</t>
       <t id="1441">Colocar satélite en objeto</t>
+      <t id="1442">Inactivo</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">No hay estaciones disponibles para reponer satélites.</t>
       <t id="1451">No hay suficientes satélites disponibles, y la reposición de satélites está desactivada.\nCuando se usan ambos tipos de satélites, debe haber al menos uno de cada tipo disponible.</t>
       <t id="1452">No tenemos suficiente dinero para reponer los satélites.</t>
       <t id="1453">La creación del comando de reposición ha fallado.</t>
       <t id="1454">No hay objetos en el sector especificado que necesitemos marcar.</t>
+      <t id="1455">Todas las estaciones disponibles no tienen suficientes recursos para fabricar satélites en este momento.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas dentro de un sector.</t>
       <t id="1461">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas en toda la galaxia.</t>

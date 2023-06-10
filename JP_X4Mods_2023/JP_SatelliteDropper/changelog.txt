@@ -8,6 +8,16 @@ v1.0.2
 ~ Updated: Enhanced the description of the mod in the extension menu.
 ~ Changed: I've relocated the section of the code that removes the OrderTag from the name to the cleanup section.
 
-v1.0.3
+v1.0.3 -- Current published version
 ~ Added: A check to ensure that only ships with the required skills can copy orders from their SatelliteDropper Commander.
 ~ Fixed: The SatelliteDropper Sector version wouldn't clear its order list if the parameters were changed.
+
+v1.0.4 -- Current Unpublished Version
+~ Added: A translation for IdleReturnHome.
+~ Added: Implemented a check to ascertain if a station possesses enough resources to construct all the required satellites. In case of a deficiency, a visual warning will be issued and a log entry will be made in the ship's log.
+~ Fixed: Issue resolved where the "Find a Station?" option could not be saved.
+~ Changed: Modified the sector sorting process from a mix of distance and jump count checks to the usage of estimate_travel_time.
+~ Changed: Enhanced script execution speed by altering wait segments from 1000ms to 1ms.
+~ Changed: The SatelliteDropper will now switch to idle mode rather than cancelling the order if issues arise during satellite restocking. This could occur under several circumstances, such as the inability to locate a station, insufficient available resources, inadequate funds, or errors during vanilla order creation. This change is also applicable when automatic restocking is disabled and the SatelliteDropper exhausts its satellite supply.
+~ Optimized: The SatelliteDropper fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
+~ Optimized: Generic code optimizations have been carried out for improved performance.

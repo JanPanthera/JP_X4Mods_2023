@@ -41,47 +41,6 @@
          </actions>
          <cues>
 
-            <cue name="SD_Runner_MD" instantiate="true" checkinterval="1s">
-               <conditions>
-                  <check_value value="global.$SD_ShipsGroup.count gt 0"/>
-               </conditions>
-               <actions>
-
-                  <set_value name="$DEBUG" exact="0"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'SD_Runner_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'sd.Runner.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <!-- Update the params of all SatelliteDropper Subordinates -->
-                  <do_for_each name="$_Ship" in="global.$SD_ShipsGroup">
-                     <do_if value="$_Ship.defaultorder.id == 'JP_SatelliteDropperG'">
-                        <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
-                           <do_if value="$_Subordinate.assignment == assignment.assist and ($_Subordinate.combinedskill ge $_Ship.defaultorder.requiredskill)">
-                              <do_if value="$_Subordinate.defaultorder.id != 'JP_SatelliteDropperG'">
-                                 <signal_cue_instantly cue="SD_UpdateFleetsOrderParams_MD" param="$_Ship"/>
-                                 <break/>
-                              </do_if>
-                           </do_if>
-                        </do_for_each>
-                     </do_if>
-                  </do_for_each>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
-               </actions>
-            </cue>
-
             <cue name="SD_Debug_MD" instantiate="true" checkinterval="1s">
                <actions>
 
@@ -95,6 +54,12 @@
                   </do_if>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SDGetObjectsToMarkAlreadyProcessing %1'.[@global.$AEGetObjectsToUncoverAlreadyProcessing]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
 
                   <do_if value="$DEBUG gt 0">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
@@ -139,8 +104,8 @@
             <cue name="SD_Cleanup_MD" instantiate="true" checkinterval="1s">
                <conditions>
                   <check_any>
-                     <check_value value="global.$SatelliteDropper_Settings?"/>
                      <check_value value="global.$SD_ShipsGroup?"/>
+                     <check_value value="global.$SatelliteDropper_Settings?"/>
                   </check_any>
                </conditions>
                <actions>
@@ -158,19 +123,30 @@
 
                   <do_if value="@global.$SD_ShipsGroup.count gt 0">
                      <do_for_each name="$_Ship" in="global.$SD_ShipsGroup" reverse="true">
-                        <do_if value="$_Ship.defaultorder.id" list="['JP_SatelliteDropperG', 'JP_SatelliteDropperS']" negate="true">
-                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                              <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
-                              <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
-                           </substitute_text>
-                           <set_object_name object="$_Ship" name="$_ResultName"/>
-                           <remove_from_group group="global.$SD_ShipsGroup" object="$_Ship"/>
+                        <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_SatelliteDropperG'">
+                           <continue/>
                         </do_if>
+                        <do_if value="$_Ship.defaultorder.id" list="['JP_SatelliteDropperG', 'JP_SatelliteDropperS']">
+                           <continue/>
+                        </do_if>
+
+                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                           <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+                           <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+                           <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                        </substitute_text>
+                        <set_object_name object="$_Ship" name="$_ResultName"/>
+
+                        <cancel_all_orders object="$_Ship"/>
+
+                        <remove_value name="global.$SD_IdleShips.{$_Ship}"/>
+                        <remove_value name="global.$SD_SectorBlacklist.{$_Ship}"/>
+                        <remove_from_group group="global.$SD_ShipsGroup" object="$_Ship"/>
                      </do_for_each>
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$SatelliteDropper_Settings.count != 32">
+                  <do_if value="@global.$SatelliteDropper_Settings.count != 33">
                      <remove_value name="global.$SatelliteDropper_Settings"/>
                   </do_if>
 
@@ -184,113 +160,36 @@
                </actions>
             </cue>
 
-            <cue name="SD_EventOrderParamChangedCleanOrderList_MD" instantiate="true">
+            <cue name="SD_EventOrderStarted_MD" instantiate="true">
                <conditions>
                   <event_object_order_ready group="global.$SD_ShipsGroup"/>
-                  <check_all>
-                     <check_value value="@event.param.id == 'JP_SatelliteDropperG' or @event.param.id == 'JP_SatelliteDropperS'"/>
-                  </check_all>
-               </conditions>
-               <actions>
-                  <cancel_all_orders object="event.object"/>
-                  <set_object_velocity object="event.object">
-                     <linear x="0" y="0" z="0"/>
-                  </set_object_velocity>
-               </actions>
-            </cue>
-
-            <cue name="SD_EventOrderParamChanged_MD" instantiate="true">
-               <conditions>
-                  <event_object_order_ready group="global.$SD_ShipsGroup"/>
-                  <check_all>
-                     <check_value value="@event.object.subordinates.count gt 0"/>
+                  <check_any>
+                     <check_value value="@event.param.id == 'JP_SatelliteDropperS'"/>
                      <check_value value="@event.param.id == 'JP_SatelliteDropperG'"/>
-                  </check_all>
+                  </check_any>
                </conditions>
                <actions>
-                  <cancel_all_orders object="event.object"/>
-                  <set_object_velocity object="event.object">
-                     <linear x="0" y="0" z="0"/>
-                  </set_object_velocity>
-                  <signal_cue_instantly cue="SD_UpdateFleetsOrderParams_MD" param="event.object"/>
-               </actions>
-            </cue>
-
-            <cue name="SD_UpdateFleetsOrderParams_MD" instantiate="true">
-               <conditions>
-                  <event_cue_signalled/>
-               </conditions>
-               <actions>
-
-                  <set_value name="$DEBUG" exact="0"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'SD_UpdateOrderParams_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'sd.UpdateOrderParams.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+                  <set_value name="$_Ship" exact="event.object"/>
+                  <cancel_all_orders object="$_Ship"/>
+                  <do_if value="$_Ship.subordinates.count gt 0">
+                     <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                        <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                           <cancel_all_orders object="$_Subordinate"/>
+                           <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
+                              <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+                              <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                           </substitute_text>
+                           <set_object_name object="$_Subordinate" name="$_ResultName"/>
+                        </do_if>
+                     </do_for_each>
                   </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <set_value name="$_Commander" exact="event.param"/>
-
-                  <do_for_each name="$_Subordinate" in="$_Commander.subordinates">
-                     <do_if value="$_Subordinate.assignment == assignment.assist and ($_Subordinate.combinedskill ge $_Commander.defaultorder.requiredskill)">
-                        <cancel_all_orders object="$_Subordinate"/>
-                        <set_object_velocity object="$_Subordinate">
-                           <linear x="0" y="0" z="0"/>
-                        </set_object_velocity>
-                        <create_order object="$_Subordinate" id="'JP_SatelliteDropperG'" default="true">
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                           <param name="PLACE_SATELLITES_MK1" value="$_Commander.defaultorder.$PLACE_SATELLITES_MK1"/>
-                           <param name="PLACE_SATELLITES_MK2" value="$_Commander.defaultorder.$PLACE_SATELLITES_MK2"/>
-                           <param name="RESTOCK_SATELLITES"   value="$_Commander.defaultorder.$RESTOCK_SATELLITES"/>
-                           <param name="RESTOCK_MAX_AMOUNT"   value="$_Commander.defaultorder.$RESTOCK_MAX_AMOUNT"/>
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                           <param name="JUMP_GATES"              value="$_Commander.defaultorder.$JUMP_GATES"/>
-                           <param name="ACTIVE_JUMP_GATES"       value="$_Commander.defaultorder.$ACTIVE_JUMP_GATES"/>
-                           <param name="INACTIVE_JUMP_GATES"     value="$_Commander.defaultorder.$INACTIVE_JUMP_GATES"/>
-                           <param name="ACCELERATORS"            value="$_Commander.defaultorder.$ACCELERATORS"/>
-                           <param name="ACTIVE_ACCELERATORS"     value="$_Commander.defaultorder.$ACTIVE_ACCELERATORS"/>
-                           <param name="INACTIVE_ACCELERATORS"   value="$_Commander.defaultorder.$INACTIVE_ACCELERATORS"/>
-                           <param name="SUPER_HIGHWAYS"          value="$_Commander.defaultorder.$SUPER_HIGHWAYS"/>
-                           <param name="ACTIVE_SUPER_HIGHWAYS"   value="$_Commander.defaultorder.$ACTIVE_SUPER_HIGHWAYS"/>
-                           <param name="INACTIVE_SUPER_HIGHWAYS" value="$_Commander.defaultorder.$INACTIVE_SUPER_HIGHWAYS"/>
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                           <param name="STATIONS"             value="$_Commander.defaultorder.$STATIONS"/>
-                           <param name="WHARFS"               value="$_Commander.defaultorder.$WHARFS"/>
-                           <param name="SHIPYARDS"            value="$_Commander.defaultorder.$SHIPYARDS"/>
-                           <param name="EQUIPMENTDOCKS"       value="$_Commander.defaultorder.$EQUIPMENTDOCKS"/>
-                           <param name="TRADING_STATIONS"     value="$_Commander.defaultorder.$TRADING_STATIONS"/>
-                           <param name="PIRATE_BASES"         value="$_Commander.defaultorder.$PIRATE_BASES"/>
-                           <param name="RECYCLING_STATIONS"   value="$_Commander.defaultorder.$RECYCLING_STATIONS"/>
-                           <param name="DEFENCE_STATIONS"     value="$_Commander.defaultorder.$DEFENCE_STATIONS"/>
-                           <param name="FACTION_HEADQUARTERS" value="$_Commander.defaultorder.$FACTION_HEADQUARTERS"/>
-                           <param name="NON_SPECIAL_STATIONS" value="$_Commander.defaultorder.$NON_SPECIAL_STATIONS"/>
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                           <param name="IDLE_TIME"     value="$_Commander.defaultorder.$IDLE_TIME"/>
-                           <param name="IDLE_MOVE_TO"  value="$_Commander.defaultorder.$IDLE_MOVE_TO"/>
-                           <param name="WHERE_TO_MOVE" value="$_Commander.defaultorder.$WHERE_TO_MOVE"/>
-                           <param name="IDLE_FOLLOW"   value="$_Commander.defaultorder.$IDLE_FOLLOW"/>
-                           <param name="WHO_TO_FOLLOW" value="$_Commander.defaultorder.$WHO_TO_FOLLOW"/>
-                           <param name="IDLE_DOCKING"  value="$_Commander.defaultorder.$IDLE_DOCKING"/>
-                           <param name="FIND_STATION"  value="$_Commander.defaultorder.$FIND_STATION"/>
-                           <param name="WHERE_TO_DOCK" value="$_Commander.defaultorder.$WHERE_TO_DOCK"/>
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                           <param name="ADD_ORDER_TAG" value="$_Commander.defaultorder.$ADD_ORDER_TAG"/>
-                           <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                        </create_order>
-                     </do_if>
-                  </do_for_each>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
+                  <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                     <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+                     <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+                     <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                  </substitute_text>
+                  <set_object_name object="$_Ship" name="$_ResultName"/>
                </actions>
             </cue>
 
@@ -322,77 +221,21 @@
                            </do_if>
                         </do_for_each>
 
-                        <do_if value="$DEBUG gt 0">
-                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'(player.age - $_IdleStartTime): %1'.[(player.age - $_IdleStartTime)]"/>
-                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship.defaultorder.$IDLE_TIME: %1'.[$_Ship.defaultorder.$IDLE_TIME]"/>
-                           <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                        <do_if value="$_Ship.defaultorder.id == 'Assist'">
+                           <set_value name="$_IdleTime" exact="@$_Ship.commander.defaultorder.$IDLE_TIME"/>
                         </do_if>
+                        <do_else>
+                           <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
+                        </do_else>
 
                         <do_if value="(not $_IdleOrderPresent and (player.age - $_IdleStartTime) gt 5) or
-                                ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_Ship.defaultorder.$IDLE_TIME))">
+                                ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_IdleTime))">
                            <cancel_all_orders object="$_Ship"/>
                            <remove_value name="global.$SD_IdleShips.{$_Ship}"/>
                            <substitute_text source="$_Ship.knownname" text="$_ResultName">
                               <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
                            </substitute_text>
                            <set_object_name object="$_Ship" name="$_ResultName"/>
-                        </do_if>
-
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
-               </actions>
-            </cue>
-
-            <cue name="SD_ManageSectorBlacklist_MD" instantiate="true" checkinterval="1s">
-               <conditions>
-                  <check_value value="global.$SD_SectorBlacklist?"/>
-               </conditions>
-               <actions>
-
-                  <set_value name="$DEBUG" exact="0"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'SD_ManageSectorBlacklist_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'sd.ManageSectorBlacklist.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="@global.$SD_SectorBlacklist.keys.count gt 0">
-                     <set_value name="$_RemoveFromList" exact="false"/>
-                     <do_for_each name="$_Ship" in="global.$SD_SectorBlacklist">
-
-                        <!-- Is not a SatelliteDropper -->
-                        <do_if value="@$_Ship.defaultorder.id" list="['JP_SatelliteDropperG', 'JP_SatelliteDropperS', 'Assist']" negate="true">
-                           <set_value name="$_RemoveFromList" exact="true"/>
-                        </do_if>
-
-                        <!-- Is not a subordinate of a SatelliteDropper commander -->
-                        <do_if value="@$_Ship.commander != null">
-                           <do_if value="@$_Ship.commander.defaultorder.id != 'JP_SatelliteDropperG'">
-                              <do_if value="@$_Ship.defaultorder.id == 'JP_SatelliteDropperG'">
-                                 <cancel_all_orders object="$_Ship"/>
-                                 <create_order object="$_Ship" id="'Wait'" default="true"/>
-                                 <set_value name="$_RemoveFromList" exact="true"/>
-                              </do_if>
-                           </do_if>
-                        </do_if>
-
-                        <!-- Remove from list and restore its original name -->
-                        <do_if value="$_RemoveFromList == true">
-                           <remove_value name="global.$SD_SectorBlacklist.{$_Ship}"/>
-                           <break/>
                         </do_if>
 
                      </do_for_each>

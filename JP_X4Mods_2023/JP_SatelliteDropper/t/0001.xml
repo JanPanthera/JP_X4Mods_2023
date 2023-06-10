@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Place satellite to position</t>
       <t id="1441">Place satellite to object</t>
+      <t id="1442">Idle</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">There is no station available for restocking satellites.</t>
       <t id="1451">No or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each must be available.</t>
       <t id="1452">We do not have enough money available for restocking the satellites.</t>
       <t id="1453">The restocking command creation has failed.</t>
       <t id="1454">There are no objects in the specified sector that we need to mark.</t>
+      <t id="1455">All available stations currently don't have enough resources to manufacture satellites.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways inside a sector.</t>
       <t id="1461">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways in the entire galaxy.</t>

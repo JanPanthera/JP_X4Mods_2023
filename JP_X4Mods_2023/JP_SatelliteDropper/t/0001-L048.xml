@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Umieść satelitę w pozycji</t>
       <t id="1441">Umieść satelitę na obiekcie</t>
+      <t id="1442">Bezczynny</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Nie ma dostępnej stacji do uzupełnienia satelitów.</t>
       <t id="1451">Brak satelitów lub ich niewystarczająca ilość, a uzupełnienie satelitów jest wyłączone.\nPodczas korzystania z obu typów satelitów, co najmniej jeden z każdego typu musi być dostępny.</t>
       <t id="1452">Nie mamy wystarczająco dużo pieniędzy do uzupełnienia satelitów.</t>
       <t id="1453">Tworzenie polecenia uzupełnienia nie powiodło się.</t>
       <t id="1454">Nie ma obiektów w określonym sektorze, które musimy oznaczyć.</t>
+      <t id="1455">Wszystkie dostępne stacje nie mają w tej chwili wystarczająco dużo zasobów, aby wyprodukować satelity.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach wewnątrz sektora.</t>
       <t id="1461">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach w całej galaktyce.</t>

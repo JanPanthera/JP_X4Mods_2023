@@ -32,12 +32,14 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Satellit an Position platzieren</t>
       <t id="1441">Satellit an Objekt platzieren</t>
+      <t id="1442">Leerlauf</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1450">Es steht keine Station zur Verfügung, um Satelliten nachzufüllen.</t>
       <t id="1451">Keine oder nicht genügend Satelliten vorhanden, und das Nachfüllen von Satelliten ist deaktiviert.\nWenn beide Satellitentypen verwendet werden, muss mindestens einer von jedem Typ verfügbar sein.</t>
       <t id="1452">Wir haben nicht genügend Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
       <t id="1453">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
       <t id="1454">Es gibt keine Objekte im angegebenen Sektor, die wir markieren müssen.</t>
+      <t id="1455">Alle verfügbaren Stationen haben im Moment nicht genug Ressourcen, um Satelliten herzustellen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways innerhalb eines Sektors zu positionieren.</t>
       <t id="1461">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways in der gesamten Galaxie zu positionieren.</t>
