@@ -32,8 +32,6 @@
    </params>
 
    <interrupts>
-      <handler ref="SectorChangeHandler"/>
-      <handler ref="TargetInvalidHandler"/>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -47,6 +45,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <create_list name="$_FoundObjects"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
@@ -60,7 +59,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -71,18 +70,20 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_while value="@global.$AEGetObjectsToMarkAlreadyProcessing == true">
-            <wait exact="1000ms"/>
+         <do_while value="global.$AEGetObjectsToUncoverAlreadyProcessing?">
+            <wait exact="1ms" comment="danger!"/>
          </do_while>
-         <set_value name="global.$AEGetObjectsToMarkAlreadyProcessing" exact="true"/>
+         <set_value name="global.$AEGetObjectsToUncoverAlreadyProcessing"/>
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
          <!-- If $SECTOR is null we search the galaxy else only $SECTOR -->
          <create_list name="$_Sectors"/>
          <do_if value="$SECTOR == null">
-            <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
-               <match knownto="$_Ship.owner" negate="true"/>
+            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
                <match_gate_distance object="$_Ship" min="0"/>
                <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
             </find_sector>
@@ -97,26 +98,16 @@
                <remove_value name="$_BlacklistedSectors"/>
             </do_if>
             <do_if value="$_Sectors.count gt 1">
-               <!-- Are there more than one sectors with a jump count of 0? (Mini sectors in one "normal" sector)
-               Sort all mini sectors to distance and normal sectors to gatedistance -->
-               <create_list name="$_InSector"/>
+               <create_list name="$_SectorTravelTimes"/>
                <do_for_each name="$_Sector" in="$_Sectors">
-                  <do_if value="$_Ship.gatedistance.{$_Sector} == 0">
-                     <append_to_list name="$_InSector" exact="$_Sector"/>
-                  </do_if>
+                  <estimate_travel_time ship="$_Ship" start="$_Ship" target="$_Sector" result="$_TravelTime"/>
+                  <append_to_list name="$_SectorTravelTimes" exact="[$_Sector, $_TravelTime]"/>
                </do_for_each>
-               <do_if value="$_InSector.count gt 0">
-                  <remove_from_list name="$_Sectors" list="$_InSector"/>
-                  <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
-                  <sort_list list="$_InSector" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
-                  <append_list_elements name="$_InSector" other="$_Sectors"/>
-                  <set_value name="$_Sectors" exact="$_InSector"/>
-               </do_if>
-               <do_else>
-                  <!-- Only 1 sector with jump count 0 or only sectors with jumpcount gt 0 -->
-                  <sort_list list="$_Sectors" sortbyvalue="$_Ship.gatedistance.{loop.element}"/>
-               </do_else>
-               <remove_value name="$_InSector"/>
+               <sort_list list="$_SectorTravelTimes" sortbyvalue="loop.element.{2}"/>
+               <clear_list list="$_Sectors"/>
+               <do_for_each name="$_SectorTravelTime" in="$_SectorTravelTimes">
+                  <append_to_list name="$_Sectors" exact="$_SectorTravelTime.{1}"/>
+               </do_for_each>
             </do_if>
          </do_if>
          <do_else>
@@ -124,8 +115,6 @@
          </do_else>
 
          <do_for_each name="$_Sector" in="$_Sectors">
-
-            <create_list name="$_FoundObjects"/>
 
             <do_if value="$JUMP_GATES">
                <do_if value="$ACTIVE_JUMP_GATES">
@@ -171,7 +160,6 @@
                      <match knownto="$_Ship.owner" negate="true"/>
                      <match active="true"/>
                      <match macro="[macro.he_gen_superhighway_entrance_01_macro]"/>
-                     <!--<match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>-->
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
@@ -180,7 +168,6 @@
                      <match knownto="$_Ship.owner" negate="true"/>
                      <match active="false"/>
                      <match macro="[macro.he_gen_superhighway_entrance_01_macro]"/>
-                     <!--<match macro="[macro.he_gen_superhighway_entrance_01_macro, macro.he_gen_superhighway_exit_01_macro]"/>-->
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
@@ -251,16 +238,23 @@
 
          </do_for_each>
 
+         <do_if value="@global.$AE_SectorBlacklist.{$_Ship} == @SECTOR and @global.$AE_SectorBlacklist.{$_Ship} != null and $_FoundObjects.count == 0">
+            <set_value name="global.$AE_SectorBlacklist.{$_Ship}" exact="null"/>
+            <do_if value="$_Ship.defaultorder.id == 'JP_AnotherExplorerG'">
+               <resume label="RESUME_LBL"/>
+            </do_if>
+         </do_if>
+
          <do_if value="$_FoundObjects.count gt 0">
             <set_value name="global.$AE_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
          </do_if>
 
-         <set_value name="global.$AEGetObjectsToMarkAlreadyProcessing" exact="false"/>
+         <remove_value name="global.$AEGetObjectsToUncoverAlreadyProcessing"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -274,7 +268,7 @@
    </attention>
 
    <on_abort>
-      <set_value name="global.$AEGetObjectsToMarkAlreadyProcessing" exact="false"/>
+      <remove_value name="global.$AEGetObjectsToUncoverAlreadyProcessing"/>
    </on_abort>
 
 </aiscript>

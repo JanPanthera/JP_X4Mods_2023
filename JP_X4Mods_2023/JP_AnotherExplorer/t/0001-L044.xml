@@ -25,6 +25,7 @@
       <t id="438">Faction Headquarters?</t>
       <t id="439">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="440">Idle</t>
       <t id="441">Discover unknown Object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">This script enables your ship to explore a sector by seeking out Stations, Jumpgates, Accelerators and Superhighways.</t>

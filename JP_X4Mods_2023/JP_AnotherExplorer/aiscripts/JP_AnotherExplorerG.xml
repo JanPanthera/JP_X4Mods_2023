@@ -5,7 +5,7 @@
    <order id="JP_AnotherExplorerG" name="_{8888888, 497}AnotherExplorer - {8888888, 499}{8888888, 498}{20001, 901}{8888888, 499}" description="{8888888, 461}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
+         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -32,7 +32,7 @@
          <param name="RECYCLING_STATIONS" text="- {8888888, 436}" comment="Scrap processing facilities?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{16} else true"/>
          <param name="DEFENCE_STATIONS" text="- {8888888, 437}" comment="Defense stations?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{17} else true"/>
          <param name="FACTION_HEADQUARTERS" text="- {8888888, 438}" comment="Faction Headquarters?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{18} else true"/>
-         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 439}" comment="Non Special Stations?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else false"/>
+         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 439}" comment="Non Special Stations?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -52,8 +52,8 @@
             <input_param name="class" value="[class.ship]"/>
          </param>
          <param name="IDLE_DOCKING" text="{8888888, 485}" comment="Idle: Docking?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{25} else false"/>
-         <param name="FIND_STATION" text="- {8888888, 486}" comment="Find a Station?" type="bool" default="true"/>
-         <param name="WHERE_TO_DOCK" text="- {8888888, 487}" comment="Where to dock?" type="object" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{26} else null">
+         <param name="FIND_STATION" text="- {8888888, 486}" comment="Find a Station?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{26} else true"/>
+         <param name="WHERE_TO_DOCK" text="- {8888888, 487}" comment="Where to dock?" type="object" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{27} else null">
             <input_param name="class" value="if this.ship.isclass.[class.ship_s, class.ship_xs] then [class.station, class.ship_m, class.ship_l, class.ship_xl] else [class.station, class.ship_l, class.ship_xl]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -61,7 +61,7 @@
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="ADD_ORDER_TAG" text="{8888888, 491}" comment="Add order tag?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{27} else true"/>
+         <param name="ADD_ORDER_TAG" text="{8888888, 491}" comment="Add order tag?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{28} else true"/>
          <param name="SAVE_ORDER_SETTINGS" text="{8888888, 493}" comment="Save Order Settings?" type="bool" default="false"/>
          <param name="RESET_ORDER_SETTINGS" text="{8888888, 494}" comment="Reset Order Settings?" type="bool" default="false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -69,7 +69,7 @@
             <input_param name="class" value="[]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" text="Debug" type="number" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{28} else 0" advanced="true">
+         <param name="DEBUG" text="Debug" type="number" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{29} else 0" advanced="true">
             <input_param name="step" value="100"/>
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
@@ -87,8 +87,6 @@
    </order>
 
    <interrupts>
-      <handler ref="SectorChangeHandler"/>
-      <handler ref="TargetInvalidHandler"/>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -102,6 +100,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <stop_moving object="$_Ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -121,7 +120,7 @@
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                             $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
                             $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS,
-                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW, $WHO_TO_FOLLOW, $IDLE_DOCKING, $WHERE_TO_DOCK,
+                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW, $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
                             $ADD_ORDER_TAG, $DEBUG]"/>
          <do_if value="global.$AnotherExplorer_Settings?" negate="true">
             <create_list name="global.$AnotherExplorer_Settings"/>
@@ -165,7 +164,7 @@
          </do_if>
 
          <label name="INIT_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -183,7 +182,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="RESUME_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
 
          <create_list name="$_FoundObjects"/>
          <run_script name="'jp.lib.AE.GetObjectsToUncover'">
@@ -217,17 +216,18 @@
 
          <do_if value="$_FoundObjects.count gt 0">
             <do_for_each name="$_FoundObject" in="$_FoundObjects">
-               <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'">
+               <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'" immediate="true">
                   <param name="OBJECT" value="$_FoundObject"/>
                   <param name="DEBUG"  value="$DEBUG"/>
                </create_order>
+               <break/>
             </do_for_each>
          </do_if>
 
          <resume label="RESUME_LBL"/>
 
          <label name="IDLE_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <create_order object="$_Ship" id="'JP_lib_AE_IdleReturnHome'">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
@@ -245,7 +245,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -258,6 +258,7 @@
    </attention>
 
    <on_abort>
+      <stop_moving object="this.ship"/>
    </on_abort>
 
 </aiscript>

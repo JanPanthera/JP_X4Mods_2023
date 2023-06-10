@@ -25,6 +25,7 @@
       <t id="438">Quartiers généraux de faction ?</t>
       <t id="439">Stations non spéciales ?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="440">Au repos</t>
       <t id="441">Découvrir un objet inconnu</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">Ce script permet à votre navire d'explorer un secteur en recherchant des Stations, des Portails de Saut, des Accélérateurs et des Super Autoroutes.</t>

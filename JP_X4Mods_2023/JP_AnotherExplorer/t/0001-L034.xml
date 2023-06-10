@@ -25,6 +25,7 @@
       <t id="438">¿Sedes de facciones?</t>
       <t id="439">¿Estaciones no especiales?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="440">Inactivo</t>
       <t id="441">Descubrir objeto desconocido</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">Este script permite que tu nave explore un sector buscando Estaciones, Portales de Salto, Aceleradores y Super Carreteras.</t>

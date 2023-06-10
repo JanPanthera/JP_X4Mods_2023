@@ -9,8 +9,17 @@ v1.0.1
 ~ Updated: Improved Russian language translation, thanks to alexalsp.
 ~ Changed: I've relocated the section of the code that removes the OrderTag from the name to the cleanup section.
 
-v1.0.1 - minor update
+v1.0.1
 ~ Fixed: Description of the Sector version
 
-v1.0.2
+v1.0.2 -- Current Published version
 ~ Fixed: Addressed the issue where the script was incorrectly using the translation files from SatelliteDropper, causing a "ReadText" error.
+
+v1.0.3 -- Current Unpublished version
+~ Added: A translation for IdleReturnHome.
+~ Fixed: The "Find a Station?" option couldn't be saved.
+~ Changed: Modified the sector sorting process from a mix of distance and jump count checks to the usage of estimate_travel_time.
+~ Changed: Enhanced script execution speed by altering wait segments from 1000ms to 1ms.
+~ Updated: Improved the Russian translation, thanks to alexalsp.
+~ Optimized: The AnotherExplorer fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
+~ Optimized: Generic code optimizations have been carried out for improved performance.
