@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_DataVaultExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="910">Reabastecer bóias de navegação?</t>
+      <t id="911">Limite de reabastecimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="941">Colocar uma bóia de navegação em um cofre de dados</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="950">Não há estações disponíveis para reabastecer as bóias de navegação.</t>
+      <t id="951">Não há bóias de navegação suficientes disponíveis, e o reabastecimento de bóias está desativado.</t>
+      <t id="952">Não temos dinheiro suficiente para reabastecer as bóias de navegação.</t>
+      <t id="953">A criação do comando de reabastecimento falhou.</t>
+      <t id="954">Não encontramos nenhum cofre de dados que possamos alcançar ou que precisamos marcar.</t>
+      <t id="955">Todas as estações disponíveis atualmente não têm recursos suficientes para produzir bóias de navegação.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="961">Este script permite que sua nave coloque balizas de navegação ao lado de cofres de dados em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="991">Adicionar marcação de pedido?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="997">\033#B600CCCC#</t>
+      <t id="998">\033#FF00CC66#</t>
+      <t id="999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

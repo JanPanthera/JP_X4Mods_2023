@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Italian ~~ Italiano -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_DataVaultExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="910">Rifornire i beacon di navigazione?</t>
+      <t id="911">Limite di rifornimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="941">Posizionare un beacon di navigazione su una cassaforte dei dati</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="950">Non ci sono stazioni disponibili per rifornire i beacon di navigazione.</t>
+      <t id="951">Non ci sono abbastanza beacon di navigazione disponibili, e il rifornimento dei beacon è disattivato.</t>
+      <t id="952">Non abbiamo abbastanza soldi per rifornire i beacon di navigazione.</t>
+      <t id="953">La creazione dell'ordine di rifornimento è fallita.</t>
+      <t id="954">Non abbiamo trovato alcuna cassaforte di dati che possiamo raggiungere o che dobbiamo segnare.</t>
+      <t id="955">Tutte le stazioni disponibili non hanno al momento abbastanza risorse per produrre beacon di navigazione.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="961">Questo script permette alla tua nave di posizionare boe di navigazione accanto ai data vault in tutta la galassia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="991">Aggiungere l'etichetta dell'ordine?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="997">\033#B600CCCC#</t>
+      <t id="998">\033#FF00CC66#</t>
+      <t id="999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

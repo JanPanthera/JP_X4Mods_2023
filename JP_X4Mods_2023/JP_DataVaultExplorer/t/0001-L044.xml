@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English ~~ English-->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_DataVaultExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="910">Restock navigation beacons?</t>
+      <t id="911">Restock amount cap</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="941">Place a navigation beacon at a data vault</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="950">No stations are available to restock navigation beacons.</t>
+      <t id="951">There are no or not enough navigation beacons available, and restocking of navigation beacons is disabled.</t>
+      <t id="952">We don't have enough funds to restock navigation beacons.</t>
+      <t id="953">The creation of the restocking order has failed.</t>
+      <t id="954">We haven't found any data vaults that we can reach or need to mark.</t>
+      <t id="955">All available stations currently do not have enough resources to manufacture navigation beacons.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="961">This script allows your ship to place navigation beacons beside data vaults throughout the galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="991">Add order tag?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="997">\033#B600CCCC#</t>
+      <t id="998">\033#FF00CC66#</t>
+      <t id="999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

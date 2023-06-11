@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<icons>
+   <icon name="order_jp_datavaultexplorerg" texture="assets\fx\gui\textures\order\order_deployobjectatposition.tga" height="32" width="32"></icon>
+   <icon name="order_jp_lib_dve_markdatavault" texture="assets\fx\gui\textures\order\order_deployobjectatposition.tga" height="32" width="32"></icon>
+</icons>
