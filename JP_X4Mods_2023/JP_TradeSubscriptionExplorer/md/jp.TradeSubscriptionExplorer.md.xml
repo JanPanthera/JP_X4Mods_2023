@@ -42,7 +42,7 @@
 
          <cues>
 
-            <cue name="TSE_Debug_MD" instantiate="true" checkinterval="1s">
+            <cue name="TSE_Debug_MD" instantiate="false" checkinterval="1000ms">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
@@ -55,12 +55,6 @@
                   </do_if>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSEGetTradesubscriptionsToUpdateAlreadyProcessing %1'.[@global.$AEGetObjectsToUncoverAlreadyProcessing]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
 
                   <do_if value="$DEBUG gt 0">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
@@ -163,7 +157,7 @@
 
             <cue name="TSE_EventOrderStarted_MD" instantiate="true">
                <conditions>
-                  <event_object_order_ready group="global.$AE_ShipsGroup"/>
+                  <event_object_order_ready group="global.$TSE_ShipsGroup"/>
                   <check_any>
                      <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerS'"/>
                      <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerG'"/>
