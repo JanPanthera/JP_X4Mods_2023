@@ -15,6 +15,14 @@
    </order>
 
    <interrupts>
+      <handler comment="Stop moving when we have discovered the OBJECT">
+         <conditions>
+            <event_object_known_to_player object="$OBJECT"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="FINISH_MOVING_LBL"/>
+         </actions>
+      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -51,37 +59,49 @@
 
          <set_command command="command.explore"/>
 
+         <label name="MOVE_TO_SECTOR_LBL"/>
+         <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $OBJECT.sector">
-            <set_value name="$LOCATION" exact="[$OBJECT.sector, null]"/>
-            <set_command_action commandaction="commandaction.flyingto" param="$OBJECT.sector"/>
-            <run_script name="'move.generic'">
-               <param name="destination" value="$OBJECT.sector"/>
-               <param name="endintargetzone" value="true"/>
-               <param name="recallsubordinates" value="false"/>
-               <param name="changecommandaction" value="false"/>
-               <param name="debugchance" value="0"/>
-            </run_script>
-            <stop_moving object="$_Ship"/>
+            <remove_value name="$_PathComponents"/>
+            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+               <start object="$_Ship"/>
+               <end object="$OBJECT"/>
+            </get_jump_path>
+            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
+               <do_if value="$_PathComponent.sector == $_Ship.sector">
+                  <continue/>
+               </do_if>
+               <set_command_action commandaction="commandaction.flyingto" param="$_PathComponent.sector"/>
+               <set_value name="$LOCATION" exact="[$_PathComponent.sector, null]"/>
+               <run_script name="'move.generic'" result="$_MoveSuccess">
+                  <param name="destination" value="$_PathComponent"/>
+                  <param name="endintargetzone" value="true"/>
+                  <param name="recallsubordinates" value="false"/>
+                  <param name="changecommandaction" value="false"/>
+                  <param name="debugchance" value="0"/>
+               </run_script>
+               <resume label="MOVE_TO_SECTOR_LBL"/>
+            </do_for_each>
          </do_if>
 
-         <set_command_action commandaction="commandaction.flyingto" param="$OBJECT"/>
-         <get_safe_pos result="$_SafePos" sector="$OBJECT.sector" object="$OBJECT" radius="2km" max="4km" ignored="$_Ship" directionobject="$_Ship"/>
+         <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
+
+         <get_safe_pos result="$_SafePos" sector="$OBJECT.sector" object="$OBJECT" radius="8km" max="12km" ignored="$_Ship" directionobject="$_Ship"/>
          <set_value name="$LOCATION" exact="[$OBJECT.sector, $_SafePos]"/>
-         <move_to object="$_Ship" destination="$OBJECT.sector" uselocalhighways="$_Ship.canenterhighway" travel="true" commandaction="false">
-            <position space="$OBJECT.sector" value="$_SafePos"/>
-            <interrupt>
-               <conditions>
-                  <event_object_known_to_player object="$OBJECT"/>
-               </conditions>
-               <actions>
-                  <resume label="FINISH_MOVING_LBL"/>
-               </actions>
-            </interrupt>
-         </move_to>
+         <set_command_action commandaction="commandaction.flyingto" param="$OBJECT"/>
+         <run_script name="'move.generic'">
+            <param name="destination" value="$OBJECT.sector"/>
+            <param name="position" value="$_SafePos"/>
+            <param name="playerprecise" value="true"/>
+            <param name="recallsubordinates" value="false"/>
+            <param name="changecommandaction" value="false"/>
+            <param name="debugchance" value="0"/>
+         </run_script>
 
          <label name="FINISH_MOVING_LBL"/>
-         <wait exact="2000ms"/>
          <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_OBJECT_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_OBJECT_DISCOVERED'" role="entityrole.service"/>

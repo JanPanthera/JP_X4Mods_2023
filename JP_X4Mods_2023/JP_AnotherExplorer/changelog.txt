@@ -12,10 +12,10 @@ v1.0.1
 v1.0.1
 ~ Fixed: Description of the Sector version
 
-v1.0.2 -- Current Published version
+v1.0.2
 ~ Fixed: Addressed the issue where the script was incorrectly using the translation files from SatelliteDropper, causing a "ReadText" error.
 
-v1.0.3 -- Current Unpublished version
+v1.0.3 -- Current Published version
 ~ Added: A translation for IdleReturnHome.
 ~ Fixed: The "Find a Station?" option couldn't be saved.
 ~ Changed: Modified the sector sorting process from a mix of distance and jump count checks to the usage of estimate_travel_time.
@@ -23,3 +23,10 @@ v1.0.3 -- Current Unpublished version
 ~ Updated: Improved the Russian translation, thanks to alexalsp.
 ~ Optimized: The AnotherExplorer fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
 ~ Optimized: Generic code optimizations have been carried out for improved performance.
+
+v1.0.4 -- Current Development version
+~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
+~ Fixed: Resolved an issue where the ship was sometimes unable to reach a sector or would halt after a jump.
+~ Fixed: German translation of 'Werft' is now 'Raumdock'.
+~ Fixed: The internal blacklist was being cleared when the script was reloaded. This caused the ship to forget which sector it was working in. 
+         Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.

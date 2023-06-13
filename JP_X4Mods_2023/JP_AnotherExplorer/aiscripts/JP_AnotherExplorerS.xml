@@ -112,8 +112,6 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="global.$AE_SectorBlacklist.{$_Ship}" exact="null"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
          <set_value name="$_DebugScriptName" exact="'JP_AnotherExplorerS'"/>
@@ -141,15 +139,6 @@
                </do_if>
             </do_for_each>
          </do_else>
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AnotherExplorer_Settings'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_Setting" in="global.$AnotherExplorer_Settings" counter="$_it">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="global.$AnotherExplorer_Settings.{$_it}"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
          <remove_value name="$_SettingsList"/>
          <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 495}'"/>
       </do_if>

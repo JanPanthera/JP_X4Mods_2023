@@ -39,9 +39,10 @@
             </do_if>
 
          </actions>
+
          <cues>
 
-            <cue name="AE_Debug_MD" instantiate="true" checkinterval="1s">
+            <cue name="AE_Debug_MD" instantiate="false" checkinterval="1000ms">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
@@ -54,12 +55,6 @@
                   </do_if>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AEGetObjectsToUncoverAlreadyProcessing %1'.[@global.$AEGetObjectsToUncoverAlreadyProcessing]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
 
                   <do_if value="$DEBUG gt 0">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
