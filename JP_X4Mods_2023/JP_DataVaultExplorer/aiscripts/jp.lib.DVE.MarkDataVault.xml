@@ -7,7 +7,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DATA_VAULT" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
+         <param name="DEBUG" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
@@ -26,13 +26,15 @@
    </interrupts>
 
    <init>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
-      <set_value name="$_DebugScriptName" exact="'jp.lib.DVE.MarkDataVault'"/>
-      <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.DVE.MarkDataVault'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
@@ -49,29 +51,49 @@
 
          <set_command command="command.investigate"/>
 
+         <label name="MOVE_TO_SECTOR_LBL"/>
+         <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $DATA_VAULT.sector">
-            <set_value name="$LOCATION" exact="[$DATA_VAULT.sector, null]"/>
-            <set_command_action commandaction="commandaction.flyingto" param="$DATA_VAULT.sector"/>
-            <run_script name="'move.generic'">
-               <param name="destination" value="$DATA_VAULT.sector"/>
-               <param name="endintargetzone" value="true"/>
-               <param name="recallsubordinates" value="false"/>
-               <param name="changecommandaction" value="false"/>
-               <param name="debugchance" value="0"/>
-            </run_script>
-            <stop_moving object="$_Ship"/>
+            <remove_value name="$_PathComponents"/>
+            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+               <start object="$_Ship"/>
+               <end object="$DATA_VAULT"/>
+            </get_jump_path>
+            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
+               <do_if value="$_PathComponent.sector == $_Ship.sector">
+                  <continue/>
+               </do_if>
+               <set_command_action commandaction="commandaction.flyingto" param="$_PathComponent.sector"/>
+               <set_value name="$LOCATION" exact="[$_PathComponent.sector, null]"/>
+               <run_script name="'move.generic'" result="$_MoveSuccess">
+                  <param name="destination" value="$_PathComponent"/>
+                  <param name="endintargetzone" value="true"/>
+                  <param name="recallsubordinates" value="false"/>
+                  <param name="changecommandaction" value="false"/>
+                  <param name="debugchance" value="0"/>
+               </run_script>
+               <resume label="MOVE_TO_SECTOR_LBL"/>
+            </do_for_each>
          </do_if>
 
-         <set_command_action commandaction="commandaction.flyingto" param="$DATA_VAULT"/>
-         <get_safe_pos result="$_SafePos" sector="$DATA_VAULT.sector" object="$DATA_VAULT" radius="2km" max="4km" ignored="$_Ship" directionobject="$_Ship"/>
-         <set_value name="$LOCATION" exact="[$DATA_VAULT.sector, $_SafePos]"/>
-
-         <move_to object="$_Ship" destination="$DATA_VAULT.sector" forceposition="true" uselocalhighways="$_Ship.canenterhighway" travel="true" commandaction="false">
-            <position space="$DATA_VAULT.sector" value="$_SafePos"/>
-         </move_to>
-
-         <wait exact="2000ms"/>
          <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
+
+         <get_safe_pos result="$_SafePos" sector="$DATA_VAULT.sector" object="$DATA_VAULT" radius="1km" max="2km" ignored="$_Ship" directionobject="$_Ship"/>
+         <set_value name="$LOCATION" exact="[$DATA_VAULT.sector, $_SafePos]"/>
+         <set_command_action commandaction="commandaction.flyingto" param="$DATA_VAULT"/>
+         <run_script name="'move.generic'">
+            <param name="destination" value="$DATA_VAULT.sector"/>
+            <param name="position" value="$_SafePos"/>
+            <param name="playerprecise" value="true"/>
+            <param name="recallsubordinates" value="false"/>
+            <param name="changecommandaction" value="false"/>
+            <param name="debugchance" value="0"/>
+         </run_script>
+
+         <label name="FINISH_MOVING_LBL"/>
+         <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
 
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
          <set_object_velocity object="$_NavBeacon">

@@ -55,18 +55,18 @@
    </interrupts>
 
    <init>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_NavBeaconMacro" exact="ware.waypointmarker_01.objectmacro"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$DVE_ShipsGroup"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
          <set_value name="$_DebugScriptName" exact="'JP_DataVaultExplorerG'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
@@ -92,6 +92,9 @@
 
          <label name="RESUME_LBL"/>
          <wait exact="1ms"/>
+
+         <set_command command="command.scan"/>
+         <set_command_action commandaction="commandaction.calculating"/>
 
          <do_if value="$_Ship.ammostorage.{$_NavBeaconMacro}.count le 0">
             <set_value name="$_GoRestock" exact="true"/>

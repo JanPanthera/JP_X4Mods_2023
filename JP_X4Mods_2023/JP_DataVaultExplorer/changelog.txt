@@ -2,3 +2,7 @@
 
 v2.0.0 ~ Current version
 ~ Initial re-release
+
+v2.0.1 ~ Current development version
+~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
+~ Fixed: Resolved an issue where the ship was sometimes unable to reach a sector or would halt after a jump.
