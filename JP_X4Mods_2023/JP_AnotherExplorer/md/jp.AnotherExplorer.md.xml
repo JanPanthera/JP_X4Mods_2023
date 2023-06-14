@@ -42,7 +42,7 @@
 
          <cues>
 
-            <cue name="AE_Debug_MD" instantiate="false" checkinterval="1000ms">
+            <cue name="AE_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
@@ -100,6 +100,7 @@
                <conditions>
                   <check_any>
                      <check_value value="global.$AE_ShipsGroup?"/>
+                     <check_value value="global.$AE_SectorBlacklist?"/>
                      <check_value value="global.$AnotherExplorer_Settings?"/>
                   </check_any>
                </conditions>
@@ -137,6 +138,14 @@
                         <remove_value name="global.$AE_IdleShips.{$_Ship}"/>
                         <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
                         <remove_from_group group="global.$AE_ShipsGroup" object="$_Ship"/>
+                     </do_for_each>
+                  </do_if>
+
+                  <do_if  value="@global.$AE_SectorBlacklist != null">
+                     <do_for_each name="$_Ship" in="global.$AE_SectorBlacklist">
+                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
+                           <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
+                        </do_if>
                      </do_for_each>
                   </do_if>
 
