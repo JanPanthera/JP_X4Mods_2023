@@ -15,6 +15,14 @@
    </order>
 
    <interrupts>
+      <handler comment="Stop moving when we have updated the trade subscription of $STATION">
+         <conditions>
+            <event_object_entered_live_view object="$STATION"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="FINISH_MOVING_LBL"/>
+         </actions>
+      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -51,14 +59,22 @@
 
          <set_command command="command.investigate"/>
 
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
+
          <label name="MOVE_TO_SECTOR_LBL"/>
          <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $STATION.sector">
             <remove_value name="$_PathComponents"/>
-            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true" useblacklist="$blacklistgroup">
                <start object="$_Ship"/>
                <end object="$STATION"/>
             </get_jump_path>
+            <do_if value="$_PathComponents.count lt 2">
+               <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+                  <start object="$_Ship"/>
+                  <end object="$STATION"/>
+               </get_jump_path>
+            </do_if>
             <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
                <do_if value="$_PathComponent.sector == $_Ship.sector">
                   <continue/>
@@ -79,12 +95,12 @@
          <stop_moving object="$_Ship"/>
          <wait exact="1ms"/>
 
-         <get_safe_pos result="$_SafePos" sector="$STATION.sector" object="$STATION" radius="8km" max="12km" ignored="$_Ship" directionobject="$_Ship"/>
-         <set_value name="$LOCATION" exact="[$STATION.sector, $_SafePos]"/>
+         <create_position name="$_Position" space="$STATION.sector" object="$STATION" y="(($STATION.height / 2) + ($_Ship.height / 2) + 1km)"/>
+         <set_value name="$LOCATION" exact="[$STATION.sector, $_Position]"/>
          <set_command_action commandaction="commandaction.flyingto" param="$STATION"/>
          <run_script name="'move.generic'">
             <param name="destination" value="$STATION.sector"/>
-            <param name="position" value="$_SafePos"/>
+            <param name="position" value="$_Position"/>
             <param name="playerprecise" value="true"/>
             <param name="recallsubordinates" value="false"/>
             <param name="changecommandaction" value="false"/>

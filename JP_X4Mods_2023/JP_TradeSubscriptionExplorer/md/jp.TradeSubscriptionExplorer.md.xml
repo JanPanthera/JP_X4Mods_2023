@@ -100,6 +100,7 @@
                <conditions>
                   <check_any>
                      <check_value value="global.$TSE_ShipsGroup?"/>
+                     <check_value value="global.$TSE_SectorBlacklist?"/>
                      <check_value value="global.$TradeSubscriptionExplorer_Settings?"/>
                   </check_any>
                </conditions>
@@ -137,6 +138,14 @@
                         <remove_value name="global.$TSE_IdleShips.{$_Ship}"/>
                         <remove_value name="global.$TSE_SectorBlacklist.{$_Ship}"/>
                         <remove_from_group group="global.$TSE_ShipsGroup" object="$_Ship"/>
+                     </do_for_each>
+                  </do_if>
+
+                  <do_if value="@global.$TSE_SectorBlacklist != null">
+                     <do_for_each name="$_Ship" in="global.$TSE_SectorBlacklist">
+                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
+                           <remove_value name="global.$TSE_SectorBlacklist.{$_Ship}"/>
+                        </do_if>
                      </do_for_each>
                   </do_if>
 
