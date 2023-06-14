@@ -42,7 +42,7 @@
 
          <cues>
 
-            <cue name="TSE_Debug_MD" instantiate="false" checkinterval="1000ms">
+            <cue name="TSE_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
