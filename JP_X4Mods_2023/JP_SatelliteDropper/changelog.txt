@@ -8,11 +8,11 @@ v1.0.2
 ~ Updated: Enhanced the description of the mod in the extension menu.
 ~ Changed: I've relocated the section of the code that removes the OrderTag from the name to the cleanup section.
 
-v1.0.3 -- Current published version
+v1.0.3
 ~ Added: A check to ensure that only ships with the required skills can copy orders from their SatelliteDropper Commander.
 ~ Fixed: The SatelliteDropper Sector version wouldn't clear its order list if the parameters were changed.
 
-v1.0.4 -- Current Unpublished Version
+v1.0.4
 ~ Added: A translation for IdleReturnHome.
 ~ Added: Implemented a check to ascertain if a station possesses enough resources to construct all the required satellites. In case of a deficiency, a visual warning will be issued and a log entry will be made in the ship's log.
 ~ Fixed: Issue resolved where the "Find a Station?" option could not be saved.
@@ -21,3 +21,12 @@ v1.0.4 -- Current Unpublished Version
 ~ Changed: The SatelliteDropper will now switch to idle mode rather than cancelling the order if issues arise during satellite restocking. This could occur under several circumstances, such as the inability to locate a station, insufficient available resources, inadequate funds, or errors during vanilla order creation. This change is also applicable when automatic restocking is disabled and the SatelliteDropper exhausts its satellite supply.
 ~ Optimized: The SatelliteDropper fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
 ~ Optimized: Generic code optimizations have been carried out for improved performance.
+
+v1.0.5 -- Current Published version
+~ Added: Implemented a check to clear the internal blacklist of ships that have been destroyed.
+~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
+~ Fixed: Resolved an issue where the ship was sometimes unable to reach a sector or would halt after a jump.
+~ Fixed: German translation of 'Werft' is now 'Raumdock'.
+~ Fixed: The internal blacklist was being cleared when the script was reloaded. This caused the ship to forget which sector it was working in. 
+         Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.
+~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.

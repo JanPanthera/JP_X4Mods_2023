@@ -53,28 +53,57 @@
 
          <set_command command="command.investigate"/>
 
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
+
+         <label name="MOVE_TO_SECTOR_LBL"/>
+         <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $SECTOR">
-            <set_value name="$LOCATION" exact="[$SECTOR, null]"/>
-            <set_command_action commandaction="commandaction.flyingto" param="$SECTOR"/>
-            <run_script name="'move.generic'">
-               <param name="destination" value="$SECTOR"/>
-               <param name="endintargetzone" value="true"/>
-               <param name="recallsubordinates" value="false"/>
-               <param name="changecommandaction" value="false"/>
-               <param name="debugchance" value="0"/>
-            </run_script>
-            <stop_moving object="$_Ship"/>
+            <remove_value name="$_PathComponents"/>
+            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true" useblacklist="$blacklistgroup">
+               <start object="$_Ship"/>
+               <end object="$SECTOR"/>
+            </get_jump_path>
+            <do_if value="$_PathComponents.count lt 2">
+               <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+                  <start object="$_Ship"/>
+                  <end object="$SECTOR"/>
+               </get_jump_path>
+            </do_if>
+            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
+               <do_if value="$_PathComponent.sector == $_Ship.sector">
+                  <continue/>
+               </do_if>
+               <set_command_action commandaction="commandaction.flyingto" param="$_PathComponent.sector"/>
+               <set_value name="$LOCATION" exact="[$_PathComponent.sector, null]"/>
+               <run_script name="'move.generic'" result="$_MoveSuccess">
+                  <param name="destination" value="$_PathComponent"/>
+                  <param name="endintargetzone" value="true"/>
+                  <param name="recallsubordinates" value="false"/>
+                  <param name="changecommandaction" value="false"/>
+                  <param name="debugchance" value="0"/>
+               </run_script>
+               <resume label="MOVE_TO_SECTOR_LBL"/>
+            </do_for_each>
          </do_if>
 
-         <set_command_action commandaction="commandaction.flyingto" param="$POSITION"/>
-         <set_value name="$LOCATION" exact="[$SECTOR, $POSITION]"/>
-
-         <move_to object="$_Ship" destination="$SECTOR" uselocalhighways="$_Ship.canenterhighway" travel="true" commandaction="false">
-            <position space="$SECTOR" value="$POSITION"/>
-         </move_to>
-
-         <wait exact="2000ms"/>
          <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
+
+         <create_position name="$_Position" space="$SECTOR" value="$POSITION"/>
+         <set_value name="$LOCATION" exact="[$SECTOR, $_Position]"/>
+         <set_command_action commandaction="commandaction.flyingto" param="$SECTOR"/>
+         <run_script name="'move.generic'">
+            <param name="destination" value="$SECTOR"/>
+            <param name="position" value="$_Position"/>
+            <param name="playerprecise" value="true"/>
+            <param name="recallsubordinates" value="false"/>
+            <param name="changecommandaction" value="false"/>
+            <param name="debugchance" value="0"/>
+         </run_script>
+
+         <label name="FINISH_MOVING_LBL"/>
+         <stop_moving object="$_Ship" immediate="true"/>
+         <wait exact="1000ms"/>
 
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
          <set_object_velocity object="$_Satellite">
