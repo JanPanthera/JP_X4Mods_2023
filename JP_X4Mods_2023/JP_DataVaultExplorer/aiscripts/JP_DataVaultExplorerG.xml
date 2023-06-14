@@ -10,10 +10,13 @@
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="RESTOCK_NAV_BEACONS" text="{8888888, 910}" comment="Restock navigation beacons?" type="bool" default="true"/>
-         <param name="RESTOCK_AMOUNT_CAP" text="- {8888888, 911}" comment="Restock amount cap" type="number" default="10">
+         <param name="RESTOCK_AMOUNT_CAP" text="{8888888, 911}" comment="Restock amount cap" type="number" default="10">
             <input_param name="min" value="2"/>
             <input_param name="max" value="(if this.ship.ammostorage.deployable.capacity gt 0 then this.ship.ammostorage.deployable.capacity else 0)"/>
             <input_param name="step" value="2"/>
+         </param>
+         <param name="HOME_POSITION" text="{8888888, 912}" comment="Home Position" type="position" default="[this.ship.sector, this.ship.sector.coreposition]">
+            <input_param name="class" value="class.sector"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_997" text="----------------------------------" type="object" default="null">
@@ -112,7 +115,10 @@
                <param name="DEBUG" value="$DEBUG"/>
                <save_retval name="RESULT" variable="$_Result"/>
             </run_script>
-            <do_if value="$_Result == 'Idle'">
+            <do_if value="$_Result == 'Idle '">
+               <create_order object="$_Ship" id="'MoveWait'" default="true">
+                  <param name="destination" value="$HOME_POSITION"/>
+               </create_order>
                <resume label="FINISH_LBL"/>
             </do_if>
          </do_if>
@@ -126,6 +132,9 @@
          <!-- We have not found any data vaults that we can reach or need to mark. -->
          <do_if value="$_FoundDataVaults.count le 0">
             <show_help duration="5s" allowclose="true" log="true" custom="'JP_DataVaultExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 954}'"/>
+            <create_order object="$_Ship" id="'MoveWait'" default="true">
+               <param name="destination" value="$HOME_POSITION"/>
+            </create_order>
             <resume label="FINISH_LBL"/>
          </do_if>
 

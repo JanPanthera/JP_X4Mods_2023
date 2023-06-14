@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_DataVaultExplorer" name="JP_DataVaultExplorer" description="Will mark all datavaults with navigation beacons." author="JanPanthera" version="201" date="2023-06-13" save="0" enabled="1">
+<content id="JP_DataVaultExplorer" name="JP_DataVaultExplorer" description="Will mark all datavaults with navigation beacons." author="JanPanthera" version="201" date="2023-06-14" save="0" enabled="1">
    <text language="7"  name="JP_DataVaultExplorer" description="Пометит все дата-хранилища навигационными маяками." author="JanPanthera"/>
    <text language="33" name="JP_DataVaultExplorer" description="Marquera toutes les chambres fortes de données avec des balises de navigation." author="JanPanthera"/>
    <text language="34" name="JP_DataVaultExplorer" description="Marcará todas las bóvedas de datos con balizas de navegación." author="JanPanthera"/>

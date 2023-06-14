@@ -35,10 +35,7 @@
          </actions>
          <cues>
 
-            <cue name="DVE_Debug_MD" instantiate="true" checkinterval="1s">
-               <conditions>
-                  <check_value value="global.$DVE_ShipsGroup?"/>
-               </conditions>
+            <cue name="DVE_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
