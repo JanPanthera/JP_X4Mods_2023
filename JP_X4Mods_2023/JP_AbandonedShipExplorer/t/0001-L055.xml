@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">Modo ASE</t>
+      <t id="101">Reabastecer balizas de navegação?</t>
+      <t id="102">Limite de reabastecimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Nave abandonada</t>
+      <t id="121">Cheguei na nave abandonada:</t>
+      <t id="122">Espero por você até que tenha assumido o controle da nave abandonada.</t>
+      <t id="123">Espero por você até que tenha assumido o controle da nave abandonada e esteja de volta a bordo da minha.</t>
+      <t id="124">Marquei a nave abandonada e continuo com a próxima.</t>
+      <t id="125">Enviei um fuzileiro naval para a nave abandonada e estou esperando até que ele tenha assumido o controle dela.</t>
+      <t id="126">Para garantir a segurança, nossa nave recém-reivindicada agora voará para uma estação para atracar.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Mover para a nave abandonada</t>
+      <t id="141">Marcar nave abandonada</t>
+      <t id="142">Abordar nave abandonada</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">Não há balizas de navegação suficientes disponíveis, e o reabastecimento automático de balizas de navegação está desativado.</t>
+      <t id="151">Não há fuzileiros navais disponíveis para o embarque automático de naves.</t>
+      <t id="152">Não encontramos nenhuma nave abandonada que possamos alcançar ou que precise ser marcada ou reivindicada.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="161">Este script permite que sua nave espacial encontre, marque ou embarque em naves abandonadas em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

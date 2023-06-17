@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spanish ~~ Español -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">Modo ASE</t>
+      <t id="101">¿Reponer balizas de navegación?</t>
+      <t id="102">Límite de reposición</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Nave abandonada</t>
+      <t id="121">He llegado a la nave abandonada:</t>
+      <t id="122">Te espero hasta que hayas tomado el control de la nave abandonada.</t>
+      <t id="123">Te espero hasta que hayas tomado el control de la nave abandonada y estés de vuelta a bordo de la mía.</t>
+      <t id="124">He marcado la nave abandonada y continuo con la siguiente.</t>
+      <t id="125">He enviado un marine a la nave abandonada y estoy esperando hasta que él haya tomado el control de ella.</t>
+      <t id="126">Para garantizar la seguridad, nuestra nave recién reclamada volará ahora a una estación para atracar.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Ir a la nave abandonada</t>
+      <t id="141">Marcar la nave abandonada</t>
+      <t id="142">Abordar la nave abandonada</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">No hay suficientes balizas de navegación disponibles, y la reposición automática de balizas de navegación está deshabilitada.</t>
+      <t id="151">No hay marines disponibles para el abordaje automático de naves.</t>
+      <t id="152">No hemos encontrado ninguna nave abandonada que podamos alcanzar o que necesite ser marcada o reclamada.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="161">Este script permite que tu nave espacial encuentre, marque o aborde naves abandonadas en toda la galaxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

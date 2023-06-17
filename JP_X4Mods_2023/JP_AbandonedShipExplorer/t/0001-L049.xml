@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- German ~~ Deutsch -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">ASE-Modus</t>
+      <t id="101">Navigationsbaken nachfüllen?</t>
+      <t id="102">Nachfüllmengenbegrenzung</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Verlassenes Schiff</t>
+      <t id="121">Ich bin am verlassenen Schiff angekommen:</t>
+      <t id="122">Ich warte auf Sie, bis Sie die Kontrolle über das verlassene Schiff übernommen haben.</t>
+      <t id="123">Ich warte auf Sie, bis Sie die Kontrolle über das verlassene Schiff übernommen haben und wieder an Bord meines Schiffs sind.</t>
+      <t id="124">Ich habe das verlassene Schiff markiert und mache mit dem nächsten weiter.</t>
+      <t id="125">Ich habe einen Marine zum verlassenen Schiff geschickt und warte, bis er die Kontrolle darüber übernommen hat.</t>
+      <t id="126">Um die Sicherheit zu gewährleisten, wird unser neu beanspruchtes Schiff nun zu einer Station fliegen, um anzudocken.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Zum verlassenen Schiff bewegen</t>
+      <t id="141">Verlassenes Schiff markieren</t>
+      <t id="142">Verlassenes Schiff übernehmen</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">Es sind keine oder nicht genug Navigationsbaken verfügbar und das automatische Nachfüllen von Navigationsbaken ist deaktiviert.</t>
+      <t id="151">Es sind keine Marines für das automatische Entern von Schiffen verfügbar.</t>
+      <t id="152">Aktuell gibt es keine verlassenen Schiffe mehr, die wir erreichen können oder die markiert oder beansprucht werden müssen.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="161">Dieses Skript ermöglicht es Ihrem Raumschiff, verlassene Schiffe in der gesamten Galaxie zu finden, zu markieren oder zu übernehmen.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

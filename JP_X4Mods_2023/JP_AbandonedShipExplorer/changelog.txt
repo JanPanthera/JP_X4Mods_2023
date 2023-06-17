@@ -1,0 +1,4 @@
+#AbandonedShipExplorer
+
+v2.0.0 ~ Current release version
+~ Initial re-release

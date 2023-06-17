@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English ~~ English-->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">ASE Mode</t>
+      <t id="101">Restock navigation beacons?</t>
+      <t id="102">Restock amount cap</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Abandoned Ship</t>
+      <t id="121">I arrived at the abandoned ship:</t>
+      <t id="122">I wait for you until you have taken control of the abandoned ship.</t>
+      <t id="123">I wait for you until you have taken control of the abandoned ship and your are back on board of mine.</t>
+      <t id="124">I have marked the abandoned ship and continue with the next one.</t>
+      <t id="125">I have sent a marine to the abandoned ship and am waiting until he has taken control of it.</t>
+      <t id="126">To ensure safety, our newly claimed ship will now fly to a station to dock.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Move to abandoned ship</t>
+      <t id="141">Mark abandoned ship</t>
+      <t id="142">Board abandoned ship</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
+      <t id="151">No marines are available for automatic ship boarding.</t>
+      <t id="152">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="161">This script enables your spaceship to find, mark, or board abandoned ships across the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

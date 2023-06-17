@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.ASE.GetAbandonedShipsToMark" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="DEBUG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <interrupts>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <create_list name="$_FoundAbandonedShips"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.ASE.GetAbandonedShipsToMark'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.scan"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
+
+         <find_ship name="$_FoundAbandonedShips" space="player.galaxy" multiple="true">
+            <match owner="faction.ownerless"/>
+            <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+         </find_ship>
+
+         <!-- Workaround to get blacklists running for abandoned ships -->
+         <do_for_each name="$_FoundAbandonedShip" in="$_FoundAbandonedShips" reverse="true">
+            <do_if value="$_FoundAbandonedShip.sector.isblacklisted.{blacklisttype.sectortravel}.{$blacklistgroup}.{$_Ship}">
+               <remove_from_list name="$_FoundAbandonedShips" exact="$_FoundAbandonedShip"/>
+            </do_if>
+         </do_for_each>
+
+         <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+            <param name="LIST" value="$_FoundAbandonedShips"/>
+            <save_retval name="_SortedList" variable="$_FoundAbandonedShips"/>
+         </run_script>
+
+         <do_for_each name="$_FoundAbandonedShip" in="$_FoundAbandonedShips" reverse="true">
+            <set_value name="$_NavBeacon" exact="null"/>
+            <find_object name="$_NavBeacon" space="$_FoundAbandonedShip.sector" multiple="false">
+               <match class="class.navbeacon"/>
+               <match owner="$_Ship.owner"/>
+               <match_distance object="$_FoundAbandonedShip" space="$_FoundAbandonedShip.sector" max="10km"/>
+            </find_object>
+            <do_if value="@$_NavBeacon != null">
+               <remove_from_list name="$_FoundAbandonedShips" exact="$_FoundAbandonedShip"/>
+            </do_if>
+         </do_for_each>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return>
+            <retval name="_FoundAbandonedShips" value="$_FoundAbandonedShips"/>
+         </return>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

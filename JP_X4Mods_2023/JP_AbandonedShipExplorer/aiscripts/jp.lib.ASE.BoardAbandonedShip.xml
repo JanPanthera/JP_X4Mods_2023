@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.ASE.BoardAbandonedShip" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <order id="JP_lib_ASE_BoardAbandonedShip" name="{8888888, 142}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="ABANDONED_SHIP" type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
+      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
+   </order>
+
+   <interrupts>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.ASE.BoardAbandonedShip'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.investigate"/>
+
+         <do_if value="$_Ship.sector != $ABANDONED_SHIP.sector">
+            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+               <param name="SECTOR" value="$ABANDONED_SHIP.sector"/>
+               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+               <param name="DEBUG" value="$DEBUG"/>
+            </create_order>
+         </do_if>
+
+         <stop_moving object="$_Ship"/>
+         <wait exact="1ms"/>
+
+         <create_position name="$_Position" space="$ABANDONED_SHIP.sector" object="$ABANDONED_SHIP" y="(($ABANDONED_SHIP.height / 2) + ($_Ship.height / 2) + 10m)"/>
+         <set_value name="$LOCATION" exact="[$ABANDONED_SHIP.sector, $_Position]"/>
+         <set_command_action commandaction="commandaction.flyingto" param="$ABANDONED_SHIP"/>
+         <run_script name="'move.generic'">
+            <param name="destination" value="$ABANDONED_SHIP.sector"/>
+            <param name="position" value="$_Position"/>
+            <param name="precise" value="true"/>
+            <param name="recallsubordinates" value="false"/>
+            <param name="changecommandaction" value="false"/>
+            <param name="debugchance" value="0"/>
+         </run_script>
+
+         <label name="FINISH_MOVING_LBL"/>
+         <stop_moving object="$_Ship" immediate="true"/>
+         <wait exact="1000ms"/>
+
+         <set_command_action commandaction="commandaction.standingby"/>
+
+         <do_if value="$_Ship.people.{entityrole.marine}.list.count gt 0">
+            <set_value name="$_MarineTemplate" exact="$_Ship.people.{entityrole.marine}.list.random"/>
+            <find_npc_waypoint name="$_Slot" object="$_Ship" tags="tag.npctransport"/>
+            <create_npc_from_template name="$_Marine" object="$_Ship" slot="$_Slot" template="$_MarineTemplate" owner="$_Ship.trueowner"/>
+            <remove_npc_template object="$_Ship" template="$_MarineTemplate"/>
+            <create_ship name="$_BoardingPod" macro="ship_gen_xs_boardingpod_01_a_macro" zone="$_Ship.zone">
+               <owner exact="$_Ship.trueowner" overridenpc="true"/>
+               <safepos object="$_Ship" z="-1m" allowyaxis="true"/>
+            </create_ship>
+            <assign_control_entity actor="$_Marine" object="$_BoardingPod" post="controlpost.aipilot" transfer="true" init="true"/>
+            <start_script name="'move.claim'" object="$_Marine">
+               <param name="target" value="$ABANDONED_SHIP"/>
+               <param name="oldrole" value="entityrole.marine"/>
+               <param name="recycle" value="false"/>
+               <param name="debugchance" value="0"/>
+            </start_script>
+            <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
+                               {8888888, 121} + '\n' +
+                               $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
+                               {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                               {8888888, 125}"
+                       force="true" position="1" allowclose="true"/>
+            <wait exact="999h">
+               <interrupt>
+                  <conditions>
+                     <event_object_changed_owner object="$ABANDONED_SHIP" owner="$_Ship.owner"/>
+                  </conditions>
+               </interrupt>
+            </wait>
+            <wait exact="5000ms"/>
+            <create_list name="$_FoundStations"/>
+            <find_station name="$_FoundStations" sortbydistanceto="$_Ship" space="player.galaxy" multiple="true">
+               <match knownto="$_Ship.owner"/>
+               <match checkoperational="true"/>
+               <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
+            </find_station>
+            <do_if value="$_FoundStations.count gt 0">
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                  <param name="LIST" value="$_FoundStations"/>
+                  <save_retval name="_SortedList" variable="$_FoundStations"/>
+               </run_script>
+               <do_for_each name="$_FoundStation" in="$_FoundStations">
+                  <do_if value="$_FoundStation.dockingallowed.{$ABANDONED_SHIP}">
+                     <create_order id="'DockAndWait'" object="$ABANDONED_SHIP">
+                        <param name="destination" value="$_FoundStation"/>
+                     </create_order>
+                     <break/>
+                  </do_if>
+               </do_for_each>
+            </do_if>
+            <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
+                               {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                               {8888888, 126}"
+                       force="true" position="1" allowclose="true"/>
+         </do_if>
+
+         <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>
+         <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>
+
+         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

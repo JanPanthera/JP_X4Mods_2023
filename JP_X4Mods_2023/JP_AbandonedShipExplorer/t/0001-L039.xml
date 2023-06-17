@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Italian ~~ Italiano -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">Modalità ASE</t>
+      <t id="101">Rifornire i beacon di navigazione?</t>
+      <t id="102">Limite di rifornimento</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Nave abbandonata</t>
+      <t id="121">Sono arrivato alla nave abbandonata:</t>
+      <t id="122">Ti aspetto finché non hai preso il controllo della nave abbandonata.</t>
+      <t id="123">Ti aspetto finché non hai preso il controllo della nave abbandonata e sei tornato a bordo della mia.</t>
+      <t id="124">Ho segnato la nave abbandonata e continuo con la prossima.</t>
+      <t id="125">Ho mandato un marine alla nave abbandonata e sto aspettando che ne prenda il controllo.</t>
+      <t id="126">Per garantire la sicurezza, la nostra nave appena reclamata volerà ora verso una stazione per attraccare.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Muoviti verso la nave abbandonata</t>
+      <t id="141">Segna la nave abbandonata</t>
+      <t id="142">Salire a bordo della nave abbandonata</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">Non ci sono abbastanza boe di navigazione disponibili, e il rifornimento automatico delle boe di navigazione è disabilitato.</t>
+      <t id="151">Non ci sono marines disponibili per l'imbarco automatico della nave.</t>
+      <t id="152">Non abbiamo trovato nessuna nave abbandonata che possiamo raggiungere o che deve essere segnata o reclamata.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="161">Questo script consente alla tua astronave di trovare, segnare o salire a bordo di navi abbandonate in tutta la galassia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
