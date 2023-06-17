@@ -1,0 +1,4 @@
+#JP_ScriptLibrary
+
+v1.0.0 ~ Current release version
+~ Initial release

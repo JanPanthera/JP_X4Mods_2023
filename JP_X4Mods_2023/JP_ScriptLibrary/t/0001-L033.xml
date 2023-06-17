@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- French ~~ Français -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Au repos</t>
+      <t id="41">Déplacer vers le Secteur</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Échec du réapprovisionnement\033X</t>
+      <t id="51">Il n'y a pas de stations disponibles pour réapprovisionner les articles nécessaires.</t>
+      <t id="52">Toutes les stations disponibles manquent actuellement des ressources nécessaires pour produire les articles requis.</t>
+      <t id="53">Nous n'avons pas suffisamment de fonds pour réapprovisionner les articles nécessaires.</t>
+      <t id="54">La création de la commande de réapprovisionnement a échoué.</t>
+      <t id="55">La commande de réapprovisionnement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Temps d'inactivité</t>
+      <t id="81">Inactif: Déplacer vers?</t>
+      <t id="82">Où déplacer?</t>
+      <t id="83">Inactif: Suivre?</t>
+      <t id="84">Qui suivre?</t>
+      <t id="85">Inactif: Accostage?</t>
+      <t id="86">Trouver une station?</t>
+      <t id="87">Où accoster?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Ajouter une balise de commande?</t>
+      <t id="93">Sauvegarder les paramètres de commande?</t>
+      <t id="94">Réinitialiser les paramètres de commande?</t>
+      <t id="95">Paramètres de commande sauvegardés.</t>
+      <t id="96">Paramètres de commande réinitialisés.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

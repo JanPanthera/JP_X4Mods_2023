@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- German ~~ Deutsch -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Leerlauf</t>
+      <t id="41">Zum Sektor bewegen</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Fehler bei Nachfüllung\033X</t>
+      <t id="51">Es sind keine Stationen verfügbar, um die erforderlichen Gegenstände nachzufüllen.</t>
+      <t id="52">Alle verfügbaren Stationen haben derzeit nicht die notwendigen Ressourcen, um die erforderlichen Gegenstände zu produzieren.</t>
+      <t id="53">Wir haben nicht genügend Geldmittel, um die erforderlichen Gegenstände nachzufüllen.</t>
+      <t id="54">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
+      <t id="55">Der Nachfüllbefehl ist fehlgeschlagen. Weitere Details finden Sie im Logbuch.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Leerlaufzeit</t>
+      <t id="81">Leerlauf: Bewegen zu?</t>
+      <t id="82">Wohin bewegen?</t>
+      <t id="83">Leerlauf: Folgen?</t>
+      <t id="84">Wem folgen?</t>
+      <t id="85">Leerlauf: Andocken?</t>
+      <t id="86">Eine Station finden?</t>
+      <t id="87">Wohin andocken?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Auftragskennzeichen hinzufügen?</t>
+      <t id="93">Auftragseinstellungen speichern?</t>
+      <t id="94">Auftragseinstellungen zurücksetzen?</t>
+      <t id="95">Auftragseinstellungen gespeichert.</t>
+      <t id="96">Auftragseinstellungen zurückgesetzt.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

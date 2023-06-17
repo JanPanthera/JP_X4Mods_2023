@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<mdscript name="JP_ScriptLibrary_MD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+   <cues>
+
+      <cue name="SL_Setup_MD" instantiate="true">
+         <conditions>
+            <check_any>
+               <event_game_started/>
+               <event_game_loaded/>
+            </check_any>
+         </conditions>
+         <actions>
+
+            <set_value name="$DEBUG" exact="0"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_ScriptLibrary.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'SL_Setup_MD'"/>
+               <set_value name="$_DebugFileName" exact="'sl.Setup.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <!-- [ [$_Ship, $_IdleStartTime] ] -->
+            <set_value name="global.$SL_IdleShips" exact="table[]" chance="(if not global.$SL_IdleShips? then 100 else 0)"/>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+         <cues>
+
+            <cue name="SL_Debug_MD" instantiate="false" checkinterval="1s" >
+               <actions>
+
+                  <set_value name="$DEBUG" exact="0"/>
+                  <do_if value="$DEBUG gt 0">
+                     <set_value name="$_DebugFolderName" exact="'JP_ScriptLibrary.logs'"/>
+                     <set_value name="$_DebugScriptName" exact="'SL_Debug_MD'"/>
+                     <set_value name="$_DebugFileName" exact="'sl.Debug.md.xml.log'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0 and global.$SL_IdleShips?">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SL_IdleShips.keys.count %1'.[global.$SL_IdleShips.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship"  valuename="$_IdleStartTime" in="global.$SL_IdleShips" chance="if @global.$SL_IdleShips then 100 else 0">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, $_IdleStartTime]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+               </actions>
+            </cue>
+
+            <cue name="SL_ManageIdleReturnHome_MD" instantiate="true" checkinterval="1s">
+               <conditions>
+                  <check_value value="global.$SL_IdleShips?"/>
+               </conditions>
+               <actions>
+
+                  <set_value name="$DEBUG" exact="0"/>
+                  <do_if value="$DEBUG gt 0">
+                     <set_value name="$_DebugFolderName" exact="'JP_ScriptLibrary.logs'"/>
+                     <set_value name="$_DebugScriptName" exact="'SL_ManageIdleReturnHome_MD'"/>
+                     <set_value name="$_DebugFileName" exact="'sl.ManageIdleReturnHome.md.xml.log'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="@global.$SL_IdleShips.keys.count gt 0">
+                     <do_for_each name="$_Ship" valuename="$_IdleStartTime" in="global.$SL_IdleShips" reverse="true">
+                        <set_value name="$_IdleOrderPresent" exact="false"/>
+                        <do_for_each name="$_Order" in="$_Ship.orders">
+                           <do_if value="$_Order.id == 'JP_lib_IdleReturnHome'">
+                              <set_value name="$_IdleOrderPresent" exact="true"/>
+                              <break/>
+                           </do_if>
+                        </do_for_each>
+                        <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
+                        <do_if value="(not $_IdleOrderPresent and (player.age - $_IdleStartTime) gt 5) or
+                                ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_IdleTime))">
+                           <cancel_all_orders object="$_Ship"/>
+                           <remove_value name="global.$SL_IdleShips.{$_Ship}"/>
+                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                           </substitute_text>
+                           <set_object_name object="$_Ship" name="$_ResultName"/>
+                        </do_if>
+                     </do_for_each>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+               </actions>
+            </cue>
+
+         </cues>
+
+      </cue>
+
+   </cues>
+</mdscript>

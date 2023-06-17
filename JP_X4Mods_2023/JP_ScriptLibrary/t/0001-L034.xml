@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spanish ~~ Español -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Inactivo</t>
+      <t id="41">Moverse al Sector</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Fallo en la reposición\033X</t>
+      <t id="51">No hay estaciones disponibles para reponer los artículos necesarios.</t>
+      <t id="52">Todas las estaciones disponibles actualmente carecen de los recursos necesarios para producir los artículos requeridos.</t>
+      <t id="53">No tenemos fondos suficientes para reponer los artículos necesarios.</t>
+      <t id="54">La creación del comando de reposición ha fallado.</t>
+      <t id="55">El pedido de reposición ha fallado. Más detalles están disponibles en el libro de registro.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Tiempo de inactividad</t>
+      <t id="81">Inactivo: ¿Mover a?</t>
+      <t id="82">¿A dónde mover?</t>
+      <t id="83">Inactivo: ¿Seguir a?</t>
+      <t id="84">¿A quién seguir?</t>
+      <t id="85">Inactivo: ¿Acoplamiento?</t>
+      <t id="86">¿Encontrar una Estación?</t>
+      <t id="87">¿Dónde acoplar?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">¿Agregar etiqueta de orden?</t>
+      <t id="93">¿Guardar configuraciones de orden?</t>
+      <t id="94">¿Restablecer configuraciones de orden?</t>
+      <t id="95">Configuraciones de orden guardadas.</t>
+      <t id="96">Configuraciones de orden restablecidas.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

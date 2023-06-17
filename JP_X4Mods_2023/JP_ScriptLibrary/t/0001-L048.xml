@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Polish ~~ Polski -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Bezczynny</t>
+      <t id="41">Przenieś do Sektora</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Błąd uzupełniania\033X</t>
+      <t id="51">Nie ma dostępnych stacji do uzupełnienia wymaganych przedmiotów.</t>
+      <t id="52">Wszystkie dostępne stacje obecnie nie mają wystarczających zasobów do produkcji wymaganych przedmiotów.</t>
+      <t id="53">Nie mamy wystarczających funduszy na uzupełnienie wymaganych przedmiotów.</t>
+      <t id="54">Tworzenie polecenia uzupełnienia nie powiodło się.</t>
+      <t id="55">Zamówienie uzupełnienia zapasów nie powiodło się. Więcej szczegółów znajduje się w dzienniku.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Czas bezczynności</t>
+      <t id="81">Bezczynność: Przenieść do?</t>
+      <t id="82">Gdzie przenieść?</t>
+      <t id="83">Bezczynność: Podążać za?</t>
+      <t id="84">Za kim podążać?</t>
+      <t id="85">Bezczynność: Dokowanie?</t>
+      <t id="86">Znaleźć stację?</t>
+      <t id="87">Gdzie dokować?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Dodać tag zamówienia?</t>
+      <t id="93">Zapisać ustawienia zamówienia?</t>
+      <t id="94">Zresetować ustawienia zamówienia?</t>
+      <t id="95">Ustawienia zamówienia zapisane.</t>
+      <t id="96">Ustawienia zamówienia zresetowane.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

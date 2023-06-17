@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Italian ~~ Italiano -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Inattivo</t>
+      <t id="41">Spostarsi nel Settore</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Errore di rifornimento\033X</t>
+      <t id="51">Non ci sono stazioni disponibili per il rifornimento degli articoli richiesti.</t>
+      <t id="52">Tutte le stazioni disponibili attualmente mancano delle risorse necessarie per produrre gli articoli richiesti.</t>
+      <t id="53">Non abbiamo fondi sufficienti per rifornire gli articoli richiesti.</t>
+      <t id="54">La creazione del comando di rifornimento è fallita.</t>
+      <t id="55">L'ordine di riassortimento non è riuscito. Altri dettagli sono disponibili nel registro.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Tempo di inattività</t>
+      <t id="81">Inattivo: Spostarsi a?</t>
+      <t id="82">Dove spostarsi?</t>
+      <t id="83">Inattivo: Seguire?</t>
+      <t id="84">Chi seguire?</t>
+      <t id="85">Inattivo: Attraccare?</t>
+      <t id="86">Trovare una Stazione?</t>
+      <t id="87">Dove attraccare?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Aggiungere tag d'ordine?</t>
+      <t id="93">Salvare le impostazioni dell'ordine?</t>
+      <t id="94">Reset delle impostazioni dell'ordine?</t>
+      <t id="95">Impostazioni dell'ordine salvate.</t>
+      <t id="96">Impostazioni dell'ordine ripristinate.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

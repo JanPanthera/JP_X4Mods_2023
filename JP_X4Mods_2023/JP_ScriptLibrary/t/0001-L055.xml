@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Ocioso</t>
+      <t id="41">Mover para o Setor</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">\033#FFe27100#Falha na reposição\033X</t>
+      <t id="51">Não há estações disponíveis para reabastecer os itens necessários.</t>
+      <t id="52">Todas as estações disponíveis atualmente não têm os recursos necessários para produzir os itens necessários.</t>
+      <t id="53">Não temos fundos suficientes para reabastecer os itens necessários.</t>
+      <t id="54">A criação do comando de reabastecimento falhou.</t>
+      <t id="55">A ordem de reabastecimento falhou. Mais detalhes estão disponíveis no livro de registro.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Tempo ocioso</t>
+      <t id="81">Ocioso: Mover para?</t>
+      <t id="82">Para onde mover?</t>
+      <t id="83">Ocioso: Seguir?</t>
+      <t id="84">Quem seguir?</t>
+      <t id="85">Ocioso: Atracar?</t>
+      <t id="86">Encontrar uma estação?</t>
+      <t id="87">Onde atracar?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Adicionar tag de ordem?</t>
+      <t id="93">Salvar configurações de ordem?</t>
+      <t id="94">Redefinir configurações de ordem?</t>
+      <t id="95">Configurações de ordem salvas.</t>
+      <t id="96">Configurações de ordem redefinidas.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
