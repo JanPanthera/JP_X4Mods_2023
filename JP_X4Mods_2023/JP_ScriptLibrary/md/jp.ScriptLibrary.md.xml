@@ -96,7 +96,12 @@
                               <break/>
                            </do_if>
                         </do_for_each>
-                        <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
+                        <do_if value="$_Ship.defaultorder.id == 'Assist'">
+                           <set_value name="$_IdleTime" exact="@$_Ship.commander.defaultorder.$IDLE_TIME"/>
+                        </do_if>
+                        <do_else>
+                           <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
+                        </do_else>
                         <do_if value="(not $_IdleOrderPresent and (player.age - $_IdleStartTime) gt 5) or
                                 ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_IdleTime))">
                            <cancel_all_orders object="$_Ship"/>
