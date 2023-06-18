@@ -97,7 +97,7 @@
          <create_list name="$_FoundStations"/>
          <run_script name="'jp.lib.RestockEquipment'">
             <param name="EQUIPMENT_TABLE" value="$_PlaceablesToSell"/>
-            <param name="DEBUG_FOLDER_NAME" value="$_DebugFolderName"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
             <param name="DEBUG" value="$DEBUG"/>
             <save_retval name="_Result" variable="$_Result"/>
          </run_script>

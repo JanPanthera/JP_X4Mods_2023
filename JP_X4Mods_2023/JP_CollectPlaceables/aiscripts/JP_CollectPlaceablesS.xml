@@ -280,7 +280,7 @@
             <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
-            <param name="_DebugFolderName" value="@$_DebugFolderName"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
             <param name="DEBUG" value="$DEBUG"/>
          </create_order>
 

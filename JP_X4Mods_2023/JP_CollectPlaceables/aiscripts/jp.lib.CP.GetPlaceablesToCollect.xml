@@ -80,7 +80,7 @@
             <do_if value="$_Sectors.count gt 1">
                <run_script name="'jp.lib.SortByEstimatedTravelTime'">
                   <param name="LIST" value="$_Sectors"/>
-                  <param name="_DebugFolderName" value="@$_DebugFolderName"/>
+                  <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
                   <param name="DEBUG" value="$DEBUG"/>
                   <save_retval name="_SortedList" variable="$_Sectors"/>
                </run_script>
@@ -175,7 +175,7 @@
                <do_if value="$_FoundPlaceables.count gt 1">
                   <run_script name="'jp.lib.SortByEstimatedTravelTime'">
                      <param name="LIST" value="$_FoundPlaceables"/>
-                     <param name="_DebugFolderName" value="@$_DebugFolderName"/>
+                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
                      <param name="DEBUG" value="$DEBUG"/>
                      <save_retval name="_SortedList" variable="$_FoundPlaceables"/>
                   </run_script>
