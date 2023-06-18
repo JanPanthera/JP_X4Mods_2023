@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<mdscript name="JP_CollectPlaceables_MD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+   <cues>
+
+      <cue name="CP_Setup_MD" instantiate="true">
+         <conditions>
+            <check_any>
+               <event_game_started/>
+               <event_game_loaded/>
+            </check_any>
+         </conditions>
+         <actions>
+
+            <set_value name="$DEBUG" exact="0"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'CP_Setup_MD'"/>
+               <set_value name="$_DebugFileName" exact="'cp.Setup.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <create_group groupname="global.$CP_ShipsGroup" chance="(if not global.$CP_ShipsGroup? then 100 else 0)"/>
+
+            <!-- [ [$_Ship, $_Sector] ] -->
+            <set_value name="global.$CP_SectorBlacklist" exact="table[]" chance="(if not global.$CP_SectorBlacklist? then 100 else 0)"/>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+
+         <cues>
+
+            <cue name="CP_Debug_MD" instantiate="false" checkinterval="1s">
+               <actions>
+
+                  <set_value name="$DEBUG" exact="0"/>
+                  <do_if value="$DEBUG gt 0">
+                     <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+                     <set_value name="$_DebugScriptName" exact="'CP_Debug_MD'"/>
+                     <set_value name="$_DebugFileName" exact="'cp.Debug.md.xml.log'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_ShipsGroup.count %1'.[global.$CP_ShipsGroup.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship" in="global.$CP_ShipsGroup" chance="if @global.$CP_ShipsGroup.count gt 0 then 100 else 0">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_SectorBlacklist.keys.count %1'.[global.$CP_SectorBlacklist.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$CP_SectorBlacklist" chance="if @global.$CP_SectorBlacklist then 100 else 0">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idccode, @$_Sector.knownname]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+               </actions>
+            </cue>
+
+            <cue name="CP_Cleanup_MD" instantiate="true" checkinterval="1s">
+               <conditions>
+                  <check_any>
+                     <check_value value="global.$CP_ShipsGroup?"/>
+                     <check_value value="global.$CP_SectorBlacklist?"/>
+                     <check_value value="global.$CollectPlaceables_Settings?"/>
+                  </check_any>
+               </conditions>
+               <actions>
+
+                  <set_value name="$DEBUG" exact="0"/>
+                  <do_if value="$DEBUG gt 0">
+                     <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+                     <set_value name="$_DebugScriptName" exact="'CP_Cleanup_MD'"/>
+                     <set_value name="$_DebugFileName" exact="'cp.Cleanup.md.xml.log'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="@global.$CP_ShipsGroup.count gt 0">
+                     <do_for_each name="$_Ship" in="global.$CP_ShipsGroup" reverse="true">
+                        <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_CollectPlaceablesG'">
+                           <continue/>
+                        </do_if>
+                        <do_if value="$_Ship.defaultorder.id" list="['JP_CollectPlaceablesG', 'JP_CollectPlaceablesS']">
+                           <continue/>
+                        </do_if>
+                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                           <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+                           <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+                        </substitute_text>
+                        <set_object_name object="$_Ship" name="$_ResultName"/>
+                        <cancel_all_orders object="$_Ship"/>
+                        <remove_value name="global.$CP_SectorBlacklist.{$_Ship}"/>
+                        <remove_from_group group="global.$CP_ShipsGroup" object="$_Ship"/>
+                     </do_for_each>
+                  </do_if>
+
+                  <do_if  value="@global.$CP_SectorBlacklist != null">
+                     <do_for_each name="$_Ship" in="global.$CP_SectorBlacklist">
+                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
+                           <remove_value name="global.$CP_SectorBlacklist.{$_Ship}"/>
+                        </do_if>
+                     </do_for_each>
+                  </do_if>
+
+                  <!-- a safety check if the count of parameters changes -->
+                  <do_if value="@global.$CollectPlaceables_Settings.count != 31">
+                     <remove_value name="global.$CollectPlaceables_Settings"/>
+                  </do_if>
+
+                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                  <do_if value="$DEBUG gt 0">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+               </actions>
+            </cue>
+
+            <cue name="CP_EventOrderStarted_MD" instantiate="true">
+               <conditions>
+                  <event_object_order_ready group="global.$CP_ShipsGroup"/>
+                  <check_any>
+                     <check_value value="@event.param.id == 'JP_CollectPlaceablesS'"/>
+                     <check_value value="@event.param.id == 'JP_CollectPlaceablesG'"/>
+                  </check_any>
+               </conditions>
+               <actions>
+                  <set_value name="$_Ship" exact="event.object"/>
+                  <cancel_all_orders object="$_Ship"/>
+                  <do_if value="$_Ship.subordinates.count gt 0">
+                     <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                        <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                           <cancel_all_orders object="$_Subordinate"/>
+                           <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
+                              <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+                              <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+                           </substitute_text>
+                           <set_object_name object="$_Subordinate" name="$_ResultName"/>
+                        </do_if>
+                     </do_for_each>
+                  </do_if>
+                  <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                     <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+                     <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+                  </substitute_text>
+                  <set_object_name object="$_Ship" name="$_ResultName"/>
+               </actions>
+            </cue>
+
+         </cues>
+
+      </cue>
+
+   </cues>
+</mdscript>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- English ~~ English-->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Collect regular mines?</t>
+      <t id="801">Collect tracker mines?</t>
+      <t id="802">Collect friend/foe mines?</t>
+      <t id="803">Collect Mk1 laser towers?</t>
+      <t id="804">Collect Mk2 laser towers?</t>
+      <t id="805">Collect regular satellites?</t>
+      <t id="806">Collect advanced satellites?</t>
+      <t id="807">Collect navigation beacons?</t>
+      <t id="808">Collect resource probes?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Sell placeables?</t>
+      <t id="811">Sell regular mines?</t>
+      <t id="812">Sell tracker mines?</t>
+      <t id="813">Sell friend/foe mines?</t>
+      <t id="814">Sell Mk1 laser towers?</t>
+      <t id="815">Sell Mk2 laser towers?</t>
+      <t id="816">Sell regular satellites?</t>
+      <t id="817">Sell advanced satellites?</t>
+      <t id="818">Sell navigation beacons?</t>
+      <t id="819">Sell resource probes?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Collect placeable</t>
+      <t id="841">Sell placeables</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
+      <t id="851">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
+      <t id="852">There are no placeables left to collect. I will switch to idle mode and try again later.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">\033#FFe27100#Collecting Paused\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Collects placeable items such as satellites or mines in a single sector.</t>
+      <t id="871">Collects placeable items such as satellites or mines throughout the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

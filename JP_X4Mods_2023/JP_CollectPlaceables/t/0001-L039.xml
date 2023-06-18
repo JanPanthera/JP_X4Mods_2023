@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Italian ~~ Italiano -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Raccogliere mine normali?</t>
+      <t id="801">Raccogliere mine traccianti?</t>
+      <t id="802">Raccogliere mine amico/nemico?</t>
+      <t id="803">Raccogliere torri laser Mk1?</t>
+      <t id="804">Raccogliere torri laser Mk2?</t>
+      <t id="805">Raccogliere satelliti normali?</t>
+      <t id="806">Raccogliere satelliti avanzati?</t>
+      <t id="807">Raccogliere boe di navigazione?</t>
+      <t id="808">Raccogliere sonde per risorse?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Vendere oggetti piazzabili?</t>
+      <t id="811">Vendere mine normali?</t>
+      <t id="812">Vendere mine traccianti?</t>
+      <t id="813">Vendere mine amico/nemico?</t>
+      <t id="814">Vendere torri laser Mk1?</t>
+      <t id="815">Vendere torri laser Mk2?</t>
+      <t id="816">Vendere satelliti normali?</t>
+      <t id="817">Vendere satelliti avanzati?</t>
+      <t id="818">Vendere boe di navigazione?</t>
+      <t id="819">Vendere sonde per risorse?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Raccogliere oggetti posizionabili</t>
+      <t id="841">Vendere oggetti posizionabili</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">Non c'è più spazio di archiviazione per raccogliere ulteriori oggetti posizionabili, e non sono autorizzato a svuotare il mio magazzino dispiegabile da solo.</t>
+      <t id="851">Lo spazio di archiviazione per gli oggetti posizionabili è pieno, e non siamo autorizzati a vendere gli oggetti posizionabili che abbiamo attualmente.</t>
+      <t id="852">Non ci sono più oggetti posizionabili da raccogliere. Passerò alla modalità inattiva e proverò di nuovo più tardi.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Raccogliere oggetti piazzabili</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Raccoglie oggetti piazzabili come satelliti o mine in un singolo settore.</t>
+      <t id="871">Raccoglie oggetti piazzabili come satelliti o mine in tutta la galaxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

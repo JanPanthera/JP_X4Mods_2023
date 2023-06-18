@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- French ~~ Français -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Collecter des mines normales ?</t>
+      <t id="801">Collecter des mines traqueuses ?</t>
+      <t id="802">Collecter des mines ami/ennemi ?</t>
+      <t id="803">Collecter des tours laser Mk1 ?</t>
+      <t id="804">Collecter des tours laser Mk2 ?</t>
+      <t id="805">Collecter des satellites normaux ?</t>
+      <t id="806">Collecter des satellites avancés ?</t>
+      <t id="807">Collecter des balises de navigation ?</t>
+      <t id="808">Collecter des sondes de ressources ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Vendre les objets placables?</t>
+      <t id="811">Vendre des mines normales ?</t>
+      <t id="812">Vendre des mines traqueuses ?</t>
+      <t id="813">Vendre des mines ami/ennemi ?</t>
+      <t id="814">Vendre des tours laser Mk1 ?</t>
+      <t id="815">Vendre des tours laser Mk2 ?</t>
+      <t id="816">Vendre des satellites normaux ?</t>
+      <t id="817">Vendre des satellites avancés ?</t>
+      <t id="818">Vendre des balises de navigation ?</t>
+      <t id="819">Vendre des sondes de ressources ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Collecter les objets à placer</t>
+      <t id="841">Vendre les objets à placer</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">Il n'y a plus de stockage disponible pour collecter des objets supplémentaires, et je ne suis pas autorisé à vider moi-même mon stockage déployable.</t>
+      <t id="851">Le stockage pour les objets à placer est plein, et nous ne sommes pas autorisés à vendre les objets à placer que nous avons actuellement.</t>
+      <t id="852">Il n'y a plus d'objets à placer à collecter. Je vais passer en mode veille et essayer à nouveau plus tard.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Collecter les objets placables</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Recueille des objets placables tels que des satellites ou des mines dans un seul secteur.</t>
+      <t id="871">Recueille des objets placables tels que des satellites ou des mines dans toute la galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

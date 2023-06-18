@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="JP_CollectPlaceablesG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
+
+   <order id="JP_CollectPlaceablesG" name="_{8888888, 97}CollectPlaceables - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 871}" category="navigation" infinite="true" allowinloop="false">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="COLLECT_REGULAR_MINES"       text="{8888888, 800}" comment="Collect regular mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{1} else true"/>
+         <param name="COLLECT_TRACKER_MINES"       text="{8888888, 801}" comment="Collect tracker mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{2} else true"/>
+         <param name="COLLECT_FRIENDFOE_MINES"     text="{8888888, 802}" comment="Collect friend/foe mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{3} else true"/>
+         <param name="COLLECT_MK1_LASER_TOWERS"    text="{8888888, 803}" comment="Collect Mk1 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{4} else true"/>
+         <param name="COLLECT_MK2_LASER_TOWERS"    text="{8888888, 804}" comment="Collect Mk2 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{5} else true"/>
+         <param name="COLLECT_REGULAR_SATELLITES"  text="{8888888, 805}" comment="Collect regular satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{6} else true"/>
+         <param name="COLLECT_ADVANCED_SATELLITES" text="{8888888, 806}" comment="Collect advanced satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{7} else true"/>
+         <param name="COLLECT_NAVIGATION_BEACONS"  text="{8888888, 807}" comment="Collect navigation beacons?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{8} else true"/>
+         <param name="COLLECT_RESOURCE_PROBES"     text="{8888888, 808}" comment="Collect resource probes?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{9} else true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SELL_PLACEABLES"          text="{8888888, 810}" comment="Sell placeables?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{10} else true"/>
+         <param name="SELL_REGULAR_MINES"       text="- {8888888, 811}" comment="Sell regular mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{11} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_TRACKER_MINES"       text="- {8888888, 812}" comment="Sell tracker mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{12} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_FRIENDFOE_MINES"     text="- {8888888, 813}" comment="Sell friend/foe mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{13} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_MK1_LASER_TOWERS"    text="- {8888888, 814}" comment="Sell Mk1 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{14} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_MK2_LASER_TOWERS"    text="- {8888888, 815}" comment="Sell Mk2 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{15} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_REGULAR_SATELLITES"  text="- {8888888, 816}" comment="Sell regular satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{16} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_ADVANCED_SATELLITES" text="- {8888888, 817}" comment="Sell advanced satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{17} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_NAVIGATION_BEACONS"  text="- {8888888, 818}" comment="Sell navigation beacons?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{18} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="SELL_RESOURCE_PROBES"     text="- {8888888, 819}" comment="Sell resource probes?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{19} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="IDLE_TIME" text="{8888888, 80}" comment="Idle Time" type="time" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{20} else 600s">
+            <input_param name="min" value="60s"/>
+            <input_param name="max" value="3600s"/>
+            <input_param name="step" value="10s"/>
+         </param>
+         <param name="IDLE_MOVE_TO" text="{8888888, 81}" comment="Idle: Move to?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{21} else true"/>
+         <param name="WHERE_TO_MOVE" text="- {8888888, 82}" comment="Where to move?" type="position" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{22} else [this.ship.sector, this.ship.sector.coreposition]">
+            <input_param name="class" value="class.sector"/>
+         </param>
+         <param name="IDLE_FOLLOW" text="{8888888, 83}" comment="Idle: Follow?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{23} else false"/>
+         <param name="WHO_TO_FOLLOW" text="- {8888888, 84}" comment="Who to follow?" type="object" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{24} else null">
+            <input_param name="class" value="[class.ship]"/>
+         </param>
+         <param name="IDLE_DOCKING" text="{8888888, 85}" comment="Idle: Docking?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{25} else false"/>
+         <param name="FIND_STATION" text="- {8888888, 86}" comment="Find a Station?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{26} else true"/>
+         <param name="WHERE_TO_DOCK" text="- {8888888, 87}" comment="Where to dock?" type="object" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{27} else null">
+            <input_param name="class" value="if this.ship.isclass.[class.ship_s, class.ship_xs] then [class.station, class.ship_m, class.ship_l, class.ship_xl] else [class.station, class.ship_l, class.ship_xl]"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_997" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{28} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{29} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="ADD_ORDER_TAG" text="{8888888, 92}" comment="Add order tag?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{30} else true"/>
+         <param name="SAVE_ORDER_SETTINGS" text="{8888888, 93}" comment="Save Order Settings?" type="bool" default="false"/>
+         <param name="RESET_ORDER_SETTINGS" text="{8888888, 94}" comment="Reset Order Settings?" type="bool" default="false"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_998" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" text="Debug" type="number" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{31} else 0" advanced="true">
+            <input_param name="step" value="100"/>
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="100"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <skill min="45"/>
+      <requires>
+         <match shiptype="shiptype.lasertower" negate="true"/>
+      </requires>
+   </order>
+
+   <interrupts>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_CollectingPausedTitle" exact="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <add_to_group object="$_Ship" groupname="global.$CP_ShipsGroup"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'JP_CollectPlaceablesG'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$SAVE_ORDER_SETTINGS">
+         <create_list name="$_SettingsList"/>
+         <append_list_elements name="$_SettingsList" other="[
+                            $COLLECT_REGULAR_MINES, $COLLECT_TRACKER_MINES, $COLLECT_FRIENDFOE_MINES,
+                            $COLLECT_MK1_LASER_TOWERS, $COLLECT_MK2_LASER_TOWERS,
+                            $COLLECT_REGULAR_SATELLITES, $COLLECT_ADVANCED_SATELLITES,
+                            $COLLECT_NAVIGATION_BEACONS, $COLLECT_RESOURCE_PROBES,
+                            $SELL_PLACEABLES, $SELL_REGULAR_MINES, $SELL_TRACKER_MINES, $SELL_FRIENDFOE_MINES,
+                            $SELL_MK1_LASER_TOWERS, $SELL_MK2_LASER_TOWERS,
+                            $SELL_REGULAR_SATELLITES, $SELL_ADVANCED_SATELLITES,
+                            $SELL_NAVIGATION_BEACONS, $SELL_RESOURCE_PROBES,
+                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                            $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                            $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
+         <do_if value="global.$CollectPlaceables_Settings?" negate="true">
+            <create_list name="global.$CollectPlaceables_Settings"/>
+            <append_list_elements name="global.$CollectPlaceables_Settings" other="$_SettingsList"/>
+         </do_if>
+         <do_else>
+            <do_for_each name="$_Setting" in="global.$CollectPlaceables_Settings" counter="$_it">
+               <do_if value="$_Setting != $_SettingsList.{$_it}">
+                  <set_value name="global.$CollectPlaceables_Settings.{$_it}" exact="$_SettingsList.{$_it}"/>
+               </do_if>
+            </do_for_each>
+         </do_else>
+         <remove_value name="$_SettingsList"/>
+         <show_help duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$RESET_ORDER_SETTINGS">
+         <remove_value name="global.$CollectPlaceables_Settings"/>
+         <show_help duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <do_if value="$ADD_ORDER_TAG">
+            <substitute_text source="$_Ship.knownname" text="$_ResultName">
+               <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+            </substitute_text>
+            <do_if value="$_Ship.knownname == $_ResultName">
+               <set_object_name object="$_Ship" name="'\033#FFA95908##CP-G\033X ~ ' + $_Ship.knownname"/>
+            </do_if>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <set_command command="command.collect"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <do_if value="$_Ship.ammostorage.deployable.free == 0">
+            <do_if value="not $SELL_PLACEABLES">
+               <!-- There is no more storage left for collecting additional placeables, and I'm not allowed to empty my placeable storage myself. -->
+               <show_help position="1" duration="5s" allowclose="true" custom="'CollectPlaceablesG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 850}]" chance="$SHOW_MESSAGES"/>
+               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CollectingPausedTitle" text="{8888888, 850}" chance="$WRITE_TO_LOG"/>
+               <resume label="IDLE_LBL"/>
+            </do_if>
+            <run_script name="'jp.lib.CP.SellPlaceables'">
+               <param name="SELL_REGULAR_MINES" value="$SELL_REGULAR_MINES"/>
+               <param name="SELL_TRACKER_MINES" value="$SELL_TRACKER_MINES"/>
+               <param name="SELL_FRIENDFOE_MINES" value="$SELL_FRIENDFOE_MINES"/>
+               <param name="SELL_MK1_LASER_TOWERS" value="$SELL_MK1_LASER_TOWERS"/>
+               <param name="SELL_MK2_LASER_TOWERS" value="$SELL_MK2_LASER_TOWERS"/>
+               <param name="SELL_REGULAR_SATELLITES" value="$SELL_REGULAR_SATELLITES"/>
+               <param name="SELL_ADVANCED_SATELLITES" value="$SELL_ADVANCED_SATELLITES"/>
+               <param name="SELL_NAVIGATION_BEACONS" value="$SELL_NAVIGATION_BEACONS"/>
+               <param name="SELL_RESOURCE_PROBES" value="$SELL_RESOURCE_PROBES"/>
+               <param name="DEBUG" value="$DEBUG"/>
+               <save_retval name="_Result" variable="$_Result"/>
+            </run_script>
+            <do_if value="@$_Result != 'Success'">
+               <resume label="IDLE_LBL"/>
+            </do_if>
+         </do_if>
+
+         <create_list name="$_FoundPlaceables"/>
+         <run_script name="'jp.lib.CP.GetPlaceablesToCollect'">
+            <param name="SECTOR" value="@global.$CP_SectorBlacklist.{$_Ship}"/>
+            <param name="COLLECT_REGULAR_MINES" value="$COLLECT_REGULAR_MINES"/>
+            <param name="COLLECT_TRACKER_MINES" value="$COLLECT_TRACKER_MINES"/>
+            <param name="COLLECT_FRIENDFOE_MINES" value="$COLLECT_FRIENDFOE_MINES"/>
+            <param name="COLLECT_MK1_LASER_TOWERS" value="$COLLECT_MK1_LASER_TOWERS"/>
+            <param name="COLLECT_MK2_LASER_TOWERS" value="$COLLECT_MK2_LASER_TOWERS"/>
+            <param name="COLLECT_REGULAR_SATELLITES" value="$COLLECT_REGULAR_SATELLITES"/>
+            <param name="COLLECT_ADVANCED_SATELLITES" value="$COLLECT_ADVANCED_SATELLITES"/>
+            <param name="COLLECT_NAVIGATION_BEACONS" value="$COLLECT_NAVIGATION_BEACONS"/>
+            <param name="COLLECT_RESOURCE_PROBES" value="$COLLECT_RESOURCE_PROBES"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_FoundPlaceables" variable="$_FoundPlaceables"/>
+         </run_script>
+
+         <do_if value="$_FoundPlaceables.count == 0">
+            <!-- There are no placeables left to collect. I will switch to idle mode and try again later. -->
+            <show_help position="1" duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 852}]" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CollectingPausedTitle" text="{8888888, 852}" chance="$WRITE_TO_LOG"/>
+            <resume label="IDLE_LBL"/>
+         </do_if>
+
+         <create_order object="$_Ship" id="'JP_lib_CP_CollectPlaceable'" immediate="true">
+            <param name="PLACEABLE" value="$_FoundPlaceables.{1}"/>
+            <param name="DEBUG" value="$DEBUG"/>
+         </create_order>
+
+         <label name="IDLE_LBL"/>
+         <wait exact="1ms"/>
+         <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
+            <param name="IDLE_TIME" value="$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE" value="$WHERE_TO_MOVE"/>
+            <param name="IDLE_FOLLOW" value="$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW" value="$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
+            <param name="FIND_STATION" value="$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
+            <param name="_DebugFolderName" value="@$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
+         </create_order>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <set_order_syncpoint_reached order="this.ship.defaultorder"/>
+         <create_order object="this.ship" id="'Wait'" default="true"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

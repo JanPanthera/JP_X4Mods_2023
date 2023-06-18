@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<content id="JP_CollectPlaceables" name="JP_CollectPlaceables" description="Collects placeable items such as satellites or mines in a single sector or throughout the entire galaxy." author="JanPanthera" version="200" date="2023-06-18" save="0" enabled="1">
+   <text language="7"  name="JP_CollectPlaceables" description="Собирает размещаемые предметы, такие как спутники или мины, в одном секторе или по всей галактике." author="JanPanthera"/>
+   <text language="33" name="JP_CollectPlaceables" description="Recueille des objets placables tels que des satellites ou des mines dans un seul secteur ou dans toute la galaxie." author="JanPanthera"/>
+   <text language="34" name="JP_CollectPlaceables" description="Recoge objetos colocables como satélites o minas en un solo sector o en toda la galaxia." author="JanPanthera"/>
+   <text language="39" name="JP_CollectPlaceables" description="Raccoglie oggetti piazzabili come satelliti o mine in un singolo settore o in tutta la galassia." author="JanPanthera"/>
+   <text language="44" name="JP_CollectPlaceables" description="Collects placeable items such as satellites or mines in a single sector or throughout the entire galaxy." author="JanPanthera"/>
+   <text language="48" name="JP_CollectPlaceables" description="Zbiera umieszczalne przedmioty, takie jak satelity czy miny, w pojedynczym sektorze lub na całej galaktyce." author="JanPanthera"/>
+   <text language="49" name="JP_CollectPlaceables" description="Sammelt platzierbare Gegenstände wie Satelliten oder Minen in einem einzigen Sektor oder in der gesamten Galaxie." author="JanPanthera"/>
+   <text language="55" name="JP_CollectPlaceables" description="Coleta itens colocáveis, como satélites ou minas, em um único setor ou em toda a galáxia." author="JanPanthera"/>
+   <text language="81" name="JP_CollectPlaceables" description="サテライトや地雷など、一つのセクターや全ギャラクシーに配置可能なアイテムを収集します。" author="JanPanthera"/>
+   <text language="82" name="JP_CollectPlaceables" description="위성이나 지뢰와 같은 배치 가능한 아이템을 단일 섹터 또는 전체 은하에서 수집합니다." author="JanPanthera"/>
+   <text language="86" name="JP_CollectPlaceables" description="收集在单个区域或整个星系中放置的物品，如卫星或地雷。" author="JanPanthera"/>
+   <text language="88" name="JP_CollectPlaceables" description="收集在單個區域或整個星系中放置的物品，如衛星或地雷。" author="JanPanthera"/>
+   <dependency id="JP_ScriptLibrary"/>
+</content>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://x4dynlib.access.ly\libraries\aiscripts.xsd">
+
+   <add sel="//do_if[@value='not $order.requiredskill or (this.combinedskill ge $order.requiredskill)']">
+      <do_if value="$order.id == 'JP_CollectPlaceablesG'">
+         <set_value name="$added"/>
+         <run_script name="$scriptname">
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="COLLECT_REGULAR_MINES"       value="$order.$COLLECT_REGULAR_MINES"/>
+            <param name="COLLECT_TRACKER_MINES"       value="$order.$COLLECT_TRACKER_MINES"/>
+            <param name="COLLECT_FRIENDFOE_MINES"     value="$order.$COLLECT_FRIENDFOE_MINES"/>
+            <param name="COLLECT_MK1_LASER_TOWERS"    value="$order.$COLLECT_MK1_LASER_TOWERS"/>
+            <param name="COLLECT_MK2_LASER_TOWERS"    value="$order.$COLLECT_MK2_LASER_TOWERS"/>
+            <param name="COLLECT_REGULAR_SATELLITES"  value="$order.$COLLECT_REGULAR_SATELLITES"/>
+            <param name="COLLECT_ADVANCED_SATELLITES" value="$order.$COLLECT_ADVANCED_SATELLITES"/>
+            <param name="COLLECT_NAVIGATION_BEACONS"  value="$order.$COLLECT_NAVIGATION_BEACONS"/>
+            <param name="COLLECT_RESOURCE_PROBES"     value="$order.$COLLECT_RESOURCE_PROBES"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SELL_PLACEABLES"       value="$order.$SELL_PLACEABLES"/>
+            <param name="SELL_REGULAR_MINES"       value="$order.$SELL_REGULAR_MINES"/>
+            <param name="SELL_TRACKER_MINES"       value="$order.$SELL_TRACKER_MINES"/>
+            <param name="SELL_FRIENDFOE_MINES"     value="$order.$SELL_FRIENDFOE_MINES"/>
+            <param name="SELL_MK1_LASER_TOWERS"    value="$order.$SELL_MK1_LASER_TOWERS"/>
+            <param name="SELL_MK2_LASER_TOWERS"    value="$order.$SELL_MK2_LASER_TOWERS"/>
+            <param name="SELL_REGULAR_SATELLITES"  value="$order.$SELL_REGULAR_SATELLITES"/>
+            <param name="SELL_ADVANCED_SATELLITES" value="$order.$SELL_ADVANCED_SATELLITES"/>
+            <param name="SELL_NAVIGATION_BEACONS"  value="$order.$SELL_NAVIGATION_BEACONS"/>
+            <param name="SELL_RESOURCE_PROBES"     value="$order.$SELL_RESOURCE_PROBES"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="IDLE_TIME"     value="$order.$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO"  value="$order.$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE" value="$order.$WHERE_TO_MOVE"/>
+            <param name="IDLE_FOLLOW"   value="$order.$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW" value="$order.$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING"  value="$order.$IDLE_DOCKING"/>
+            <param name="FIND_STATION"  value="$order.$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK" value="$order.$WHERE_TO_DOCK"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
+            <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         </run_script>
+      </do_if>
+   </add>
+
+</diff>

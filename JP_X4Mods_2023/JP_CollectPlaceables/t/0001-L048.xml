@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Polish ~~ Polski -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Zbieraj normalne miny?</t>
+      <t id="801">Zbieraj miny śledzące?</t>
+      <t id="802">Zbieraj miny przyjazne/wrogie?</t>
+      <t id="803">Zbieraj wieże laserowe Mk1?</t>
+      <t id="804">Zbieraj wieże laserowe Mk2?</t>
+      <t id="805">Zbieraj normalne satelity?</t>
+      <t id="806">Zbieraj zaawansowane satelity?</t>
+      <t id="807">Zbieraj boje nawigacyjne?</t>
+      <t id="808">Zbieraj sondy zasobów?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Sprzedać przedmioty do umieszczenia?</t>
+      <t id="811">Sprzedaj normalne miny?</t>
+      <t id="812">Sprzedaj miny śledzące?</t>
+      <t id="813">Sprzedaj miny przyjazne/wrogie?</t>
+      <t id="814">Sprzedaj wieże laserowe Mk1?</t>
+      <t id="815">Sprzedaj wieże laserowe Mk2?</t>
+      <t id="816">Sprzedaj normalne satelity?</t>
+      <t id="817">Sprzedaj zaawansowane satelity?</t>
+      <t id="818">Sprzedaj boje nawigacyjne?</t>
+      <t id="819">Sprzedaj sondy zasobów?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Zbierz umieszczalne przedmioty</t>
+      <t id="841">Sprzedaj umieszczalne przedmioty</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">Nie ma już więcej miejsca na dodatkowe umieszczalne przedmioty, a ja nie mogę sam opróżnić mojego magazynu rozwijanego.</t>
+      <t id="851">Magazyn dla umieszczalnych przedmiotów jest pełny, a my nie mamy pozwolenia na sprzedaż obecnie posiadanych umieszczalnych przedmiotów.</t>
+      <t id="852">Nie ma już umieszczalnych przedmiotów do zebrania. Przejdę w tryb bezczynności i spróbuję ponownie później.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Zbieraj przedmioty do umieszczenia</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Zbiera umieszczalne przedmioty, takie jak satelity czy miny, w pojedynczym sektorze.</t>
+      <t id="871">Zbiera umieszczalne przedmioty, takie jak satelity czy miny, na całej galaktyce.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Coletar minas regulares?</t>
+      <t id="801">Coletar minas rastreadoras?</t>
+      <t id="802">Coletar minas amigo/inimigo?</t>
+      <t id="803">Coletar torres laser Mk1?</t>
+      <t id="804">Coletar torres laser Mk2?</t>
+      <t id="805">Coletar satélites regulares?</t>
+      <t id="806">Coletar satélites avançados?</t>
+      <t id="807">Coletar balizas de navegação?</t>
+      <t id="808">Coletar sondas de recursos?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Vender itens colocáveis?</t>
+      <t id="811">Vender minas regulares?</t>
+      <t id="812">Vender minas rastreadoras?</t>
+      <t id="813">Vender minas amigo/inimigo?</t>
+      <t id="814">Vender torres laser Mk1?</t>
+      <t id="815">Vender torres laser Mk2?</t>
+      <t id="816">Vender satélites regulares?</t>
+      <t id="817">Vender satélites avançados?</t>
+      <t id="818">Vender balizas de navegação?</t>
+      <t id="819">Vender sondas de recursos?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Coletar itens colocáveis</t>
+      <t id="841">Vender itens colocáveis</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">Não há mais armazenamento disponível para coletar itens colocáveis adicionais, e eu não estou autorizado a esvaziar meu armazenamento desdobrável sozinho.</t>
+      <t id="851">O armazenamento para itens colocáveis está cheio, e não estamos autorizados a vender os itens colocáveis que temos atualmente.</t>
+      <t id="852">Não há mais itens colocáveis para coletar. Eu vou mudar para o modo de inatividade e tentar novamente mais tarde.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Coletar itens colocáveis</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Coleta itens colocáveis, como satélites ou minas, em um único setor.</t>
+      <t id="871">Coleta itens colocáveis, como satélites ou minas, em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- German ~~ Deutsch -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Normale Minen sammeln?</t>
+      <t id="801">Tracker-Minen sammeln?</t>
+      <t id="802">Freund/Feind-Minen sammeln?</t>
+      <t id="803">Mk1 Lasertürme sammeln?</t>
+      <t id="804">Mk2 Lasertürme sammeln?</t>
+      <t id="805">Normale Satelliten sammeln?</t>
+      <t id="806">Fortgeschrittene Satelliten sammeln?</t>
+      <t id="807">Navigationsbaken sammeln?</t>
+      <t id="808">Ressourcen-Sonden sammeln?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Platzierbare Gegenstände verkaufen?</t>
+      <t id="811">Normale Minen verkaufen?</t>
+      <t id="812">Tracker-Minen verkaufen?</t>
+      <t id="813">Freund/Feind-Minen verkaufen?</t>
+      <t id="814">Mk1 Lasertürme verkaufen?</t>
+      <t id="815">Mk2 Lasertürme verkaufen?</t>
+      <t id="816">Normale Satelliten verkaufen?</t>
+      <t id="817">Fortgeschrittene Satelliten verkaufen?</t>
+      <t id="818">Navigationsbaken verkaufen?</t>
+      <t id="819">Ressourcen-Sonden verkaufen?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Platzierbare Gegenstände einsammeln</t>
+      <t id="841">Platzierbare Gegenstände verkaufen</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">Es gibt keinen weiteren Frachtraum für das Sammeln zusätzlicher Platzierbarer Gegenstände, und ich darf meinen Frachtraum nicht selbst leeren.</t>
+      <t id="851">Der Frachtraum für Platzierbare Gegenstände ist voll, und wir dürfen die derzeit vorhandenen Platzierbaren Gegenstände nicht verkaufen.</t>
+      <t id="852">Es sind keine Platzierbaren Gegenstände mehr zum Sammeln übrig. Ich werde in den Leerlaufmodus wechseln und es später erneut versuchen.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Sammle platzierten Gegenstand</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Sammelt platzierbare Gegenstände wie Satelliten oder Minen in einem einzigen Sektor.</t>
+      <t id="871">Sammelt platzierbare Gegenstände wie Satelliten oder Minen in der gesamten Galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

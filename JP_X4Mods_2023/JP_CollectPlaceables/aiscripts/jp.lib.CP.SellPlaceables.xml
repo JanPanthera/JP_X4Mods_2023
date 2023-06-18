@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.CP.SellPlaceables" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SELL_REGULAR_MINES" default="false"/>
+      <param name="SELL_TRACKER_MINES" default="false"/>
+      <param name="SELL_FRIENDFOE_MINES" default="false"/>
+      <param name="SELL_MK1_LASER_TOWERS" default="false"/>
+      <param name="SELL_MK2_LASER_TOWERS" default="false"/>
+      <param name="SELL_REGULAR_SATELLITES" default="false"/>
+      <param name="SELL_ADVANCED_SATELLITES" default="false"/>
+      <param name="SELL_NAVIGATION_BEACONS" default="false"/>
+      <param name="SELL_RESOURCE_PROBES" default="false"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SHOW_MESSAGES" default="0"/>
+      <param name="WRITE_TO_LOG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="DEBUG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_Result" exact="'Failed'"/>
+      <set_value name="$_CollectingPausedTitle" exact="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.CP.SellPlaceables'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.searchtrades"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <set_value name="$_PlaceablesToSellCount" exact="0"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_01_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_02_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_03_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.ship_gen_xs_lasertower_01_a_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.ship_gen_s_lasertower_01_a_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_satellite_01_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_satellite_02_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.env_deco_nav_beacon_t1_macro}.count" operation="add"/>
+         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_resourceprobe_01_macro}.count" operation="add"/>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_PlaceablesToSellCount: %1'.[$_PlaceablesToSellCount]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <do_if value="$_PlaceablesToSellCount == 0">
+            <!-- The storage for placeables is full, and we're not permitted to sell the placeables we currently have. Go idle. -->
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 851}" chance="$WRITE_TO_LOG"/>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <set_value name="$_PlaceablesToSell" exact="table[]"/>
+         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_01_macro}"          exact="0" chance="$SELL_REGULAR_MINES"/>
+         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_02_macro}"          exact="0" chance="$SELL_TRACKER_MINES"/>
+         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_03_macro}"          exact="0" chance="$SELL_FRIENDFOE_MINES"/>
+         <set_value name="$_PlaceablesToSell.{macro.ship_gen_xs_lasertower_01_a_macro}" exact="0" chance="$SELL_MK1_LASER_TOWERS"/>
+         <set_value name="$_PlaceablesToSell.{macro.ship_gen_s_lasertower_01_a_macro}"  exact="0" chance="$SELL_MK2_LASER_TOWERS"/>
+         <set_value name="$_PlaceablesToSell.{macro.eq_arg_satellite_01_macro}"         exact="0" chance="$SELL_REGULAR_SATELLITES"/>
+         <set_value name="$_PlaceablesToSell.{macro.eq_arg_satellite_02_macro}"         exact="0" chance="$SELL_ADVANCED_SATELLITES"/>
+         <set_value name="$_PlaceablesToSell.{macro.env_deco_nav_beacon_t1_macro}"      exact="0" chance="$SELL_NAVIGATION_BEACONS"/>
+         <set_value name="$_PlaceablesToSell.{macro.eq_arg_resourceprobe_01_macro}"     exact="0" chance="$SELL_RESOURCE_PROBES"/>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_PlaceablesToSell.keys.count: %1'.[$_PlaceablesToSell.keys.count]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_PlaceablesToSell">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_EquipmentMacro: %1 ~ $_EquipmentAmount: %2'.[$_EquipmentMacro, $_EquipmentAmount]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <create_list name="$_FoundStations"/>
+         <run_script name="'jp.lib.RestockEquipment'">
+            <param name="EQUIPMENT_TABLE" value="$_PlaceablesToSell"/>
+            <param name="DEBUG_FOLDER_NAME" value="$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_Result" variable="$_Result"/>
+         </run_script>
+         <!-- The restock equipment order has failed. More detail is available in the logbook. -->
+         <do_if value="$_Result != 'Success'">
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_PLACEABLES_SELLED'"/>
+         <apply_experience object="$_Ship" experience="'JP_SHIP_PLACEABLES_SELLED'" role="entityrole.service"/>
+
+         <set_value name="$_Result" exact="'Success'"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return>
+            <retval name="_Result" value="$_Result"/>
+         </return>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

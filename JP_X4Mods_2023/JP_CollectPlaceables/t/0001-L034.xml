@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spanish ~~ Español -->
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">¿Recolectar minas normales?</t>
+      <t id="801">¿Recolectar minas rastreadoras?</t>
+      <t id="802">¿Recolectar minas amigo/enemigo?</t>
+      <t id="803">¿Recolectar torres láser Mk1?</t>
+      <t id="804">¿Recolectar torres láser Mk2?</t>
+      <t id="805">¿Recolectar satélites normales?</t>
+      <t id="806">¿Recolectar satélites avanzados?</t>
+      <t id="807">¿Recolectar balizas de navegación?</t>
+      <t id="808">¿Recolectar sondas de recursos?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">¿Vender objetos colocables?</t>
+      <t id="811">¿Vender minas normales?</t>
+      <t id="812">¿Vender minas rastreadoras?</t>
+      <t id="813">¿Vender minas amigo/enemigo?</t>
+      <t id="814">¿Vender torres láser Mk1?</t>
+      <t id="815">¿Vender torres láser Mk2?</t>
+      <t id="816">¿Vender satélites normales?</t>
+      <t id="817">¿Vender satélites avanzados?</t>
+      <t id="818">¿Vender balizas de navegación?</t>
+      <t id="819">¿Vender sondas de recursos?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Recolectar objetos colocables</t>
+      <t id="841">Vender objetos colocables</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">No queda más almacenamiento para recolectar objetos colocables adicionales, y no tengo permiso para vaciar mi almacenamiento desplegable yo mismo.</t>
+      <t id="851">El almacenamiento para objetos colocables está lleno, y no estamos permitidos para vender los objetos colocables que tenemos actualmente.</t>
+      <t id="852">No quedan objetos colocables para recolectar. Cambiaré al modo de inactividad y lo intentaré de nuevo más tarde.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">Recoger objetos colocables</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Recoge objetos colocables como satélites o minas en un solo sector.</t>
+      <t id="871">Recoge objetos colocables como satélites o minas en toda la galaxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
