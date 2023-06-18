@@ -8,12 +8,13 @@
       <t id="40">Inattivo</t>
       <t id="41">Spostarsi nel Settore</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Errore di rifornimento\033X</t>
-      <t id="51">Non ci sono stazioni disponibili per il rifornimento degli articoli richiesti.</t>
-      <t id="52">Tutte le stazioni disponibili attualmente mancano delle risorse necessarie per produrre gli articoli richiesti.</t>
-      <t id="53">Non abbiamo fondi sufficienti per rifornire gli articoli richiesti.</t>
-      <t id="54">La creazione del comando di rifornimento è fallita.</t>
-      <t id="55">L'ordine di riassortimento non è riuscito. Altri dettagli sono disponibili nel registro.</t>
+      <t id="50">Al momento, non ci sono stazioni disponibili dove potremmo rifornire la nostra attrezzatura desiderata.</t>
+      <t id="51">Al momento, tutte le stazioni scoperte mancano delle risorse necessarie per fabbricare l'attrezzatura desiderata.</t>
+      <t id="52">Ci mancano i fondi necessari per rifornire l'attrezzatura desiderata.</t>
+      <t id="53">Il processo di creazione dell'ordine di rifornimento è fallito.</t>
+      <t id="54">L'ordine di rifornimento dell'attrezzatura è fallito. Maggiori dettagli sono disponibili nel registro di bordo.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Fallimento nel cambio di equipaggiamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Tempo di inattività</t>
       <t id="81">Inattivo: Spostarsi a?</t>
@@ -24,7 +25,9 @@
       <t id="86">Trovare una Stazione?</t>
       <t id="87">Dove attraccare?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Aggiungere tag d'ordine?</t>
+      <t id="90">Mostrare i messaggi?</t>
+      <t id="91">Scrivere sul registro di bordo?</t>
+      <t id="92">Aggiungere il tag dell'ordine?</t>
       <t id="93">Salvare le impostazioni dell'ordine?</t>
       <t id="94">Reset delle impostazioni dell'ordine?</t>
       <t id="95">Impostazioni dell'ordine salvate.</t>

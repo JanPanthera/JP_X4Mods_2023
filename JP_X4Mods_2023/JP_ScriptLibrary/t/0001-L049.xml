@@ -8,12 +8,13 @@
       <t id="40">Leerlauf</t>
       <t id="41">Zum Sektor bewegen</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Fehler bei Nachfüllung\033X</t>
-      <t id="51">Es sind keine Stationen verfügbar, um die erforderlichen Gegenstände nachzufüllen.</t>
-      <t id="52">Alle verfügbaren Stationen haben derzeit nicht die notwendigen Ressourcen, um die erforderlichen Gegenstände zu produzieren.</t>
-      <t id="53">Wir haben nicht genügend Geldmittel, um die erforderlichen Gegenstände nachzufüllen.</t>
-      <t id="54">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
-      <t id="55">Der Nachfüllbefehl ist fehlgeschlagen. Weitere Details finden Sie im Logbuch.</t>
+      <t id="50">Derzeit gibt es keine verfügbaren Stationen, an denen wir unsere gewünschte Ausrüstung auffüllen könnten.</t>
+      <t id="51">Derzeit fehlen allen entdeckten Stationen die notwendigen Ressourcen zur Herstellung der gewünschten Ausrüstung.</t>
+      <t id="52">Uns fehlen die notwendigen Mittel, um die gewünschte Ausrüstung aufzufüllen.</t>
+      <t id="53">Der Prozess der Erstellung der Nachfüllbestellung ist fehlgeschlagen.</t>
+      <t id="54">Die Nachfüllbestellung für die Ausrüstung ist fehlgeschlagen. Weitere Details finden Sie im Logbuch.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Fehler beim Wechsel der Ausrüstung\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Leerlaufzeit</t>
       <t id="81">Leerlauf: Bewegen zu?</t>
@@ -24,11 +25,13 @@
       <t id="86">Eine Station finden?</t>
       <t id="87">Wohin andocken?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Auftragskennzeichen hinzufügen?</t>
-      <t id="93">Auftragseinstellungen speichern?</t>
-      <t id="94">Auftragseinstellungen zurücksetzen?</t>
-      <t id="95">Auftragseinstellungen gespeichert.</t>
-      <t id="96">Auftragseinstellungen zurückgesetzt.</t>
+      <t id="90">Nachrichten anzeigen?</t>
+      <t id="91">Ins Logbuch schreiben?</t>
+      <t id="92">Befehls-Tag hinzufügen?</t>
+      <t id="93">Einstellungen speichern?</t>
+      <t id="94">Einstellungen zurücksetzen?</t>
+      <t id="95">Einstellungen wurden gespeichert.</t>
+      <t id="96">Einstellungen wurden zurückgesetzt.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="97">\033#B600CCCC#</t>
       <t id="98">\033#FF00CC66#</t>

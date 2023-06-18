@@ -8,12 +8,13 @@
       <t id="40">Bezczynny</t>
       <t id="41">Przenieś do Sektora</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Błąd uzupełniania\033X</t>
-      <t id="51">Nie ma dostępnych stacji do uzupełnienia wymaganych przedmiotów.</t>
-      <t id="52">Wszystkie dostępne stacje obecnie nie mają wystarczających zasobów do produkcji wymaganych przedmiotów.</t>
-      <t id="53">Nie mamy wystarczających funduszy na uzupełnienie wymaganych przedmiotów.</t>
-      <t id="54">Tworzenie polecenia uzupełnienia nie powiodło się.</t>
-      <t id="55">Zamówienie uzupełnienia zapasów nie powiodło się. Więcej szczegółów znajduje się w dzienniku.</t>
+      <t id="50">Obecnie nie ma dostępnych stacji, na których moglibyśmy uzupełnić zapasy pożądanego sprzętu.</t>
+      <t id="51">Obecnie wszystkie odkryte stacje nie mają niezbędnych zasobów do wyprodukowania pożądanego sprzętu.</t>
+      <t id="52">Brakuje nam niezbędnych funduszy, aby uzupełnić zapasy pożądanego sprzętu.</t>
+      <t id="53">Proces tworzenia zamówienia na uzupełnienie zapasów nie powiódł się.</t>
+      <t id="54">Zamówienie na uzupełnienie zapasów sprzętu nie powiodło się. Więcej szczegółów znajduje się w dzienniku pokładowym.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Niepowodzenie zmiany sprzętu\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Czas bezczynności</t>
       <t id="81">Bezczynność: Przenieść do?</t>
@@ -24,7 +25,9 @@
       <t id="86">Znaleźć stację?</t>
       <t id="87">Gdzie dokować?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Dodać tag zamówienia?</t>
+      <t id="90">Pokazać wiadomości?</t>
+      <t id="91">Zapisz do dziennika?</t>
+      <t id="92">Dodać tag zamówienia?</t>
       <t id="93">Zapisać ustawienia zamówienia?</t>
       <t id="94">Zresetować ustawienia zamówienia?</t>
       <t id="95">Ustawienia zamówienia zapisane.</t>

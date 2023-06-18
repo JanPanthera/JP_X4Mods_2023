@@ -8,12 +8,13 @@
       <t id="40">Inactivo</t>
       <t id="41">Moverse al Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Fallo en la reposición\033X</t>
-      <t id="51">No hay estaciones disponibles para reponer los artículos necesarios.</t>
-      <t id="52">Todas las estaciones disponibles actualmente carecen de los recursos necesarios para producir los artículos requeridos.</t>
-      <t id="53">No tenemos fondos suficientes para reponer los artículos necesarios.</t>
-      <t id="54">La creación del comando de reposición ha fallado.</t>
-      <t id="55">El pedido de reposición ha fallado. Más detalles están disponibles en el libro de registro.</t>
+      <t id="50">Actualmente, no hay estaciones disponibles donde podríamos reponer nuestro equipo deseado.</t>
+      <t id="51">Actualmente, todas las estaciones descubiertas carecen de los recursos necesarios para fabricar el equipo deseado.</t>
+      <t id="52">Nos faltan los fondos necesarios para reponer el equipo deseado.</t>
+      <t id="53">El proceso de creación de la orden de reposición ha fallado.</t>
+      <t id="54">La orden de reposición de equipo ha fallado. Más detalles están disponibles en el libro de registro.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Fallo en el cambio de equipo\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Tiempo de inactividad</t>
       <t id="81">Inactivo: ¿Mover a?</t>
@@ -24,7 +25,9 @@
       <t id="86">¿Encontrar una Estación?</t>
       <t id="87">¿Dónde acoplar?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">¿Agregar etiqueta de orden?</t>
+      <t id="90">¿Mostrar mensajes?</t>
+      <t id="91">¿Escribir en el libro de registro?</t>
+      <t id="92">¿Agregar etiqueta de orden?</t>
       <t id="93">¿Guardar configuraciones de orden?</t>
       <t id="94">¿Restablecer configuraciones de orden?</t>
       <t id="95">Configuraciones de orden guardadas.</t>

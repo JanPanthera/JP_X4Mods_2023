@@ -14,8 +14,8 @@
          <param name="FIND_STATION"   type="internal" default="null"/>
          <param name="WHERE_TO_DOCK"  type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG_FOLDER_NAME" type="internal" default="null"/>
-         <param name="DEBUG" type="internal" default="null"/>
+         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_ScriptLibrary.logs'"/>
+         <param name="DEBUG" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
    </order>
@@ -25,6 +25,7 @@
       <set_value name="$_Ship" exact="this.ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
+      <set_value name="$IDLE_MOVE_TO" exact="true" chance="if (not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING) then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
@@ -52,6 +53,8 @@
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         
+         <set_command_action commandaction="commandaction.standingby"/>
 
          <label name="IDLE_MOVE_TO_LBL"/>
          <wait exact="1ms"/>

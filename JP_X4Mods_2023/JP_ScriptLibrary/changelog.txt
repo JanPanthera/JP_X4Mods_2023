@@ -1,4 +1,10 @@
-#JP_ScriptLibrary
+#ScriptLibrary
 
 v1.0.0 ~ Current release version
 ~ Initial release
+
+v1.0.1 ~ Current  development version
+~ Added: jp.lib.FindStationToEquipAt.xml
+~ Fixed: The "IdleReturnHome" feature wasn't working when no option was selected. It now defaults to "Idle: Move to?" using either the position and sector saved in their settings or the position and sector where the ship started the script.
+~ Changed: "jp.lib.Restock" is now "jp.lib.RestockEquipment," with some improvements to its logic.
+~ Updated: There have been some minor improvements to the code and the translations.

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.FindStationToEquipAt" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="DEBUG_FOLDER_NAME" default="'JP_ScriptLibrary.logs'"/>
+      <param name="DEBUG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.FindStationToEquipAt'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <create_list name="$_FoundStations"/>
+         <find_station name="$_FoundStations" space="player.galaxy" multiple="true">
+            <match knownto="$_Ship.owner"/>
+            <match checkoperational="true"/>
+            <match cansupplyclass="$_Ship.class"/>
+            <match canequipclass="$_Ship.class"/>
+            <match hascontrolentity="controlpost.shiptrader"/>
+            <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
+         </find_station>
+
+         <do_if value="$_FoundStations.count gt 1">
+            <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+               <param name="LIST" value="$_FoundStations"/>
+               <param name="DEBUG_FOLDER_NAME" value="$_DebugFolderName"/>
+               <param name="DEBUG" value="$DEBUG"/>
+               <save_retval name="_SortedList" variable="$_FoundStations"/>
+            </run_script>
+         </do_if>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundStations.count: %1'.[$_FoundStations.count]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_FoundStation" in="$_FoundStations">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundStation: %1 [%2] ~ Owner: %3 ~ Sector: %4'.[$_FoundStation.knownname, $_FoundStation.idcode, $_FoundStation.owner, $_FoundStation.sector.knownname]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return>
+            <retval name="_FoundStations" value="$_FoundStations"/>
+         </return>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

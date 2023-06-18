@@ -7,8 +7,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="SECTOR" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG_FOLDER_NAME" type="internal" default="null"/>
-         <param name="DEBUG" type="internal" default="null"/>
+         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_ScriptLibrary.logs'"/>
+         <param name="DEBUG" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
@@ -43,7 +43,7 @@
               This is crucial to ensure that $_Ship can always reach its target sector. 
               A stricter blacklist usage may be implemented in the future. -->
 
-         <set_command command="command.move" param="$SECTOR"/>
+         <set_command_action commandaction="commandaction.flyingto" param="$SECTOR"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 

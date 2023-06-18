@@ -8,12 +8,13 @@
       <t id="40">Ocioso</t>
       <t id="41">Mover para o Setor</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Falha na reposição\033X</t>
-      <t id="51">Não há estações disponíveis para reabastecer os itens necessários.</t>
-      <t id="52">Todas as estações disponíveis atualmente não têm os recursos necessários para produzir os itens necessários.</t>
-      <t id="53">Não temos fundos suficientes para reabastecer os itens necessários.</t>
-      <t id="54">A criação do comando de reabastecimento falhou.</t>
-      <t id="55">A ordem de reabastecimento falhou. Mais detalhes estão disponíveis no livro de registro.</t>
+      <t id="50">Atualmente, não há estações disponíveis onde poderíamos reabastecer nosso equipamento desejado.</t>
+      <t id="51">Atualmente, todas as estações descobertas não possuem os recursos necessários para fabricar o equipamento desejado.</t>
+      <t id="52">Não temos os fundos necessários para reabastecer o equipamento desejado.</t>
+      <t id="53">O processo de criação do pedido de reabastecimento falhou.</t>
+      <t id="54">O pedido de reabastecimento de equipamento falhou. Mais detalhes estão disponíveis no livro de registro.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Falha na mudança de equipamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Tempo ocioso</t>
       <t id="81">Ocioso: Mover para?</t>
@@ -24,7 +25,9 @@
       <t id="86">Encontrar uma estação?</t>
       <t id="87">Onde atracar?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Adicionar tag de ordem?</t>
+      <t id="90">Mostrar mensagens?</t>
+      <t id="91">Escrever no livro de registro?</t>
+      <t id="92">Adicionar tag de ordem?</t>
       <t id="93">Salvar configurações de ordem?</t>
       <t id="94">Redefinir configurações de ordem?</t>
       <t id="95">Configurações de ordem salvas.</t>

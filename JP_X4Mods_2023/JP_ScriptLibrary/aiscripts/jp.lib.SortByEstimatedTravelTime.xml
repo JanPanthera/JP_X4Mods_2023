@@ -4,9 +4,9 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="LIST" default="null"/>
+      <param name="LIST" default="[]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG_FOLDER_NAME" default="null"/>
+      <param name="DEBUG_FOLDER_NAME" default="'JP_ScriptLibrary.logs'"/>
       <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
@@ -38,7 +38,7 @@
 
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="@$LIST != null and @$LIST.count and @$LIST.{1}.isclass.{class.object}">
+         <do_if value="@$LIST.{1}.distanceto.{$_Ship}">
             <create_list name="$_SectorTravelTimes"/>
             <do_for_each name="$_ListEntry" in="$LIST">
                <estimate_travel_time ship="$_Ship" start="$_Ship" target="$_ListEntry" result="$_TravelTime"/>
@@ -50,7 +50,23 @@
                <append_to_list name="$LIST" exact="$_SectorTravelTime.{1}"/>
             </do_for_each>
             <set_value name="$_Result" exact="'Success'"/>
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$LIST.count: %1'.[$LIST.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_ListEntry" in="$LIST">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_ListEntry: %1 ~ GateDistance: %2 ~ TotalDistance: %3'.[$_ListEntry.knownname, $_ListEntry.gatedistance.{$_Ship}, $_ListEntry.distanceto.{$_Ship}]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
          </do_if>
+         <do_else>
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'List type not supported. type: %1'.[@$LIST.{1}.class]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+         </do_else>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

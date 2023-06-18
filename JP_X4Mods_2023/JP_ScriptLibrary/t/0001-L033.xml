@@ -8,12 +8,13 @@
       <t id="40">Au repos</t>
       <t id="41">Déplacer vers le Secteur</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Échec du réapprovisionnement\033X</t>
-      <t id="51">Il n'y a pas de stations disponibles pour réapprovisionner les articles nécessaires.</t>
-      <t id="52">Toutes les stations disponibles manquent actuellement des ressources nécessaires pour produire les articles requis.</t>
-      <t id="53">Nous n'avons pas suffisamment de fonds pour réapprovisionner les articles nécessaires.</t>
-      <t id="54">La création de la commande de réapprovisionnement a échoué.</t>
-      <t id="55">La commande de réapprovisionnement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
+      <t id="50">Actuellement, il n'y a pas de stations disponibles où nous pourrions renouveler notre équipement souhaité.</t>
+      <t id="51">Actuellement, toutes les stations découvertes manquent des ressources nécessaires pour fabriquer l'équipement souhaité.</t>
+      <t id="52">Nous manquons des fonds nécessaires pour renouveler l'équipement souhaité.</t>
+      <t id="53">Le processus de création de l'ordre de réapprovisionnement a échoué.</t>
+      <t id="54">La commande de réapprovisionnement en équipement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Échec du changement d'équipement\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Temps d'inactivité</t>
       <t id="81">Inactif: Déplacer vers?</t>
@@ -24,7 +25,9 @@
       <t id="86">Trouver une station?</t>
       <t id="87">Où accoster?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Ajouter une balise de commande?</t>
+      <t id="90">Afficher les messages?</t>
+      <t id="91">Écrire dans le journal de bord?</t>
+      <t id="92">Ajouter une balise de commande?</t>
       <t id="93">Sauvegarder les paramètres de commande?</t>
       <t id="94">Réinitialiser les paramètres de commande?</t>
       <t id="95">Paramètres de commande sauvegardés.</t>

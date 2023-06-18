@@ -8,12 +8,13 @@
       <t id="40">Idle</t>
       <t id="41">Move to Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">\033#FFe27100#Restock Failure\033X</t>
-      <t id="51">There are no stations available for restocking the required items.</t>
-      <t id="52">All available stations currently lack the necessary resources to produce the required items.</t>
-      <t id="53">We do not have sufficient funds to restock the required items.</t>
-      <t id="54">The creation of the restocking command has failed.</t>
-      <t id="55">The restock order has failed. More details are available in the logbook.</t>
+      <t id="50">Currently, there are no available stations where we could restock our desired equipment.</t>
+      <t id="51">Currently, all discovered stations lack the necessary resources to manufacture the desired equipment.</t>
+      <t id="52">We lack the necessary funds to restock the desired equipment.</t>
+      <t id="53">The process of creating the restock order has failed.</t>
+      <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="80">Idle Time</t>
       <t id="81">Idle: Move to?</t>
@@ -24,7 +25,9 @@
       <t id="86">Find a Station?</t>
       <t id="87">Where to dock?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="90">Add Order tag?</t>
+      <t id="90">Show messages?</t>
+      <t id="91">Write to logbook?</t>
+      <t id="92">Add Order tag?</t>
       <t id="93">Save Order Settings?</t>
       <t id="94">Reset Order Settings?</t>
       <t id="95">Order settings saved.</t>
