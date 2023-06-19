@@ -54,7 +54,7 @@
               This is crucial to ensure that $_Ship can always reach its target sector. 
               A stricter blacklist usage may be implemented in the future. -->
 
-         <set_command_action commandaction="commandaction.flyingto" param="$SECTOR"/>
+         <set_command command="command.move" param="$SECTOR"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
