@@ -4,20 +4,9 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="null"/>
+      <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
-
-   <interrupts>
-      <handler ref="AttackHandler"/>
-      <handler ref="MissileLockHandler" />
-      <handler ref="ScannedHandler"/>
-      <handler ref="InspectedHandler"/>
-      <handler ref="FoundAbandonedHandler"/>
-      <handler ref="FoundLockboxHandler"/>
-      <handler ref="ResupplyHandler"/>
-      <handler ref="TideHandler"/>
-   </interrupts>
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -61,16 +50,12 @@
             </do_if>
          </do_for_each>
 
-         <create_list name="$_SectorTravelTimes"/>
-         <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults">
-            <estimate_travel_time ship="$_Ship" start="$_Ship" target="$_FoundDataVault" result="$_TravelTime"/>
-            <append_to_list name="$_SectorTravelTimes" exact="[$_FoundDataVault, $_TravelTime]"/>
-         </do_for_each>
-         <sort_list list="$_SectorTravelTimes" sortbyvalue="loop.element.{2}"/>
-         <clear_list list="$_FoundDataVaults"/>
-         <do_for_each name="$_SectorTravelTime" in="$_SectorTravelTimes">
-            <append_to_list name="$_FoundDataVaults" exact="$_SectorTravelTime.{1}"/>
-         </do_for_each>
+         <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+            <param name="LIST" value="$_FoundDataVaults"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_SortedList" variable="$_FoundDataVaults"/>
+         </run_script>
 
          <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults" reverse="true">
             <set_value name="$_NavBeacon" exact="null"/>

@@ -110,8 +110,24 @@
                </actions>
             </cue>
 
-         </cues>
+            <cue name="DVE_EventOrderStarted_MD" instantiate="true">
+               <conditions>
+                  <event_object_order_ready group="global.$DVE_ShipsGroup"/>
+                  <check_any>
+                     <check_value value="@event.param.id == 'JP_DataVaultExplorerG'"/>
+                  </check_any>
+               </conditions>
+               <actions>
+                  <set_value name="$_Ship" exact="event.object"/>
+                  <cancel_all_orders object="$_Ship"/>
+                  <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                     <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
+                  </substitute_text>
+                  <set_object_name object="$_Ship" name="$_ResultName"/>
+               </actions>
+            </cue>
 
+         </cues>
       </cue>
 
    </cues>

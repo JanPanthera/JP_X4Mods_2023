@@ -5,26 +5,18 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="910">Rifornire i beacon di navigazione?</t>
-      <t id="911">Limite di rifornimento</t>
-      <t id="912">Posizione iniziale</t>
+      <t id="900">Rifornire i beacon di navigazione?</t>
+      <t id="901">Limite di rifornimento</t>
+      <t id="902">Posizione iniziale</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="941">Posizionare un beacon di navigazione su una cassaforte dei dati</t>
+      <t id="940">Segna Datavault</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Non ci sono stazioni disponibili per rifornire i beacon di navigazione.</t>
-      <t id="951">Non ci sono abbastanza beacon di navigazione disponibili, e il rifornimento dei beacon è disattivato.</t>
-      <t id="952">Non abbiamo abbastanza soldi per rifornire i beacon di navigazione.</t>
-      <t id="953">La creazione dell'ordine di rifornimento è fallita.</t>
-      <t id="954">Non abbiamo trovato alcuna cassaforte di dati che possiamo raggiungere o che dobbiamo segnare.</t>
-      <t id="955">Tutte le stazioni disponibili non hanno al momento abbastanza risorse per produrre beacon di navigazione.</t>
+      <t id="950">Non ci sono o non ci sono abbastanza boe di navigazione disponibili, e il rifornimento automatico delle boe di navigazione è disattivato.</t>
+      <t id="951">Al momento, non ci sono datavault rimasti che possiamo raggiungere o che dobbiamo segnare.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="961">Questo script permette alla tua nave di posizionare boe di navigazione accanto ai data vault in tutta la galassia.</t>
+      <t id="960">\033#FFe27100#Marcatura Datavault in Pausa\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="991">Aggiungere l'etichetta dell'ordine?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <t id="971">Posiziona le boe di navigazione accanto ai datavault in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

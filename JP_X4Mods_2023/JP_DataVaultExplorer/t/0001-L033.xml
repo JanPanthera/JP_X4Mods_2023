@@ -5,26 +5,18 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="910">Recharger les balises de navigation?</t>
-      <t id="911">Limite de rechargement</t>
-      <t id="912">Position de départ</t>
+      <t id="900">Recharger les balises de navigation?</t>
+      <t id="901">Limite de rechargement</t>
+      <t id="902">Position de départ</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="941">Placer une balise de navigation sur un coffre-fort de données</t>
+      <t id="940">Marquer Datavault</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Aucune station n'est disponible pour recharger les balises de navigation.</t>
-      <t id="951">Pas assez de balises de navigation disponibles, et la recharge des balises est désactivée.</t>
-      <t id="952">Nous n'avons pas assez d'argent pour recharger les balises de navigation.</t>
-      <t id="953">La création de l'ordre de rechargement a échoué.</t>
-      <t id="954">Nous n'avons trouvé aucun coffre-fort de données que nous pouvons atteindre ou marquer.</t>
-      <t id="955">Toutes les stations disponibles n'ont pas assez de ressources pour fabriquer des balises de navigation pour le moment.</t>
+      <t id="950">Il n'y a pas ou pas assez de balises de navigation disponibles, et le réapprovisionnement automatique des balises de navigation est désactivé.</t>
+      <t id="951">Actuellement, il ne reste aucun datavault que nous pouvons atteindre ou besoin de marquer.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="961">Ce script permet à votre navire de placer des balises de navigation à côté des coffres de données dans toute la galaxie.</t>
+      <t id="960">\033#FFe27100#Marquage de Datavault en Pause\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="991">Ajouter une étiquette de commande?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <t id="971">Placez des balises de navigation à côté des datavaults à travers la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

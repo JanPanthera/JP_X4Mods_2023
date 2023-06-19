@@ -5,26 +5,18 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="910">Uzupełnić boje nawigacyjne?</t>
-      <t id="911">Limit uzupełnienia</t>
-      <t id="912">Pozycja domowa</t>
+      <t id="900">Uzupełnić boje nawigacyjne?</t>
+      <t id="901">Limit uzupełnienia</t>
+      <t id="902">Pozycja domowa</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="941">Umieść boję nawigacyjną na skarbcu danych</t>
+      <t id="940">Oznacz Skarbiec Danych</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Nie ma dostępnych stacji do uzupełnienia boi nawigacyjnych.</t>
-      <t id="951">Brak wystarczającej ilości lub brak boi nawigacyjnych, a uzupełnienie boi jest wyłączone.</t>
-      <t id="952">Nie mamy wystarczająco dużo pieniędzy na uzupełnienie boi nawigacyjnych.</t>
-      <t id="953">Nie udało się stworzyć polecenia uzupełnienia.</t>
-      <t id="954">Nie znaleźliśmy skarbców danych, do których moglibyśmy dotrzeć lub które musimy oznaczyć.</t>
-      <t id="955">Wszystkie dostępne stacje nie mają w tej chwili wystarczająco dużo zasobów na produkcję boi nawigacyjnych.</t>
+      <t id="950">Nie ma dostępnych lub jest za mało dostępnych boi nawigacyjnych, a automatyczne uzupełnianie boi nawigacyjnych jest wyłączone.</t>
+      <t id="951">Obecnie nie ma skarbca danych, do których moglibyśmy dotrzeć lub które musimy oznaczyć.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="961">Ten skrypt pozwala twojemu statkowi umieszczać boje nawigacyjne obok skarbców z danymi na całej galaktyce.</t>
+      <t id="960">\033#FFe27100#Oznaczanie Skarbca Danych Wstrzymane\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="991">Dodać etykietę zamówienia?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <t id="971">Umieszczaj boje nawigacyjne obok skarbca danych w całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

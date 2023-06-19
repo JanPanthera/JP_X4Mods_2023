@@ -5,26 +5,18 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="910">Navigationsbaken aufstocken?</t>
-      <t id="911">Höchstgrenze für die Wiederauffüllung</t>
-      <t id="912">Heimatposition</t>
+      <t id="900">Navigationsbaken aufstocken?</t>
+      <t id="901">Höchstgrenze für die Wiederauffüllung</t>
+      <t id="902">Heimatposition</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="941">Navigationsbake an Datentresor platzieren</t>
+      <t id="940">Datentresor markieren</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Es steht keine Station zur Verfügung, um Navigationsbaken nachzufüllen.</t>
-      <t id="951">Keine oder nicht genügend Navigationsbaken vorhanden, und das Nachfüllen von Navigationsbaken ist deaktiviert.</t>
-      <t id="952">Wir haben nicht genügend Geld zur Verfügung, um die Navigationsbaken aufzufüllen.</t>
-      <t id="953">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
-      <t id="954">Wir haben keine Datentresore gefunden, die wir erreichen können oder markieren müssen.</t>
-      <t id="955">Alle verfügbaren Stationen haben im Moment nicht genug Ressourcen, um Navigationsbaken herzustellen.</t>
+      <t id="950">Es stehen keine oder nicht genügend Navigationsbaken zur Verfügung, und die automatische Nachfüllung von Navigationsaken ist deaktiviert.</t>
+      <t id="951">Derzeit gibt es keine Datentresore mehr, die wir erreichen oder markieren müssen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="961">Dieses Skript ermöglicht es Ihrem Schiff, Navigationsbaken neben Datentresoren in der gesamten Galaxie zu platzieren.</t>
+      <t id="960">\033#FFe27100#Datentresor-Markierung pausiert\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="991">Auftragskennzeichen hinzufügen?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <t id="971">Platzieren Sie Navigationsbaken neben Datentresoren in der gesamten Galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

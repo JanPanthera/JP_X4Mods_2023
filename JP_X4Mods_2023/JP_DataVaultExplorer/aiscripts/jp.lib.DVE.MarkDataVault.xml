@@ -2,7 +2,7 @@
 
 <aiscript name="jp.lib.DVE.MarkDataVault" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_DVE_MarkDataVault" name="{8888888, 941}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_DVE_MarkDataVault" name="{8888888, 940}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DATA_VAULT" type="internal" default="null"/>
@@ -49,51 +49,27 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.investigate"/>
-
-         <include_interrupt_actions ref="GetBlacklistgroup"/>
-
-         <label name="MOVE_TO_SECTOR_LBL"/>
-         <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $DATA_VAULT.sector">
-            <remove_value name="$_PathComponents"/>
-            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true" useblacklist="$blacklistgroup">
-               <start object="$_Ship"/>
-               <end object="$DATA_VAULT"/>
-            </get_jump_path>
-            <do_if value="$_PathComponents.count lt 2">
-               <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
-                  <start object="$_Ship"/>
-                  <end object="$DATA_VAULT"/>
-               </get_jump_path>
-            </do_if>
-            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
-               <do_if value="$_PathComponent.sector == $_Ship.sector">
-                  <continue/>
-               </do_if>
-               <set_command_action commandaction="commandaction.flyingto" param="$_PathComponent.sector"/>
-               <set_value name="$LOCATION" exact="[$_PathComponent.sector, null]"/>
-               <run_script name="'move.generic'" result="$_MoveSuccess">
-                  <param name="destination" value="$_PathComponent"/>
-                  <param name="endintargetzone" value="true"/>
-                  <param name="recallsubordinates" value="false"/>
-                  <param name="changecommandaction" value="false"/>
-                  <param name="debugchance" value="0"/>
-               </run_script>
-               <resume label="MOVE_TO_SECTOR_LBL"/>
-            </do_for_each>
+            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+               <param name="SECTOR" value="$DATA_VAULT.sector"/>
+               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+               <param name="DEBUG" value="$DEBUG"/>
+            </create_order>
          </do_if>
 
          <stop_moving object="$_Ship"/>
          <wait exact="1ms"/>
 
-         <create_position name="$_Position" space="$DATA_VAULT.sector" object="$DATA_VAULT" y="(($DATA_VAULT.height / 2) + ($_Ship.height / 2) + 200m)"/>
+         <create_position name="$_Position" space="$DATA_VAULT.sector" object="$DATA_VAULT" y="(($DATA_VAULT.height / 2) + ($_Ship.height / 2) + 10m)"/>
          <set_value name="$LOCATION" exact="[$DATA_VAULT.sector, $_Position]"/>
-         <set_command_action commandaction="commandaction.flyingto" param="$DATA_VAULT"/>
+         
+         <set_command command="command.move" param="$DATA_VAULT"/>
+         <set_command_action commandaction="commandaction.flying"/>
+         
          <run_script name="'move.generic'">
             <param name="destination" value="$DATA_VAULT.sector"/>
             <param name="position" value="$_Position"/>
-            <param name="playerprecise" value="true"/>
+            <param name="precise" value="true"/>
             <param name="recallsubordinates" value="false"/>
             <param name="changecommandaction" value="false"/>
             <param name="debugchance" value="0"/>
@@ -102,6 +78,9 @@
          <label name="FINISH_MOVING_LBL"/>
          <stop_moving object="$_Ship" immediate="true"/>
          <wait exact="1000ms"/>
+
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.standingby"/>
 
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
          <set_object_velocity object="$_NavBeacon">

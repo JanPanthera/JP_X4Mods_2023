@@ -3,8 +3,13 @@
 v2.0.0
 ~ Initial re-release
 
-v2.0.1 -- Current Published version
+v2.0.1 -- Current Published Version
 ~ Added: Added a "home position" parameter where the ship will move to when it has marked all data vaults or when it can't reach any more due to a blacklist.
 ~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
 ~ Fixed: Resolved an issue where the ship was sometimes unable to reach a sector or would halt after a jump.
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
+
+v2.0.2 -- Current Development Version
+~ Fixed: There was an issue with the function that checks whether a station has enough resources to build all the necessary navigation beacons.
+         This issue caused the ship to dock and wait for resources, potentially for an extended period of time, depending on when the station was resupplied with resources.
+~ Updated: Some minor code and translation changes.

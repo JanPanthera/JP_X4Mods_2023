@@ -5,26 +5,18 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="910">¿Reponer balizas de navegación?</t>
-      <t id="911">Límite de reposición</t>
-      <t id="912">Posición inicial</t>
+      <t id="900">¿Reponer balizas de navegación?</t>
+      <t id="901">Límite de reposición</t>
+      <t id="902">Posición inicial</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="941">Colocar baliza de navegación en bóveda de datos</t>
+      <t id="940">Marcar Depósito de Datos</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">No hay estaciones disponibles para reponer balizas de navegación.</t>
-      <t id="951">No hay suficientes balizas de navegación disponibles y la reposición de balizas está desactivada.</t>
-      <t id="952">No tenemos suficiente dinero para reponer las balizas de navegación.</t>
-      <t id="953">La creación de la orden de reposición ha fallado.</t>
-      <t id="954">No hemos encontrado bóvedas de datos a las que podamos llegar o que necesitemos marcar.</t>
-      <t id="955">Todas las estaciones disponibles no tienen suficientes recursos para fabricar balizas de navegación en este momento.</t>
+      <t id="950">No hay suficientes balizas de navegación disponibles y el reabastecimiento automático de balizas de navegación está desactivado.</t>
+      <t id="951">Actualmente, no quedan depósitos de datos que podamos alcanzar o necesitemos marcar.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="961">Este script permite a tu nave colocar balizas de navegación junto a las bóvedas de datos en toda la galaxia.</t>
+      <t id="960">\033#FFe27100#Marcado de Depósito de Datos en Pausa\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="991">¿Añadir etiqueta de orden?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <t id="971">Coloque balizas de navegación junto a los depósitos de datos en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
