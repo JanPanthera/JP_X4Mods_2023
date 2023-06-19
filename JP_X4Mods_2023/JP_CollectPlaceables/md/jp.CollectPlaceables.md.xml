@@ -36,7 +36,6 @@
             </do_if>
 
          </actions>
-
          <cues>
 
             <cue name="CP_Debug_MD" instantiate="false" checkinterval="1s">
@@ -178,7 +177,6 @@
             </cue>
 
          </cues>
-
       </cue>
 
    </cues>

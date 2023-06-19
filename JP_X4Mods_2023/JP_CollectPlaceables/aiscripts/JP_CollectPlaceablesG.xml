@@ -99,9 +99,9 @@
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" text="Debug" type="number" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{31} else 0" advanced="true">
-            <input_param name="step" value="100"/>
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
+            <input_param name="step" value="100"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
@@ -130,7 +130,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_CollectingPausedTitle" exact="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_CP_PausedTitle" exact="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$CP_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -211,7 +211,7 @@
             <do_if value="not $SELL_PLACEABLES">
                <!-- There is no more storage left for collecting additional placeables, and I'm not allowed to empty my placeable storage myself. -->
                <show_help position="1" duration="5s" allowclose="true" custom="'CollectPlaceablesG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 850}]" chance="$SHOW_MESSAGES"/>
-               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CollectingPausedTitle" text="{8888888, 850}" chance="$WRITE_TO_LOG"/>
+               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CP_PausedTitle" text="{8888888, 850}" chance="$WRITE_TO_LOG"/>
                <resume label="IDLE_LBL"/>
             </do_if>
             <run_script name="'jp.lib.CP.SellPlaceables'">
@@ -251,7 +251,7 @@
          <do_if value="$_FoundPlaceables.count == 0">
             <!-- There are no placeables left to collect. I will switch to idle mode and try again later. -->
             <show_help position="1" duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 852}]" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CollectingPausedTitle" text="{8888888, 852}" chance="$WRITE_TO_LOG"/>
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CP_PausedTitle" text="{8888888, 852}" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
