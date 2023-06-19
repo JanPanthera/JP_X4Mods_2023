@@ -51,7 +51,7 @@
          <do_if value="$_FoundStations.count gt 1">
             <run_script name="'jp.lib.SortByEstimatedTravelTime'">
                <param name="LIST" value="$_FoundStations"/>
-               <param name="DEBUG_FOLDER_NAME" value="$_DebugFolderName"/>
+               <param name="DEBUG_FOLDER_NAME" value="$DEBUG_FOLDER_NAME"/>
                <param name="DEBUG" value="$DEBUG"/>
                <save_retval name="_SortedList" variable="$_FoundStations"/>
             </run_script>
