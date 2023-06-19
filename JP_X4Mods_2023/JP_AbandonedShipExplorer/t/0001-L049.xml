@@ -25,7 +25,9 @@
       <t id="151">Es sind keine Marines für das automatische Entern von Schiffen verfügbar.</t>
       <t id="152">Aktuell gibt es keine verlassenen Schiffe mehr, die wir erreichen können oder die markiert oder beansprucht werden müssen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="161">Dieses Skript ermöglicht es Ihrem Raumschiff, verlassene Schiffe in der gesamten Galaxie zu finden, zu markieren oder zu übernehmen.</t>
+      <t id="160">\033#FFe27100#Erforschung verlassener Schiffe pausiert\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Dieses Skript ermöglicht es Ihrem Raumschiff, verlassene Schiffe in der gesamten Galaxie zu finden, zu markieren oder zu übernehmen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

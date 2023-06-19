@@ -8,16 +8,6 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
-   <interrupts>
-      <handler ref="AttackHandler"/>
-      <handler ref="MissileLockHandler" />
-      <handler ref="ScannedHandler"/>
-      <handler ref="InspectedHandler"/>
-      <handler ref="FoundLockboxHandler"/>
-      <handler ref="ResupplyHandler"/>
-      <handler ref="TideHandler"/>
-   </interrupts>
-
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
@@ -62,6 +52,8 @@
 
          <run_script name="'jp.lib.SortByEstimatedTravelTime'">
             <param name="LIST" value="$_FoundAbandonedShips"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
             <save_retval name="_SortedList" variable="$_FoundAbandonedShips"/>
          </run_script>
 

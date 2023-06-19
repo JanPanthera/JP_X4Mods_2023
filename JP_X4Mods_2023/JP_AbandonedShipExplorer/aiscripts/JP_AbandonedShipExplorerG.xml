@@ -51,16 +51,22 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="ADD_ORDER_TAG" text="{8888888, 90}" comment="Add order tag?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{12} else true"/>
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{12} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{13} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="ADD_ORDER_TAG" text="{8888888, 92}" comment="Add order tag?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{14} else true"/>
          <param name="SAVE_ORDER_SETTINGS" text="{8888888, 93}" comment="Save Order Settings?" type="bool" default="false"/>
-         <param name="RESET_ORDER_SETTINGS" text="{8888888, 94}" comment="Delete Order Settings?" type="bool" default="false"/>
+         <param name="RESET_ORDER_SETTINGS" text="{8888888, 94}" comment="Reset Order Settings?" type="bool" default="false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_998" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" text="Debug" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{13} else 0" advanced="true">
+         <param name="DEBUG" text="Debug" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{15} else 0" advanced="true">
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
             <input_param name="step" value="100"/>
@@ -91,6 +97,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_ASE_PausedTitle" exact="{8888888, 160} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$ASE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -106,7 +113,7 @@
                                $ASE_MODE, $RESTOCK_NAV_BEACONS, $RESTOCK_AMOUNT_CAP,
                                $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                                $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                               $ADD_ORDER_TAG, $DEBUG]"/>
+                               $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
          <do_if value="global.$JP_AbandonedShipExplorer_Settings?" negate="true">
             <create_list name="global.$JP_AbandonedShipExplorer_Settings"/>
             <append_list_elements name="global.$JP_AbandonedShipExplorer_Settings" other="$_SettingsList"/>
@@ -119,12 +126,12 @@
             </do_for_each>
          </do_else>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AbandonedShipExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 195}'"/>
+         <show_help duration="5s" allowclose="true" custom="'JP_AbandonedShipExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$JP_AbandonedShipExplorer_Settings"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AbandonedShipExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 196}'"/>
+         <show_help duration="5s" allowclose="true" custom="'JP_AbandonedShipExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -157,25 +164,34 @@
          <label name="RESUME_LBL"/>
          <wait exact="1ms"/>
 
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
          <do_if value="$ASE_MODE == 3">
             <do_if value="$_Ship.ammostorage.{ware.waypointmarker_01.objectmacro}.count == 0">
-               <!-- There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled. -->
-               <do_if value="@$_GoRestock and not $RESTOCK_NAV_BEACONS">
-                  <show_help duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 150}]"/>
+               <do_if value="not $RESTOCK_NAV_BEACONS">
+                  <!-- There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled. -->
+                  <show_help position="1" duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 150}]" chance="$SHOW_MESSAGES"/>
+                  <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_ASE_PausedTitle" text="{8888888, 150}" chance="$WRITE_TO_LOG"/>
                   <resume label="IDLE_LBL"/>
                </do_if>
                <set_value name="$_RestockAmmoTable" exact="table[]"/>
+               <do_for_each name="$_EquipmentMacro" in="$_Ship.ammostorage.deployable.table">
+                  <set_value name="$_RestockAmmoTable.{$_EquipmentMacro}" exact="0"/>
+               </do_for_each>
                <set_value name="$_RestockAmmoTable.{ware.waypointmarker_01.objectmacro}" exact="$RESTOCK_AMOUNT_CAP"/>
-               <run_script name="'jp.lib.Restock'">
-                  <param name="RESTOCK_AMMO_TABLE" value="$_RestockAmmoTable"/>
-                  <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+               <run_script name="'jp.lib.RestockEquipment'">
+                  <param name="EQUIPMENT_TABLE" value="$_RestockAmmoTable"/>
+                  <param name="SHOW_MESSAGES" value="$SHOW_MESSAGES"/>
+                  <param name="WRITE_TO_LOG" value="$WRITE_TO_LOG"/>
+                  <param name="DEBUG_FOLDER_NAME" value="$_DebugFolderName"/>
                   <param name="DEBUG" value="$DEBUG"/>
                   <save_retval name="_Result" variable="$_Result"/>
                </run_script>
-               <!-- The restock order has failed. More details are available in the logbook. -->
                <do_if value="@$_Result != 'Success'">
-                  <show_help duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 55}]"/>
-                  <resume label="IDLE_LBL"/>
+                  <!-- The restock equipment order has failed. More detail is available in the logbook. -->
+                  <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
+                  <resume label="FINISH_LBL"/>
                </do_if>
             </do_if>
          </do_if>
@@ -183,7 +199,8 @@
          <do_if value="$ASE_MODE == 4">
             <do_if value="$_Ship.people.{entityrole.marine}.list.count == 0">
                <!-- No marines are available for automatic ship boarding. -->
-               <show_help duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 151}]"/>
+               <show_help position="1" duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 851}]" chance="$SHOW_MESSAGES"/>
+               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_ASE_PausedTitle" text="{8888888, 851}" chance="$WRITE_TO_LOG"/>
                <resume label="IDLE_LBL"/>
             </do_if>
          </do_if>
@@ -194,9 +211,10 @@
             <save_retval name="_FoundAbandonedShips" variable="$_FoundAbandonedShips"/>
          </run_script>
 
-         <!-- We have not found any abandoned ships that we can reach or that need to be marked or claimed. -->
          <do_if value="$_FoundAbandonedShips.count == 0">
-            <show_help duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 152}]"/>
+            <!-- We have not found any abandoned ships that we can reach or that need to be marked or claimed. -->
+            <show_help position="1" duration="5s" allowclose="true" custom="'AbandonedShipExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 852}]" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_ASE_PausedTitle" text="{8888888, 852}" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -228,7 +246,6 @@
 
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
-         <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>

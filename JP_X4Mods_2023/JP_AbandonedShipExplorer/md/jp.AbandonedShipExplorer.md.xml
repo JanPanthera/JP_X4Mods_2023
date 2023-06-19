@@ -35,7 +35,7 @@
          </actions>
          <cues>
 
-            <cue name="ASE_Debug_MD" instantiate="false" checkinterval="1s" >
+            <cue name="ASE_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
                   <set_value name="$DEBUG" exact="0"/>
@@ -104,7 +104,7 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 13">
+                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 15">
                      <remove_value name="global.$AbandonedShipExplorer_Settings"/>
                   </do_if>
 
@@ -136,7 +136,6 @@
             </cue>
 
          </cues>
-
       </cue>
 
    </cues>

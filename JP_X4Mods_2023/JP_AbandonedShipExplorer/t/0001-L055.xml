@@ -25,7 +25,9 @@
       <t id="151">Não há fuzileiros navais disponíveis para o embarque automático de naves.</t>
       <t id="152">Não encontramos nenhuma nave abandonada que possamos alcançar ou que precise ser marcada ou reivindicada.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="161">Este script permite que sua nave espacial encontre, marque ou embarque em naves abandonadas em toda a galáxia.</t>
+      <t id="160">\033#FFe27100#Exploração de Navios Abandonados Pausada\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Este script permite que sua nave espacial encontre, marque ou embarque em naves abandonadas em toda a galáxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

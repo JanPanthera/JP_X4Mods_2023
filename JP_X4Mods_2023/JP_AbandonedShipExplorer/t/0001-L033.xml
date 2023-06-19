@@ -25,7 +25,9 @@
       <t id="151">Aucun marine n'est disponible pour l'embarquement automatique des navires.</t>
       <t id="152">Nous n'avons trouvé aucun navire abandonné que nous pouvons atteindre ou qui doit être marqué ou revendiqué.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="161">Ce script permet à votre vaisseau spatial de trouver, de marquer ou de monter à bord des vaisseaux abandonnés dans toute la galaxie.</t>
+      <t id="160">\033#FFe27100#Exploration des navires abandonnés en pause\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Ce script permet à votre vaisseau spatial de trouver, de marquer ou de monter à bord des vaisseaux abandonnés dans toute la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

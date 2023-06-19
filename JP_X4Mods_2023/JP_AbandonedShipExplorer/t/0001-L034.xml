@@ -25,7 +25,9 @@
       <t id="151">No hay marines disponibles para el abordaje automático de naves.</t>
       <t id="152">No hemos encontrado ninguna nave abandonada que podamos alcanzar o que necesite ser marcada o reclamada.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="161">Este script permite que tu nave espacial encuentre, marque o aborde naves abandonadas en toda la galaxia.</t>
+      <t id="160">\033#FFe27100#Exploración de Naves Abandonadas Pausada\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Este script permite que tu nave espacial encuentre, marque o aborde naves abandonadas en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

@@ -25,7 +25,9 @@
       <t id="151">Non ci sono marines disponibili per l'imbarco automatico della nave.</t>
       <t id="152">Non abbiamo trovato nessuna nave abbandonata che possiamo raggiungere o che deve essere segnata o reclamata.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="161">Questo script consente alla tua astronave di trovare, segnare o salire a bordo di navi abbandonate in tutta la galassia.</t>
+      <t id="160">\033#FFe27100#Esplorazione delle navi abbandonate in pausa\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Questo script consente alla tua astronave di trovare, segnare o salire a bordo di navi abbandonate in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
