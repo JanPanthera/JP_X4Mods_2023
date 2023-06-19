@@ -72,7 +72,7 @@
 
             <cue name="SL_ManageIdleReturnHome_MD" instantiate="true" checkinterval="1s">
                <conditions>
-                  <check_value value="global.$SL_IdleShips?"/>
+                  <check_value value="@global.$SL_IdleShips.keys.count gt 0"/>
                </conditions>
                <actions>
 
@@ -87,7 +87,7 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="@global.$SL_IdleShips.keys.count gt 0">
+                  <do_if value="global.$SL_IdleShips.keys.count gt 0">
                      <do_for_each name="$_Ship" valuename="$_IdleStartTime" in="global.$SL_IdleShips" reverse="true">
                         <set_value name="$_IdleOrderPresent" exact="false"/>
                         <do_for_each name="$_Order" in="$_Ship.orders">
@@ -96,21 +96,18 @@
                               <break/>
                            </do_if>
                         </do_for_each>
-                        <do_if value="$_Ship.defaultorder.id == 'Assist'">
-                           <set_value name="$_IdleTime" exact="@$_Ship.commander.defaultorder.$IDLE_TIME"/>
+                        <set_value name="$_IdleTime" exact="if $_Ship.defaultorder.id == 'Assist' 
+                                                            then @$_Ship.commander.defaultorder.$IDLE_TIME
+                                                            else @$_Ship.defaultorder.$IDLE_TIME"/>
+                        <do_if value="$_IdleOrderPresent and ((player.age - $_IdleStartTime) lt $_IdleTime)">
+                           <continue/>
                         </do_if>
-                        <do_else>
-                           <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
-                        </do_else>
-                        <do_if value="(not $_IdleOrderPresent and (player.age - $_IdleStartTime) gt 5) or
-                                ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_IdleTime))">
-                           <cancel_all_orders object="$_Ship"/>
-                           <remove_value name="global.$SL_IdleShips.{$_Ship}"/>
-                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
-                           </substitute_text>
-                           <set_object_name object="$_Ship" name="$_ResultName"/>
-                        </do_if>
+                        <signal_objects object="$_Ship" param="'Cancel_IdleReturnHome'"/>
+                        <remove_value name="global.$SL_IdleShips.{$_Ship}"/>
+                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                           <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                        </substitute_text>
+                        <set_object_name object="$_Ship" name="$_ResultName"/>
                      </do_for_each>
                   </do_if>
 

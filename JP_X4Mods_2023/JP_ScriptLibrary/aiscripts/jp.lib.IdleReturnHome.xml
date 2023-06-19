@@ -20,6 +20,17 @@
       </params>
    </order>
 
+   <interrupts>
+      <handler comment="Handler to cancel IdleReturnHome Orders, add this also to all sub orders created by IdleReturnHome">
+         <conditions>
+            <event_object_signalled object="this.ship" param="'Cancel_IdleReturnHome'"/>
+         </conditions>
+         <actions>
+            <cancel_order order="this.ship.order"/>
+         </actions>
+      </handler>
+   </interrupts>
+
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
@@ -53,13 +64,14 @@
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         
+
          <set_command_action commandaction="commandaction.standingby"/>
 
          <label name="IDLE_MOVE_TO_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$IDLE_MOVE_TO">
             <create_order object="$_Ship" id="'MoveWait'" immediate="true">
+               <param name="IDLE_RETURN_HOME" value="true"/>
                <param name="destination" value="$WHERE_TO_MOVE"/>
                <param name="timeout" value="999h"/>
             </create_order>
@@ -75,6 +87,7 @@
                <resume label="IDLE_MOVE_TO_LBL"/>
             </do_if>
             <create_order object="$_Ship" id="'Follow'" immediate="true">
+               <param name="IDLE_RETURN_HOME" value="true"/>
                <param name="target" value="$WHO_TO_FOLLOW"/>
             </create_order>
          </do_if>
@@ -84,15 +97,20 @@
          <label name="IDLE_DOCKING_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$IDLE_DOCKING">
-            <do_if value="$WHERE_TO_DOCK == null or $FIND_STATION">
-               <create_list name="$_FoundStations"/>
-               <find_station name="$_FoundStations" sortbydistanceto="$_Ship" space="player.galaxy" multiple="true">
-                  <match knownto="$_Ship.owner"/>
-                  <match checkoperational="true"/>
-                  <match_relation_to faction="$_Ship.owner" comparison="ge" relation="neutral"/>
-               </find_station>
-               <do_if value="$_FoundStations.count gt 0">
-                  <sort_list list="$_FoundStations" sortbyvalue="loop.element.gatedistance.{$_Ship}"/>
+            <do_if value="not @$WHERE_TO_DOCK.dockingallowed.{$_Ship}">
+               <do_if value="$FIND_STATION">
+                  <create_list name="$_FoundStations"/>
+                  <find_station name="$_FoundStations" space="player.galaxy" multiple="true">
+                     <match knownto="$_Ship.owner"/>
+                     <match checkoperational="true"/>
+                     <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
+                  </find_station>
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                     <param name="LIST" value="$_FoundStations"/>
+                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+                     <param name="DEBUG" value="$DEBUG"/>
+                     <save_retval name="_SortedList" variable="$_FoundStations"/>
+                  </run_script>
                   <do_for_each name="$_FoundStation" in="$_FoundStations">
                      <do_if value="$_FoundStation.dockingallowed.{$_Ship}">
                         <set_value name="$WHERE_TO_DOCK" exact="$_FoundStation"/>
@@ -100,12 +118,13 @@
                      </do_if>
                   </do_for_each>
                </do_if>
-            </do_if>
-            <do_if value="$WHERE_TO_DOCK == null or not @$WHERE_TO_DOCK.dockingallowed.{$_Ship}">
-               <set_value name="$IDLE_MOVE_TO" exact="true"/>
-               <resume label="IDLE_MOVE_TO_LBL"/>
+               <do_if value="not @$WHERE_TO_DOCK.dockingallowed.{$_Ship}">
+                  <set_value name="$IDLE_MOVE_TO" exact="true"/>
+                  <resume label="IDLE_MOVE_TO_LBL"/>
+               </do_if>
             </do_if>
             <create_order object="$_Ship" id="'DockAndWait'" immediate="true">
+               <param name="IDLE_RETURN_HOME" value="true"/>
                <param name="destination" value="$WHERE_TO_DOCK"/>
                <param name="timeout" value="999h"/>
             </create_order>
