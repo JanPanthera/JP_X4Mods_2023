@@ -48,8 +48,6 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.investigate"/>
-
          <do_if value="$_Ship.sector != $ABANDONED_SHIP.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$ABANDONED_SHIP.sector"/>
@@ -63,7 +61,10 @@
 
          <create_position name="$_Position" space="$ABANDONED_SHIP.sector" object="$ABANDONED_SHIP" y="(($ABANDONED_SHIP.height / 2) + ($_Ship.height / 2) + 10m)"/>
          <set_value name="$LOCATION" exact="[$ABANDONED_SHIP.sector, $_Position]"/>
-         <set_command_action commandaction="commandaction.flyingto" param="$ABANDONED_SHIP"/>
+
+         <set_command command="command.move" param="$ABANDONED_SHIP"/>
+         <set_command_action commandaction="commandaction.flying"/>
+
          <run_script name="'move.generic'">
             <param name="destination" value="$ABANDONED_SHIP.sector"/>
             <param name="position" value="$_Position"/>
@@ -77,6 +78,7 @@
          <stop_moving object="$_Ship" immediate="true"/>
          <wait exact="1000ms"/>
 
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <do_if value="$_Ship.people.{entityrole.marine}.list.count gt 0">

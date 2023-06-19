@@ -190,7 +190,7 @@
                </run_script>
                <do_if value="@$_Result != 'Success'">
                   <!-- The restock equipment order has failed. More detail is available in the logbook. -->
-                  <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
+                  <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_ASE_PausedTitle" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
                   <resume label="FINISH_LBL"/>
                </do_if>
             </do_if>

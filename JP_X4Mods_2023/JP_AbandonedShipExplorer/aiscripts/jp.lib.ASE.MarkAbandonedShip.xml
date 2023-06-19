@@ -63,7 +63,10 @@
 
          <create_position name="$_Position" space="$ABANDONED_SHIP.sector" object="$ABANDONED_SHIP" y="(($ABANDONED_SHIP.height / 2) + ($_Ship.height / 2) + 10m)"/>
          <set_value name="$LOCATION" exact="[$ABANDONED_SHIP.sector, $_Position]"/>
-         <set_command_action commandaction="commandaction.flyingto" param="$ABANDONED_SHIP"/>
+
+         <set_command command="command.move" param="$ABANDONED_SHIP"/>
+         <set_command_action commandaction="commandaction.flying"/>
+         
          <run_script name="'move.generic'">
             <param name="destination" value="$ABANDONED_SHIP.sector"/>
             <param name="position" value="$_Position"/>
@@ -77,12 +80,14 @@
          <stop_moving object="$_Ship" immediate="true"/>
          <wait exact="1000ms"/>
 
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
          <set_object_velocity object="$_NavBeacon">
             <linear x="0" y="0" z="0"/>
          </set_object_velocity>
+         
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{8888888,120}' + '\033X\033#FF00CCCC#' + ' ~ ' + $_NavBeacon.sector.knownname + '\033X'"/>
          <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
                             {8888888, 121} + '\n' +

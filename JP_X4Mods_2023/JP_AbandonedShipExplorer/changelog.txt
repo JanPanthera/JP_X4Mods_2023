@@ -1,8 +1,8 @@
 #AbandonedShipExplorer
 
-v2.0.0 ~ Current Release Version
+v2.0.0 -- Current Published Version
 ~ Initial re-release
 
-v2.0.1 ~ Current Development Version
+v2.0.1 -- Current Development Version
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor improvements.
