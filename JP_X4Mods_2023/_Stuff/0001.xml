@@ -3,38 +3,69 @@
 <language>
    <page id="8888888" voice="no">
 
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Idle</t>
+      <t id="41">Move to Sector</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">Currently, there are no available stations where we could restock our desired equipment.</t>
+      <t id="51">Currently, all discovered stations lack the necessary resources to manufacture the desired equipment.</t>
+      <t id="52">We lack the necessary funds to restock the desired equipment.</t>
+      <t id="53">The process of creating the restock order has failed.</t>
+      <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Idle Time</t>
+      <t id="81">Idle: Move to?</t>
+      <t id="82">Where to move?</t>
+      <t id="83">Idle: Follow?</t>
+      <t id="84">Who to follow?</t>
+      <t id="85">Idle: Docking?</t>
+      <t id="86">Find a Station?</t>
+      <t id="87">Where to dock?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Show messages?</t>
+      <t id="91">Write to logbook?</t>
+      <t id="92">Add Order tag?</t>
+      <t id="93">Save Order Settings?</t>
+      <t id="94">Reset Order Settings?</t>
+      <t id="95">Order settings saved.</t>
+      <t id="96">Order settings reset.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="97">\033#B600CCCC#</t>
+      <t id="98">\033#FF00CC66#</t>
+      <t id="99">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_AbandonedShipExplorer -->
-      <t id="100">Enemy Sectors?</t>
-      <t id="101">Neutral Sectors?</t>
-      <t id="102">Friendly Sectors?</t>
-      <t id="110">Message when arrived?</t>
-      <t id="111">Wait at the abandoned ship?</t>
-      <t id="112">How long to wait?</t>
-      <t id="113">Place navigation beacons?</t>
-      <t id="114">Restock navigation beacons?</t>
-      <t id="115">Amount to restock</t>
-      <t id="116">Abandoned Ship</t>
-      <t id="117">I arrived at the abandoned ship.</t>
-      <t id="118">Wait time:</t>
-      <t id="119">No free storage room for restocking navigation beacons!</t>
-      <t id="120">No navigation beacons on board and restocking turned off, going idle...</t>
-      <t id="160">Order settings saved.</t>
-      <t id="161">Order settings have been reset.</t>
-      <t id="180">Idle Time</t>
-      <t id="181">Idle: Follow?</t>
-      <t id="182">Who to follow?</t>
-      <t id="183">Idle: Docking?</t>
-      <t id="184">Where to dock?</t>
-      <t id="185">Idle: Random movement?</t>
-      <t id="186">In which sector?</t>
-      <t id="187">Idle: Move to?</t>
-      <t id="188">Where to move?</t>
-      <t id="194">Add Order tag?</t>
-      <t id="195">Save Order Settings?</t>
-      <t id="196">Reset Order Settings?</t>
-      <t id="197">\033#B600CCCC#</t>
-      <t id="198">\033#FF00CC66#</t>
-      <t id="199">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">ASE Mode</t>
+      <t id="101">Restock navigation beacons?</t>
+      <t id="102">Restock amount cap</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Abandoned Ship</t>
+      <t id="121">I arrived at the abandoned ship:</t>
+      <t id="122">I wait for you until you have taken control of the abandoned ship.</t>
+      <t id="123">I wait for you until you have taken control of the abandoned ship and your are back on board of mine.</t>
+      <t id="124">I have marked the abandoned ship and continue with the next one.</t>
+      <t id="125">I have sent a marine to the abandoned ship and am waiting until he has taken control of it.</t>
+      <t id="126">To ensure safety, our newly claimed ship will now fly to a station to dock.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Move to abandoned ship</t>
+      <t id="141">Mark abandoned ship</t>
+      <t id="142">Board abandoned ship</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="150">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
+      <t id="151">No marines are available for automatic ship boarding.</t>
+      <t id="152">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="160">\033#FFe27100#Abandoned Ships Exploration Paused\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Uncovers, marks, or boards abandoned ships scattered across the galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!-- JP_AddTag -->
       <t id="200">Own Ship/Station</t>
@@ -98,6 +129,7 @@
       <t id="438">Faction Headquarters?</t>
       <t id="439">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="440">Idle</t>
       <t id="441">Discover unknown Object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">This script enables your ship to explore a sector by seeking out Stations, Jumpgates, Accelerators and Superhighways.</t>
@@ -171,60 +203,59 @@
       <t id="798">\033#FF00CC66#</t>
       <t id="799">\033X</t>
 
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_CollectPlaceables -->
-      <t id="810">Collect Mines?</t>
-      <t id="811">Collect Satellites?</t>
-      <t id="812">Collect Navigation Beacons?</t>
-      <t id="813">Collect Resource Probes?</t>
-      <t id="814">Collect Laser Towers?</t>
-      <t id="820">Sell Placeables?</t>
-      <t id="821">Selling range?</t>
-      <t id="822">Prefer best price?</t>
-      <t id="823">Prefer own stations?</t>
-      <t id="830">Sell satellites Mk1?</t>
-      <t id="831">Sell satellites Mk2?</t>
-      <t id="832">Sell resourceprobes?</t>
-      <t id="833">Sell Navigationbecaons?</t>
-      <t id="834">Sell Mines?</t>
-      <t id="835">Sell tracker Mines?</t>
-      <t id="836">Sell Friend/Foe Mines?</t>
-      <t id="837">Sell Lasertowers Mk1?</t>
-      <t id="838">Sell Lasertowers Mk2?</t>
-      <t id="870">\033#FFCEFBA1# ~ Idle - following..\033X</t>
-      <t id="871">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
-      <t id="872">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
-      <t id="873">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
-      <t id="874">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
-      <t id="880">Idle actions?</t>
-      <t id="881">Idle Time</t>
-      <t id="882">Idle: Follow?</t>
-      <t id="883">Who to follow?</t>
-      <t id="884">Idle: Docking?</t>
-      <t id="885">Where to dock?</t>
-      <t id="886">Idle: Random movement?</t>
-      <t id="887">In which sector?</t>
-      <t id="888">Idle: Move to?</t>
-      <t id="889">Where to move?</t>
-      <t id="891">Add Order tag?</t>
-      <t id="892">Order tag position</t>
-      <t id="893">Save Order Settings?</t>
-      <t id="894">Reset Order Settings?</t>
-      <t id="895">Order settings saved.</t>
-      <t id="896">Order settings resetted.</t>
-      <t id="897">\033#B600CCCC#</t>
-      <t id="898">\033#FF00CC66#</t>
-      <t id="899">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Collect regular mines?</t>
+      <t id="801">Collect tracker mines?</t>
+      <t id="802">Collect friend/foe mines?</t>
+      <t id="803">Collect Mk1 laser towers?</t>
+      <t id="804">Collect Mk2 laser towers?</t>
+      <t id="805">Collect regular satellites?</t>
+      <t id="806">Collect advanced satellites?</t>
+      <t id="807">Collect navigation beacons?</t>
+      <t id="808">Collect resource probes?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Sell placeables?</t>
+      <t id="811">Sell regular mines?</t>
+      <t id="812">Sell tracker mines?</t>
+      <t id="813">Sell friend/foe mines?</t>
+      <t id="814">Sell Mk1 laser towers?</t>
+      <t id="815">Sell Mk2 laser towers?</t>
+      <t id="816">Sell regular satellites?</t>
+      <t id="817">Sell advanced satellites?</t>
+      <t id="818">Sell navigation beacons?</t>
+      <t id="819">Sell resource probes?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Collect placeable</t>
+      <t id="841">Sell placeables</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="850">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
+      <t id="851">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
+      <t id="852">There are no placeables left to collect. I will switch to idle mode and try again later.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">\033#FFe27100#Collecting Paused\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Collects placeable items such as satellites or mines in a single sector.</t>
+      <t id="871">Collects placeable items such as satellites or mines throughout the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_DataVaultExplorer -->
-      <t id="900">Enemy Sectors?</t>
-      <t id="901">Neutral Sectors?</t>
-      <t id="902">Friendly Sectors?</t>
-      <t id="910">Restock navigation beacons?</t>
-      <t id="911">Amount to restock</t>
-      <t id="994">Add order tag?</t>
-      <t id="997">\033#B600CCCC#</t>
-      <t id="998">\033#FF00CC66#</t>
-      <t id="999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="900">Restock navigation beacons?</t>
+      <t id="901">Restock amount cap</t>
+      <t id="902">Home Position</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="940">Mark Datavault</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="950">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
+      <t id="951">Currently, there are no datavaults left that we can reach or need to mark.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="960">\033#FFe27100#Datavault Marking Paused\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="971">Place navigation beacons beside data vaults throughout the galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!-- JP_SpiralExplorer -->
       <t id="1097">\033#B600CCCC#</t>
@@ -328,17 +359,17 @@
       <t id="1400">Mk1 satellites?</t>
       <t id="1401">Mk2 satellites?</t>
       <t id="1402">Restock satellites?</t>
-      <t id="1403">Restock amount</t>
+      <t id="1403">Restock amount cap</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Jump gates?</t>
-      <t id="1421">Active jump gates?</t>
-      <t id="1422">Inactive jump gates?</t>
+      <t id="1420">Jump Gates?</t>
+      <t id="1421">Active Jump Gates?</t>
+      <t id="1422">Inactive Gump Gates?</t>
       <t id="1423">Accelerators?</t>
-      <t id="1424">Active accelerators?</t>
-      <t id="1425">Inactive accelerators?</t>
+      <t id="1424">Active Accelerators?</t>
+      <t id="1425">Inactive Accelerators?</t>
       <t id="1426">Superhighways?</t>
-      <t id="1427">Active superhighways?</t>
-      <t id="1428">Inactive superhighways?</t>
+      <t id="1427">Active Superhighways?</t>
+      <t id="1428">Inactive Superhighways?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Stations?</t>
       <t id="1431">Wharfs?</t>
@@ -351,37 +382,16 @@
       <t id="1438">Faction Headquarters?</t>
       <t id="1439">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Place satellite to position</t>
-      <t id="1441">Place satellite to object</t>
+      <t id="1440">Place satellite to object</t>
+      <t id="1441">Place satellite to position</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">There is no station available for restocking satellites.</t>
-      <t id="1451">No or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each must be available.</t>
-      <t id="1452">We do not have enough money available for restocking the satellites.</t>
-      <t id="1453">The restocking command creation has failed.</t>
-      <t id="1454">There are no objects in the specified sector that we need to mark.</t>
+      <t id="1450">There are no satellites available or not enough, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each type must be available.</t>
+      <t id="1451">There are no remaining Jumpgates, Accelerators, Superhighways, and Stations where we need to deploy a satellite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways inside a sector.</t>
-      <t id="1461">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways in the entire galaxy.</t>
+      <t id="1460">\033#FFe27100#Satellite Placement Paused\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Idle Time</t>
-      <t id="1481">Idle: Move to?</t>
-      <t id="1482">Where to move?</t>
-      <t id="1483">Idle: Follow?</t>
-      <t id="1484">Who to follow?</t>
-      <t id="1485">Idle: Docking?</t>
-      <t id="1486">Find a Station?</t>
-      <t id="1487">Where to dock?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Add Order tag?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Save Order Settings?</t>
-      <t id="1494">Reset Order Settings?</t>
-      <t id="1495">Order settings saved.</t>
-      <t id="1496">Order settings reset.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways within a sector.</t>
+      <t id="1471">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!-- JP_SetFleetNameColor -->
@@ -405,31 +415,45 @@
       <t id="1797">\033#B600CCCC#</t>
       <t id="1799">\033X</t>
 
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
-      <t id="1970">\033#FFCEFBA1# ~ Idle - following..\033X</t>
-      <t id="1971">\033#FFCEFBA1# ~ Idle - docking at %1\033X</t>
-      <t id="1972">\033#FFCEFBA1# ~ Idle - moving randomly..\033X</t>
-      <t id="1973">\033#FFCEFBA1# ~ Idle - moving to waiting position..\033X</t>
-      <t id="1974">\033#FFCEFBA1# ~ Idle - moving to Idle Sector..\033X</t>
-      <t id="1980">Idle actions?</t>
-      <t id="1981">Idle Time</t>
-      <t id="1982">Idle: Follow?</t>
-      <t id="1983">Who to follow?</t>
-      <t id="1984">Idle: Docking?</t>
-      <t id="1985">Where to dock?</t>
-      <t id="1986">Idle: Random movement?</t>
-      <t id="1987">In which sector?</t>
-      <t id="1988">Idle: Move to?</t>
-      <t id="1989">Where to move?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1931">Wharfs?</t>
+      <t id="1932">Shipyards?</t>
+      <t id="1933">Equipment docks?</t>
+      <t id="1934">Trading stations?</t>
+      <t id="1935">Pirate bases?</t>
+      <t id="1936">Scrap processing facilities?</t>
+      <t id="1937">Defense stations?</t>
+      <t id="1938">Faction Headquarters?</t>
+      <t id="1939">Non Special Stations?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1940">Idle</t>
+      <t id="1941">Update Tradesubscription</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1960">This script allows your ship to automatically update station trade subscriptions in a specific sector.</t>
+      <t id="1961">This script allows your ship to automatically update station trade subscriptions across the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1980">Idle Time</t>
+      <t id="1981">Idle: Move to?</t>
+      <t id="1982">Where to move?</t>
+      <t id="1983">Idle: Follow?</t>
+      <t id="1984">Who to follow?</t>
+      <t id="1985">Idle: Docking?</t>
+      <t id="1986">Find a Station?</t>
+      <t id="1987">Where to dock?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1991">Add Order tag?</t>
-      <t id="1992">Order tag position</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1993">Save Order Settings?</t>
       <t id="1994">Reset Order Settings?</t>
       <t id="1995">Order settings saved.</t>
-      <t id="1996">Order settings resetted.</t>
+      <t id="1996">Order settings reset.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1997">\033#B600CCCC#</t>
       <t id="1998">\033#FF00CC66#</t>
       <t id="1999">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!--  JP_CollectDroppedInventory -->
       <t id="2080">Idle Time</t>
