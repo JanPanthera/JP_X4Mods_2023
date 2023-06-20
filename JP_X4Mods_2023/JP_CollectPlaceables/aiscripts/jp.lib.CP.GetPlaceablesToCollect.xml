@@ -6,15 +6,15 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SECTOR" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="COLLECT_REGULAR_MINES" default="null"/>
-      <param name="COLLECT_TRACKER_MINES" default="null"/>
-      <param name="COLLECT_FRIENDFOE_MINES" default="null"/>
-      <param name="COLLECT_MK1_LASER_TOWERS" default="null"/>
-      <param name="COLLECT_MK2_LASER_TOWERS" default="null"/>
-      <param name="COLLECT_REGULAR_SATELLITES" default="null"/>
-      <param name="COLLECT_ADVANCED_SATELLITES" default="null"/>
-      <param name="COLLECT_NAVIGATION_BEACONS" default="null"/>
-      <param name="COLLECT_RESOURCE_PROBES" default="null"/>
+      <param name="COLLECT_REGULAR_MINES" default="false"/>
+      <param name="COLLECT_TRACKER_MINES" default="false"/>
+      <param name="COLLECT_FRIENDFOE_MINES" default="false"/>
+      <param name="COLLECT_MK1_LASER_TOWERS" default="false"/>
+      <param name="COLLECT_MK2_LASER_TOWERS" default="false"/>
+      <param name="COLLECT_REGULAR_SATELLITES" default="false"/>
+      <param name="COLLECT_ADVANCED_SATELLITES" default="false"/>
+      <param name="COLLECT_NAVIGATION_BEACONS" default="false"/>
+      <param name="COLLECT_RESOURCE_PROBES" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
