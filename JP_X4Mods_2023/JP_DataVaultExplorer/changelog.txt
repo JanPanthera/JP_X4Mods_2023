@@ -10,6 +10,7 @@ v2.0.1 -- Current Published Version
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
 v2.0.2 -- Current Development Version
+~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Fixed: There was an issue with the function that checks whether a station has enough resources to build all the necessary navigation beacons.
          This issue caused the ship to dock and wait for resources, potentially for an extended period of time, depending on when the station was resupplied with resources.
 ~ Updated: Some minor code and translation changes.
