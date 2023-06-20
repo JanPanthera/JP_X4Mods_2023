@@ -34,6 +34,8 @@ v1.0.4 -- Current Published version
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
 v1.0.5 -- Current Development Version
+~ Added: A option to also uncover construction sites.
+~ Added: A option to ignore ownerless sectors.
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.

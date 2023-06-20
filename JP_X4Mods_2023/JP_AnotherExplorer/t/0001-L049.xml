@@ -2,28 +2,8 @@
 <!-- German ~~ Deutsch-->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_AnotherExplorer -->
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="420">Sprungtore?</t>
-      <t id="421">Aktive Sprungtore?</t>
-      <t id="422">Inaktive Sprungtore?</t>
-      <t id="423">Beschleuniger?</t>
-      <t id="424">Aktive Beschleuniger?</t>
-      <t id="425">Inaktive Beschleuniger?</t>
-      <t id="426">Superhighways?</t>
-      <t id="427">Aktive Superhighways?</t>
-      <t id="428">Inaktive Superhighways?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="430">Stationen?</t>
-      <t id="431">Raumdocks?</t>
-      <t id="432">Schiffswerften?</t>
-      <t id="433">Ausrüstungsdocks?</t>
-      <t id="434">Handelsstationen?</t>
-      <t id="435">Piratenbasen?</t>
-      <t id="436">Schrottverarbeitungsanlagen?</t>
-      <t id="437">Verteidigungsstationen?</t>
-      <t id="438">Fraktionshauptquartiere?</t>
-      <t id="439">Nicht spezielle Stationen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Erkunde unbekanntes Objekt</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

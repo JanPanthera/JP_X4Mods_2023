@@ -2,28 +2,8 @@
 <!-- Spanish ~~ Español -->
 <language>
    <page id="8888888" voice="no">
-      <!-- JP_AnotherExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="420">¿Portales de salto?</t>
-      <t id="421">¿Portales de salto activos?</t>
-      <t id="422">¿Portales de salto inactivos?</t>
-      <t id="423">¿Aceleradores?</t>
-      <t id="424">¿Aceleradores activos?</t>
-      <t id="425">¿Aceleradores inactivos?</t>
-      <t id="426">¿Superautopistas?</t>
-      <t id="427">¿Superautopistas activas?</t>
-      <t id="428">¿Superautopistas inactivas?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="430">¿Estaciones?</t>
-      <t id="431">¿Astilleros?</t>
-      <t id="432">¿Varaderos?</t>
-      <t id="433">¿Muelles de equipo?</t>
-      <t id="434">¿Estaciones de comercio?</t>
-      <t id="435">¿Bases piratas?</t>
-      <t id="436">¿Instalaciones de procesamiento de chatarra?</t>
-      <t id="437">¿Estaciones de defensa?</t>
-      <t id="438">¿Sedes de facciones?</t>
-      <t id="439">¿Estaciones no especiales?</t>
+      <!-- JP_AnotherExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Descubrir objeto desconocido</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

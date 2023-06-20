@@ -5,27 +5,6 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_AnotherExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="400">Jump Gates?</t>
-      <t id="401">Active Jump Gates?</t>
-      <t id="402">Inactive Jump Gates?</t>
-      <t id="403">Accelerators?</t>
-      <t id="404">Active Accelerators?</t>
-      <t id="405">Inactive Accelerators?</t>
-      <t id="406">Superhighways?</t>
-      <t id="407">Active Superhighways?</t>
-      <t id="408">Inactive Superhighways?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="410">Stations?</t>
-      <t id="411">Wharfs?</t>
-      <t id="412">Shipyards?</t>
-      <t id="413">Equipment docks?</t>
-      <t id="414">Trading stations?</t>
-      <t id="415">Pirate bases?</t>
-      <t id="416">Scrap processing facilities?</t>
-      <t id="417">Defense stations?</t>
-      <t id="418">Faction Headquarters?</t>
-      <t id="419">Non Special Stations?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Discover unknown object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="450">There are no remaining objects that need to be uncovered or that we can reach. I will switch to idle mode and try again later.</t>

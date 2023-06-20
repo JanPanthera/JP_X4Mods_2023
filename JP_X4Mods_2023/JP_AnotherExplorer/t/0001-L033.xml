@@ -2,28 +2,8 @@
 <!-- French ~~ Français -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_AnotherExplorer -->
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="420">Portes de saut ?</t>
-      <t id="421">Portes de saut actives ?</t>
-      <t id="422">Portes de saut inactives ?</t>
-      <t id="423">Accélérateurs ?</t>
-      <t id="424">Accélérateurs actifs ?</t>
-      <t id="425">Accélérateurs inactifs ?</t>
-      <t id="426">Super autoroutes ?</t>
-      <t id="427">Super autoroutes actives ?</t>
-      <t id="428">Super autoroutes inactives ?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="430">Stations ?</t>
-      <t id="431">Chantiers navals ?</t>
-      <t id="432">Cale sèche ?</t>
-      <t id="433">Docks d'équipement ?</t>
-      <t id="434">Stations de commerce ?</t>
-      <t id="435">Bases de pirates ?</t>
-      <t id="436">Installations de traitement des déchets ?</t>
-      <t id="437">Stations de défense ?</t>
-      <t id="438">Quartiers généraux de faction ?</t>
-      <t id="439">Stations non spéciales ?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Découvrir un objet inconnu</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
