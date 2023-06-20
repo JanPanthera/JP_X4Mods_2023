@@ -68,13 +68,15 @@
          <do_else>
             <create_position name="$_Position" space="$PLACEABLE.sector" object="$PLACEABLE" y="(($PLACEABLE.height / 2) + ($_Ship.height / 2) + 10m)"/>
          </do_else>
-
          <set_value name="$LOCATION" exact="[$PLACEABLE.sector, $_Position]"/>
-         <set_command_action commandaction="commandaction.flyingto" param="$PLACEABLE"/>
+
+         <set_command command="command.move" param="$PLACEABLE"/>
+         <set_command_action commandaction="commandaction.flying"/>
+         
          <run_script name="'move.generic'">
             <param name="destination" value="$PLACEABLE.sector"/>
             <param name="position" value="$_Position"/>
-            <param name="playerprecise" value="true"/>
+            <param name="precise" value="true"/>
             <param name="recallsubordinates" value="false"/>
             <param name="changecommandaction" value="false"/>
             <param name="debugchance" value="0"/>
@@ -82,10 +84,12 @@
 
          <label name="FINISH_MOVING_LBL"/>
          <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
+         <wait exact="2000ms"/>
+
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.standingby"/>
 
          <collect_deployable object="$_Ship" deployable="$PLACEABLE"/>
-         <wait exact="1000ms"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_PLACEABLE_COLLECTED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_PLACEABLE_COLLECTED'" role="entityrole.service"/>
