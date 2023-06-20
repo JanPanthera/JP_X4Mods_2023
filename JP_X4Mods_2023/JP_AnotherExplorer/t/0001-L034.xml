@@ -25,31 +25,14 @@
       <t id="438">¿Sedes de facciones?</t>
       <t id="439">¿Estaciones no especiales?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="440">Inactivo</t>
-      <t id="441">Descubrir objeto desconocido</t>
+      <t id="440">Descubrir objeto desconocido</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="460">Este script permite que tu nave explore un sector buscando Estaciones, Portales de Salto, Aceleradores y Super Carreteras.</t>
-      <t id="461">Este script permite a tu nave explorar toda la galaxia buscando Estaciones, Puertas de Salto, Aceleradores y Autopistas Espaciales.</t>
+      <t id="450">No quedan objetos que necesiten ser descubiertos o que podamos alcanzar. Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="480">Tiempo de inactividad</t>
-      <t id="481">Inactivo: ¿Mover a?</t>
-      <t id="482">¿A dónde mover?</t>
-      <t id="483">Inactivo: ¿Seguir a?</t>
-      <t id="484">¿A quién seguir?</t>
-      <t id="485">Inactivo: ¿Acoplamiento?</t>
-      <t id="486">¿Encontrar una Estación?</t>
-      <t id="487">¿Dónde acoplar?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="491">¿Agregar etiqueta de orden?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="493">¿Guardar configuraciones de orden?</t>
-      <t id="494">¿Restablecer configuraciones de orden?</t>
-      <t id="495">Configuraciones de orden guardadas.</t>
-      <t id="496">Configuraciones de orden restablecidas.</t>
+      <t id="460">\033#FFe27100#Exploración en Pausa\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="497">\033#B600CCCC#</t>
-      <t id="498">\033#FF00CC66#</t>
-      <t id="499">\033X</t>
+      <t id="470">Descubre estaciones, puertas de salto, aceleradores y superautopistas dentro de un sector.</t>
+      <t id="471">Descubre estaciones, puertas de salto, aceleradores y superautopistas en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

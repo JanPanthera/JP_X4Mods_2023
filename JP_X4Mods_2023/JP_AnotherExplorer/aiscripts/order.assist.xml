@@ -36,6 +36,8 @@
             <param name="FIND_STATION"  value="$order.$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$order.$WHERE_TO_DOCK"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
             <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          </run_script>

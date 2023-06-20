@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- German -->
+<!-- German ~~ Deutsch-->
 <language>
    <page id="8888888" voice="no">
       <!-- JP_AnotherExplorer -->
@@ -25,31 +25,14 @@
       <t id="438">Fraktionshauptquartiere?</t>
       <t id="439">Nicht spezielle Stationen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="440">Leerlauf</t>
-      <t id="441">Erkunde unbekanntes Objekt</t>
+      <t id="440">Erkunde unbekanntes Objekt</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="460">Dieses Skript ermöglicht es Ihrem Schiff, einen Sektor zu erkunden, indem es nach Stationen, Sprungtoren, Beschleunigern und Superhighways sucht.</t>
-      <t id="461">Dieses Skript ermöglicht es Ihrem Schiff, die gesamte Galaxie zu erkunden, indem es nach Stationen, Sprungtoren, Beschleunigern und Superhighways sucht.</t>
+      <t id="450">Es gibt keine verbleibenden Objekte, die aufgedeckt werden müssen oder die wir erreichen können. Ich werde in den Leerlaufmodus wechseln und es später erneut versuchen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="480">Leerlaufzeit</t>
-      <t id="481">Leerlauf: Bewegen zu?</t>
-      <t id="482">Wohin bewegen?</t>
-      <t id="483">Leerlauf: Folgen?</t>
-      <t id="484">Wem folgen?</t>
-      <t id="485">Leerlauf: Andocken?</t>
-      <t id="486">Eine Station finden?</t>
-      <t id="487">Wohin andocken?</t>
+      <t id="460">\033#FFe27100#Erkundung pausiert\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="491">Auftragskennzeichen hinzufügen?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="493">Auftragseinstellungen speichern?</t>
-      <t id="494">Auftragseinstellungen zurücksetzen?</t>
-      <t id="495">Auftragseinstellungen gespeichert.</t>
-      <t id="496">Auftragseinstellungen zurückgesetzt.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="497">\033#B600CCCC#</t>
-      <t id="498">\033#FF00CC66#</t>
-      <t id="499">\033X</t>
+      <t id="470">Deckt Stationen, Sprungtore, Beschleuniger und Superhighways innerhalb eines Sektors auf.</t>
+      <t id="471">Deckt Stationen, Sprungtore, Beschleuniger und Superhighways in der gesamten Galaxie auf.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

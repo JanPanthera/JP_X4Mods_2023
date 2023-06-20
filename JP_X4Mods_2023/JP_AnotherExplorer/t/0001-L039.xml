@@ -25,31 +25,14 @@
       <t id="438">Quartier generale delle fazioni?</t>
       <t id="439">Stazioni non speciali?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="440">Inattivo</t>
-      <t id="441">Scopri oggetto sconosciuto</t>
+      <t id="440">Scopri oggetto sconosciuto</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="460">Questo script consente alla tua nave di esplorare un settore alla ricerca di Stazioni, Portali di Salto, Acceleratori e Superstrade.</t>
-      <t id="461">Questo script consente alla tua nave di esplorare l'intera galassia cercando Stazioni, Portali di Salto, Acceleratori e Superstrade.</t>
+      <t id="450">Non ci sono più oggetti da scoprire o che possiamo raggiungere. Passerò alla modalità di inattività e proverò di nuovo più tardi.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="480">Tempo di inattività</t>
-      <t id="481">Inattivo: Spostarsi a?</t>
-      <t id="482">Dove spostarsi?</t>
-      <t id="483">Inattivo: Seguire?</t>
-      <t id="484">Chi seguire?</t>
-      <t id="485">Inattivo: Attraccare?</t>
-      <t id="486">Trovare una Stazione?</t>
-      <t id="487">Dove attraccare?</t>
+      <t id="460">\033#FFe27100#Esplorazione in Pausa\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="491">Aggiungere tag d'ordine?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="493">Salvare le impostazioni dell'ordine?</t>
-      <t id="494">Reset delle impostazioni dell'ordine?</t>
-      <t id="495">Impostazioni dell'ordine salvate.</t>
-      <t id="496">Impostazioni dell'ordine ripristinate.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="497">\033#B600CCCC#</t>
-      <t id="498">\033#FF00CC66#</t>
-      <t id="499">\033X</t>
+      <t id="470">Scopre Stazioni, Portali di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
+      <t id="471">Scopre Stazioni, Portali di Salto, Acceleratori e Superstrade in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

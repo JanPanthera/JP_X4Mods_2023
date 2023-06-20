@@ -6,41 +6,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SECTOR" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="JUMP_GATES"              default="null"/>
-      <param name="ACTIVE_JUMP_GATES"       default="null"/>
-      <param name="INACTIVE_JUMP_GATES"     default="null"/>
-      <param name="ACCELERATORS"            default="null"/>
-      <param name="ACTIVE_ACCELERATORS"     default="null"/>
-      <param name="INACTIVE_ACCELERATORS"   default="null"/>
-      <param name="SUPER_HIGHWAYS"          default="null"/>
-      <param name="ACTIVE_SUPER_HIGHWAYS"   default="null"/>
-      <param name="INACTIVE_SUPER_HIGHWAYS" default="null"/>
+      <param name="JUMP_GATES"              default="false"/>
+      <param name="ACTIVE_JUMP_GATES"       default="false"/>
+      <param name="INACTIVE_JUMP_GATES"     default="false"/>
+      <param name="ACCELERATORS"            default="false"/>
+      <param name="ACTIVE_ACCELERATORS"     default="false"/>
+      <param name="INACTIVE_ACCELERATORS"   default="false"/>
+      <param name="SUPER_HIGHWAYS"          default="false"/>
+      <param name="ACTIVE_SUPER_HIGHWAYS"   default="false"/>
+      <param name="INACTIVE_SUPER_HIGHWAYS" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="STATIONS"             default="null"/>
-      <param name="WHARFS"               default="null"/>
-      <param name="SHIPYARDS"            default="null"/>
-      <param name="EQUIPMENTDOCKS"       default="null"/>
-      <param name="TRADING_STATIONS"     default="null"/>
-      <param name="PIRATE_BASES"         default="null"/>
-      <param name="RECYCLING_STATIONS"   default="null"/>
-      <param name="DEFENCE_STATIONS"     default="null"/>
-      <param name="FACTION_HEADQUARTERS" default="null"/>
-      <param name="NON_SPECIAL_STATIONS" default="null"/>
+      <param name="STATIONS"             default="false"/>
+      <param name="WHARFS"               default="false"/>
+      <param name="SHIPYARDS"            default="false"/>
+      <param name="EQUIPMENTDOCKS"       default="false"/>
+      <param name="TRADING_STATIONS"     default="false"/>
+      <param name="PIRATE_BASES"         default="false"/>
+      <param name="RECYCLING_STATIONS"   default="false"/>
+      <param name="DEFENCE_STATIONS"     default="false"/>
+      <param name="FACTION_HEADQUARTERS" default="false"/>
+      <param name="NON_SPECIAL_STATIONS" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="null"/>
+      <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
-
-   <interrupts>
-      <handler ref="AttackHandler"/>
-      <handler ref="MissileLockHandler" />
-      <handler ref="ScannedHandler"/>
-      <handler ref="InspectedHandler"/>
-      <handler ref="FoundAbandonedHandler"/>
-      <handler ref="FoundLockboxHandler"/>
-      <handler ref="ResupplyHandler"/>
-      <handler ref="TideHandler"/>
-   </interrupts>
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -100,20 +89,27 @@
                <remove_value name="$_BlacklistedSectors"/>
             </do_if>
             <do_if value="$_Sectors.count gt 1">
-               <create_list name="$_SectorTravelTimes"/>
-               <do_for_each name="$_Sector" in="$_Sectors">
-                  <estimate_travel_time ship="$_Ship" start="$_Ship" target="$_Sector" result="$_TravelTime"/>
-                  <append_to_list name="$_SectorTravelTimes" exact="[$_Sector, $_TravelTime]"/>
-               </do_for_each>
-               <sort_list list="$_SectorTravelTimes" sortbyvalue="loop.element.{2}"/>
-               <clear_list list="$_Sectors"/>
-               <do_for_each name="$_SectorTravelTime" in="$_SectorTravelTimes">
-                  <append_to_list name="$_Sectors" exact="$_SectorTravelTime.{1}"/>
-               </do_for_each>
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                  <param name="LIST" value="$_Sectors"/>
+                  <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+                  <param name="DEBUG" value="$DEBUG"/>
+                  <save_retval name="_SortedList" variable="$_Sectors"/>
+               </run_script>
             </do_if>
          </do_if>
 
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sectors.count: %1'.[$_Sectors.count]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_Sector" in="$_Sectors">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1 ~ Owner: %2'.[$_Sector.knownname, $_Sector.owner]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
          <do_for_each name="$_Sector" in="$_Sectors">
+            
             <do_if value="$JUMP_GATES">
                <do_if value="$ACTIVE_JUMP_GATES">
                   <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
@@ -228,11 +224,26 @@
 
             <do_if value="$_FoundObjects.count gt 0">
                <do_if value="$_FoundObjects.count gt 1">
-                  <sort_list list="$_FoundObjects" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                     <param name="LIST" value="$_FoundObjects"/>
+                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+                     <param name="DEBUG" value="$DEBUG"/>
+                     <save_retval name="_SortedList" variable="$_FoundObjects"/>
+                  </run_script>
                </do_if>
                <set_value name="$SECTOR" exact="$_Sector"/>
+               <do_if value="$DEBUG gt 0">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Sector: %1'.[$SECTOR.knownname]"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <do_for_each name="$_FoundObject" in="$_FoundObjects">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundObject: %1'.[$_FoundObject.knownname]"/>
+                  </do_for_each>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+               </do_if>
                <break/>
             </do_if>
+            
          </do_for_each>
 
          <do_if value="$_FoundObjects.count == 0 and @global.$AE_SectorBlacklist.{$_Ship} != null">

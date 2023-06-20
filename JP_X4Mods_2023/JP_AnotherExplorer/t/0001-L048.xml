@@ -25,31 +25,14 @@
       <t id="438">Siedziby frakcji?</t>
       <t id="439">Nie specjalne stacje?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="440">Bezczynny</t>
-      <t id="441">Odkryj nieznany obiekt</t>
+      <t id="440">Odkryj nieznany obiekt</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="460">Ten skrypt umożliwia twojemu statkowi eksplorację sektora poprzez szukanie Stacji, Bram Skokowych, Akceleratorów i Super Autostrad.</t>
-      <t id="461">Ten skrypt umożliwia twojemu statkowi eksplorację całej galaktyki poprzez szukanie Stacji, Bram Skokowych, Akceleratorów i Autostrad Kosmicznych.</t>
+      <t id="450">Nie ma już obiektów do odkrycia lub do których możemy dotrzeć. Przejdę w tryb bezczynności i spróbuję ponownie później.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="480">Czas bezczynności</t>
-      <t id="481">Bezczynność: Przenieść do?</t>
-      <t id="482">Gdzie przenieść?</t>
-      <t id="483">Bezczynność: Podążać za?</t>
-      <t id="484">Za kim podążać?</t>
-      <t id="485">Bezczynność: Dokowanie?</t>
-      <t id="486">Znaleźć stację?</t>
-      <t id="487">Gdzie dokować?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="491">Dodać tag zamówienia?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="493">Zapisać ustawienia zamówienia?</t>
-      <t id="494">Zresetować ustawienia zamówienia?</t>
-      <t id="495">Ustawienia zamówienia zapisane.</t>
-      <t id="496">Ustawienia zamówienia zresetowane.</t>
+      <t id="460">\033#FFe27100#Zawieszenie Eksploracji\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="497">\033#B600CCCC#</t>
-      <t id="498">\033#FF00CC66#</t>
-      <t id="499">\033X</t>
+      <t id="470">Odkrywa Stacje, Brama skokowe, Akceleratory i Super Autostrady w sektorze.</t>
+      <t id="471">Odkrywa Stacje, Brama skokowe, Akceleratory i Super Autostrady w całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
