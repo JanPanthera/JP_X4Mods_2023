@@ -30,39 +30,16 @@
       <t id="1438">Siedziby frakcji?</t>
       <t id="1439">Nie specjalne stacje?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Umieść satelitę w pozycji</t>
-      <t id="1441">Umieść satelitę na obiekcie</t>
-      <t id="1442">Bezczynny</t>
+      <t id="1440">Umieść satelitę na obiekcie</t>
+      <t id="1441">Umieść satelitę w pozycji</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Nie ma dostępnej stacji do uzupełnienia satelitów.</t>
-      <t id="1451">Brak satelitów lub ich niewystarczająca ilość, a uzupełnienie satelitów jest wyłączone.\nPodczas korzystania z obu typów satelitów, co najmniej jeden z każdego typu musi być dostępny.</t>
-      <t id="1452">Nie mamy wystarczająco dużo pieniędzy do uzupełnienia satelitów.</t>
-      <t id="1453">Tworzenie polecenia uzupełnienia nie powiodło się.</t>
-      <t id="1454">Nie ma obiektów w określonym sektorze, które musimy oznaczyć.</t>
-      <t id="1455">Wszystkie dostępne stacje nie mają w tej chwili wystarczająco dużo zasobów, aby wyprodukować satelity.</t>
+      <t id="1450">Nie ma dostępnych satelitów lub jest ich za mało, a uzupełnianie satelitów jest wyłączone.\nPrzy korzystaniu z obu typów satelitów, przynajmniej jeden satelita każdego typu musi być dostępny.</t>
+      <t id="1451">Nie ma już Bramek Skokowych, Akceleratorów, Super Autostrad i Stacji, gdzie potrzebujemy rozmieścić satelitę.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach wewnątrz sektora.</t>
-      <t id="1461">Ten skrypt umożliwia twojemu statkowi rozmieszczenie satelitów na Stacjach, Bramach Przeskokowych, Akceleratorach i Super autostradach w całej galaktyce.</t>
+      <t id="1460">\033#FFe27100#Umieszczanie Satelitów Zawieszone\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Czas bezczynności</t>
-      <t id="1481">Bezczynność: Przenieść do?</t>
-      <t id="1482">Gdzie przenieść?</t>
-      <t id="1483">Bezczynność: Podążać za?</t>
-      <t id="1484">Za kim podążać?</t>
-      <t id="1485">Bezczynność: Dokowanie?</t>
-      <t id="1486">Znaleźć stację?</t>
-      <t id="1487">Gdzie dokować?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Dodać tag zamówienia?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Zapisać ustawienia zamówienia?</t>
-      <t id="1494">Zresetować ustawienia zamówienia?</t>
-      <t id="1495">Ustawienia zamówienia zapisane.</t>
-      <t id="1496">Ustawienia zamówienia zresetowane.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Rozmieść satelity na Stacjach, Bramek Skokowych, Akceleratorach i Super Autostradach w sektorze.</t>
+      <t id="1471">Rozmieść satelity na Stacjach, Bramek Skokowych, Akceleratorach i Super Autostradach w całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

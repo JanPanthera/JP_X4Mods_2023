@@ -9,7 +9,7 @@
             <param name="PLACE_SATELLITES_MK1" value="$order.$PLACE_SATELLITES_MK1"/>
             <param name="PLACE_SATELLITES_MK2" value="$order.$PLACE_SATELLITES_MK2"/>
             <param name="RESTOCK_SATELLITES"   value="$order.$RESTOCK_SATELLITES"/>
-            <param name="RESTOCK_MAX_AMOUNT"   value="$order.$RESTOCK_MAX_AMOUNT"/>
+            <param name="RESTOCK_AMOUNT_CAP"   value="$order.$RESTOCK_AMOUNT_CAP"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="JUMP_GATES"              value="$order.$JUMP_GATES"/>
             <param name="ACTIVE_JUMP_GATES"       value="$order.$ACTIVE_JUMP_GATES"/>
@@ -41,6 +41,8 @@
             <param name="FIND_STATION"  value="$order.$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$order.$WHERE_TO_DOCK"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
             <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          </run_script>

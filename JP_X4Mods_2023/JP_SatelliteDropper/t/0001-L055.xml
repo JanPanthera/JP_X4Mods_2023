@@ -30,39 +30,16 @@
       <t id="1438">Quartéis-generais da facção?</t>
       <t id="1439">Estações não especiais?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Colocar satélite na posição</t>
-      <t id="1441">Colocar satélite no objeto</t>
-      <t id="1442">Ocioso</t>
+      <t id="1440">Colocar satélite no objeto</t>
+      <t id="1441">Colocar satélite na posição</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Não há estação disponível para reabastecer os satélites.</t>
-      <t id="1451">Não há satélites suficientes disponíveis e o reabastecimento de satélites está desativado.\nQuando usar ambos os tipos de satélites, pelo menos um de cada tipo deve estar disponível.</t>
-      <t id="1452">Não temos dinheiro suficiente disponível para reabastecer os satélites.</t>
-      <t id="1453">A criação do comando de reabastecimento falhou.</t>
-      <t id="1454">Não há objetos no setor especificado que precisamos marcar.</t>
-      <t id="1455">Todas as estações disponíveis no momento não têm recursos suficientes para fabricar satélites.</t>
+      <t id="1450">Não há satélites disponíveis ou não o suficiente, e o reabastecimento de satélites está desativado.\nAo usar os dois tipos de satélites, pelo menos um de cada tipo deve estar disponível.</t>
+      <t id="1451">Não há mais Portais de Salto, Aceleradores, Super Rodovias e Estações onde precisamos implantar um satélite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas dentro de um setor.</t>
-      <t id="1461">Este script permite que sua nave implante satélites em Estações, Portais de Salto, Aceleradores e Superestradas em toda a galáxia.</t>
+      <t id="1460">\033#FFe27100#Colocação de Satélites Pausada\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Tempo ocioso</t>
-      <t id="1481">Ocioso: Mover para?</t>
-      <t id="1482">Para onde mover?</t>
-      <t id="1483">Ocioso: Seguir?</t>
-      <t id="1484">Quem seguir?</t>
-      <t id="1485">Ocioso: Atracar?</t>
-      <t id="1486">Encontrar uma estação?</t>
-      <t id="1487">Onde atracar?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Adicionar tag de ordem?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Salvar configurações de ordem?</t>
-      <t id="1494">Redefinir configurações de ordem?</t>
-      <t id="1495">Configurações de ordem salvas.</t>
-      <t id="1496">Configurações de ordem redefinidas.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Implantar satélites em Estações, Portais de Salto, Aceleradores e Super Rodovias dentro de um setor.</t>
+      <t id="1471">Implantar satélites em Estações, Portais de Salto, Aceleradores e Super Rodovias em toda a galáxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

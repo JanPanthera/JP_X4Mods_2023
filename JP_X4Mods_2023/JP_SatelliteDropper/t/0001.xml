@@ -2,22 +2,23 @@
 <!-- Default ~~ English -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Mk1 satellites?</t>
       <t id="1401">Mk2 satellites?</t>
       <t id="1402">Restock satellites?</t>
-      <t id="1403">Restock amount</t>
+      <t id="1403">Restock amount cap</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Jump gates?</t>
-      <t id="1421">Active jump gates?</t>
-      <t id="1422">Inactive jump gates?</t>
+      <t id="1420">Jump Gates?</t>
+      <t id="1421">Active Jump Gates?</t>
+      <t id="1422">Inactive Gump Gates?</t>
       <t id="1423">Accelerators?</t>
-      <t id="1424">Active accelerators?</t>
-      <t id="1425">Inactive accelerators?</t>
+      <t id="1424">Active Accelerators?</t>
+      <t id="1425">Inactive Accelerators?</t>
       <t id="1426">Superhighways?</t>
-      <t id="1427">Active superhighways?</t>
-      <t id="1428">Inactive superhighways?</t>
+      <t id="1427">Active Superhighways?</t>
+      <t id="1428">Inactive Superhighways?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1430">Stations?</t>
       <t id="1431">Wharfs?</t>
@@ -30,39 +31,16 @@
       <t id="1438">Faction Headquarters?</t>
       <t id="1439">Non Special Stations?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Place satellite to position</t>
-      <t id="1441">Place satellite to object</t>
-      <t id="1442">Idle</t>
+      <t id="1440">Place satellite to object</t>
+      <t id="1441">Place satellite to position</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">There is no station available for restocking satellites.</t>
-      <t id="1451">No or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each must be available.</t>
-      <t id="1452">We do not have enough money available for restocking the satellites.</t>
-      <t id="1453">The restocking command creation has failed.</t>
-      <t id="1454">There are no objects in the specified sector that we need to mark.</t>
-      <t id="1455">All available stations currently don't have enough resources to manufacture satellites.</t>
+      <t id="1450">There are no satellites available or not enough, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each type must be available.</t>
+      <t id="1451">There are no remaining Jumpgates, Accelerators, Superhighways, and Stations where we need to deploy a satellite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways inside a sector.</t>
-      <t id="1461">This script allows your ship to deploy satellites at Stations, Jumpgates, Accelerators and Superhighways in the entire galaxy.</t>
+      <t id="1460">\033#FFe27100#Satellite Placement Paused\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Idle Time</t>
-      <t id="1481">Idle: Move to?</t>
-      <t id="1482">Where to move?</t>
-      <t id="1483">Idle: Follow?</t>
-      <t id="1484">Who to follow?</t>
-      <t id="1485">Idle: Docking?</t>
-      <t id="1486">Find a Station?</t>
-      <t id="1487">Where to dock?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Add Order tag?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Save Order Settings?</t>
-      <t id="1494">Reset Order Settings?</t>
-      <t id="1495">Order settings saved.</t>
-      <t id="1496">Order settings reset.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways within a sector.</t>
+      <t id="1471">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

@@ -30,39 +30,16 @@
       <t id="1438">¿Sedes de facciones?</t>
       <t id="1439">¿Estaciones no especiales?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Colocar satélite en posición</t>
-      <t id="1441">Colocar satélite en objeto</t>
-      <t id="1442">Inactivo</t>
+      <t id="1440">Colocar satélite en objeto</t>
+      <t id="1441">Colocar satélite en posición</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">No hay estaciones disponibles para reponer satélites.</t>
-      <t id="1451">No hay suficientes satélites disponibles, y la reposición de satélites está desactivada.\nCuando se usan ambos tipos de satélites, debe haber al menos uno de cada tipo disponible.</t>
-      <t id="1452">No tenemos suficiente dinero para reponer los satélites.</t>
-      <t id="1453">La creación del comando de reposición ha fallado.</t>
-      <t id="1454">No hay objetos en el sector especificado que necesitemos marcar.</t>
-      <t id="1455">Todas las estaciones disponibles no tienen suficientes recursos para fabricar satélites en este momento.</t>
+      <t id="1450">No hay satélites disponibles o no hay suficientes, y la reposición de satélites está desactivada.\nCuando se utilizan ambos tipos de satélites, debe haber al menos uno de cada tipo disponible.</t>
+      <t id="1451">No quedan Puertas de Salto, Aceleradores, Superautopistas y Estaciones donde necesitemos desplegar un satélite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas dentro de un sector.</t>
-      <t id="1461">Este script permite que tu nave despliegue satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas en toda la galaxia.</t>
+      <t id="1460">\033#FFe27100#Colocación de Satélites Pausada\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Tiempo de inactividad</t>
-      <t id="1481">Inactivo: ¿Mover a?</t>
-      <t id="1482">¿A dónde mover?</t>
-      <t id="1483">Inactivo: ¿Seguir a?</t>
-      <t id="1484">¿A quién seguir?</t>
-      <t id="1485">Inactivo: ¿Acoplamiento?</t>
-      <t id="1486">¿Encontrar una Estación?</t>
-      <t id="1487">¿Dónde acoplar?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">¿Agregar etiqueta de orden?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">¿Guardar configuraciones de orden?</t>
-      <t id="1494">¿Restablecer configuraciones de orden?</t>
-      <t id="1495">Configuraciones de orden guardadas.</t>
-      <t id="1496">Configuraciones de orden restablecidas.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Despliega satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas dentro de un sector.</t>
+      <t id="1471">Despliega satélites en Estaciones, Puertas de Salto, Aceleradores y Superautopistas en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

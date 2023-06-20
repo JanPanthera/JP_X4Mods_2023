@@ -30,39 +30,16 @@
       <t id="1438">Quartier generale delle fazioni?</t>
       <t id="1439">Stazioni non speciali?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Posiziona il satellite alla posizione</t>
-      <t id="1441">Posiziona il satellite all'oggetto</t>
-      <t id="1442">Inattivo</t>
+      <t id="1440">Posiziona il satellite all'oggetto</t>
+      <t id="1441">Posiziona il satellite alla posizione</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Non ci sono stazioni disponibili per il rifornimento di satelliti.</t>
-      <t id="1451">Non ci sono abbastanza satelliti disponibili, e il rifornimento di satelliti è disattivato.\nQuando si utilizzano entrambi i tipi di satelliti, almeno uno di ciascuno deve essere disponibile.</t>
-      <t id="1452">Non abbiamo abbastanza soldi disponibili per il rifornimento dei satelliti.</t>
-      <t id="1453">La creazione del comando di rifornimento è fallita.</t>
-      <t id="1454">Non ci sono oggetti nel settore specificato che dobbiamo contrassegnare.</t>
-      <t id="1455">Tutte le stazioni disponibili al momento non hanno abbastanza risorse per produrre satelliti.</t>
+      <t id="1450">Non ci sono satelliti disponibili o non ce ne sono abbastanza, e il rifornimento dei satelliti è disattivato.\nQuando si utilizzano entrambi i tipi di satelliti, deve essere disponibile almeno un satellita di ogni tipo.</t>
+      <t id="1451">Non ci sono rimasti Portali di Salto, Acceleratori, Superstrade e Stazioni dove abbiamo bisogno di dispiegare un satellite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
-      <t id="1461">Questo script permette alla tua nave di dispiegare satelliti presso Stazioni, Porte di Salto, Acceleratori e Superstrade in tutta la galassia.</t>
+      <t id="1460">\033#FFe27100#Posizionamento dei Satelliti in Pausa\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Tempo di inattività</t>
-      <t id="1481">Inattivo: Spostarsi a?</t>
-      <t id="1482">Dove spostarsi?</t>
-      <t id="1483">Inattivo: Seguire?</t>
-      <t id="1484">Chi seguire?</t>
-      <t id="1485">Inattivo: Attraccare?</t>
-      <t id="1486">Trovare una Stazione?</t>
-      <t id="1487">Dove attraccare?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Aggiungere tag d'ordine?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Salvare le impostazioni dell'ordine?</t>
-      <t id="1494">Reset delle impostazioni dell'ordine?</t>
-      <t id="1495">Impostazioni dell'ordine salvate.</t>
-      <t id="1496">Impostazioni dell'ordine ripristinate.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Dispiega satelliti nelle Stazioni, Portali di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
+      <t id="1471">Dispiega satelliti nelle Stazioni, Portali di Salto, Acceleratori e Superstrade in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

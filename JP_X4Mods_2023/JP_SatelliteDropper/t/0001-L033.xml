@@ -30,39 +30,16 @@
       <t id="1438">Quartiers généraux de faction ?</t>
       <t id="1439">Stations non spéciales ?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Positionner le satellite</t>
-      <t id="1441">Placer le satellite à l'objet</t>
-      <t id="1442">Au repos</t>
+      <t id="1440">Placer le satellite à l'objet</t>
+      <t id="1441">Positionner le satellite</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Il n'y a pas de station disponible pour le réapprovisionnement en satellites.</t>
-      <t id="1451">Pas de satellites disponibles, ou pas assez, et le réapprovisionnement en satellites est désactivé.\nLors de l'utilisation des deux types de satellites, au moins un de chaque doit être disponible.</t>
-      <t id="1452">Nous n'avons pas assez d'argent pour le réapprovisionnement des satellites.</t>
-      <t id="1453">La création de la commande de réapprovisionnement a échoué.</t>
-      <t id="1454">Il n'y a pas d'objets dans le secteur spécifié que nous devons marquer.</t>
-      <t id="1455">Toutes les stations disponibles n'ont pas actuellement assez de ressources pour fabriquer des satellites.</t>
+      <t id="1450">Il n'y a pas de satellites disponibles ou pas assez, et le réapprovisionnement en satellites est désactivé.\nLors de l'utilisation des deux types de satellites, au moins un de chaque type doit être disponible.</t>
+      <t id="1451">Il ne reste plus de Portails de Saut, Accélérateurs, Super Autoroutes et Stations où nous avons besoin de déployer un satellite.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes à l'intérieur d'un secteur.</t>
-      <t id="1461">Ce script permet à votre vaisseau de déployer des satellites aux Stations, aux Portes de Saut, aux Accélérateurs et aux Super Autoroutes dans toute la galaxie.</t>
+      <t id="1460">\033#FFe27100#Placement de Satellites en Pause\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Temps d'inactivité</t>
-      <t id="1481">Inactif: Déplacer vers?</t>
-      <t id="1482">Où déplacer?</t>
-      <t id="1483">Inactif: Suivre?</t>
-      <t id="1484">Qui suivre?</t>
-      <t id="1485">Inactif: Accostage?</t>
-      <t id="1486">Trouver une station?</t>
-      <t id="1487">Où accoster?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Ajouter une balise de commande?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Sauvegarder les paramètres de commande?</t>
-      <t id="1494">Réinitialiser les paramètres de commande?</t>
-      <t id="1495">Paramètres de commande sauvegardés.</t>
-      <t id="1496">Paramètres de commande réinitialisés.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Déployez des satellites dans les Stations, Portails de Saut, Accélérateurs et Super Autoroutes dans un secteur.</t>
+      <t id="1471">Déployez des satellites dans les Stations, Portails de Saut, Accélérateurs et Super Autoroutes dans toute la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

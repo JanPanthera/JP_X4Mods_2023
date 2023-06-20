@@ -2,11 +2,12 @@
 
 <aiscript name="JP_SatelliteDropperS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
 
-   <order id="JP_SatelliteDropperS" name="_{8888888, 1497}SatelliteDropper - {8888888, 1499}{8888888, 1498}{20001, 201}{8888888, 1499}" description="{8888888, 1460}" category="navigation" infinite="true" allowinloop="false">
+   <order id="JP_SatelliteDropperS" name="_{8888888, 97}SatelliteDropper - {8888888, 99}{8888888, 98}{20001, 201}{8888888, 99}" description="{8888888, 1470}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="SECTOR" text="{20001, 201}" comment="Sector" type="object" default="this.ship.sector">
@@ -15,12 +16,17 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_SATELLITES_MK1" text="{8888888, 1400}" comment="Place mk1 satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{1} else true"/>
-         <param name="PLACE_SATELLITES_MK2" text="{8888888, 1401}" comment="Place mk2 satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{2} else false"/>
-         <param name="RESTOCK_SATELLITES" text="{8888888, 1402}" comment="Restock satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{3} else false"/>
-         <param name="RESTOCK_MAX_AMOUNT" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{4} else 10">
+         <param name="PLACE_SATELLITES_MK1" text="{8888888, 1400}" comment="Place mk1 satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{1} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="PLACE_SATELLITES_MK2" text="{8888888, 1401}" comment="Place mk2 satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{2} else 0">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="RESTOCK_SATELLITES" text="{8888888, 1402}" comment="Restock satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{3} else 100"/>
+         <param name="RESTOCK_AMOUNT_CAP" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{4} else 10">
             <input_param name="min" value="2"/>
             <input_param name="max" value="(if this.ship.ammostorage.deployable.capacity gt 0 then this.ship.ammostorage.deployable.capacity else 0)"/>
             <input_param name="step" value="2"/>
@@ -28,6 +34,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="JUMP_GATES" text="{8888888, 1420}" comment="Jump gates?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{5} else true"/>
@@ -42,6 +49,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_003" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="STATIONS" text="{8888888, 1430}" comment="Stations?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{14} else true"/>
@@ -57,47 +65,57 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="IDLE_TIME" text="{8888888, 1480}" comment="Idle Time" type="time" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{24} else 600s">
+         <param name="IDLE_TIME" text="{8888888, 80}" comment="Idle Time" type="time" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{24} else 600s">
             <input_param name="min" value="60s"/>
             <input_param name="max" value="3600s"/>
             <input_param name="step" value="10s"/>
          </param>
-         <param name="IDLE_MOVE_TO" text="{8888888, 1481}" comment="Idle: Move to?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{25} else true"/>
-         <param name="WHERE_TO_MOVE" text="- {8888888, 1482}" comment="Where to move?" type="position" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{26} else [this.ship.sector, this.ship.sector.coreposition]">
+         <param name="IDLE_MOVE_TO" text="{8888888, 81}" comment="Idle: Move to?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{25} else true"/>
+         <param name="WHERE_TO_MOVE" text="- {8888888, 82}" comment="Where to move?" type="position" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{26} else [this.ship.sector, this.ship.sector.coreposition]">
             <input_param name="class" value="class.sector"/>
          </param>
-         <param name="IDLE_FOLLOW" text="{8888888, 1483}" comment="Idle: Follow?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{27} else false"/>
-         <param name="WHO_TO_FOLLOW" text="- {8888888, 1484}" comment="Who to follow?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{28} else null">
+         <param name="IDLE_FOLLOW" text="{8888888, 83}" comment="Idle: Follow?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{27} else false"/>
+         <param name="WHO_TO_FOLLOW" text="- {8888888, 84}" comment="Who to follow?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{28} else null">
             <input_param name="class" value="[class.ship]"/>
          </param>
-         <param name="IDLE_DOCKING" text="{8888888, 1485}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{29} else false"/>
-         <param name="FIND_STATION" text="- {8888888, 1486}" comment="Find a Station?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{30} else true"/>
-         <param name="WHERE_TO_DOCK" text="- {8888888, 1487}" comment="Where to dock?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{31} else null">
+         <param name="IDLE_DOCKING" text="{8888888, 85}" comment="Idle: Docking?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{29} else false"/>
+         <param name="FIND_STATION" text="- {8888888, 86}" comment="Find a Station?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{30} else true"/>
+         <param name="WHERE_TO_DOCK" text="- {8888888, 87}" comment="Where to dock?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{31} else null">
             <input_param name="class" value="if this.ship.isclass.[class.ship_s, class.ship_xs] then [class.station, class.ship_m, class.ship_l, class.ship_xl] else [class.station, class.ship_l, class.ship_xl]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_997" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="ADD_ORDER_TAG" text="{8888888, 1491}" comment="Add order tag?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{32} else true"/>
-         <param name="SAVE_ORDER_SETTINGS" text="{8888888, 1493}" comment="Save Order Settings?" type="bool" default="false"/>
-         <param name="RESET_ORDER_SETTINGS" text="{8888888, 1494}" comment="Reset Order Settings?" type="bool" default="false"/>
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{32} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{33} else 100">
+            <input_param name="truevalue" value="100"/>
+         </param>
+         <param name="ADD_ORDER_TAG" text="{8888888, 92}" comment="Add order tag?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{34} else true"/>
+         <param name="SAVE_ORDER_SETTINGS" text="{8888888, 93}" comment="Save Order Settings?" type="bool" default="false"/>
+         <param name="RESET_ORDER_SETTINGS" text="{8888888, 94}" comment="Reset Order Settings?" type="bool" default="false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_998" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" text="Debug" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{33} else 0" advanced="true">
-            <input_param name="step" value="100"/>
+         <param name="DEBUG" text="Debug" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{35} else 0" advanced="true">
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
+            <input_param name="step" value="100"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
@@ -121,14 +139,13 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <stop_moving object="$_Ship"/>
+      <set_value name="$_SD_PausedTitle" exact="{8888888, 1460} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
       <set_value name="$_RadarRange" exact="if $PLACE_SATELLITES_MK1 then 30km else 75km"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$SD_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_SatelliteMacroMk1" exact="ware.satellite_mk1.objectmacro"/>
       <set_value name="$_SatelliteMacroMk2" exact="ware.satellite_mk2.objectmacro"/>
-      <set_value name="$_MultiSatelliteMode" exact="if $PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2 then true else false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -139,14 +156,15 @@
       <do_if value="$SAVE_ORDER_SETTINGS">
          <create_list name="$_SettingsList"/>
          <append_list_elements name="$_SettingsList" other="[
-                            $PLACE_SATELLITES_MK1, $PLACE_SATELLITES_MK2, $RESTOCK_SATELLITES, $RESTOCK_MAX_AMOUNT,
+                            $PLACE_SATELLITES_MK1, $PLACE_SATELLITES_MK2, $RESTOCK_SATELLITES, $RESTOCK_AMOUNT_CAP,
                             $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
                             $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                             $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
                             $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS,
-                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW, $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                            $ADD_ORDER_TAG, $DEBUG]"/>
+                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                            $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                            $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
          <do_if value="global.$SatelliteDropper_Settings?" negate="true">
             <create_list name="global.$SatelliteDropper_Settings"/>
             <append_list_elements name="global.$SatelliteDropper_Settings" other="$_SettingsList"/>
@@ -159,23 +177,20 @@
             </do_for_each>
          </do_else>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1495}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$SatelliteDropper_Settings"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1496}'"/>
+         <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
-         <set_value name="$_Quit" exact="true"/>
-      </do_if>
    </init>
 
    <attention min="unknown">
       <actions>
 
-         <do_if value="$_Quit? and @$_Quit == true">
+         <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
             <resume label="FINISH_LBL"/>
          </do_if>
 
@@ -200,37 +215,47 @@
          <label name="RESUME_LBL"/>
          <wait exact="1ms"/>
 
-         <set_command command="command.scan"/>
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="$_MultiSatelliteMode">
-            <do_if value="$_Ship.ammostorage.{$_SatelliteMacroMk1}.count le 0 or $_Ship.ammostorage.{$_SatelliteMacroMk2}.count le 0">
-               <set_value name="$_GoRestock" exact="true"/>
-            </do_if>
-         </do_if>
-         <do_else>
-            <do_if value="$PLACE_SATELLITES_MK1 and $_Ship.ammostorage.{$_SatelliteMacroMk1}.count le 0">
-               <set_value name="$_GoRestock" exact="true"/>
-            </do_if>
-            <do_if value="$PLACE_SATELLITES_MK2 and $_Ship.ammostorage.{$_SatelliteMacroMk2}.count le 0">
-               <set_value name="$_GoRestock" exact="true"/>
-            </do_if>
-         </do_else>
-
-         <do_if value="@$_GoRestock and not $RESTOCK_SATELLITES">
-            <show_help duration="5s" allowclose="true" log="true" custom="'JP_SatelliteDropperS' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 1451}'"/>
-            <resume label="IDLE_LBL"/>
+         <set_value name="$_GoRestock" exact="false"/>
+         <do_if value="($PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2 and 
+                       ($_Ship.ammostorage.{$_SatelliteMacroMk1}.count == 0 or $_Ship.ammostorage.{$_SatelliteMacroMk2}.count == 0)) or
+                       ($PLACE_SATELLITES_MK1 and $_Ship.ammostorage.{$_SatelliteMacroMk1}.count == 0 or
+                        $PLACE_SATELLITES_MK2 and $_Ship.ammostorage.{$_SatelliteMacroMk2}.count == 0)">
+            <set_value name="$_GoRestock" exact="true"/>
          </do_if>
 
-         <do_if value="@$_GoRestock">
-            <run_script name="'jp.lib.SD.RestockSatellites'">
-               <param name="PLACE_SATELLITES_MK1" value="$PLACE_SATELLITES_MK1"/>
-               <param name="PLACE_SATELLITES_MK2" value="$PLACE_SATELLITES_MK2"/>
-               <param name="RESTOCK_MAX_AMOUNT" value="$RESTOCK_MAX_AMOUNT"/>
+         <do_if value="$_GoRestock">
+            <do_if value="not $RESTOCK_SATELLITES">
+               <!-- No or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each must be available. -->
+               <show_help position="1" duration="5s" allowclose="true" custom="'JP_SatelliteDropperG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 1450}]" chance="$SHOW_MESSAGES"/>
+               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_SD_PausedTitle" text="{8888888, 1450}" chance="$WRITE_TO_LOG"/>
+               <resume label="IDLE_LBL"/>
+            </do_if>
+            <set_value name="$_RestockEquipmentTable" exact="table[]"/>
+            <do_for_each name="$_EquipmentMacro" in="$_Ship.ammostorage.deployable.table">
+               <set_value name="$_RestockEquipmentTable.{$_EquipmentMacro}" exact="0"/>
+            </do_for_each>
+            <do_if value="$PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2">
+               <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk1}" exact="($RESTOCK_AMOUNT_CAP / 2)i"/>
+               <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk2}" exact="($RESTOCK_AMOUNT_CAP / 2)i"/>
+            </do_if>
+            <do_else>
+               <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk1}" exact="$RESTOCK_AMOUNT_CAP" chance="$PLACE_SATELLITES_MK1"/>
+               <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk2}" exact="$RESTOCK_AMOUNT_CAP" chance="$PLACE_SATELLITES_MK2"/>
+            </do_else>
+            <run_script name="'jp.lib.RestockEquipment'">
+               <param name="EQUIPMENT_TABLE" value="$_RestockEquipmentTable"/>
+               <param name="SHOW_MESSAGES" value="$SHOW_MESSAGES"/>
+               <param name="WRITE_TO_LOG" value="$WRITE_TO_LOG"/>
+               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
                <param name="DEBUG" value="$DEBUG"/>
-               <save_retval name="RESULT" variable="$_Result"/>
+               <save_retval name="_Result" variable="$_Result"/>
             </run_script>
-            <do_if value="$_Result == 'Idle'">
+            <do_if value="@$_Result != 'Success'">
+               <!-- The restock equipment order has failed. More detail is available in the logbook. -->
+               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_SD_PausedTitle" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
                <resume label="IDLE_LBL"/>
             </do_if>
          </do_if>
@@ -262,39 +287,39 @@
          </run_script>
 
          <do_if value="$_FoundObjects.count == 0">
+            <!-- There are no Jumpgates, Accelerators, Superhighways and Stations left where we need to drop a satellite to. -->
+            <show_help position="1" duration="5s" allowclose="true" custom="'JP_SatelliteDropperS\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 1451}]" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_SD_PausedTitle" text="{8888888, 1451}" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
-         <do_if value="$_FoundObjects.count gt 0">
-            <do_for_each name="$_FoundObject" in="$_FoundObjects">
-               <do_if value="$_FoundObject.class == class.gate or $_FoundObject.class == class.highwayentrygate">
-                  <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-                     <param name="OBJECT" value="$_FoundObject"/>
-                     <param name="SATELLITE_MACRO" value="if $PLACE_SATELLITES_MK2 then $_SatelliteMacroMk2 else $_SatelliteMacroMk1"/>
-                     <param name="DEBUG" value="$DEBUG"/>
-                  </create_order>
-                  <resume label="RESUME_LBL"/>
-               </do_if>
-            </do_for_each>
-            <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'">
-               <param name="OBJECTS" value="$_FoundObjects"/>
-               <param name="PLACE_SATELLITES_MK1" value="$PLACE_SATELLITES_MK1"/>
-               <param name="PLACE_SATELLITES_MK2" value="$PLACE_SATELLITES_MK2"/>
-               <param name="DEBUG" value="$DEBUG"/>
-               <save_retval name="_OptimizedObjects" variable="$_FoundObjects"/>
-            </run_script>
-            <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-               <param name="OBJECT" value="$_FoundObjects.{1}.{1}"/>
-               <param name="SATELLITE_MACRO" value="$_FoundObjects.{1}.{2}"/>
-               <param name="DEBUG" value="$DEBUG"/>
-            </create_order>
-         </do_if>
-
-         <resume label="RESUME_LBL"/>
+         <do_for_each name="$_FoundObject" in="$_FoundObjects">
+            <do_if value="$_FoundObject.class == class.gate or $_FoundObject.class == class.highwayentrygate">
+               <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
+                  <param name="OBJECT" value="$_FoundObject"/>
+                  <param name="SATELLITE_MACRO" value="if $PLACE_SATELLITES_MK2 then $_SatelliteMacroMk2 else $_SatelliteMacroMk1"/>
+                  <param name="DEBUG" value="$DEBUG"/>
+               </create_order>
+               <wait exact="1000ms"/>
+            </do_if>
+         </do_for_each>
+         <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'">
+            <param name="OBJECTS" value="$_FoundObjects"/>
+            <param name="PLACE_SATELLITES_MK1" value="$PLACE_SATELLITES_MK1"/>
+            <param name="PLACE_SATELLITES_MK2" value="$PLACE_SATELLITES_MK2"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_OptimizedObjects" variable="$_FoundObjects"/>
+         </run_script>
+         <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
+            <param name="OBJECT" value="$_FoundObjects.{1}.{1}"/>
+            <param name="SATELLITE_MACRO" value="$_FoundObjects.{1}.{2}"/>
+            <param name="DEBUG" value="$DEBUG"/>
+         </create_order>
+         <wait exact="1000ms"/>
 
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
-         <create_order object="$_Ship" id="'JP_lib_SD_IdleReturnHome'">
+         <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE" value="$WHERE_TO_MOVE"/>
@@ -303,10 +328,10 @@
             <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
             <param name="DEBUG" value="$DEBUG"/>
          </create_order>
-
-         <resume label="RESUME_LBL"/>
+         <wait exact="1000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -324,7 +349,6 @@
    </attention>
 
    <on_abort>
-      <stop_moving object="this.ship"/>
    </on_abort>
 
 </aiscript>

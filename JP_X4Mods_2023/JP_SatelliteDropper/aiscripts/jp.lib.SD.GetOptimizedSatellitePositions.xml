@@ -4,24 +4,13 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="OBJECTS" default="null"/>
-      <param name="PLACE_SATELLITES_MK1" default="null"/>
-      <param name="PLACE_SATELLITES_MK2" default="null"/>
+      <param name="OBJECTS" default="[]"/>
+      <param name="PLACE_SATELLITES_MK1" default="true"/>
+      <param name="PLACE_SATELLITES_MK2" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="null"/>
+      <param name="DEBUG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
-
-   <interrupts>
-      <handler ref="AttackHandler"/>
-      <handler ref="MissileLockHandler" />
-      <handler ref="ScannedHandler"/>
-      <handler ref="InspectedHandler"/>
-      <handler ref="FoundAbandonedHandler"/>
-      <handler ref="FoundLockboxHandler"/>
-      <handler ref="ResupplyHandler"/>
-      <handler ref="TideHandler"/>
-   </interrupts>
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

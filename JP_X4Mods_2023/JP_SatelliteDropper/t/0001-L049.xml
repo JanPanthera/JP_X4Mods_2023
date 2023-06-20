@@ -6,8 +6,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Mk1 Satelliten?</t>
       <t id="1401">Mk2 Satelliten?</t>
-      <t id="1402">Satelliten nachfüllen?</t>
-      <t id="1403">Nachfüllmenge</t>
+      <t id="1402">Satelliten aufstocken?</t>
+      <t id="1403">Nachfüllmengenbegrenzung</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1420">Sprungtore?</t>
       <t id="1421">Aktive Sprungtore?</t>
@@ -30,39 +30,16 @@
       <t id="1438">Fraktionshauptquartiere?</t>
       <t id="1439">Nicht spezielle Stationen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1440">Satellit an Position platzieren</t>
-      <t id="1441">Satellit an Objekt platzieren</t>
-      <t id="1442">Leerlauf</t>
+      <t id="1440">Satellit an Objekt platzieren</t>
+      <t id="1441">Satellit an Position platzieren</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Es steht keine Station zur Verfügung, um Satelliten nachzufüllen.</t>
-      <t id="1451">Keine oder nicht genügend Satelliten vorhanden, und das Nachfüllen von Satelliten ist deaktiviert.\nWenn beide Satellitentypen verwendet werden, muss mindestens einer von jedem Typ verfügbar sein.</t>
-      <t id="1452">Wir haben nicht genügend Geld zur Verfügung, um die Satelliten aufzufüllen.</t>
-      <t id="1453">Die Erstellung des Nachfüllbefehls ist fehlgeschlagen.</t>
-      <t id="1454">Es gibt keine Objekte im angegebenen Sektor, die wir markieren müssen.</t>
-      <t id="1455">Alle verfügbaren Stationen haben im Moment nicht genug Ressourcen, um Satelliten herzustellen.</t>
+      <t id="1450">Es stehen keine oder nicht genug Satelliten zur Verfügung, und die Wiederauffüllung von Satelliten ist deaktiviert.\nBei der Verwendung beider Satellitentypen muss mindestens ein Satellit jedes Typs verfügbar sein.</t>
+      <t id="1451">Es gibt keine verbleibenden Sprungtore, Beschleuniger, Superhighways und Stationen, an denen wir einen Satelliten platzieren müssen.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways innerhalb eines Sektors zu positionieren.</t>
-      <t id="1461">Dieses Skript ermöglicht es Ihrem Schiff, Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways in der gesamten Galaxie zu positionieren.</t>
+      <t id="1460">\033#FFe27100#Satellitenplatzierung pausiert\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1480">Leerlaufzeit</t>
-      <t id="1481">Leerlauf: Bewegen zu?</t>
-      <t id="1482">Wohin bewegen?</t>
-      <t id="1483">Leerlauf: Folgen?</t>
-      <t id="1484">Wem folgen?</t>
-      <t id="1485">Leerlauf: Andocken?</t>
-      <t id="1486">Eine Station finden?</t>
-      <t id="1487">Wohin andocken?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1491">Auftragskennzeichen hinzufügen?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1493">Auftragseinstellungen speichern?</t>
-      <t id="1494">Auftragseinstellungen zurücksetzen?</t>
-      <t id="1495">Auftragseinstellungen gespeichert.</t>
-      <t id="1496">Auftragseinstellungen zurückgesetzt.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1497">\033#B600CCCC#</t>
-      <t id="1498">\033#FF00CC66#</t>
-      <t id="1499">\033X</t>
+      <t id="1470">Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways innerhalb eines Sektors platzieren.</t>
+      <t id="1471">Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways in der gesamten Galaxie platzieren.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
