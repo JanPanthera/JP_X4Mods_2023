@@ -5,6 +5,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Sprungtore?</t>
+      <t id="2">Aktive Sprungtore?</t>
+      <t id="3">Inaktive Sprungtore?</t>
+      <t id="4">Beschleuniger?</t>
+      <t id="5">Aktive Beschleuniger?</t>
+      <t id="6">Inaktive Beschleuniger?</t>
+      <t id="7">Superhighways?</t>
+      <t id="8">Aktive Superhighways?</t>
+      <t id="9">Inaktive Superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stationen?</t>
+      <t id="11">Raumdocks?</t>
+      <t id="12">Schiffswerften?</t>
+      <t id="13">Ausrüstungsdocks?</t>
+      <t id="14">Handelsstationen?</t>
+      <t id="15">Piratenbasen?</t>
+      <t id="16">Schrottverarbeitungsanlagen?</t>
+      <t id="17">Verteidigungsstationen?</t>
+      <t id="18">Fraktionshauptquartiere?</t>
+      <t id="19">Fabriken?</t>
+      <t id="20">Baustellen?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Besitzerlose Sektoren?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Leerlauf</t>
       <t id="41">Zum Sektor bewegen</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

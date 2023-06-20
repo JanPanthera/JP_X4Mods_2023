@@ -5,6 +5,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Jump Gates?</t>
+      <t id="2">Active Jump Gates?</t>
+      <t id="3">Inactive Jump Gates?</t>
+      <t id="4">Accelerators?</t>
+      <t id="5">Active Accelerators?</t>
+      <t id="6">Inactive Accelerators?</t>
+      <t id="7">Superhighways?</t>
+      <t id="8">Active Superhighways?</t>
+      <t id="9">Inactive Superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stations?</t>
+      <t id="11">Wharfs?</t>
+      <t id="12">Shipyards?</t>
+      <t id="13">Equipment Docks?</t>
+      <t id="14">Trading Stations?</t>
+      <t id="15">Pirate Bases?</t>
+      <t id="16">Scrap Processing Facilities?</t>
+      <t id="17">Defense Stations?</t>
+      <t id="18">Faction Headquarters?</t>
+      <t id="19">Factories?</t>
+      <t id="20">Construction Yards?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Ownerless Sectors?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Idle</t>
       <t id="41">Move to Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

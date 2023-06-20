@@ -5,6 +5,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Portes de saut ?</t>
+      <t id="2">Portes de saut actives ?</t>
+      <t id="3">Portes de saut inactives ?</t>
+      <t id="4">Accélérateurs ?</t>
+      <t id="5">Accélérateurs actifs ?</t>
+      <t id="6">Accélérateurs inactifs ?</t>
+      <t id="7">Super autoroutes ?</t>
+      <t id="8">Super autoroutes actives ?</t>
+      <t id="9">Super autoroutes inactives ?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stations ?</t>
+      <t id="11">Chantiers navals ?</t>
+      <t id="12">Cale sèche ?</t>
+      <t id="13">Docks d'équipement ?</t>
+      <t id="14">Stations de commerce ?</t>
+      <t id="15">Bases de pirates ?</t>
+      <t id="16">Installations de traitement des déchets ?</t>
+      <t id="17">Stations de défense ?</t>
+      <t id="18">Quartiers généraux de faction ?</t>
+      <t id="19">Usines?</t>
+      <t id="20">Chantiers de construction?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Secteurs sans propriétaire?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Au repos</t>
       <t id="41">Déplacer vers le Secteur</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

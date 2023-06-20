@@ -5,6 +5,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">¿Portales de salto?</t>
+      <t id="2">¿Portales de salto activos?</t>
+      <t id="3">¿Portales de salto inactivos?</t>
+      <t id="4">¿Aceleradores?</t>
+      <t id="5">¿Aceleradores activos?</t>
+      <t id="6">¿Aceleradores inactivos?</t>
+      <t id="7">¿Superautopistas?</t>
+      <t id="8">¿Superautopistas activas?</t>
+      <t id="9">¿Superautopistas inactivas?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">¿Estaciones?</t>
+      <t id="11">¿Astilleros?</t>
+      <t id="12">¿Varaderos?</t>
+      <t id="13">¿Muelles de equipo?</t>
+      <t id="14">¿Estaciones de comercio?</t>
+      <t id="15">¿Bases piratas?</t>
+      <t id="16">¿Instalaciones de procesamiento de chatarra?</t>
+      <t id="17">¿Estaciones de defensa?</t>
+      <t id="18">¿Sedes de facciones?</t>
+      <t id="19">¿Fábricas?</t>
+      <t id="20">¿Astilleros?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">¿Sectores sin dueño?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Inactivo</t>
       <t id="41">Moverse al Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

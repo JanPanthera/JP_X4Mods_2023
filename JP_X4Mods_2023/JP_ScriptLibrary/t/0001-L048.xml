@@ -5,6 +5,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Bramy skokowe?</t>
+      <t id="2">Aktywne bramy skokowe?</t>
+      <t id="3">Nieaktywne bramy skokowe?</t>
+      <t id="4">Akceleratory?</t>
+      <t id="5">Aktywne akceleratory?</t>
+      <t id="6">Nieaktywne akceleratory?</t>
+      <t id="7">Super autostrady?</t>
+      <t id="8">Aktywne super autostrady?</t>
+      <t id="9">Nieaktywne super autostrady?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stacje?</t>
+      <t id="11">Doki?</t>
+      <t id="12">Stocznie?</t>
+      <t id="13">Doki sprzętowe?</t>
+      <t id="14">Stacje handlowe?</t>
+      <t id="15">Bazy piratów?</t>
+      <t id="16">Zakłady przetwarzania złomu?</t>
+      <t id="17">Stacje obronne?</t>
+      <t id="18">Siedziby frakcji?</t>
+      <t id="19">Fabryki?</t>
+      <t id="20">Stocznie?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Sektory bez właściciela?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Bezczynny</t>
       <t id="41">Przenieś do Sektora</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
