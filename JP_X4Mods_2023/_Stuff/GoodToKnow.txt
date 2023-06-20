@@ -1,0 +1,15 @@
+<do_for_each name="$_Station" in="$_Stations">
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Station Name: %1'.[@$_Station.knownname]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'People: %1'.[@$_Station.people.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Available People: %1'.[@$_Station.availablepeople.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Workforce: %1'.[@$_Station.workforce.amount]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Workforce optimal: %1'.[@$_Station.workforce.optimal]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Cargo: %1'.[@$_Station.cargo.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Wares: %1'.[@$_Station.wares.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Trade Wares %1'.[@$_Station.tradewares.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Buildship Wares %1'.[@$_Station.buildships.wares.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Buildequipment Wares %1'.[@$_Station.buildequipment.wares.list]"/>
+   <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+</do_for_each>
