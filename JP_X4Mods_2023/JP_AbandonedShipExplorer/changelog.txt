@@ -1,9 +1,9 @@
 #AbandonedShipExplorer
 
-v2.0.0 -- Current Published Version
+v2.0.0
 ~ Initial re-release
 
-v2.0.1 -- Current Development Version
+v2.0.1 -- Current Published Version
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
