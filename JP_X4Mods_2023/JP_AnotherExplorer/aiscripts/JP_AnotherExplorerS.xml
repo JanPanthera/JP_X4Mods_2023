@@ -43,8 +43,8 @@
          <param name="RECYCLING_STATIONS"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{16} else true"/>
          <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{17} else true"/>
          <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{18} else true"/>
-         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Non Special Stations?"        type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else true"/>
-         <param name="CONSTRUCTION_YARDS"   text="- {8888888, 20}" comment="Construction Yards?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{20} else true"/>
+         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else true"/>
+         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{20} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_995" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
@@ -150,7 +150,7 @@
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                             $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
                             $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
-                            $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_YARDS,
+                            $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
                             $OWNERLESS_SECTORS,
                             $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                             $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
@@ -230,7 +230,7 @@
             <param name="DEFENCE_STATIONS"        value="$DEFENCE_STATIONS"/>
             <param name="FACTION_HEADQUARTERS"    value="$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS"    value="$NON_SPECIAL_STATIONS"/>
-            <param name="CONSTRUCTION_YARDS"      value="$CONSTRUCTION_YARDS"/>
+            <param name="CONSTRUCTION_SITES"      value="$CONSTRUCTION_SITES"/>
             <param name="DEBUG"                   value="$DEBUG"/>
             <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
          </run_script>

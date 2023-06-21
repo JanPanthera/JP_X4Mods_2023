@@ -27,7 +27,7 @@
       <param name="DEFENCE_STATIONS"     default="false"/>
       <param name="FACTION_HEADQUARTERS" default="false"/>
       <param name="NON_SPECIAL_STATIONS" default="false"/>
-      <param name="CONSTRUCTION_YARDS"   default="false"/>
+      <param name="CONSTRUCTION_SITES"   default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
@@ -186,7 +186,7 @@
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
                <do_for_each name="$_Station" in="$_Stations">
-                  <do_if value="($_Station.isconstruction and $CONSTRUCTION_YARDS) or
+                  <do_if value="($_Station.isconstruction and $CONSTRUCTION_SITES) or
                                 ($_Station.iswharf and $WHARFS) or
                                 ($_Station.isshipyard and $SHIPYARDS) or
                                 ($_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and $EQUIPMENTDOCKS) or

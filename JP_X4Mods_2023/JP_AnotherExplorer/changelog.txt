@@ -24,7 +24,7 @@ v1.0.3
 ~ Optimized: The AnotherExplorer fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
 ~ Optimized: Generic code optimizations have been carried out for improved performance.
 
-v1.0.4 -- Current Published version
+v1.0.4
 ~ Added: Implemented a check to clear the internal blacklist of ships that have been destroyed.
 ~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
 ~ Fixed: Resolved an issue where the ship was sometimes unable to reach a sector or would halt after a jump.
@@ -33,7 +33,7 @@ v1.0.4 -- Current Published version
          Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
-v1.0.5 -- Current Development Version
+v1.0.5 -- Current Published version
 ~ Added: A option to also uncover construction sites.
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
