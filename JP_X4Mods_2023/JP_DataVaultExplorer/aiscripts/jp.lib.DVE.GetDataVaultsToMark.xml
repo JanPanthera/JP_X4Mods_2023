@@ -4,7 +4,10 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="OWNERLESS_SECTORS" default="true"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
+      <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
@@ -40,12 +43,20 @@
 
          <find_object name="$_FoundDataVaults" space="player.galaxy" multiple="true">
             <match datavault="true"/>
-            <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+            <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
          </find_object>
 
          <!-- Workaround to get blacklists running for datavaults -->
          <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults" reverse="true">
-            <do_if value="$_FoundDataVault.sector.isblacklisted.{blacklisttype.sectortravel}.{$blacklistgroup}.{$_Ship}">
+            <set_value name="$_NavBeacon" exact="null"/>
+            <find_object name="$_NavBeacon" space="$_FoundDataVault.sector" multiple="false">
+               <match class="class.navbeacon"/>
+               <match owner="$_Ship.owner"/>
+               <match_distance object="$_FoundDataVault" space="$_FoundDataVault.sector" max="10km"/>
+            </find_object>
+            <do_if value="($_FoundDataVault.sector.owner == faction.ownerless and not $OWNERLESS_SECTORS) or
+                          ($_FoundDataVault.sector.isblacklisted.{blacklisttype.sectoractivity}.{$blacklistgroup}.{$_Ship}) or
+                          @$_NavBeacon != null">
                <remove_from_list name="$_FoundDataVaults" exact="$_FoundDataVault"/>
             </do_if>
          </do_for_each>
@@ -57,17 +68,15 @@
             <save_retval name="_SortedList" variable="$_FoundDataVaults"/>
          </run_script>
 
-         <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults" reverse="true">
-            <set_value name="$_NavBeacon" exact="null"/>
-            <find_object name="$_NavBeacon" space="$_FoundDataVault.sector" multiple="false">
-               <match class="class.navbeacon"/>
-               <match owner="$_Ship.owner"/>
-               <match_distance object="$_FoundDataVault" space="$_FoundDataVault.sector" max="10km"/>
-            </find_object>
-            <do_if value="@$_NavBeacon != null">
-               <remove_from_list name="$_FoundDataVaults" exact="$_FoundDataVault"/>
-            </do_if>
-         </do_for_each>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundDataVaults.count: %1'.[$_FoundDataVaults.count]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundDataVault: %1 [%2] ~ Sector: %3 [%4]'.[$_FoundDataVault.knownname, $_FoundDataVault.idcode, $_FoundDataVault.sector.knownname, $_FoundDataVault.sector.owner]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

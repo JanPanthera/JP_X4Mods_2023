@@ -20,6 +20,13 @@
             <input_param name="class" value="class.sector"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_997" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
@@ -42,6 +49,9 @@
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
             <input_param name="step" value="100"/>
+         </param>
+         <param name="debugchance" text="{1041, 10086}" comment="Print debug output" type="bool" default="0" advanced="true">
+            <input_param name="truevalue" value="100"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
@@ -138,6 +148,7 @@
 
          <create_list name="$_FoundDataVaults"/>
          <run_script name="'jp.lib.DVE.GetDataVaultsToMark'">
+            <param name="OWNERLESS_SECTORS" value="$OWNERLESS_SECTORS"/>
             <param name="DEBUG" value="$DEBUG"/>
             <save_retval name="_FoundDataVaults" variable="$_FoundDataVaults"/>
          </run_script>
@@ -153,6 +164,7 @@
             <param name="DATA_VAULT" value="$_FoundDataVaults.{1}"/>
             <param name="DEBUG" value="$DEBUG"/>
          </create_order>
+         <wait exact="1000ms"/>
 
          <resume label="RESUME_LBL"/>
 
@@ -160,6 +172,7 @@
          <create_order object="$_Ship" id="'MoveWait'" default="true">
             <param name="destination" value="$HOME_POSITION"/>
          </create_order>
+         <wait exact="1000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
