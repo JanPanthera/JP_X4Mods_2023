@@ -131,7 +131,7 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$CollectPlaceables_Settings.count != 31">
+                  <do_if value="@global.$CollectPlaceables_Settings.count != 32">
                      <remove_value name="global.$CollectPlaceables_Settings"/>
                   </do_if>
 

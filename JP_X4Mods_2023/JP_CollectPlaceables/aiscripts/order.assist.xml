@@ -27,6 +27,8 @@
             <param name="SELL_NAVIGATION_BEACONS"  value="$order.$SELL_NAVIGATION_BEACONS"/>
             <param name="SELL_RESOURCE_PROBES"     value="$order.$SELL_RESOURCE_PROBES"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"     value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"  value="$order.$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE" value="$order.$WHERE_TO_MOVE"/>

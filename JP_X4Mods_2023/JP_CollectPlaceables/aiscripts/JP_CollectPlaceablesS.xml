@@ -19,49 +19,56 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="COLLECT_REGULAR_MINES"       text="{8888888, 800}" comment="Collect regular mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{1} else true"/>
-         <param name="COLLECT_TRACKER_MINES"       text="{8888888, 801}" comment="Collect tracker mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{2} else true"/>
-         <param name="COLLECT_FRIENDFOE_MINES"     text="{8888888, 802}" comment="Collect friend/foe mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{3} else true"/>
-         <param name="COLLECT_MK1_LASER_TOWERS"    text="{8888888, 803}" comment="Collect Mk1 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{4} else true"/>
-         <param name="COLLECT_MK2_LASER_TOWERS"    text="{8888888, 804}" comment="Collect Mk2 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{5} else true"/>
-         <param name="COLLECT_REGULAR_SATELLITES"  text="{8888888, 805}" comment="Collect regular satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{6} else true"/>
+         <param name="COLLECT_REGULAR_MINES"       text="{8888888, 800}" comment="Collect regular mines?"       type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{1} else true"/>
+         <param name="COLLECT_TRACKER_MINES"       text="{8888888, 801}" comment="Collect tracker mines?"       type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{2} else true"/>
+         <param name="COLLECT_FRIENDFOE_MINES"     text="{8888888, 802}" comment="Collect friend/foe mines?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{3} else true"/>
+         <param name="COLLECT_MK1_LASER_TOWERS"    text="{8888888, 803}" comment="Collect Mk1 laser towers?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{4} else true"/>
+         <param name="COLLECT_MK2_LASER_TOWERS"    text="{8888888, 804}" comment="Collect Mk2 laser towers?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{5} else true"/>
+         <param name="COLLECT_REGULAR_SATELLITES"  text="{8888888, 805}" comment="Collect regular satellites?"  type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{6} else true"/>
          <param name="COLLECT_ADVANCED_SATELLITES" text="{8888888, 806}" comment="Collect advanced satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{7} else true"/>
-         <param name="COLLECT_NAVIGATION_BEACONS"  text="{8888888, 807}" comment="Collect navigation beacons?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{8} else true"/>
-         <param name="COLLECT_RESOURCE_PROBES"     text="{8888888, 808}" comment="Collect resource probes?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{9} else true"/>
+         <param name="COLLECT_NAVIGATION_BEACONS"  text="{8888888, 807}" comment="Collect navigation beacons?"  type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{8} else true"/>
+         <param name="COLLECT_RESOURCE_PROBES"     text="{8888888, 808}" comment="Collect resource probes?"     type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{9} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SELL_PLACEABLES"          text="{8888888, 810}" comment="Sell placeables?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{10} else true"/>
-         <param name="SELL_REGULAR_MINES"       text="- {8888888, 811}" comment="Sell regular mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{11} else 100">
+         <param name="SELL_PLACEABLES"          text="{8888888, 810}"   comment="Sell placeables?"          type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{10} else true"/>
+         <param name="SELL_REGULAR_MINES"       text="- {8888888, 811}" comment="Sell regular mines?"       type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{11} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_TRACKER_MINES"       text="- {8888888, 812}" comment="Sell tracker mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{12} else 100">
+         <param name="SELL_TRACKER_MINES"       text="- {8888888, 812}" comment="Sell tracker mines?"       type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{12} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_FRIENDFOE_MINES"     text="- {8888888, 813}" comment="Sell friend/foe mines?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{13} else 100">
+         <param name="SELL_FRIENDFOE_MINES"     text="- {8888888, 813}" comment="Sell friend/foe mines?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{13} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_MK1_LASER_TOWERS"    text="- {8888888, 814}" comment="Sell Mk1 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{14} else 100">
+         <param name="SELL_MK1_LASER_TOWERS"    text="- {8888888, 814}" comment="Sell Mk1 laser towers?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{14} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_MK2_LASER_TOWERS"    text="- {8888888, 815}" comment="Sell Mk2 laser towers?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{15} else 100">
+         <param name="SELL_MK2_LASER_TOWERS"    text="- {8888888, 815}" comment="Sell Mk2 laser towers?"    type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{15} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_REGULAR_SATELLITES"  text="- {8888888, 816}" comment="Sell regular satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{16} else 100">
+         <param name="SELL_REGULAR_SATELLITES"  text="- {8888888, 816}" comment="Sell regular satellites?"  type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{16} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
          <param name="SELL_ADVANCED_SATELLITES" text="- {8888888, 817}" comment="Sell advanced satellites?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{17} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_NAVIGATION_BEACONS"  text="- {8888888, 818}" comment="Sell navigation beacons?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{18} else 100">
+         <param name="SELL_NAVIGATION_BEACONS"  text="- {8888888, 818}" comment="Sell navigation beacons?"  type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{18} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="SELL_RESOURCE_PROBES"     text="- {8888888, 819}" comment="Sell resource probes?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{19} else 100">
+         <param name="SELL_RESOURCE_PROBES"     text="- {8888888, 819}" comment="Sell resource probes?"     type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{19} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_003" text="----------------------------------" type="object" default="null" advanced="true">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{20} else true" advanced="true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -112,6 +119,9 @@
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
          </param>
+         <param name="debugchance" text="{1041, 10086}" comment="Print debug output" type="bool" default="0" advanced="true">
+            <input_param name="truevalue" value="100"/>
+         </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
@@ -160,6 +170,7 @@
                             $SELL_MK1_LASER_TOWERS, $SELL_MK2_LASER_TOWERS,
                             $SELL_REGULAR_SATELLITES, $SELL_ADVANCED_SATELLITES,
                             $SELL_NAVIGATION_BEACONS, $SELL_RESOURCE_PROBES,
+                            $OWNERLESS_SECTORS,
                             $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                             $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
                             $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
@@ -216,7 +227,8 @@
          <set_command command="command.collect"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="$_Ship.ammostorage.deployable.free == 0">
+         <do_if value="$_Ship.ammostorage.deployable.free == 0 or $_GoSell?">
+            <remove_value name="$_GoSell"/>
             <do_if value="not $SELL_PLACEABLES">
                <!-- There is no more storage left for collecting additional placeables, and I'm not allowed to empty my placeable storage myself. -->
                <show_help position="1" duration="5s" allowclose="true" custom="'CollectPlaceablesS\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 850}]" chance="$SHOW_MESSAGES"/>
@@ -258,6 +270,10 @@
          </run_script>
 
          <do_if value="$_FoundPlaceables.count == 0">
+            <do_if value="$_Ship.ammostorage.deployable.count gt 0 and $SELL_PLACEABLES">
+               <set_value name="$_GoSell"/>
+               <resume label="RESUME_LBL"/>
+            </do_if>
             <!-- There are no placeables left to collect. I will switch to idle mode and try again later. -->
             <show_help position="1" duration="5s" allowclose="true" custom="'JP_CollectPlaceablesS\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 852}]" chance="$SHOW_MESSAGES"/>
             <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_CP_PausedTitle" text="{8888888, 852}" chance="$WRITE_TO_LOG"/>
@@ -268,6 +284,7 @@
             <param name="PLACEABLE" value="$_FoundPlaceables.{1}"/>
             <param name="DEBUG" value="$DEBUG"/>
          </create_order>
+         <wait exact="1000ms"/>
 
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
@@ -283,6 +300,7 @@
             <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
             <param name="DEBUG" value="$DEBUG"/>
          </create_order>
+         <wait exact="1000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
