@@ -9,7 +9,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="ASE_MODE" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="null"/>
+         <param name="DEBUG" type="internal" default="0"/>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>

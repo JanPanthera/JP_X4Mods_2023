@@ -104,7 +104,7 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 15">
+                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 16">
                      <remove_value name="global.$AbandonedShipExplorer_Settings"/>
                   </do_if>
 
