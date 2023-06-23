@@ -12,3 +12,8 @@ v1.0.1 -- Current Published Version
 ~ Changed: The 'Find Station' function now organizes its findings by estimated travel time.
 ~ Changed: "jp.lib.Restock" is now "jp.lib.RestockEquipment," with some improvements to its logic.
 ~ Updated: Several minor enhancements have been made to the code and translations.
+
+v1.0.2 -- Current Development Version
+~ Added: jp.lib.ConvertARGBtoHex.xml
+~ Added: jp.lib.GetFactionColorCode.xml
+~ Added: jp.lib.GetFactionRelationColorCode.xml

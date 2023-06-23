@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.GetFactionColorCode" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="FACTION" default="null"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="DEBUG_FOLDER_NAME" default="'JP_ScriptLibrary.logs'"/>
+      <param name="DEBUG" default="0"/>
+      <param name="debugchance" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.GetFactionColorCode'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <set_value name="$_FactionColorCode" exact="'\033#FFFFFFFF#'"/>
+         <do_if value="$FACTION == faction.player">
+            <set_value name="$_FactionColorCode" exact="'\033#FF39ff40#'"/>
+         </do_if>
+         <do_elseif value="$FACTION == faction.alliance">
+            <set_value name="$_FactionColorCode" exact="'\033#FFb03cca#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.antigone">
+            <set_value name="$_FactionColorCode" exact="'\033#FF5097de#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.argon">
+            <set_value name="$_FactionColorCode" exact="'\033#FF0055ff#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.buccaneers">
+            <set_value name="$_FactionColorCode" exact="'\033#FF5900ff#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.civilian">
+            <set_value name="$_FactionColorCode" exact="'\033#FF979797#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.criminal">
+            <set_value name="$_FactionColorCode" exact="'\033#FFc90000#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.hatikvah">
+            <set_value name="$_FactionColorCode" exact="'\033#FF20f6fd#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.holyorder">
+            <set_value name="$_FactionColorCode" exact="'\033#FFff72ad#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.holyorderfanatic">
+            <set_value name="$_FactionColorCode" exact="'\033#FF8a0101#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.khaak">
+            <set_value name="$_FactionColorCode" exact="'\033#FFf0aeed#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.ministry">
+            <set_value name="$_FactionColorCode" exact="'\033#FF94bc92#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.ownerless">
+            <set_value name="$_FactionColorCode" exact="'\033#FF979797#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.paranid">
+            <set_value name="$_FactionColorCode" exact="'\033#FF8000ff#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.scaleplate">
+            <set_value name="$_FactionColorCode" exact="'\033#FF89823a#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.smuggler">
+            <set_value name="$_FactionColorCode" exact="'\033#FFc90000#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.teladi">
+            <set_value name="$_FactionColorCode" exact="'\033#FFa9c22e#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.trinity">
+            <set_value name="$_FactionColorCode" exact="'\033#FFbf39d7#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.visitor">
+            <set_value name="$_FactionColorCode" exact="'\033#FFffff00#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.xenon">
+            <set_value name="$_FactionColorCode" exact="'\033#FFc90000#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.pioneers">
+            <set_value name="$_FactionColorCode" exact="'\033#FF41aa9a#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.terran">
+            <set_value name="$_FactionColorCode" exact="'\033#FFbcd0fb#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.yaki">
+            <set_value name="$_FactionColorCode" exact="'\033#FFfe8dfa#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.court">
+            <set_value name="$_FactionColorCode" exact="'\033#FFffd500#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.fallensplit">
+            <set_value name="$_FactionColorCode" exact="'\033#FFfbb298#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.freesplit">
+            <set_value name="$_FactionColorCode" exact="'\033#FFff9d00#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.split">
+            <set_value name="$_FactionColorCode" exact="'\033#FFff691e#'"/>
+         </do_elseif>
+         <do_elseif value="$FACTION == faction.boron">
+            <set_value name="$_FactionColorCode" exact="'\033#FF4dc4ff#'"/>
+         </do_elseif>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'ColorCode: %1'.[$_FactionColorCode]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return>
+            <retval name="_FactionColorCode" value="$_FactionColorCode"/>
+         </return>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>
