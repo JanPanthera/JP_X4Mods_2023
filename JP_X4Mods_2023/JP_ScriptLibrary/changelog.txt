@@ -3,7 +3,7 @@
 v1.0.0
 ~ Initial release
 
-v1.0.1 -- Current Published Version
+v1.0.1
 ~ Added: jp.lib.FindStationToEquipAt.xml
 ~ Added: Some often used translations.
 ~ Fixed: The 'IdleReturnHome' feature was not functioning when no option was selected. It now defaults to 'Idle: Move to?' using either the position and sector stored in their settings or the position and sector where the ship initiated the script.
@@ -13,8 +13,8 @@ v1.0.1 -- Current Published Version
 ~ Changed: "jp.lib.Restock" is now "jp.lib.RestockEquipment," with some improvements to its logic.
 ~ Updated: Several minor enhancements have been made to the code and translations.
 
-v1.0.2 -- Current Development Version
+v1.0.2 -- Current Published Version
 ~ Added: jp.lib.ConvertARGBtoHex.xml
 ~ Added: jp.lib.GetFactionColorCode.xml
 ~ Added: jp.lib.GetFactionRelationColorCode.xml
-~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
+~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected. This addition also needs to be implemented in each script that utilizes IdleReturnHome.
