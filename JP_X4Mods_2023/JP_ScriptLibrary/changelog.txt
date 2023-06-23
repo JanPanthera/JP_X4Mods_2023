@@ -17,3 +17,4 @@ v1.0.2 -- Current Development Version
 ~ Added: jp.lib.ConvertARGBtoHex.xml
 ~ Added: jp.lib.GetFactionColorCode.xml
 ~ Added: jp.lib.GetFactionRelationColorCode.xml
+~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.

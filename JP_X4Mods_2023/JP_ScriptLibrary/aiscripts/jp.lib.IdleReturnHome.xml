@@ -8,6 +8,7 @@
          <param name="IDLE_TIME"      type="internal" default="null"/>
          <param name="IDLE_MOVE_TO"   type="internal" default="null"/>
          <param name="WHERE_TO_MOVE"  type="internal" default="null"/>
+         <param name="START_POSITION" type="internal" default="null"/>
          <param name="IDLE_FOLLOW"    type="internal" default="null"/>
          <param name="WHO_TO_FOLLOW"  type="internal" default="null"/>
          <param name="IDLE_DOCKING"   type="internal" default="null"/>
@@ -37,7 +38,10 @@
       <set_value name="$_Ship" exact="this.ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
-      <set_value name="$IDLE_MOVE_TO" exact="true" chance="if (not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING) then 100 else 0"/>
+      <do_if value="not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING">
+         <set_value name="$IDLE_MOVE_TO" exact="true" chance="100"/>
+         <set_value name="$WHERE_TO_MOVE" exact="$START_POSITION"/>
+      </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
