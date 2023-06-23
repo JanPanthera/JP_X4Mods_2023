@@ -21,6 +21,7 @@
             <param name="IDLE_TIME"     value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"  value="$order.$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE" value="$order.$WHERE_TO_MOVE"/>
+            <param name="START_POSITION" value="[this.ship.sector, this.ship.position]"/>
             <param name="IDLE_FOLLOW"   value="$order.$IDLE_FOLLOW"/>
             <param name="WHO_TO_FOLLOW" value="$order.$WHO_TO_FOLLOW"/>
             <param name="IDLE_DOCKING"  value="$order.$IDLE_DOCKING"/>
