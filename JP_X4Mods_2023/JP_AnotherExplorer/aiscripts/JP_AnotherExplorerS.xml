@@ -67,6 +67,7 @@
          <param name="WHERE_TO_MOVE" text="- {8888888, 82}" comment="Where to move?" type="position" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{24} else [this.ship.sector, this.ship.sector.coreposition]">
             <input_param name="class" value="class.sector"/>
          </param>
+         <param name="START_POSITION" type="internal" default="[this.ship.sector, this.ship.position]"/>
          <param name="IDLE_FOLLOW" text="{8888888, 83}" comment="Idle: Follow?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{25} else false"/>
          <param name="WHO_TO_FOLLOW" text="- {8888888, 84}" comment="Who to follow?" type="object" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{26} else null">
             <input_param name="class" value="[class.ship]"/>
@@ -265,6 +266,7 @@
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE" value="$WHERE_TO_MOVE"/>
+            <param name="START_POSITION" value="$START_POSITION"/>
             <param name="IDLE_FOLLOW" value="$IDLE_FOLLOW"/>
             <param name="WHO_TO_FOLLOW" value="$WHO_TO_FOLLOW"/>
             <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>

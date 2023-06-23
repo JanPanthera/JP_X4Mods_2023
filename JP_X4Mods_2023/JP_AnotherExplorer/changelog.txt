@@ -42,5 +42,6 @@ v1.0.5 -- Current Published version
 
 v1.0.6 -- Current Development Version
 ~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
+~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Fixed: "Construction Sites?" and "Ownerless Sectors?" parameter of fleet subordinates were not inherited from the leader.
 ~ Updated: Some minor code and translation changes.
