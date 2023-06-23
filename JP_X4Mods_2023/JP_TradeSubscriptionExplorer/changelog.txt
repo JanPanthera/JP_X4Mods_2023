@@ -10,7 +10,7 @@ v2.0.1
 ~ Optimized: The TradeSubscriptionExplorer fleet management is now more streamlined and stable, thanks to the utilization of in-game functionality.
 ~ Optimized: Generic code optimizations have been carried out for improved performance.
 
-v2.0.2 -- Current Published version
+v2.0.2
 ~ Added: Implemented a check to clear the internal blacklist of ships that have been destroyed.
 ~ Added: The ship will now continue with the next Station as soon it has updated the Station's Trade Subscription.
 ~ Added: The script now calcualtes a path to the target sector and subsequently runs the 'move.generic' command for every gate/highway in the path.
@@ -20,7 +20,7 @@ v2.0.2 -- Current Published version
          Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
-v2.0.3 -- Current Development Version
+v2.0.3 -- Current Published Version
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
