@@ -7,11 +7,12 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Discover unknown object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="450">There are no remaining objects that need to be uncovered or that we can reach. I will switch to idle mode and try again later.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Exploring Paused\033X</t>
+      <t id="461">There are no remaining objects within my defined workspace that need to be uncovered. I will switch to idle mode and try again later.</t>
+      <t id="462">Discovered %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
+      <t id="463">Discovered %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="470">Uncovers Stations, Jumpgates, Accelerators, and Superhighways within a sector.</t>
+      <t id="470">Uncovers Stations, Jumpgates, Accelerators, and Superhighways within a specific sector.</t>
       <t id="471">Uncovers Stations, Jumpgates, Accelerators, and Superhighways throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>

@@ -7,6 +7,9 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="OBJECT" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SHOW_MESSAGES" type="internal" default="false"/>
+         <param name="WRITE_TO_LOG" type="internal" default="false"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -37,6 +40,11 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_Ship.defaultorder.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_AE_Title" text="$_AE_Title">
+         <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
@@ -69,7 +77,7 @@
          </do_if>
 
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="2000ms"/>
 
          <create_position name="$_Position" space="$OBJECT.sector" object="$OBJECT" y="(($OBJECT.height / 2) + ($_Ship.height / 2) + 1km)"/>
          <set_value name="$LOCATION" exact="[$OBJECT.sector, $_Position]"/>
@@ -87,14 +95,41 @@
          </run_script>
 
          <label name="FINISH_MOVING_LBL"/>
-         <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1ms"/>
+         <stop_moving object="$_Ship"/>
+         <wait exact="1000ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_OBJECT_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_OBJECT_DISCOVERED'" role="entityrole.service"/>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$OBJECT.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectOwnerColor"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$OBJECT.sector.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionRelationColorCode'">
+            <param name="FACTION_RELATION" value="$_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_FactionRelationColorCode" variable="$_FactionRelationColorCode"/>
+         </run_script>
+
+         <do_if value="$OBJECT.isrealclass.{class.station}">
+            <set_value name="$_Text" exact="{8888888, 462}.[$OBJECT.knownname, $OBJECT.idcode, $_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue, $OBJECT.sector.knownname, $_ObjectOwnerColor, $_ObjectSectorOwnerColor, $_FactionRelationColorCode]"/>
+         </do_if>
+         <do_else>
+            <set_value name="$_Text" exact="{8888888, 463}.[$OBJECT.knownname, $OBJECT.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         </do_else>
+
+         <show_help custom="$_AE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_AE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$OBJECT" chance="$WRITE_TO_LOG"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

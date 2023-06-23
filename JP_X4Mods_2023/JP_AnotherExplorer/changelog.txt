@@ -39,3 +39,8 @@ v1.0.5 -- Current Published version
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
+
+v1.0.6 -- Current Development Version
+~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
+~ Fixed: "Construction Sites?" and "Ownerless Sectors?" parameter of fleet subordinates were not inherited from the leader.
+~ Updated: Some minor code and translation changes.

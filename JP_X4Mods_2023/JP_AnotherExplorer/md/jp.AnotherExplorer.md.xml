@@ -67,7 +67,7 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AE_SectorBlacklist.keys.count %1'.[global.$AE_SectorBlacklist.keys.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$AE_SectorBlacklist" chance="if @global.$AE_SectorBlacklist then 100 else 0">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idccode, @$_Sector.knownname]"/>
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>

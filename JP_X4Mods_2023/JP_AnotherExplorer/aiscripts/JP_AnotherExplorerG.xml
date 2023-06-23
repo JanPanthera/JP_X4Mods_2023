@@ -123,7 +123,11 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_AE_PausedTitle" exact="{8888888, 460} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_Ship.defaultorder.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_AE_Title" text="$_AE_Title">
+         <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -228,9 +232,9 @@
          </run_script>
 
          <do_if value="$_FoundObjects.count == 0">
-            <!-- There are no remaining objects that need to be uncovered or that we can reach. I will switch to idle mode and try again later. -->
-            <show_help position="1" duration="5s" allowclose="true" custom="'JP_AnotherExplorerG\n%1 [%2]\n\n%3'.[$_Ship.knownname, $_Ship.idcode, {8888888, 450}]" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="$_AE_PausedTitle" text="{8888888, 450}" chance="$WRITE_TO_LOG"/>
+            <!-- There are no remaining objects within my defined workspace that need to be uncovered. I will switch to idle mode and try again later. -->
+            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -238,6 +242,8 @@
             <do_for_each name="$_FoundObject" in="$_FoundObjects">
                <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'" immediate="true">
                   <param name="OBJECT" value="$_FoundObject"/>
+                  <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
+                  <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
                   <param name="DEBUG"  value="$DEBUG"/>
                </create_order>
                <wait exact="1000ms"/>

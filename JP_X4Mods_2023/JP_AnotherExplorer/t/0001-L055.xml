@@ -7,9 +7,10 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Descobrir objeto desconhecido</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="450">Não há mais objetos que precisam ser descobertos ou que podemos alcançar. Eu vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Exploração Pausada\033X</t>
+      <t id="461">Não há mais objetos dentro do meu espaço de trabalho definido que precisam ser descobertos. Eu vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
+      <t id="462">Descoberto: %5%1 [%2]\033X\nRelação conosco: %7%3\033X\nSetor: %6%4\033X</t>
+      <t id="463">Descoberto: %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="470">Descobre Estações, Portais de Salto, Aceleradores e Super Rodovias dentro de um setor.</t>
       <t id="471">Descobre Estações, Portais de Salto, Aceleradores e Super Rodovias em toda a galáxia.</t>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_AnotherExplorer" name="JP_AnotherExplorer" description="This script enables your ship to explore a sector or the entire galaxy by seeking out Stations, Jumpgates, Accelerators, and Superhighways." author="JanPanthera" version="105" date="2023-06-21" save="0" enabled="1">
+<content id="JP_AnotherExplorer" name="JP_AnotherExplorer" description="This script enables your ship to explore a sector or the entire galaxy by seeking out Stations, Jumpgates, Accelerators, and Superhighways." author="JanPanthera" version="106" date="2023-06-23" save="0" enabled="1">
    <text language="7"  name="JP_AnotherExplorer" description="Мод запускает корабль для исследования сектора или галактики осуществляя поиск станций, врат, ускорителей и супермагистралей." author="JanPanthera"/>
    <text language="33" name="JP_AnotherExplorer" description="Ce script permet à votre vaisseau d'explorer un secteur ou l'ensemble de la galaxie en recherchant des Stations, des Portes de Saut, des Accélérateurs et des Super Autoroutes." author="JanPanthera"/>
    <text language="34" name="JP_AnotherExplorer" description="Este script permite que tu nave explore un sector o la galaxia entera buscando Estaciones, Puertas de Salto, Aceleradores y Superautopistas." author="JanPanthera"/>
