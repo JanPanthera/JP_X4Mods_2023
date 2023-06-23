@@ -33,14 +33,14 @@ v1.0.4
          Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
-v1.0.5 -- Current Published version
+v1.0.5
 ~ Added: A option to also uncover construction sites.
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
 
-v1.0.6 -- Current Development Version
+v1.0.6 -- Current Published Version
 ~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Fixed: "Construction Sites?" and "Ownerless Sectors?" parameter of fleet subordinates were not inherited from the leader.
