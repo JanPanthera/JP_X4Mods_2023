@@ -5,31 +5,22 @@
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SECTOR" default="null"/>
+      <param name="OWNERLESS_SECTORS" default="true"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="WHARFS"               default="null"/>
-      <param name="SHIPYARDS"            default="null"/>
-      <param name="EQUIPMENTDOCKS"       default="null"/>
-      <param name="TRADING_STATIONS"     default="null"/>
-      <param name="PIRATE_BASES"         default="null"/>
-      <param name="RECYCLING_STATIONS"   default="null"/>
-      <param name="DEFENCE_STATIONS"     default="null"/>
-      <param name="FACTION_HEADQUARTERS" default="null"/>
-      <param name="NON_SPECIAL_STATIONS" default="null"/>
+      <param name="WHARFS"               default="false"/>
+      <param name="SHIPYARDS"            default="false"/>
+      <param name="EQUIPMENTDOCKS"       default="false"/>
+      <param name="TRADING_STATIONS"     default="false"/>
+      <param name="PIRATE_BASES"         default="false"/>
+      <param name="RECYCLING_STATIONS"   default="false"/>
+      <param name="DEFENCE_STATIONS"     default="false"/>
+      <param name="FACTION_HEADQUARTERS" default="false"/>
+      <param name="NON_SPECIAL_STATIONS" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="null"/>
+      <param name="DEBUG" default="0"/>
+      <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
-
-   <interrupts>
-      <handler ref="AttackHandler"/>
-      <handler ref="MissileLockHandler" />
-      <handler ref="ScannedHandler"/>
-      <handler ref="InspectedHandler"/>
-      <handler ref="FoundAbandonedHandler"/>
-      <handler ref="FoundLockboxHandler"/>
-      <handler ref="ResupplyHandler"/>
-      <handler ref="TideHandler"/>
-   </interrupts>
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -74,10 +65,21 @@
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
          <do_if value="$SECTOR == null">
-            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
-               <match_gate_distance object="$_Ship" min="0"/>
-               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
-            </find_sector>
+            <do_if value="$OWNERLESS_SECTORS">
+               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
+                  <match_gate_distance object="$_Ship" min="0"/>
+                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+               </find_sector>
+            </do_if>
+            <do_else>
+               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
+                  <match owner="faction.ownerless" negate="true"/>
+                  <match_gate_distance object="$_Ship" min="0"/>
+                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+               </find_sector>
+            </do_else>
             <do_if value="@global.$TSE_SectorBlacklist.keys.count gt 0">
                <create_list name="$_BlacklistedSectors"/>
                <do_for_each name="$__Ship" valuename="$__Sector" in="global.$TSE_SectorBlacklist">
@@ -89,81 +91,81 @@
                <remove_value name="$_BlacklistedSectors"/>
             </do_if>
             <do_if value="$_Sectors.count gt 1">
-               <create_list name="$_SectorTravelTimes"/>
-               <do_for_each name="$_Sector" in="$_Sectors">
-                  <estimate_travel_time ship="$_Ship" start="$_Ship" target="$_Sector" result="$_TravelTime"/>
-                  <append_to_list name="$_SectorTravelTimes" exact="[$_Sector, $_TravelTime]"/>
-               </do_for_each>
-               <sort_list list="$_SectorTravelTimes" sortbyvalue="loop.element.{2}"/>
-               <clear_list list="$_Sectors"/>
-               <do_for_each name="$_SectorTravelTime" in="$_SectorTravelTimes">
-                  <append_to_list name="$_Sectors" exact="$_SectorTravelTime.{1}"/>
-               </do_for_each>
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                  <param name="LIST" value="$_Sectors"/>
+                  <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+                  <param name="DEBUG" value="$DEBUG"/>
+                  <save_retval name="_SortedList" variable="$_Sectors"/>
+               </run_script>
             </do_if>
          </do_if>
 
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sectors.count: %1'.[$_Sectors.count]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <do_for_each name="$_Sector" in="$_Sectors">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1 ~ Owner: %2'.[$_Sector.knownname, $_Sector.owner]"/>
+            </do_for_each>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
          <do_for_each name="$_Sector" in="$_Sectors">
+
             <create_list name="$_Stations"/>
-            <find_station name="$_Stations" space="$_Sector" multiple="true">
+            <find_object name="$_Stations" space="$_Sector" multiple="true" checkoperational="false">
                <match knownto="$_Ship.owner"/>
+               <match exactclass="class.station"/>
                <match tradesknownto="$_Ship.owner" negate="true"/>
                <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
-            </find_station>
+            </find_object>
             <do_for_each name="$_Station" in="$_Stations">
-               <do_if value="$_Station.iswharf and $WHARFS">
+               <do_if value=" ($_Station.iswharf and $WHARFS) or
+                              ($_Station.isshipyard and $SHIPYARDS) or
+                              ($_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and $EQUIPMENTDOCKS) or
+                              ($_Station.istradestation and $TRADING_STATIONS) or
+                              ($_Station.ispiratebase and $PIRATE_BASES) or
+                              ($_Station.isrecyclingfacility and $RECYCLING_STATIONS) or
+                              ($_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and $DEFENCE_STATIONS) or
+                              ($_Station.isfactionheadquarters and not $_Station.ispiratebase and $FACTION_HEADQUARTERS) or
+                              (not $_Station.isconstruction and
+                               not $_Station.iswharf and
+                               not $_Station.isshipyard and
+                               not $_Station.isequipmentdock and
+                               not $_Station.istradestation and
+                               not $_Station.ispiratebase and
+                               not $_Station.isrecyclingfacility and
+                               not $_Station.isdefencestation and
+                               not $_Station.isfactionheadquarters and
+                               $NON_SPECIAL_STATIONS) and
+                               not $_Station.iswreck">
                   <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.isshipyard and $SHIPYARDS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and $EQUIPMENTDOCKS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.istradestation and $TRADING_STATIONS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.ispiratebase and $PIRATE_BASES">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.isrecyclingfacility and $RECYCLING_STATIONS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and $DEFENCE_STATIONS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="$_Station.isfactionheadquarters and not $_Station.ispiratebase and $FACTION_HEADQUARTERS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
-               </do_if>
-               <do_if value="not $_Station.iswharf and
-                             not $_Station.isshipyard and
-                             not $_Station.isequipmentdock and
-                             not $_Station.istradestation and
-                             not $_Station.ispiratebase and
-                             not $_Station.isrecyclingfacility and
-                             not $_Station.isdefencestation and
-                             not $_Station.isfactionheadquarters and
-                             $NON_SPECIAL_STATIONS">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
-                  <continue/>
                </do_if>
             </do_for_each>
             <remove_value name="$_Stations"/>
 
             <do_if value="$_FoundStations.count gt 0">
                <do_if value="$_FoundStations.count gt 1">
-                  <sort_list list="$_FoundStations" sortbyvalue="$_Ship.distanceto.{loop.element}"/>
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                     <param name="LIST" value="$_FoundStations"/>
+                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+                     <param name="DEBUG" value="$DEBUG"/>
+                     <save_retval name="_SortedList" variable="$_FoundStations"/>
+                  </run_script>
                </do_if>
                <set_value name="$SECTOR" exact="$_Sector"/>
+               <do_if value="$DEBUG gt 0">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Sector: %1 ~ $_FoundStations.count: %2'.[$SECTOR.knownname, $_FoundStations.count]"/>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                  <do_for_each name="$_FoundStation" in="$_FoundStations">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundStation: %1 [%2] ~ Owner: %3'.[$_FoundStation.knownname, $_FoundStation.idcode, $_FoundStation.owner]"/>
+                  </do_for_each>
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+               </do_if>
                <break/>
             </do_if>
+            
          </do_for_each>
 
          <do_if value="$_FoundStations.count == 0 and @global.$TSE_SectorBlacklist.{$_Ship} != null">

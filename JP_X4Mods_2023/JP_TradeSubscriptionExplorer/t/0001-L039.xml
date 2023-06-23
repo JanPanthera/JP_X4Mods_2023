@@ -2,43 +2,17 @@
 <!-- Italian ~~ Italiano -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1931">Moli?</t>
-      <t id="1932">Cantieri navali?</t>
-      <t id="1933">Moli di attrezzatura?</t>
-      <t id="1934">Stazioni di commercio?</t>
-      <t id="1935">Basi dei pirati?</t>
-      <t id="1936">Impianti di lavorazione dei rottami?</t>
-      <t id="1937">Stazioni di difesa?</t>
-      <t id="1938">Quartier generale delle fazioni?</t>
-      <t id="1939">Stazioni non speciali?</t>
+      <t id="1940">Rinnova l'abbonamento commerciale</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1940">Inattivo</t>
-      <t id="1941">Aggiorna l'abbonamento commerciale</t>
+      <t id="1960">\033#FFe27100#Pausa nel rinnovo delle sottoscrizioni commerciali\033X</t>
+      <t id="1961">Non ci sono più stazioni nel mio spazio di lavoro definito che richiedono un aggiornamento dell'abbonamento commerciale. Passerò in modalità inattività e riproverò più tardi.</t>
+      <t id="1962">Rinnovo dell'abbonamento a %5%1 [%2]\033X\nRelazione con noi: %7%3\033X\nSettore: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1960">Questo script permette alla tua nave di aggiornare automaticamente le sottoscrizioni commerciali delle stazioni in un settore specifico.</t>
-      <t id="1961">Questo script permette alla tua nave di aggiornare automaticamente le sottoscrizioni commerciali delle stazioni in tutta la galassia.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1980">Tempo di inattività</t>
-      <t id="1981">Inattivo: Spostarsi a?</t>
-      <t id="1982">Dove spostarsi?</t>
-      <t id="1983">Inattivo: Seguire?</t>
-      <t id="1984">Chi seguire?</t>
-      <t id="1985">Inattivo: Attraccare?</t>
-      <t id="1986">Trovare una Stazione?</t>
-      <t id="1987">Dove attraccare?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1991">Aggiungere tag d'ordine?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1993">Salvare le impostazioni dell'ordine?</t>
-      <t id="1994">Reset delle impostazioni dell'ordine?</t>
-      <t id="1995">Impostazioni dell'ordine salvate.</t>
-      <t id="1996">Impostazioni dell'ordine ripristinate.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1997">\033#B600CCCC#</t>
-      <t id="1998">\033#FF00CC66#</t>
-      <t id="1999">\033X</t>
+      <t id="1970">Rinnova le sottoscrizioni commerciali per le stazioni all'interno di un settore specifico.</t>
+      <t id="1971">Rinnova le sottoscrizioni commerciali per le stazioni in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

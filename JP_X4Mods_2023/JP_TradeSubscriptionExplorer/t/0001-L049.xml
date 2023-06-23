@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- German -->
+<!-- German ~~ Deutsch -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1931">Raumdocks?</t>
-      <t id="1932">Schiffswerften?</t>
-      <t id="1933">Ausrüstungsdocks?</t>
-      <t id="1934">Handelsstationen?</t>
-      <t id="1935">Piratenbasen?</t>
-      <t id="1936">Schrottverarbeitungsanlagen?</t>
-      <t id="1937">Verteidigungsstationen?</t>
-      <t id="1938">Fraktionshauptquartiere?</t>
-      <t id="1939">Nicht spezielle Stationen?</t>
+      <t id="1940">Erneuere Handelsabonnement</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1940">Leerlauf</t>
-      <t id="1941">Handelsabonnement aktualisieren</t>
+      <t id="1960">\033#FFe27100#Aktualisierung der Handelsabonnements pausiert\033X</t>
+      <t id="1961">Es gibt keine verbleibenden Stationen in meinem definierten Arbeitsbereich, die eine Aktualisierung des Handelsabonnements erfordern. Ich wechsle in den Leerlaufmodus und versuche es später erneut.</t>
+      <t id="1962">Abonnementverlängerung bei %5%1 [%2]\033X\nBeziehung zu uns: %7%3\033X\nSektor: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1960">Dieses Skript ermöglicht es Ihrem Schiff, Handelsabonnements von Stationen in einem bestimmten Sektor automatisch zu aktualisieren.</t>
-      <t id="1961">Dieses Skript ermöglicht es Ihrem Schiff, Handelsabonnements von Stationen in der gesamten Galaxie automatisch zu aktualisieren.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1980">Leerlaufzeit</t>
-      <t id="1981">Leerlauf: Bewegen zu?</t>
-      <t id="1982">Wohin bewegen?</t>
-      <t id="1983">Leerlauf: Folgen?</t>
-      <t id="1984">Wem folgen?</t>
-      <t id="1985">Leerlauf: Andocken?</t>
-      <t id="1986">Eine Station finden?</t>
-      <t id="1987">Wohin andocken?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1991">Auftragskennzeichen hinzufügen?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1993">Auftragseinstellungen speichern?</t>
-      <t id="1994">Auftragseinstellungen zurücksetzen?</t>
-      <t id="1995">Auftragseinstellungen gespeichert.</t>
-      <t id="1996">Auftragseinstellungen zurückgesetzt.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1997">\033#B600CCCC#</t>
-      <t id="1998">\033#FF00CC66#</t>
-      <t id="1999">\033X</t>
+      <t id="1970">Erneuert Handelsabonnements für Stationen innerhalb eines spezifischen Sektors.</t>
+      <t id="1971">Erneuert Handelsabonnements für Stationen in der gesamten Galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

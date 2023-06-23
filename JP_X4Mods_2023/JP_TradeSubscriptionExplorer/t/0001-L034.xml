@@ -2,43 +2,17 @@
 <!-- Spanish ~~ Español -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1931">¿Astilleros?</t>
-      <t id="1932">¿Varaderos?</t>
-      <t id="1933">¿Muelles de equipo?</t>
-      <t id="1934">¿Estaciones de comercio?</t>
-      <t id="1935">¿Bases piratas?</t>
-      <t id="1936">¿Instalaciones de procesamiento de chatarra?</t>
-      <t id="1937">¿Estaciones de defensa?</t>
-      <t id="1938">¿Sedes de facciones?</t>
-      <t id="1939">¿Estaciones no especiales?</t>
+      <t id="1940">Renovar suscripción comercial</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1940">Inactivo</t>
-      <t id="1941">Actualizar suscripción comercial</t>
+      <t id="1960">\033#FFe27100#Pausa en la renovación de las suscripciones comerciales\033X</t>
+      <t id="1961">No quedan estaciones en mi área de trabajo definida que requieran una actualización de la suscripción comercial. Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
+      <t id="1962">Renovación de la suscripción en %5%1 [%2]\033X\nRelación con nosotros: %7%3\033X\nSector: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1960">Este script permite a tu nave actualizar automáticamente las suscripciones comerciales de las estaciones en un sector específico.</t>
-      <t id="1961">Este script permite a tu nave actualizar automáticamente las suscripciones comerciales de las estaciones en toda la galaxia.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1980">Tiempo de inactividad</t>
-      <t id="1981">Inactivo: ¿Mover a?</t>
-      <t id="1982">¿A dónde mover?</t>
-      <t id="1983">Inactivo: ¿Seguir a?</t>
-      <t id="1984">¿A quién seguir?</t>
-      <t id="1985">Inactivo: ¿Acoplamiento?</t>
-      <t id="1986">¿Encontrar una Estación?</t>
-      <t id="1987">¿Dónde acoplar?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1991">¿Agregar etiqueta de orden?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1993">¿Guardar configuraciones de orden?</t>
-      <t id="1994">¿Restablecer configuraciones de orden?</t>
-      <t id="1995">Configuraciones de orden guardadas.</t>
-      <t id="1996">Configuraciones de orden restablecidas.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1997">\033#B600CCCC#</t>
-      <t id="1998">\033#FF00CC66#</t>
-      <t id="1999">\033X</t>
+      <t id="1970">Renueva las suscripciones comerciales para estaciones dentro de un sector específico.</t>
+      <t id="1971">Renueva las suscripciones comerciales para estaciones en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

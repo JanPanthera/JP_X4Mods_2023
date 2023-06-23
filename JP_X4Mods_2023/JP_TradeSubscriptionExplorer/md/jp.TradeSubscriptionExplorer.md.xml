@@ -25,9 +25,6 @@
 
             <create_group groupname="global.$TSE_ShipsGroup" chance="(if not global.$TSE_ShipsGroup? then 100 else 0)"/>
 
-            <!-- [ [$_Ship, $_IdleStartTime] ] -->
-            <set_value name="global.$TSE_IdleShips" exact="table[]" chance="(if not global.$TSE_IdleShips? then 100 else 0)"/>
-
             <!-- [ [$_Ship, $_Sector] ] -->
             <set_value name="global.$TSE_SectorBlacklist" exact="table[]" chance="(if not global.$TSE_SectorBlacklist? then 100 else 0)"/>
 
@@ -39,7 +36,6 @@
             </do_if>
 
          </actions>
-
          <cues>
 
             <cue name="TSE_Debug_MD" instantiate="false" checkinterval="1s">
@@ -68,20 +64,10 @@
 
                   <do_if value="$DEBUG gt 0">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_IdleShips.keys.count %1'.[global.$TSE_IdleShips.keys.count]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship"  valuename="$_IdleStartTime" in="global.$TSE_IdleShips" chance="if @global.$TSE_IdleShips then 100 else 0">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 ~ %2'.[$_Ship.knownname, $_IdleStartTime]"/>
-                     </do_for_each>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_SectorBlacklist.keys.count %1'.[global.$TSE_SectorBlacklist.keys.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$TSE_SectorBlacklist" chance="if @global.$TSE_SectorBlacklist then 100 else 0">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 ~ %2'.[$_Ship.knownname, @$_Sector.knownname]"/>
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
@@ -125,17 +111,12 @@
                         <do_if value="$_Ship.defaultorder.id" list="['JP_TradeSubscriptionExplorerG', 'JP_TradeSubscriptionExplorerS']">
                            <continue/>
                         </do_if>
-
                         <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                           <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                            <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                           <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                           <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                         </substitute_text>
                         <set_object_name object="$_Ship" name="$_ResultName"/>
-
                         <cancel_all_orders object="$_Ship"/>
-
-                        <remove_value name="global.$TSE_IdleShips.{$_Ship}"/>
                         <remove_value name="global.$TSE_SectorBlacklist.{$_Ship}"/>
                         <remove_from_group group="global.$TSE_ShipsGroup" object="$_Ship"/>
                      </do_for_each>
@@ -150,7 +131,7 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$TradeSubscriptionExplorer_Settings.count != 19">
+                  <do_if value="@global.$TradeSubscriptionExplorer_Settings.count != 22">
                      <remove_value name="global.$TradeSubscriptionExplorer_Settings"/>
                   </do_if>
 
@@ -180,83 +161,22 @@
                         <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
                            <cancel_all_orders object="$_Subordinate"/>
                            <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
-                              <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                               <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                              <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                            </substitute_text>
                            <set_object_name object="$_Subordinate" name="$_ResultName"/>
                         </do_if>
                      </do_for_each>
                   </do_if>
                   <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                     <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                      <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                     <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
+                     <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
                   </substitute_text>
                   <set_object_name object="$_Ship" name="$_ResultName"/>
                </actions>
             </cue>
 
-            <cue name="TSE_ManageIdleReturnHome_MD" instantiate="true" checkinterval="1s">
-               <conditions>
-                  <check_value value="global.$TSE_IdleShips?"/>
-               </conditions>
-               <actions>
-
-                  <set_value name="$DEBUG" exact="0"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'TSE_ManageIdleReturnHome_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'tse.ManageIdleReturnHome.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="@global.$TSE_IdleShips.keys.count gt 0">
-                     <do_for_each name="$_Ship" valuename="$_IdleStartTime" in="global.$TSE_IdleShips" reverse="true">
-
-                        <set_value name="$_IdleOrderPresent" exact="false"/>
-                        <do_for_each name="$_Order" in="$_Ship.orders">
-                           <do_if value="$_Order.id == 'JP_lib_TSE_IdleReturnHome'">
-                              <set_value name="$_IdleOrderPresent" exact="true"/>
-                              <break/>
-                           </do_if>
-                        </do_for_each>
-
-                        <do_if value="$_Ship.defaultorder.id == 'Assist'">
-                           <set_value name="$_IdleTime" exact="@$_Ship.commander.defaultorder.$IDLE_TIME"/>
-                        </do_if>
-                        <do_else>
-                           <set_value name="$_IdleTime" exact="@$_Ship.defaultorder.$IDLE_TIME"/>
-                        </do_else>
-
-                        <do_if value="(not $_IdleOrderPresent and (player.age - $_IdleStartTime) gt 5) or
-                                ($_IdleOrderPresent and ((player.age - $_IdleStartTime) ge $_IdleTime))">
-                           <cancel_all_orders object="$_Ship"/>
-                           <remove_value name="global.$TSE_IdleShips.{$_Ship}"/>
-                           <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                              <replace string="'\033#FFCEFBA1# ~ Idle\033X'" with="''"/>
-                           </substitute_text>
-                           <set_object_name object="$_Ship" name="$_ResultName"/>
-                        </do_if>
-
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
-               </actions>
-            </cue>
-
          </cues>
-
       </cue>
 
    </cues>

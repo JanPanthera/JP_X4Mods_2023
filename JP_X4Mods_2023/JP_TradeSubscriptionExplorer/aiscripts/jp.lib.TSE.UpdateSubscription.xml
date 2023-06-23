@@ -2,12 +2,16 @@
 
 <aiscript name="jp.lib.TSE.UpdateSubscription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_TSE_UpdateSubscription" name="{8888888, 1941}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_TSE_UpdateSubscription" name="{8888888, 1940}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="STATION" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="null"/>
+         <param name="SHOW_MESSAGES" type="internal" default="false"/>
+         <param name="WRITE_TO_LOG" type="internal" default="false"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG" type="internal" default="0"/>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
@@ -36,6 +40,11 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_TSE_Title" exact="'%1 ~ %2 [%3]'.[$_Ship.defaultorder.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_TSE_Title" text="$_TSE_Title">
+         <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
@@ -59,45 +68,23 @@
 
          <set_command command="command.investigate"/>
 
-         <include_interrupt_actions ref="GetBlacklistgroup"/>
-
-         <label name="MOVE_TO_SECTOR_LBL"/>
-         <wait exact="1000ms"/>
          <do_if value="$_Ship.sector != $STATION.sector">
-            <remove_value name="$_PathComponents"/>
-            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true" useblacklist="$blacklistgroup">
-               <start object="$_Ship"/>
-               <end object="$STATION"/>
-            </get_jump_path>
-            <do_if value="$_PathComponents.count lt 2">
-               <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
-                  <start object="$_Ship"/>
-                  <end object="$STATION"/>
-               </get_jump_path>
-            </do_if>
-            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
-               <do_if value="$_PathComponent.sector == $_Ship.sector">
-                  <continue/>
-               </do_if>
-               <set_command_action commandaction="commandaction.flyingto" param="$_PathComponent.sector"/>
-               <set_value name="$LOCATION" exact="[$_PathComponent.sector, null]"/>
-               <run_script name="'move.generic'" result="$_MoveSuccess">
-                  <param name="destination" value="$_PathComponent"/>
-                  <param name="endintargetzone" value="true"/>
-                  <param name="recallsubordinates" value="false"/>
-                  <param name="changecommandaction" value="false"/>
-                  <param name="debugchance" value="0"/>
-               </run_script>
-               <resume label="MOVE_TO_SECTOR_LBL"/>
-            </do_for_each>
+            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+               <param name="SECTOR" value="$STATION.sector"/>
+               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+               <param name="DEBUG" value="$DEBUG"/>
+            </create_order>
          </do_if>
 
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="2000ms"/>
 
          <create_position name="$_Position" space="$STATION.sector" object="$STATION" y="(($STATION.height / 2) + ($_Ship.height / 2) + 1km)"/>
          <set_value name="$LOCATION" exact="[$STATION.sector, $_Position]"/>
-         <set_command_action commandaction="commandaction.flyingto" param="$STATION"/>
+
+         <set_command command="command.move" param="$STATION"/>
+         <set_command_action commandaction="commandaction.flying"/>
+
          <run_script name="'move.generic'">
             <param name="destination" value="$STATION.sector"/>
             <param name="position" value="$_Position"/>
@@ -109,10 +96,35 @@
 
          <label name="FINISH_MOVING_LBL"/>
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="1000ms"/>
+
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.standingby"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_TRADESUBSCRIPTION_UPDATED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_TRADESUBSCRIPTION_UPDATED'" role="entityrole.service"/>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$STATION.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectOwnerColor"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$STATION.sector.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionRelationColorCode'">
+            <param name="FACTION_RELATION" value="$_Ship.owner.relation.{$STATION.relationto.{$_Ship}}.uivalue"/>
+            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
+            <param name="DEBUG" value="$DEBUG"/>
+            <save_retval name="_FactionRelationColorCode" variable="$_FactionRelationColorCode"/>
+         </run_script>
+
+         <set_value name="$_Text" exact="{8888888, 1962}.[$STATION.knownname, $STATION.idcode, $_Ship.owner.relation.{$STATION.relationto.{$_Ship}}.uivalue, $STATION.sector.knownname, $_ObjectOwnerColor, $_ObjectSectorOwnerColor, $_FactionRelationColorCode]"/>
+
+         <show_help custom="$_TSE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_TSE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$STATION" chance="$WRITE_TO_LOG"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

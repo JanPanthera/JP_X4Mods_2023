@@ -2,43 +2,17 @@
 <!-- Polish ~~ Polski -->
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1931">Doki?</t>
-      <t id="1932">Stocznie?</t>
-      <t id="1933">Doki sprzętowe?</t>
-      <t id="1934">Stacje handlowe?</t>
-      <t id="1935">Bazy piratów?</t>
-      <t id="1936">Zakłady przetwarzania złomu?</t>
-      <t id="1937">Stacje obronne?</t>
-      <t id="1938">Siedziby frakcji?</t>
-      <t id="1939">Nie specjalne stacje?</t>
+      <t id="1940">Odnów subskrypcję handlową</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1940">Bezczynny</t>
-      <t id="1941">Aktualizuj subskrypcję handlową</t>
+      <t id="1960">\033#FFe27100#Wstrzymanie odnawiania subskrypcji handlowych\033X</t>
+      <t id="1961">Nie ma już stacji w moim wyznaczonym obszarze pracy, które wymagają aktualizacji subskrypcji handlowej. Przełączam się w tryb bezczynności i spróbuję ponownie później.</t>
+      <t id="1962">Zaktualizowano subskrypcję w %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1960">Ten skrypt umożliwia twojemu statkowi automatyczne aktualizowanie subskrypcji handlowych stacji w konkretnym sektorze.</t>
-      <t id="1961">Ten skrypt umożliwia twojemu statkowi automatyczne aktualizowanie subskrypcji handlowych stacji na całej galaktyce.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1980">Czas bezczynności</t>
-      <t id="1981">Bezczynność: Przenieść do?</t>
-      <t id="1982">Gdzie przenieść?</t>
-      <t id="1983">Bezczynność: Podążać za?</t>
-      <t id="1984">Za kim podążać?</t>
-      <t id="1985">Bezczynność: Dokowanie?</t>
-      <t id="1986">Znaleźć stację?</t>
-      <t id="1987">Gdzie dokować?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1991">Dodać tag zamówienia?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1993">Zapisać ustawienia zamówienia?</t>
-      <t id="1994">Zresetować ustawienia zamówienia?</t>
-      <t id="1995">Ustawienia zamówienia zapisane.</t>
-      <t id="1996">Ustawienia zamówienia zresetowane.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1997">\033#B600CCCC#</t>
-      <t id="1998">\033#FF00CC66#</t>
-      <t id="1999">\033X</t>
+      <t id="1970">Odnawia subskrypcje handlowe dla stacji w określonym sektorze.</t>
+      <t id="1971">Odnawia subskrypcje handlowe dla stacji na całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

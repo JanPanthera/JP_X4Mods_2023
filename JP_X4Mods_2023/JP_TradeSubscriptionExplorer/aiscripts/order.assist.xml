@@ -16,6 +16,8 @@
             <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"     value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"  value="$order.$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE" value="$order.$WHERE_TO_MOVE"/>
@@ -25,6 +27,8 @@
             <param name="FIND_STATION"  value="$order.$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$order.$WHERE_TO_DOCK"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
             <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          </run_script>
