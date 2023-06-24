@@ -6,6 +6,30 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_ScriptLibrary -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Jump Gates?</t>
+      <t id="2">Active Jump Gates?</t>
+      <t id="3">Inactive Jump Gates?</t>
+      <t id="4">Accelerators?</t>
+      <t id="5">Active Accelerators?</t>
+      <t id="6">Inactive Accelerators?</t>
+      <t id="7">Superhighways?</t>
+      <t id="8">Active Superhighways?</t>
+      <t id="9">Inactive Superhighways?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stations?</t>
+      <t id="11">Wharfs?</t>
+      <t id="12">Shipyards?</t>
+      <t id="13">Equipment Docks?</t>
+      <t id="14">Trading Stations?</t>
+      <t id="15">Pirate Bases?</t>
+      <t id="16">Scrap Processing Facilities?</t>
+      <t id="17">Defense Stations?</t>
+      <t id="18">Faction Headquarters?</t>
+      <t id="19">Factories?</t>
+      <t id="20">Construction Sites?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Ownerless Sectors?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Idle</t>
       <t id="41">Move to Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -14,6 +38,7 @@
       <t id="52">We lack the necessary funds to restock the desired equipment.</t>
       <t id="53">The process of creating the restock order has failed.</t>
       <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
+      <t id="55">I will switch to idle mode and try again later.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -108,34 +133,15 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_AnotherExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="400">Jump Gates?</t>
-      <t id="401">Active Jump Gates?</t>
-      <t id="402">Inactive Jump Gates?</t>
-      <t id="403">Accelerators?</t>
-      <t id="404">Active Accelerators?</t>
-      <t id="405">Inactive Accelerators?</t>
-      <t id="406">Superhighways?</t>
-      <t id="407">Active Superhighways?</t>
-      <t id="408">Inactive Superhighways?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="410">Stations?</t>
-      <t id="411">Wharfs?</t>
-      <t id="412">Shipyards?</t>
-      <t id="413">Equipment docks?</t>
-      <t id="414">Trading stations?</t>
-      <t id="415">Pirate bases?</t>
-      <t id="416">Scrap processing facilities?</t>
-      <t id="417">Defense stations?</t>
-      <t id="418">Faction Headquarters?</t>
-      <t id="419">Non Special Stations?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="440">Discover unknown object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="450">There are no remaining objects that need to be uncovered or that we can reach. I will switch to idle mode and try again later.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Exploring Paused\033X</t>
+      <t id="461">There are no remaining objects within my defined workspace that need to be uncovered.</t>
+      <t id="462">I will start uncover objects in sector %2%1\033X.</t>
+      <t id="463">Discovered: %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
+      <t id="464">Discovered: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="470">Uncovers Stations, Jumpgates, Accelerators, and Superhighways within a sector.</t>
+      <t id="470">Uncovers Stations, Jumpgates, Accelerators, and Superhighways within a specific sector.</t>
       <t id="471">Uncovers Stations, Jumpgates, Accelerators, and Superhighways throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -213,11 +219,13 @@
       <t id="840">Collect placeable</t>
       <t id="841">Sell placeables</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
-      <t id="851">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
-      <t id="852">There are no placeables left to collect. I will switch to idle mode and try again later.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="860">\033#FFe27100#Collecting Paused\033X</t>
+      <t id="861">I will proceed to sell placeables, which are worth:\n%1.</t>
+      <t id="862">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
+      <t id="863">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
+      <t id="864">There are no remaining placeables within my defined workspace left that we need to collect.</t>
+      <t id="866">I will start collecting placeables in sector %2%1\033X.</t>
+      <t id="867">Collected: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Collects placeable items such as satellites or mines in a single sector.</t>
       <t id="871">Collects placeable items such as satellites or mines throughout the entire galaxy.</t>
@@ -401,41 +409,15 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_TradeSubscriptionExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1931">Wharfs?</t>
-      <t id="1932">Shipyards?</t>
-      <t id="1933">Equipment docks?</t>
-      <t id="1934">Trading stations?</t>
-      <t id="1935">Pirate bases?</t>
-      <t id="1936">Scrap processing facilities?</t>
-      <t id="1937">Defense stations?</t>
-      <t id="1938">Faction Headquarters?</t>
-      <t id="1939">Non Special Stations?</t>
+      <t id="1940">Renew trade subscription</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1940">Idle</t>
-      <t id="1941">Update Tradesubscription</t>
+      <t id="1960">\033#FFe27100#Trade subscriptions renewal paused\033X</t>
+      <t id="1961">There are no remaining stations within my defined workspace that require a trade subscription update.</t>
+      <t id="1962">I will start update trade subscriptions in sector %2%1\033X.</t>
+      <t id="1963">Renewed subscription at %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1960">This script allows your ship to automatically update station trade subscriptions in a specific sector.</t>
-      <t id="1961">This script allows your ship to automatically update station trade subscriptions across the entire galaxy.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1980">Idle Time</t>
-      <t id="1981">Idle: Move to?</t>
-      <t id="1982">Where to move?</t>
-      <t id="1983">Idle: Follow?</t>
-      <t id="1984">Who to follow?</t>
-      <t id="1985">Idle: Docking?</t>
-      <t id="1986">Find a Station?</t>
-      <t id="1987">Where to dock?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1991">Add Order tag?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1993">Save Order Settings?</t>
-      <t id="1994">Reset Order Settings?</t>
-      <t id="1995">Order settings saved.</t>
-      <t id="1996">Order settings reset.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1997">\033#B600CCCC#</t>
-      <t id="1998">\033#FF00CC66#</t>
-      <t id="1999">\033X</t>
+      <t id="1970">Renews trade subscriptions for stations within a specific sector.</t>
+      <t id="1971">Renews trade subscriptions for stations throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!--  JP_CollectDroppedInventory -->
