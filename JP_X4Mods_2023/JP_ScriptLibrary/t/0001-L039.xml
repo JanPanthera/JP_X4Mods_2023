@@ -37,6 +37,7 @@
       <t id="52">Ci mancano i fondi necessari per rifornire l'attrezzatura desiderata.</t>
       <t id="53">Il processo di creazione dell'ordine di rifornimento è fallito.</t>
       <t id="54">L'ordine di rifornimento dell'attrezzatura è fallito. Maggiori dettagli sono disponibili nel registro di bordo.</t>
+      <t id="55">Passerò in modalità inattiva e riproverò più tardi.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Fallimento nel cambio di equipaggiamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

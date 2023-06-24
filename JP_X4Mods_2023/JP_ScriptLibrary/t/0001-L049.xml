@@ -37,6 +37,7 @@
       <t id="52">Uns fehlen die notwendigen Mittel, um die gewünschte Ausrüstung aufzufüllen.</t>
       <t id="53">Der Prozess der Erstellung der Ausrüstungsänderung ist fehlgeschlagen.</t>
       <t id="54">Der Befehl für die Ausrüstungsänderung ist fehlgeschlagen. Weitere Details finden Sie im Logbuch.</t>
+      <t id="55">Ich wechsle in den Leerlaufmodus und versuche es später erneut.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Fehler beim Wechsel der Ausrüstung\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -37,6 +37,7 @@
       <t id="52">We lack the necessary funds to restock the desired equipment.</t>
       <t id="53">The process of creating the restock order has failed.</t>
       <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
+      <t id="55">I will switch to idle mode and try again later.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

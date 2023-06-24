@@ -37,6 +37,7 @@
       <t id="52">Nous manquons des fonds nécessaires pour renouveler l'équipement souhaité.</t>
       <t id="53">Le processus de création de l'ordre de réapprovisionnement a échoué.</t>
       <t id="54">La commande de réapprovisionnement en équipement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
+      <t id="55">Je vais passer en mode inactif et réessayer plus tard.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Échec du changement d'équipement\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

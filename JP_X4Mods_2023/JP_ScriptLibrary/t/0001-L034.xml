@@ -37,6 +37,7 @@
       <t id="52">Nos faltan los fondos necesarios para reponer el equipo deseado.</t>
       <t id="53">El proceso de creación de la orden de reposición ha fallado.</t>
       <t id="54">La orden de reposición de equipo ha fallado. Más detalles están disponibles en el libro de registro.</t>
+      <t id="55">Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Fallo en el cambio de equipo\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

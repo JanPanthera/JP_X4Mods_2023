@@ -37,6 +37,7 @@
       <t id="52">Não temos os fundos necessários para reabastecer o equipamento desejado.</t>
       <t id="53">O processo de criação do pedido de reabastecimento falhou.</t>
       <t id="54">O pedido de reabastecimento de equipamento falhou. Mais detalhes estão disponíveis no livro de registro.</t>
+      <t id="55">Vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Falha na mudança de equipamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
