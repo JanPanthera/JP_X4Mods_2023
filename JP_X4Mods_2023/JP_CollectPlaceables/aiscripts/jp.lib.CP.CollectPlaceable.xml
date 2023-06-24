@@ -7,6 +7,9 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACEABLE" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SHOW_MESSAGES" type="internal" default="0"/>
+         <param name="WRITE_TO_LOG" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,6 +32,12 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_CP_Title" text="$_CP_Title">
+         <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
@@ -61,7 +70,7 @@
          </do_if>
 
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="2000ms"/>
 
          <do_if value="$PLACEABLE.isclass.{class.mine}">
             <create_position name="$_Position" space="$PLACEABLE.sector" object="$PLACEABLE" y="(($PLACEABLE.height / 2) + ($_Ship.height / 2) + 1km)"/>
@@ -73,7 +82,7 @@
 
          <set_command command="command.move" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.flying"/>
-         
+
          <run_script name="'move.generic'">
             <param name="destination" value="$PLACEABLE.sector"/>
             <param name="position" value="$_Position"/>
@@ -84,11 +93,21 @@
          </run_script>
 
          <label name="FINISH_MOVING_LBL"/>
-         <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="2000ms"/>
+         <stop_moving object="$_Ship"/>
+         <wait exact="1000ms"/>
 
-         <set_command command="command.investigate"/>
+         <set_command command="command.collect" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.standingby"/>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$PLACEABLE.sector.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+         </run_script>
+
+         <!-- Collected: %1\nSector: %3%2\033X -->
+         <set_value name="$_Text" exact="{8888888, 867}.[$PLACEABLE.knownname, $PLACEABLE.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$PLACEABLE.sector" chance="$WRITE_TO_LOG"/>
 
          <collect_deployable object="$_Ship" deployable="$PLACEABLE"/>
 

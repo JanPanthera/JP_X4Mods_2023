@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,11 +30,14 @@
       <t id="840">Zbierz umieszczalne przedmioty</t>
       <t id="841">Sprzedaj umieszczalne przedmioty</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">Nie ma już więcej miejsca na dodatkowe umieszczalne przedmioty, a ja nie mogę sam opróżnić mojego magazynu rozwijanego.</t>
-      <t id="851">Magazyn dla umieszczalnych przedmiotów jest pełny, a my nie mamy pozwolenia na sprzedaż obecnie posiadanych umieszczalnych przedmiotów.</t>
-      <t id="852">Nie ma już umieszczalnych przedmiotów do zebrania. Przejdę w tryb bezczynności i spróbuję ponownie później.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="860">Zbieraj przedmioty do umieszczenia</t>
+      <t id="860">\033#FFe27100#Zatrzymanie zbierania\033X</t>
+      <t id="861">Przystąpię do sprzedaży miejscowizn, które mają wartość:\n%1.</t>
+      <t id="862">Nie ma już miejsca w magazynie na zbieranie dodatkowych miejscowizn, a ja nie mam uprawnień do opróżniania mojego magazynu przenośnego.</t>
+      <t id="863">Magazyn miejscowizn jest pełny, a my nie mamy zezwolenia na sprzedaż obecnie posiadanych miejscowizn.</t>
+      <t id="864">W moim wyznaczonym obszarze pracy nie ma już pozostałych miejscowizn, które musimy zebrać.</t>
+      <t id="865">Przełączę się w tryb bezczynności i spróbuję ponownie później.</t>
+      <t id="866">Rozpocznę zbieranie miejscowizn w sektorze %2%1\033X.</t>
+      <t id="867">Zebrane: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Zbiera umieszczalne przedmioty, takie jak satelity czy miny, w pojedynczym sektorze.</t>
       <t id="871">Zbiera umieszczalne przedmioty, takie jak satelity czy miny, na całej galaktyce.</t>

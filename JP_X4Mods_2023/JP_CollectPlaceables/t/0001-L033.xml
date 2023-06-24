@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- French ~~ Français -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,11 +30,14 @@
       <t id="840">Collecter les objets à placer</t>
       <t id="841">Vendre les objets à placer</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">Il n'y a plus de stockage disponible pour collecter des objets supplémentaires, et je ne suis pas autorisé à vider moi-même mon stockage déployable.</t>
-      <t id="851">Le stockage pour les objets à placer est plein, et nous ne sommes pas autorisés à vendre les objets à placer que nous avons actuellement.</t>
-      <t id="852">Il n'y a plus d'objets à placer à collecter. Je vais passer en mode veille et essayer à nouveau plus tard.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="860">Collecter les objets placables</t>
+      <t id="860">\033#FFe27100#Collecte en pause\033X</t>
+      <t id="861">Je vais procéder à la vente des objets à placer, qui valent :\n%1.</t>
+      <t id="862">Il ne reste plus d'espace de stockage pour collecter des objets à placer, et je n'ai pas la permission de vider moi-même mon espace de stockage déployable.</t>
+      <t id="863">L'espace de stockage des objets à placer est plein, et nous n'avons pas la permission de vendre les objets à placer que nous avons actuellement.</t>
+      <t id="864">Il ne reste plus d'objets à placer dans mon espace de travail défini que nous devons collecter.</t>
+      <t id="865">Je vais passer en mode inactif et réessayer plus tard.</t>
+      <t id="866">Je vais commencer à collecter les objets à placer dans le secteur %2%1\033X.</t>
+      <t id="867">Collecté : %1\nSecteur : %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Recueille des objets placables tels que des satellites ou des mines dans un seul secteur.</t>
       <t id="871">Recueille des objets placables tels que des satellites ou des mines dans toute la galaxie.</t>

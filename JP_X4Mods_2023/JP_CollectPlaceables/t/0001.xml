@@ -29,11 +29,14 @@
       <t id="840">Collect placeable</t>
       <t id="841">Sell placeables</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
-      <t id="851">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
-      <t id="852">There are no placeables left to collect. I will switch to idle mode and try again later.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="860">\033#FFe27100#Collecting Paused\033X</t>
+      <t id="861">I will proceed to sell placeables, which are worth:\n%1.</t>
+      <t id="862">There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself.</t>
+      <t id="863">The storage for placeables is full, and we're not permitted to sell the placeables we currently have.</t>
+      <t id="864">There are no remaining placeables within my defined workspace left that we need to collect.</t>
+      <t id="865">I will switch to idle mode and try again later.</t>
+      <t id="866">I will start collecting placeables in sector %2%1\033X.</t>
+      <t id="867">Collected: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Collects placeable items such as satellites or mines in a single sector.</t>
       <t id="871">Collects placeable items such as satellites or mines throughout the entire galaxy.</t>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spanish ~~ Español -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,11 +30,14 @@
       <t id="840">Recolectar objetos colocables</t>
       <t id="841">Vender objetos colocables</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">No queda más almacenamiento para recolectar objetos colocables adicionales, y no tengo permiso para vaciar mi almacenamiento desplegable yo mismo.</t>
-      <t id="851">El almacenamiento para objetos colocables está lleno, y no estamos permitidos para vender los objetos colocables que tenemos actualmente.</t>
-      <t id="852">No quedan objetos colocables para recolectar. Cambiaré al modo de inactividad y lo intentaré de nuevo más tarde.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="860">Recoger objetos colocables</t>
+      <t id="860">\033#FFe27100#Pausa en la recolección\033X</t>
+      <t id="861">Procederé a vender los objetos colocables, que valen:\n%1.</t>
+      <t id="862">No hay más espacio de almacenamiento disponible para recolectar objetos colocables, y no se me permite vaciar mi almacenamiento desplegable.</t>
+      <t id="863">El almacenamiento de objetos colocables está lleno y no se nos permite vender los objetos colocables que tenemos actualmente.</t>
+      <t id="864">No quedan más objetos colocables dentro de mi espacio de trabajo definido que necesitemos recolectar.</t>
+      <t id="865">Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
+      <t id="866">Comenzaré a recolectar objetos colocables en el sector %2%1\033X.</t>
+      <t id="867">Recolectado: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Recoge objetos colocables como satélites o minas en un solo sector.</t>
       <t id="871">Recoge objetos colocables como satélites o minas en toda la galaxia.</t>

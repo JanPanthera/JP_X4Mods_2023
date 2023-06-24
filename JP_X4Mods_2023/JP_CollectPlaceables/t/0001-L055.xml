@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,11 +30,14 @@
       <t id="840">Coletar itens colocáveis</t>
       <t id="841">Vender itens colocáveis</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">Não há mais armazenamento disponível para coletar itens colocáveis adicionais, e eu não estou autorizado a esvaziar meu armazenamento desdobrável sozinho.</t>
-      <t id="851">O armazenamento para itens colocáveis está cheio, e não estamos autorizados a vender os itens colocáveis que temos atualmente.</t>
-      <t id="852">Não há mais itens colocáveis para coletar. Eu vou mudar para o modo de inatividade e tentar novamente mais tarde.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="860">Coletar itens colocáveis</t>
+      <t id="860">\033#FFe27100#Coleta Pausada\033X</t>
+      <t id="861">Vou proceder à venda dos objetos de localização, que valem:\n%1.</t>
+      <t id="862">Não há mais espaço de armazenamento disponível para coletar objetos de localização adicionais, e não tenho permissão para esvaziar meu armazenamento implantável.</t>
+      <t id="863">O armazenamento para objetos de localização está cheio, e não nos é permitido vender os objetos de localização que temos atualmente.</t>
+      <t id="864">Não há mais objetos de localização restantes dentro do meu espaço de trabalho definido que precisamos coletar.</t>
+      <t id="865">Vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
+      <t id="866">Vou começar a coletar objetos de localização no setor %2%1\033X.</t>
+      <t id="867">Coletado: %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Coleta itens colocáveis, como satélites ou minas, em um único setor.</t>
       <t id="871">Coleta itens colocáveis, como satélites ou minas, em toda a galáxia.</t>

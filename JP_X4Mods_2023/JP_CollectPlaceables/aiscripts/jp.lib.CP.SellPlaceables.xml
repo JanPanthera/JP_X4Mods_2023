@@ -26,7 +26,12 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_Result" exact="'Failed'"/>
-      <set_value name="$_CollectingPausedTitle" exact="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_CP_Title" text="$_CP_Title">
+         <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
@@ -51,67 +56,52 @@
          <set_command command="command.searchtrades"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <set_value name="$_PlaceablesToSellCount" exact="0"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_01_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_02_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.weapon_gen_mine_03_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.ship_gen_xs_lasertower_01_a_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.ship_gen_s_lasertower_01_a_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_satellite_01_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_satellite_02_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.env_deco_nav_beacon_t1_macro}.count" operation="add"/>
-         <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{macro.eq_arg_resourceprobe_01_macro}.count" operation="add"/>
+         <create_list name="$_PlaceablesMacros"/>
+         <append_list_elements name="$_PlaceablesMacros"
+                               other="[[macro.weapon_gen_mine_01_macro, $SELL_REGULAR_MINES], 
+                                       [macro.weapon_gen_mine_02_macro, $SELL_TRACKER_MINES], 
+                                       [macro.weapon_gen_mine_03_macro, $SELL_FRIENDFOE_MINES], 
+                                       [macro.ship_gen_xs_lasertower_01_a_macro, $SELL_MK1_LASER_TOWERS], 
+                                       [macro.ship_gen_s_lasertower_01_a_macro, $SELL_MK2_LASER_TOWERS], 
+                                       [macro.eq_arg_satellite_01_macro, $SELL_REGULAR_SATELLITES], 
+                                       [macro.eq_arg_satellite_02_macro, $SELL_ADVANCED_SATELLITES], 
+                                       [macro.env_deco_nav_beacon_t1_macro, $SELL_NAVIGATION_BEACONS], 
+                                       [macro.eq_arg_resourceprobe_01_macro, $SELL_RESOURCE_PROBES]]"/>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_PlaceablesToSellCount: %1'.[$_PlaceablesToSellCount]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
+         <set_value name="$_PlaceablesToSellCount" exact="0"/>
+         <do_for_each name="$_PlaceablesMacro" in="$_PlaceablesMacros">
+            <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{$_PlaceablesMacro.{1}}.count" operation="add" chance="$_PlaceablesMacro.{2}"/>
+         </do_for_each>
 
          <do_if value="$_PlaceablesToSellCount == 0">
-            <!-- The storage for placeables is full, and we're not permitted to sell the placeables we currently have. Go idle. -->
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 851}" chance="$WRITE_TO_LOG"/>
+            <!-- The storage for placeables is full, and we're not permitted to sell the placeables we currently have. -->
+            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 863}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 863}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
          <set_value name="$_PlaceablesToSell" exact="table[]"/>
-         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_01_macro}"          exact="0" chance="$SELL_REGULAR_MINES"/>
-         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_02_macro}"          exact="0" chance="$SELL_TRACKER_MINES"/>
-         <set_value name="$_PlaceablesToSell.{macro.weapon_gen_mine_03_macro}"          exact="0" chance="$SELL_FRIENDFOE_MINES"/>
-         <set_value name="$_PlaceablesToSell.{macro.ship_gen_xs_lasertower_01_a_macro}" exact="0" chance="$SELL_MK1_LASER_TOWERS"/>
-         <set_value name="$_PlaceablesToSell.{macro.ship_gen_s_lasertower_01_a_macro}"  exact="0" chance="$SELL_MK2_LASER_TOWERS"/>
-         <set_value name="$_PlaceablesToSell.{macro.eq_arg_satellite_01_macro}"         exact="0" chance="$SELL_REGULAR_SATELLITES"/>
-         <set_value name="$_PlaceablesToSell.{macro.eq_arg_satellite_02_macro}"         exact="0" chance="$SELL_ADVANCED_SATELLITES"/>
-         <set_value name="$_PlaceablesToSell.{macro.env_deco_nav_beacon_t1_macro}"      exact="0" chance="$SELL_NAVIGATION_BEACONS"/>
-         <set_value name="$_PlaceablesToSell.{macro.eq_arg_resourceprobe_01_macro}"     exact="0" chance="$SELL_RESOURCE_PROBES"/>
+         <do_for_each name="$_PlaceablesMacro" in="$_PlaceablesMacros">
+            <set_value name="$_PlaceablesToSell.{$_PlaceablesMacro.{1}}" exact="0" chance="$_PlaceablesMacro.{2}"/>
+         </do_for_each>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_PlaceablesToSell.keys.count: %1'.[$_PlaceablesToSell.keys.count]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_PlaceablesToSell">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_EquipmentMacro: %1 ~ $_EquipmentAmount: %2'.[$_EquipmentMacro, $_EquipmentAmount]"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
-         <create_list name="$_FoundStations"/>
          <run_script name="'jp.lib.RestockEquipment'">
             <param name="EQUIPMENT_TABLE" value="$_PlaceablesToSell"/>
+            <param name="RESTOCK_TITLE" value="$_CP_Title"/>
+            <param name="EQUIPMENT_BUYSELL_TEXT" value="{8888888, 861}"/>
+            <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
             <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
             <param name="DEBUG" value="$DEBUG"/>
             <save_retval name="_Result" variable="$_Result"/>
          </run_script>
+
          <!-- The restock equipment order has failed. More detail is available in the logbook. -->
-         <do_if value="$_Result != 'Success'">
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 860} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 54}" chance="$WRITE_TO_LOG"/>
+         <do_if value="$_Result == 'Failed'">
+            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' +  {8888888, 54}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
-
-         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_PLACEABLES_SELLED'"/>
-         <apply_experience object="$_Ship" experience="'JP_SHIP_PLACEABLES_SELLED'" role="entityrole.service"/>
-
-         <set_value name="$_Result" exact="'Success'"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

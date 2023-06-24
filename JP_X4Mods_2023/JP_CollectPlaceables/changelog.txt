@@ -1,4 +1,8 @@
 #CollectPlaceables
 
-v2.0.0 ~ Current Development Version
+v2.0.0 -- Current Published Version
 ~ Initial re-release
+
+v2.0.1 -- Current Development Version
+~ Added: More Notificaitons and logging to the logbook
+~ Updated: Several minor enhancements have been made to the code and translations.

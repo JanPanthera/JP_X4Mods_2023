@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Italian ~~ Italiano -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -29,11 +30,14 @@
       <t id="840">Raccogliere oggetti posizionabili</t>
       <t id="841">Vendere oggetti posizionabili</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="850">Non c'è più spazio di archiviazione per raccogliere ulteriori oggetti posizionabili, e non sono autorizzato a svuotare il mio magazzino dispiegabile da solo.</t>
-      <t id="851">Lo spazio di archiviazione per gli oggetti posizionabili è pieno, e non siamo autorizzati a vendere gli oggetti posizionabili che abbiamo attualmente.</t>
-      <t id="852">Non ci sono più oggetti posizionabili da raccogliere. Passerò alla modalità inattiva e proverò di nuovo più tardi.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="860">Raccogliere oggetti piazzabili</t>
+      <t id="860">\033#FFe27100#Pausa nella raccolta\033X</t>
+      <t id="861">Procederò a vendere gli oggetti piazzabili, che valgono:\n%1.</t>
+      <t id="862">Non è più disponibile spazio di archiviazione per la raccolta di ulteriori oggetti piazzabili, e non mi è consentito svuotare personalmente il mio spazio di archiviazione piazzabile.</t>
+      <t id="863">Lo spazio di archiviazione degli oggetti piazzabili è pieno e non ci è permesso vendere gli oggetti piazzabili che abbiamo attualmente.</t>
+      <t id="864">Non ci sono più oggetti piazzabili rimasti nel mio spazio di lavoro definito che abbiamo bisogno di raccogliere.</t>
+      <t id="865">Passerò in modalità inattiva e riproverò più tardi.</t>
+      <t id="866">Inizierò a raccogliere gli oggetti piazzabili nel settore %2%1\033X.</t>
+      <t id="867">Raccolto: %1\nSettore: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="870">Raccoglie oggetti piazzabili come satelliti o mine in un singolo settore.</t>
       <t id="871">Raccoglie oggetti piazzabili come satelliti o mine in tutta la galaxia.</t>
