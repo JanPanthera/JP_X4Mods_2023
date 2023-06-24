@@ -18,3 +18,6 @@ v1.0.2 -- Current Published Version
 ~ Added: jp.lib.GetFactionColorCode.xml
 ~ Added: jp.lib.GetFactionRelationColorCode.xml
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected. This addition also needs to be implemented in each script that utilizes IdleReturnHome.
+
+v1.0.3 -- Current Development Version
+~ Updated: Several minor enhancements have been made to the code and translations.

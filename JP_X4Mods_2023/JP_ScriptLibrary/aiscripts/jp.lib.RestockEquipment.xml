@@ -6,6 +6,9 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="EQUIPMENT_TABLE" default="table[]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="RESTOCK_TITLE" default="''"/>
+      <param name="EQUIPMENT_BUYSELL_TEXT" default="''"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SHOW_MESSAGES" default="0"/>
       <param name="WRITE_TO_LOG" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -53,9 +56,10 @@
             <save_retval name="_FoundStations" variable="$_FoundStations"/>
          </run_script>
 
-         <!-- Currently, there are no available stations where we could restock our desired equipment. Go idle. -->
+         <!-- Currently, there are no available stations where we could restock our desired equipment. -->
          <do_if value="$_FoundStations.count == 0">
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 60} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 50}" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 50}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 50}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
@@ -73,16 +77,6 @@
             <set_value name="$_WantedLoadoutTable.{$_EquipmentMacro}" exact="$_EquipmentAmount"/>
          </do_for_each>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'$_WantedLoadoutTable.keys.count: %1'.[$_WantedLoadoutTable.keys.count]"/>
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_WantedLoadoutTable">
-               <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'$_EquipmentMacro: %1 ~ $_EquipmentAmount: %2'.[$_EquipmentMacro, $_EquipmentAmount]"/>
-            </do_for_each>
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
          <set_value name="$_StationWareCheckTable" exact="table[]"/>
          <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$EQUIPMENT_TABLE">
             <set_value name="$_StationWareCheckTable.{$_EquipmentMacro.ware}" exact="$_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count"/>
@@ -96,9 +90,10 @@
          </do_for_each>
          <remove_value name="$_StationWareCheckTable"/>
 
-         <!-- Currently, all discovered stations lack the necessary resources to manufacture the desired equipment. Go idle. -->
+         <!-- Currently, all discovered stations lack the necessary resources to manufacture the desired equipment. -->
          <do_if value="$_RestockStation" exact="null">
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 60} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 51}" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 51}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 51}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
@@ -106,30 +101,31 @@
          <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$EQUIPMENT_TABLE">
             <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_EquipmentMacro.ware} * ($_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count))Cr" operation="add"/>
          </do_for_each>
-         <!-- We lack the necessary funds to restock the desired equipment. Go idle. -->
+
+         <!-- We lack the necessary funds to restock the desired equipment. -->
          <do_if value="($_RestockPrice + 100000Cr) gt $_Ship.owner.money">
-            <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 60} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 52}" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 52}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 52}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'$_RestockPrice: %1'.[$_RestockPrice.formatted.{'%.s %Cr'}]"/>
-            <debug_to_file directory="$DEBUG_FOLDER_NAME" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
+         <!-- text like: I will proceed to sell placeables, which are worth %1. -->
+         <set_value name="$_Price" exact="abs($_RestockPrice)"/>
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$RESTOCK_TITLE" text="$EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
 
-         <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_WantedLoadoutTable" price="$_RestockPrice" immediate="true" result="$_Result"/>
+         <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_WantedLoadoutTable" price="$_RestockPrice" immediate="true" result="$_ModifyResult"/>
 
-         <!-- The process of creating the restock order has failed. Go idle. -->
-         <do_if value="not $_Result">
+         <do_if value="not $_ModifyResult">
             <set_value name="$_ResumeCounter" exact="if not $_ResumeCounter? then 0 else ($_ResumeCounter + 1)"/>
-            <do_if value="$_ResumeCounter ge 3">
-               <write_to_logbook category="upkeep" object="$_Ship" interaction="showonmap" title="{8888888, 60} + ' ~ ' + '%1 [%2]'.[$_Ship.knownname, $_Ship.idcode]" text="{8888888, 53}" chance="$WRITE_TO_LOG"/>
-               <set_value name="$_Result" exact="'Failed'"/>
-               <resume label="FINISH_LBL"/>
+            <do_if value="$_ResumeCounter le 3">
+               <wait min="1s" max="2s"/>
+               <resume label="RESUME_LBL"/>
             </do_if>
-            <wait min="1s" max="2s"/>
-            <resume label="RESUME_LBL"/>
+            <!-- The process of creating the restock order has failed. -->
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 53}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 53}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+            <resume label="FINISH_LBL"/>
          </do_if>
 
          <set_value name="$_Result" exact="'Success'"/>

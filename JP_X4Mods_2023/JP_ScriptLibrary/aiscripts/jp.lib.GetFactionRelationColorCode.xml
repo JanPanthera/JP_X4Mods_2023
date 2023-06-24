@@ -41,41 +41,32 @@
 
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <set_value name="$_Red"        exact="[255, 0,   0]"/>
-         <set_value name="$_LightRed"   exact="[255, 100, 100]"/>
-         <set_value name="$_Gray"       exact="[128, 128, 128]"/>
-         <set_value name="$_LightGreen" exact="[128, 255, 128]"/>
-         <set_value name="$_Green"      exact="[0,   255, 0]"/>
-         <set_value name="$_Blue"       exact="[0,   136, 255]"/>
-
-
-         <do_if value="$FACTION_RELATION le -10">
-            <set_value name="$_Properties" exact="[$_Red, $_LightRed, ((($FACTION_RELATION)f + 30.0) / 20.0)]"/>
-         </do_if>
-         <do_elseif value="$FACTION_RELATION le 0">
-            <set_value name="$_Properties" exact="[$_LightRed, $_Gray, ((($FACTION_RELATION)f + 10.0) / 10.0)]"/>
-         </do_elseif>
-         <do_elseif value="$FACTION_RELATION le 10">
-            <set_value name="$_Properties" exact="[$_Gray, $_LightGreen, (($FACTION_RELATION)f - 0.0) / 10.0]"/>
-         </do_elseif>
-         <do_elseif value="$FACTION_RELATION le 15">
-            <set_value name="$_Properties" exact="[$_LightGreen, $_Green, (($FACTION_RELATION)f - 10.0) / 5.0]"/>
-         </do_elseif>
-         <do_elseif value="$FACTION_RELATION le 30">
-            <set_value name="$_Properties" exact="[$_Green, $_Blue, (($FACTION_RELATION)f - 15.0) / 15.0]"/>
-         </do_elseif>
-         <do_else>
-            <set_value name="$_Properties" exact="[$_Blue, $_Blue, 1.0]"/>
-         </do_else>
-
-         <!-- 
-            <set_value name="$_R" exact="($_Red.{1} * (1 - $_BlendRatio) + $_LightRed.{1} * $_BlendRatio)i"/>
-            <set_value name="$_G" exact="($_Red.{2} * (1 - $_BlendRatio) + $_LightRed.{2} * $_BlendRatio)i"/>
-            <set_value name="$_B" exact="($_Red.{3} * (1 - $_BlendRatio) + $_LightRed.{3} * $_BlendRatio)i"/>
+         <!--
+           The initial value represents the starting value of the color transition.
+           The transition range determines how quickly the transition occurs.
          -->
-         <set_value name="$_R" exact="($_Properties.{1}.{1} * (1 - $_Properties.{3}) + $_Properties.{2}.{1} * $_Properties.{3})i"/>
-         <set_value name="$_G" exact="($_Properties.{1}.{2} * (1 - $_Properties.{3}) + $_Properties.{2}.{2} * $_Properties.{3})i"/>
-         <set_value name="$_B" exact="($_Properties.{1}.{3} * (1 - $_Properties.{3}) + $_Properties.{2}.{3} * $_Properties.{3})i"/>
+         <set_value name="$_Table" exact="table[]"/>
+         <set_value name="$_Table.{-30}" exact="[[255,   0,   0], [255,   0,   0], 30.0,  1.0]" comment="[Red     to Red,     Initial value: 30.0, Transition range:  1.0]"/>
+         <set_value name="$_Table.{-10}" exact="[[255,   0,   0], [255, 100, 100], 30.0, 20.0]" comment="[Red     to L.Red,   Initial value: 30.0, Transition range: 20.0]"/>
+         <set_value name="$_Table.{0}"   exact="[[255, 100, 100], [192, 192, 192], 10.0, 10.0]" comment="[L.Red   to Gray,    Initial value: 10.0, Transition range: 10.0]"/>
+         <set_value name="$_Table.{10}"  exact="[[192, 192, 192], [128, 255, 128],  0.0, 10.0]" comment="[Gray    to L.Green, Initial value:  0.0, Transition range: 10.0]"/>
+         <set_value name="$_Table.{15}"  exact="[[128, 255, 128], [0,   255,   0], 10.0,  5.0]" comment="[L.Green to Green,   Initial value: 10.0, Transition range:  5.0]"/>
+         <set_value name="$_Table.{30}"  exact="[[  0, 255,   0], [0,   136, 255], 15.0, 15.0]" comment="[Green   to Blue,    Initial value: 15.0, Transition range: 15.0]"/>
+
+         <do_for_each name="$_Key" valuename="$_Value" in="$_Table">
+            <do_if value="$FACTION_RELATION le $_Key">
+               <do_if value="$FACTION_RELATION le 0">
+                  <set_value name="$_BlendRatio" exact="(($FACTION_RELATION)f + $_Value.{3}) / $_Value.{4}"/>
+               </do_if>
+               <do_else>
+                  <set_value name="$_BlendRatio" exact="(($FACTION_RELATION)f - $_Value.{3}) / $_Value.{4}"/>
+               </do_else>
+               <set_value name="$_R" exact="($_Value.{1}.{1} * (1 - $_BlendRatio) + $_Value.{2}.{1} * $_BlendRatio)i"/>
+               <set_value name="$_G" exact="($_Value.{1}.{2} * (1 - $_BlendRatio) + $_Value.{2}.{2} * $_BlendRatio)i"/>
+               <set_value name="$_B" exact="($_Value.{1}.{3} * (1 - $_BlendRatio) + $_Value.{2}.{3} * $_BlendRatio)i"/>
+               <break/>
+            </do_if>
+         </do_for_each>
 
          <run_script name="'jp.lib.ConvertARGBtoHex'">
             <param name="ALPHA" value="255"/>
@@ -98,6 +89,7 @@
 
          <return>
             <retval name="_FactionRelationColorCode" value="$_FactionRelationColorCode"/>
+            <retval name="_RGB" value="[$_R, $_G, $_B]"/>
          </return>
 
       </actions>
