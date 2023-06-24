@@ -84,7 +84,7 @@
             <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
          </run_script>
          <show_help custom="$_DVE_Title + '\n\n' + {8888888, 963}.[$_FoundDataVaults.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_DVE_Title" text="{8888888, 963}.[$_FoundDataVaults.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="$WRITE_TO_LOG"/>
+         <write_to_logbook title="$_DVE_Title" text="{8888888, 963}.[$_FoundDataVaults.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$_FoundDataVaults.{1}.sector" chance="$WRITE_TO_LOG"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
