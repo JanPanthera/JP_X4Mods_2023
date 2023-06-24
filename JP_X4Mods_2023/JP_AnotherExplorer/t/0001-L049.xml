@@ -8,9 +8,10 @@
       <t id="440">Erkunde unbekanntes Objekt</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Erkundung pausiert\033X</t>
-      <t id="461">Es gibt keine verbleibenden Objekte in meinem definierten Arbeitsbereich, die aufgedeckt werden müssen. Ich wechsle in den Leerlaufmodus und versuche es später erneut.</t>
-      <t id="462">Entdeckt: %5%1 [%2]\033X\nBeziehung zu uns: %7%3\033X\nSektor: %6%4\033X</t>
-      <t id="463">Entdeckt: %1\nSektor: %3%2\033X</t>
+      <t id="461">Es gibt keine verbleibenden Objekte in meinem definierten Arbeitsbereich, die aufgedeckt werden müssen.</t>
+      <t id="462">Ich werde beginnen, Objekte im Sektor %2%1\033X aufzudecken.</t>
+      <t id="463">Entdeckt: %5%1 [%2]\033X\nBeziehung zu uns: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="464">Entdeckt: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="470">Deckt Stationen, Sprungtore, Beschleuniger und Superhighways innerhalb eines Sektors auf.</t>
       <t id="471">Deckt Stationen, Sprungtore, Beschleuniger und Superhighways in der gesamten Galaxie auf.</t>

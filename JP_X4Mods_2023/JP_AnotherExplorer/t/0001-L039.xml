@@ -8,9 +8,10 @@
       <t id="440">Scopri oggetto sconosciuto</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Esplorazione in pausa\033X</t>
-      <t id="461">Non ci sono più oggetti da scoprire nel mio spazio di lavoro definito. Passerò in modalità inattività e riproverò più tardi.</t>
-      <t id="462">Scoperto: %5%1 [%2]\033X\nRelazione con noi: %7%3\033X\nSettore: %6%4\033X</t>
-      <t id="463">Scoperto: %1\nSettore: %3%2\033X</t>
+      <t id="461">Non ci sono più oggetti da scoprire nel mio spazio di lavoro definito.</t>
+      <t id="462">Inizierò a scoprire oggetti nel settore %2%1\033X.</t>
+      <t id="463">Scoperto: %5%1 [%2]\033X\nRelazione con noi: %7%3\033X\nSettore: %6%4\033X</t>
+      <t id="464">Scoperto: %1\nSettore: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="470">Scopre Stazioni, Portali di Salto, Acceleratori e Superstrade all'interno di un settore.</t>
       <t id="471">Scopre Stazioni, Portali di Salto, Acceleratori e Superstrade in tutta la galassia.</t>

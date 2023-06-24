@@ -40,7 +40,8 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_Ship.defaultorder.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_AE_Title" text="$_AE_Title">
          <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
@@ -122,10 +123,12 @@
          </run_script>
 
          <do_if value="$OBJECT.isrealclass.{class.station}">
-            <set_value name="$_Text" exact="{8888888, 462}.[$OBJECT.knownname, $OBJECT.idcode, $_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue, $OBJECT.sector.knownname, $_ObjectOwnerColor, $_ObjectSectorOwnerColor, $_FactionRelationColorCode]"/>
+            <!-- Discovered: %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X -->
+            <set_value name="$_Text" exact="{8888888, 463}.[$OBJECT.knownname, $OBJECT.idcode, $_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue, $OBJECT.sector.knownname, $_ObjectOwnerColor, $_ObjectSectorOwnerColor, $_FactionRelationColorCode]"/>
          </do_if>
          <do_else>
-            <set_value name="$_Text" exact="{8888888, 463}.[$OBJECT.knownname, $OBJECT.sector.knownname, $_ObjectSectorOwnerColor]"/>
+            <!-- Discovered: %1\nSector: %3%2\033X -->
+            <set_value name="$_Text" exact="{8888888, 464}.[$OBJECT.knownname, $OBJECT.sector.knownname, $_ObjectSectorOwnerColor]"/>
          </do_else>
 
          <show_help custom="$_AE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>

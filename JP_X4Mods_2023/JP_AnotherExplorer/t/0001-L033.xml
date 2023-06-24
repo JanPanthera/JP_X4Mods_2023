@@ -8,9 +8,10 @@
       <t id="440">Découvrir un objet inconnu</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Exploration en pause\033X</t>
-      <t id="461">Il ne reste aucun objet à découvrir dans mon espace de travail défini. Je vais passer en mode inactif et réessayer plus tard.</t>
-      <t id="462">Découvert : %5%1 [%2]\033X\nRelation avec nous : %7%3\033X\nSecteur : %6%4\033X</t>
-      <t id="463">Découvert : %1\nSecteur : %3%2\033X</t>
+      <t id="461">Il ne reste aucun objet à découvrir dans mon espace de travail défini.</t>
+      <t id="462">Je commencerai à découvrir des objets dans le secteur %2%1\033X.</t>
+      <t id="463">Découvert : %5%1 [%2]\033X\nRelation avec nous : %7%3\033X\nSecteur : %6%4\033X</t>
+      <t id="464">Découvert : %1\nSecteur : %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="470">Découvre les stations, portails, accélérateurs et superautoroutes dans un secteur.</t>
       <t id="471">Découvre les stations, portails, accélérateurs et superautoroutes à travers toute la galaxie.</t>

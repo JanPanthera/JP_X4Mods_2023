@@ -8,9 +8,10 @@
       <t id="440">Odkryj nieznany obiekt</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="460">\033#FFe27100#Eksploracja wstrzymana\033X</t>
-      <t id="461">Nie ma już obiektów do odkrycia w moim wyznaczonym obszarze pracy. Przełączam się w tryb bezczynności i spróbuję ponownie później.</t>
-      <t id="462">Odkryto: %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
-      <t id="463">Odkryto: %1\nSektor: %3%2\033X</t>
+      <t id="461">Nie ma już obiektów do odkrycia w moim wyznaczonym obszarze pracy.</t>
+      <t id="462">Zacznę odkrywać obiekty w sektorze %2%1\033X.</t>
+      <t id="463">Odkryto: %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="464">Odkryto: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="470">Odkrywa Stacje, Brama skokowe, Akceleratory i Super Autostrady w sektorze.</t>
       <t id="471">Odkrywa Stacje, Brama skokowe, Akceleratory i Super Autostrady w całej galaktyce.</t>

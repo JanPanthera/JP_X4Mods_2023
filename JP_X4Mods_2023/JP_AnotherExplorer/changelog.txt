@@ -45,3 +45,7 @@ v1.0.6 -- Current Published Version
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Fixed: "Construction Sites?" and "Ownerless Sectors?" parameter of fleet subordinates were not inherited from the leader.
 ~ Updated: Some minor code and translation changes.
+
+v1.0.7 -- Current Development Version
+~ Added: More Notificaitons and logging to the logbook
+~ Updated: Several minor enhancements have been made to the code and translations.

@@ -124,7 +124,8 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_Ship.defaultorder.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_AE_Title" text="$_AE_Title">
          <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
@@ -228,12 +229,14 @@
             <param name="FACTION_HEADQUARTERS"    value="$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS"    value="$NON_SPECIAL_STATIONS"/>
             <param name="CONSTRUCTION_SITES"      value="$CONSTRUCTION_SITES"/>
+            <param name="SHOW_MESSAGES"           value="$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"            value="$WRITE_TO_LOG"/>
             <param name="DEBUG"                   value="$DEBUG"/>
             <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
          </run_script>
 
          <do_if value="$_FoundObjects.count == 0">
-            <!-- There are no remaining objects within my defined workspace that need to be uncovered. I will switch to idle mode and try again later. -->
+            <!-- There are no remaining objects within my defined workspace that need to be uncovered. -->
             <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
@@ -254,6 +257,9 @@
 
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
+         <!-- I will switch to idle mode and try again later. -->
+         <show_help custom="$_AE_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 55}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_AE_Title" text="{8888888, 860} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
