@@ -35,7 +35,6 @@
       <t id="862">Não há mais espaço de armazenamento disponível para coletar objetos de localização adicionais, e não tenho permissão para esvaziar meu armazenamento implantável.</t>
       <t id="863">O armazenamento para objetos de localização está cheio, e não nos é permitido vender os objetos de localização que temos atualmente.</t>
       <t id="864">Não há mais objetos de localização restantes dentro do meu espaço de trabalho definido que precisamos coletar.</t>
-      <t id="865">Vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
       <t id="866">Vou começar a coletar objetos de localização no setor %2%1\033X.</t>
       <t id="867">Coletado: %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

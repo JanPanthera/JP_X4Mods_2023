@@ -35,7 +35,6 @@
       <t id="862">No hay más espacio de almacenamiento disponible para recolectar objetos colocables, y no se me permite vaciar mi almacenamiento desplegable.</t>
       <t id="863">El almacenamiento de objetos colocables está lleno y no se nos permite vender los objetos colocables que tenemos actualmente.</t>
       <t id="864">No quedan más objetos colocables dentro de mi espacio de trabajo definido que necesitemos recolectar.</t>
-      <t id="865">Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
       <t id="866">Comenzaré a recolectar objetos colocables en el sector %2%1\033X.</t>
       <t id="867">Recolectado: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -35,7 +35,6 @@
       <t id="862">Il ne reste plus d'espace de stockage pour collecter des objets à placer, et je n'ai pas la permission de vider moi-même mon espace de stockage déployable.</t>
       <t id="863">L'espace de stockage des objets à placer est plein, et nous n'avons pas la permission de vendre les objets à placer que nous avons actuellement.</t>
       <t id="864">Il ne reste plus d'objets à placer dans mon espace de travail défini que nous devons collecter.</t>
-      <t id="865">Je vais passer en mode inactif et réessayer plus tard.</t>
       <t id="866">Je vais commencer à collecter les objets à placer dans le secteur %2%1\033X.</t>
       <t id="867">Collecté : %1\nSecteur : %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

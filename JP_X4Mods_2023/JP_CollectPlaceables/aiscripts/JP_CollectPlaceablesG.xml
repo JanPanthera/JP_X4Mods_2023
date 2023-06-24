@@ -298,8 +298,8 @@
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 865}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 865}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 55}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
