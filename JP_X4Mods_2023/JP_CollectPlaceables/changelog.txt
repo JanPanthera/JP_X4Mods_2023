@@ -5,4 +5,5 @@ v2.0.0 -- Current Published Version
 
 v2.0.1 -- Current Development Version
 ~ Added: More Notificaitons and logging to the logbook
+~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Updated: Several minor enhancements have been made to the code and translations.
