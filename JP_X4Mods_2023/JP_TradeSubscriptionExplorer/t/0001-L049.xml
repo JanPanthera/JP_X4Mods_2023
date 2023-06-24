@@ -8,8 +8,9 @@
       <t id="1940">Erneuere Handelsabonnement</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Aktualisierung der Handelsabonnements pausiert\033X</t>
-      <t id="1961">Es gibt keine verbleibenden Stationen in meinem definierten Arbeitsbereich, die eine Aktualisierung des Handelsabonnements erfordern. Ich wechsle in den Leerlaufmodus und versuche es später erneut.</t>
-      <t id="1962">Abonnementverlängerung bei %5%1 [%2]\033X\nBeziehung zu uns: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="1961">Es gibt keine verbleibenden Stationen in meinem definierten Arbeitsbereich, die eine Aktualisierung des Handelsabonnements erfordern.</t>
+      <t id="1962">Ich werde beginnen, Handelsabonnements im Sektor %2%1\033X zu aktualisieren.</t>
+      <t id="1963">Abonnement aktualisiert bei %5%1 [%2]\033X\nBeziehung zu uns: %7%3\033X\nSektor: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Erneuert Handelsabonnements für Stationen innerhalb eines spezifischen Sektors.</t>
       <t id="1971">Erneuert Handelsabonnements für Stationen in der gesamten Galaxie.</t>

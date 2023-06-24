@@ -27,3 +27,7 @@ v2.0.3 -- Current Published Version
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Updated: Some minor code and translation changes.
+
+v2.0.4 -- Current Development Version
+~ Added: More Notificaitons and logging to the logbook
+~ Updated: Several minor enhancements have been made to the code and translations.

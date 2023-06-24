@@ -8,8 +8,9 @@
       <t id="1940">Odnów subskrypcję handlową</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Wstrzymanie odnawiania subskrypcji handlowych\033X</t>
-      <t id="1961">Nie ma już stacji w moim wyznaczonym obszarze pracy, które wymagają aktualizacji subskrypcji handlowej. Przełączam się w tryb bezczynności i spróbuję ponownie później.</t>
-      <t id="1962">Zaktualizowano subskrypcję w %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="1961">Nie ma już stacji w moim wyznaczonym obszarze pracy, które wymagają aktualizacji subskrypcji handlowej.</t>
+      <t id="1962">Zacznę aktualizować subskrypcje handlowe w sektorze %2%1\033X.</t>
+      <t id="1963">Zaktualizowano subskrypcję w %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Odnawia subskrypcje handlowe dla stacji w określonym sektorze.</t>
       <t id="1971">Odnawia subskrypcje handlowe dla stacji na całej galaktyce.</t>

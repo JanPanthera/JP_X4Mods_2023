@@ -17,6 +17,9 @@
       <param name="FACTION_HEADQUARTERS" default="false"/>
       <param name="NON_SPECIAL_STATIONS" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SHOW_MESSAGES" default="0"/>
+      <param name="WRITE_TO_LOG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -25,6 +28,12 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_TSE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_TSE_Title" text="$_TSE_Title">
+         <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_Sectors"/>
       <create_list name="$_FoundStations"/>
@@ -165,7 +174,7 @@
                </do_if>
                <break/>
             </do_if>
-            
+
          </do_for_each>
 
          <do_if value="$_FoundStations.count == 0 and @global.$TSE_SectorBlacklist.{$_Ship} != null">
@@ -174,6 +183,16 @@
                <set_value name="$SECTOR" exact="null"/>
                <resume label="RESUME_LBL"/>
             </do_if>
+         </do_if>
+
+         <do_if value="@global.$TSE_SectorBlacklist.{$_Ship} == null and $SECTOR != null">
+            <!-- I will start update trade subscriptions in sector %2%1\033X. -->
+            <run_script name="'jp.lib.GetFactionColorCode'">
+               <param name="FACTION" value="$SECTOR.owner"/>
+               <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+            </run_script>
+            <show_help custom="$_TSE_Title + '\n\n' + {8888888, 1962}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_TSE_Title" text="{8888888, 1962}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="$WRITE_TO_LOG"/>
          </do_if>
 
          <do_if value="$_FoundStations.count gt 0">

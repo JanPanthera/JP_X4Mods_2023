@@ -8,8 +8,9 @@
       <t id="1940">Renew trade subscription</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Trade subscriptions renewal paused\033X</t>
-      <t id="1961">There are no remaining stations within my defined workspace that require a trade subscription update. I will switch to idle mode and try again later.</t>
-      <t id="1962">Renewed subscription at %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
+      <t id="1961">There are no remaining stations within my defined workspace that require a trade subscription update.</t>
+      <t id="1962">I will start update trade subscriptions in sector %2%1\033X.</t>
+      <t id="1963">Renewed subscription at %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Renews trade subscriptions for stations within a specific sector.</t>
       <t id="1971">Renews trade subscriptions for stations throughout the entire galaxy.</t>

@@ -8,8 +8,9 @@
       <t id="1940">Renouveler l'abonnement commercial</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Mise en pause du renouvellement des abonnements commerciaux\033X</t>
-      <t id="1961">Il ne reste aucune station dans mon espace de travail défini qui nécessite une mise à jour de l'abonnement commercial. Je vais passer en mode inactif et réessayer plus tard.</t>
-      <t id="1962">Renouvellement de l'abonnement effectué à %5%1 [%2]\033X\nRelation avec nous : %7%3\033X\nSecteur : %6%4\033X</t>
+      <t id="1961">Il ne reste aucune station dans mon espace de travail défini qui nécessite une mise à jour de l'abonnement commercial.</t>
+      <t id="1962">Je vais commencer à mettre à jour les abonnements commerciaux dans le secteur %2%1\033X.</t>
+      <t id="1963">Renouvellement de l'abonnement effectué à %5%1 [%2]\033X\nRelation avec nous : %7%3\033X\nSecteur : %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Renouvelle les abonnements commerciaux pour les stations au sein d'un secteur spécifique.</t>
       <t id="1971">Renouvelle les abonnements commerciaux pour les stations à travers toute la galaxie.</t>

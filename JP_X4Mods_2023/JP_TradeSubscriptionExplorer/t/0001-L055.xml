@@ -8,8 +8,9 @@
       <t id="1940">Renovar assinatura comercial</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Pausa na renovação de assinaturas comerciais\033X</t>
-      <t id="1961">Não há mais estações dentro do meu espaço de trabalho definido que necessitem de uma atualização na assinatura comercial. Vou mudar para o modo ocioso e tentar novamente mais tarde.</t>
-      <t id="1962">Renovação de assinatura em %5%1 [%2]\033X\nRelação conosco: %7%3\033X\nSetor: %6%4\033X</t>
+      <t id="1961">Não há mais estações dentro do meu espaço de trabalho definido que necessitem de uma atualização na assinatura comercial.</t>
+      <t id="1962">Vou começar a atualizar as assinaturas comerciais no setor %2%1\033X.</t>
+      <t id="1963">Renovação de assinatura em %5%1 [%2]\033X\nRelação conosco: %7%3\033X\nSetor: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Renova as assinaturas comerciais para estações em um setor específico.</t>
       <t id="1971">Renova as assinaturas comerciais para estações em toda a galáxia.</t>

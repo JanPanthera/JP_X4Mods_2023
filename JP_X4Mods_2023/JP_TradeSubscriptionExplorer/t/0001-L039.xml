@@ -8,8 +8,9 @@
       <t id="1940">Rinnova l'abbonamento commerciale</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1960">\033#FFe27100#Pausa nel rinnovo delle sottoscrizioni commerciali\033X</t>
-      <t id="1961">Non ci sono più stazioni nel mio spazio di lavoro definito che richiedono un aggiornamento dell'abbonamento commerciale. Passerò in modalità inattività e riproverò più tardi.</t>
-      <t id="1962">Rinnovo dell'abbonamento a %5%1 [%2]\033X\nRelazione con noi: %7%3\033X\nSettore: %6%4\033X</t>
+      <t id="1961">Non ci sono più stazioni nel mio spazio di lavoro definito che richiedono un aggiornamento dell'abbonamento commerciale.</t>
+      <t id="1962">Inizierò ad aggiornare le sottoscrizioni commerciali nel settore %2%1\033X.</t>
+      <t id="1963">Rinnovo dell'abbonamento a %5%1 [%2]\033X\nRelazione con noi: %7%3\033X\nSettore: %6%4\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1970">Rinnova le sottoscrizioni commerciali per le stazioni all'interno di un settore specifico.</t>
       <t id="1971">Rinnova le sottoscrizioni commerciali per le stazioni in tutta la galassia.</t>
