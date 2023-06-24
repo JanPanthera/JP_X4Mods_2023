@@ -15,3 +15,7 @@ v2.0.2 -- Current Published Version
 ~ Fixed: There was an issue with the function that checks whether a station has enough resources to build all the necessary navigation beacons.
          This issue caused the ship to dock and wait for resources, potentially for an extended period of time, depending on when the station was resupplied with resources.
 ~ Updated: Some minor code and translation changes.
+
+v2.0.3 -- Current Development Version
+~ Added: More Notificaitons and logging to the logbook
+~ Updated: Several minor enhancements have been made to the code and translations.

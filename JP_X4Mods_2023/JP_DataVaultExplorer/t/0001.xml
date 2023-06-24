@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Default ~~ English -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Mark Datavault</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
-      <t id="951">Currently, there are no datavaults left that we can reach or need to mark.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="960">\033#FFe27100#Datavault Marking Paused\033X</t>
+      <t id="961">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
+      <t id="962">Currently, there are no datavaults left that we can reach or need to mark.</t>
+      <t id="963">I will start mark a datavault in sector %2%1\033X.</t>
+      <t id="964">Marked: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Place navigation beacons beside data vaults throughout the galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

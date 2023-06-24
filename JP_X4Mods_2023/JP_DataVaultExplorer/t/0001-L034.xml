@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spanish ~~ Español -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Marcar Depósito de Datos</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">No hay suficientes balizas de navegación disponibles y el reabastecimiento automático de balizas de navegación está desactivado.</t>
-      <t id="951">Actualmente, no quedan depósitos de datos que podamos alcanzar o necesitemos marcar.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Marcado de Depósito de Datos en Pausa\033X</t>
+      <t id="960">\033#FFe27100#Marcado de Datavault en Pausa\033X</t>
+      <t id="961">No hay suficientes balizas de navegación disponibles, y el reabastecimiento automático de balizas de navegación está desactivado.</t>
+      <t id="962">Actualmente, no quedan datavaults a los que podamos llegar o que necesitemos marcar.</t>
+      <t id="963">Comenzaré a marcar un datavault en el sector %2%1\033X.</t>
+      <t id="964">Marcado: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Coloque balizas de navegación junto a los depósitos de datos en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- German ~~ Deutsch -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Datentresor markieren</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Es stehen keine oder nicht genügend Navigationsbaken zur Verfügung, und die automatische Nachfüllung von Navigationsaken ist deaktiviert.</t>
-      <t id="951">Derzeit gibt es keine Datentresore mehr, die wir erreichen oder markieren müssen.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Datentresor-Markierung pausiert\033X</t>
+      <t id="960">\033#FFe27100#Datavault-Markierung Angehalten\033X</t>
+      <t id="961">Es sind keine oder nicht genügend Navigationsbaken verfügbar, und das automatische Nachfüllen von Navigationsbaken ist deaktiviert.</t>
+      <t id="962">Derzeit sind keine Datentresore mehr vorhanden, die wir erreichen können oder markieren müssen.</t>
+      <t id="963">Ich werde beginnen, einen Datentresor im Sektor %2%1\033X zu markieren.</t>
+      <t id="964">Markiert: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Platzieren Sie Navigationsbaken neben Datentresoren in der gesamten Galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Marcar Cofre de Dados</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Não há balizas de navegação disponíveis ou em número suficiente, e o reabastecimento automático de balizas de navegação está desativado.</t>
-      <t id="951">Atualmente, não há cofres de dados restantes que possamos alcançar ou precisamos marcar.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Marcação de Cofre de Dados Pausada\033X</t>
+      <t id="960">\033#FFe27100#Marcação de Datavault em Pausa\033X</t>
+      <t id="961">Não há balizas de navegação disponíveis suficientes, e a reposição automática de balizas de navegação está desativada.</t>
+      <t id="962">Atualmente, não há datavaults restantes que possamos alcançar ou que precisem ser marcados.</t>
+      <t id="963">Vou começar a marcar um datavault no setor %2%1\033X.</t>
+      <t id="964">Marcado: %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Coloque balizas de navegação ao lado de cofres de dados em toda a galáxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

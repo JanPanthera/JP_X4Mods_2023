@@ -6,6 +6,9 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="OWNERLESS_SECTORS" default="true"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SHOW_MESSAGES" default="0"/>
+      <param name="WRITE_TO_LOG" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -14,6 +17,13 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_DVE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_DVE_Title" text="$_DVE_Title">
+         <replace string="'\033#FFA95908##DVE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
+      </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_FoundDataVaults"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
@@ -68,15 +78,13 @@
             <save_retval name="_SortedList" variable="$_FoundDataVaults"/>
          </run_script>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundDataVaults.count: %1'.[$_FoundDataVaults.count]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_FoundDataVault" in="$_FoundDataVaults">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundDataVault: %1 [%2] ~ Sector: %3 [%4]'.[$_FoundDataVault.knownname, $_FoundDataVault.idcode, $_FoundDataVault.sector.knownname, $_FoundDataVault.sector.owner]"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
+         <!-- I will start mark a datavault in sector %2%1\033X. -->
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$_FoundDataVaults.{1}.sector.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+         </run_script>
+         <show_help custom="$_DVE_Title + '\n\n' + {8888888, 963}.[$_FoundDataVaults.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_DVE_Title" text="{8888888, 963}.[$_FoundDataVaults.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="$WRITE_TO_LOG"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

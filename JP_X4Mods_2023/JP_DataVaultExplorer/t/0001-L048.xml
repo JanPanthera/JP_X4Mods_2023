@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Oznacz Skarbiec Danych</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Nie ma dostępnych lub jest za mało dostępnych boi nawigacyjnych, a automatyczne uzupełnianie boi nawigacyjnych jest wyłączone.</t>
-      <t id="951">Obecnie nie ma skarbca danych, do których moglibyśmy dotrzeć lub które musimy oznaczyć.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Oznaczanie Skarbca Danych Wstrzymane\033X</t>
+      <t id="960">\033#FFe27100#Zaznaczanie Datavaultu Wstrzymane\033X</t>
+      <t id="961">Brak dostępnych lub niewystarczająca ilość boi nawigacyjnych, a automatyczne uzupełnianie boi nawigacyjnych jest wyłączone.</t>
+      <t id="962">Obecnie nie ma żadnych dostępnych datavaultów, które możemy osiągnąć lub które musimy oznaczyć.</t>
+      <t id="963">Zacznę zaznaczać datavault w sektorze %2%1\033X.</t>
+      <t id="964">Zaznaczone: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Umieszczaj boje nawigacyjne obok skarbca danych w całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

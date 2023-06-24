@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- French ~~ Français -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -11,10 +12,11 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="940">Marquer Datavault</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="950">Il n'y a pas ou pas assez de balises de navigation disponibles, et le réapprovisionnement automatique des balises de navigation est désactivé.</t>
-      <t id="951">Actuellement, il ne reste aucun datavault que nous pouvons atteindre ou besoin de marquer.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Marquage de Datavault en Pause\033X</t>
+      <t id="960">\033#FFe27100#Marquage du Datavault en Pause\033X</t>
+      <t id="961">Il n'y a pas ou pas assez de balises de navigation disponibles, et le réapprovisionnement automatique des balises de navigation est désactivé.</t>
+      <t id="962">Actuellement, il ne reste aucun datavault que nous pouvons atteindre ou besoin de marquer.</t>
+      <t id="963">Je vais commencer à marquer un datavault dans le secteur %2%1\033X.</t>
+      <t id="964">Marqué: %1\nSecteur: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Placez des balises de navigation à côté des datavaults à travers la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
