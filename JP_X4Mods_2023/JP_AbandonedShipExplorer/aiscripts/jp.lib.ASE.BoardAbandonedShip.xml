@@ -7,6 +7,9 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="ABANDONED_SHIP" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SHOW_MESSAGES" type="internal" default="0"/>
+         <param name="WRITE_TO_LOG" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -28,6 +31,12 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
+      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_ASE_Title" text="$_ASE_Title">
+         <replace string="'\033#FFA95908##ASE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
@@ -140,6 +149,16 @@
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>
+
+         <run_script name="'jp.lib.GetFactionColorCode'">
+            <param name="FACTION" value="$ABANDONED_SHIP.sector.owner"/>
+            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+         </run_script>
+
+         <!-- Boarded: %1\nSector: %3%2\033X -->
+         <set_value name="$_Text" exact="{8888888, 166}.[$ABANDONED_SHIP.knownname, $ABANDONED_SHIP.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 

@@ -21,13 +21,15 @@
       <t id="141">Marquer le navire abandonné</t>
       <t id="142">Embarquer sur le navire abandonné</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">Il n'y a pas ou pas assez de balises de navigation disponibles, et le réapprovisionnement automatique des balises de navigation est désactivé.</t>
-      <t id="151">Aucun marine n'est disponible pour l'embarquement automatique des navires.</t>
-      <t id="152">Nous n'avons trouvé aucun navire abandonné que nous pouvons atteindre ou qui doit être marqué ou revendiqué.</t>
+      <t id="160">\033#FFe27100#Exploration des Navires Abandonnés en Pause\033X</t>
+      <t id="161">Il n'y a pas ou pas assez de balises de navigation disponibles, et le réapprovisionnement automatique des balises de navigation est désactivé.</t>
+      <t id="162">Aucun marine n'est disponible pour l'embarquement automatique des navires.</t>
+      <t id="163">Actuellement, il ne reste aucun navire abandonné que nous pouvons atteindre ou qui nécessite d'être marqué ou revendiqué.</t>
+      <t id="164">Je vais commencer à rechercher des navires abandonnés dans le secteur %2%1\033X.</t>
+      <t id="165">Marqué: %1\nSecteur: %3%2\033X</t>
+      <t id="166">Embarqué: %1\nSecteur: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="160">\033#FFe27100#Exploration des navires abandonnés en pause\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="171">Ce script permet à votre vaisseau spatial de trouver, de marquer ou de monter à bord des vaisseaux abandonnés dans toute la galaxie.</t>
+      <t id="171">Découvre, marque ou embarque sur des navires abandonnés éparpillés dans toute la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

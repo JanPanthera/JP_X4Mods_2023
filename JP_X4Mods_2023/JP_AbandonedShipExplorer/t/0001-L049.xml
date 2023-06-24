@@ -21,13 +21,15 @@
       <t id="141">Verlassenes Schiff markieren</t>
       <t id="142">Verlassenes Schiff übernehmen</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">Es sind keine oder nicht genug Navigationsbaken verfügbar und das automatische Nachfüllen von Navigationsbaken ist deaktiviert.</t>
-      <t id="151">Es sind keine Marines für das automatische Entern von Schiffen verfügbar.</t>
-      <t id="152">Aktuell gibt es keine verlassenen Schiffe mehr, die wir erreichen können oder die markiert oder beansprucht werden müssen.</t>
+      <t id="160">\033#FFe27100#Erkundung von Verlassenen Schiffen Pausiert\033X</t>
+      <t id="161">Es sind keine oder nicht genügend Navigationsbaken verfügbar, und das automatische Nachfüllen von Navigationsbaken ist deaktiviert.</t>
+      <t id="162">Keine Marines sind für das automatische Entern von Schiffen verfügbar.</t>
+      <t id="163">Derzeit sind keine verlassenen Schiffe mehr vorhanden, die wir erreichen können oder die markiert oder beansprucht werden müssen.</t>
+      <t id="164">Ich werde beginnen, nach verlassenen Schiffen im Sektor %2%1\033X zu suchen.</t>
+      <t id="165">Markiert: %1\nSektor: %3%2\033X</t>
+      <t id="166">Geentert: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="160">\033#FFe27100#Erforschung verlassener Schiffe pausiert\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="171">Dieses Skript ermöglicht es Ihrem Raumschiff, verlassene Schiffe in der gesamten Galaxie zu finden, zu markieren oder zu übernehmen.</t>
+      <t id="171">Deckt auf, markiert oder entert verlassene Schiffe, die über die ganze Galaxie verstreut sind.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

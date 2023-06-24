@@ -21,13 +21,15 @@
       <t id="141">Oznacz opuszczony statek</t>
       <t id="142">Wejdź na pokład opuszczonego statku</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">Nie ma dostępnych lub jest za mało boi nawigacyjnych, a automatyczne uzupełnianie boi nawigacyjnych jest wyłączone.</t>
-      <t id="151">Brak marinesów do automatycznego wejścia na pokład statku.</t>
-      <t id="152">Nie znaleźliśmy żadnych opuszczonych statków, do których możemy dotrzeć lub które muszą być oznaczone lub przejęte.</t>
+      <t id="160">\033#FFe27100#Eksploracja Opuszczonych Statków Wstrzymana\033X</t>
+      <t id="161">Brak dostępnych lub niewystarczająca ilość boi nawigacyjnych, a automatyczne uzupełnianie boi nawigacyjnych jest wyłączone.</t>
+      <t id="162">Brak dostępnych marines do automatycznego abordażu statków.</t>
+      <t id="163">Obecnie nie ma żadnych dostępnych opuszczonych statków, które możemy osiągnąć lub które musimy oznaczyć lub przejąć.</t>
+      <t id="164">Zacznę poszukiwanie opuszczonych statków w sektorze %2%1\033X.</t>
+      <t id="165">Zaznaczone: %1\nSektor: %3%2\033X</t>
+      <t id="166">Załadowane: %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="160">\033#FFe27100#Eksploracja opuszczonych statków wstrzymana\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="171">Ten skrypt umożliwia twojemu statkowi kosmicznemu odnajdywanie, oznaczanie lub wejście na pokład opuszczonych statków na całej galaktyce.</t>
+      <t id="171">Odkrywa, oznacza lub zajmuje opuszczone statki rozsiane po całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

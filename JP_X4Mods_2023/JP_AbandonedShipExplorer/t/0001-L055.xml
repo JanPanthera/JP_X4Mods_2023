@@ -21,13 +21,15 @@
       <t id="141">Marcar nave abandonada</t>
       <t id="142">Abordar nave abandonada</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">Não há balizas de navegação suficientes disponíveis, e o reabastecimento automático de balizas de navegação está desativado.</t>
-      <t id="151">Não há fuzileiros navais disponíveis para o embarque automático de naves.</t>
-      <t id="152">Não encontramos nenhuma nave abandonada que possamos alcançar ou que precise ser marcada ou reivindicada.</t>
+      <t id="160">\033#FFe27100#Exploração de Navios Abandonados em Pausa\033X</t>
+      <t id="161">Não há balizas de navegação disponíveis suficientes, e a reposição automática de balizas de navegação está desativada.</t>
+      <t id="162">Não há fuzileiros navais disponíveis para o embarque automático de navios.</t>
+      <t id="163">Atualmente, não há navios abandonados restantes que possamos alcançar ou que precisem ser marcados ou reclamados.</t>
+      <t id="164">Vou começar a procurar navios abandonados no setor %2%1\033X.</t>
+      <t id="165">Marcado: %1\nSetor: %3%2\033X</t>
+      <t id="166">Embarcado: %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="160">\033#FFe27100#Exploração de Navios Abandonados Pausada\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="171">Este script permite que sua nave espacial encontre, marque ou embarque em naves abandonadas em toda a galáxia.</t>
+      <t id="171">Descobre, marca ou embarca em navios abandonados espalhados pela galáxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

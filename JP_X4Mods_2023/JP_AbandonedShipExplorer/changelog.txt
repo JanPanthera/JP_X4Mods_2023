@@ -7,3 +7,7 @@ v2.0.1 -- Current Published Version
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
+
+v2.0.2 -- Current Development Version
+~ Added: More Notificaitons and logging to the logbook
+~ Updated: Several minor enhancements have been made to the code and translations.

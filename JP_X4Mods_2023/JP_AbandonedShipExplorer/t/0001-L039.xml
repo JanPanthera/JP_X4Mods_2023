@@ -21,13 +21,15 @@
       <t id="141">Segna la nave abbandonata</t>
       <t id="142">Salire a bordo della nave abbandonata</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">Non ci sono abbastanza boe di navigazione disponibili, e il rifornimento automatico delle boe di navigazione è disabilitato.</t>
-      <t id="151">Non ci sono marines disponibili per l'imbarco automatico della nave.</t>
-      <t id="152">Non abbiamo trovato nessuna nave abbandonata che possiamo raggiungere o che deve essere segnata o reclamata.</t>
+      <t id="160">\033#FFe27100#Esplorazione Navi Abbandonate in Pausa\033X</t>
+      <t id="161">Non ci sono abbastanza boe di navigazione disponibili, e il riapprovvigionamento automatico delle boe di navigazione è disabilitato.</t>
+      <t id="162">Non ci sono marines disponibili per l'imbarco automatico delle navi.</t>
+      <t id="163">Attualmente, non ci sono navi abbandonate rimaste che possiamo raggiungere o che abbiamo bisogno di marcare o reclamare.</t>
+      <t id="164">Inizierò a cercare navi abbandonate nel settore %2%1\033X.</t>
+      <t id="165">Marcato: %1\nSettore: %3%2\033X</t>
+      <t id="166">Imbarcato: %1\nSettore: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="160">\033#FFe27100#Esplorazione delle navi abbandonate in pausa\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="171">Questo script consente alla tua astronave di trovare, segnare o salire a bordo di navi abbandonate in tutta la galassia.</t>
+      <t id="171">Scopre, segna o salpa navi abbandonate sparse in tutta la galassia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
