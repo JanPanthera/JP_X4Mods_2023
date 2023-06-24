@@ -7,8 +7,8 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="OBJECT" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" type="internal" default="false"/>
-         <param name="WRITE_TO_LOG" type="internal" default="false"/>
+         <param name="SHOW_MESSAGES" type="internal" default="0"/>
+         <param name="WRITE_TO_LOG" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
