@@ -13,3 +13,19 @@
    <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Buildequipment Wares %1'.[@$_Station.buildequipment.wares.list]"/>
    <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
 </do_for_each>
+
+Händlerrang:
+Verkäufer, Fortgeschrittener Verkäufer, Kleinlieferant, Händler, Fortgeschrittener Händler,
+Kaufmann, Fortgeschrittener Kaufmann, Großhändler, Fortgeschrittener Großhändler, Professioneller Großhändler,
+Freibeuter, Berüchtigter Freibeuter, Professioneller Freibeuter, Fabrikant, Fortgeschrittener Fabrikant,
+Professioneller Fabrikant, Unternehmer, Fortgeschrittener Unternehmer, Professioneller Unternehmer, Mogul,
+Fortgeschrittener Mogul, Professioneller Mogul, Magnat, Transportmagnat, Fortgeschrittener Magnat, Professioneller Magnat,
+Ultimativer Magnat, Tycoon, Transporttycoon, Pangalaktischer Tycoon, X-TREME
+
+Kampfrang:
+Harmlos, Anfänger, Erfahren, Rekrut, Schütze, Unteroffizier, Oberleutnant, Leutnant, Ausbilder,
+Feldwebel, Hauptmann, Major, Präzisionsschütze, Scharfschütze, Kommandant, Oberstleutnant,
+Oberst, Kommodore, Vizeadmiral, Admiral, Ass dritter Klasse, Ass zweiter Klasse,
+Ass erster Klasse, Kampfass dritter Klasse, Kampfass zweiter Klasse, Kampfass erster Klasse,
+Ass der Asse dritter Klasse, Ass der Asse zweiter Klasse, Ass der Asse erster Klasse
+Ehrwürdiger Veteran, X-TREME
