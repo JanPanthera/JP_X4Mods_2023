@@ -58,7 +58,7 @@
 
          <!-- Currently, there are no available stations where we could restock our desired equipment. -->
          <do_if value="$_FoundStations.count == 0">
-            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 50}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 50}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 50}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
@@ -92,7 +92,7 @@
 
          <!-- Currently, all discovered stations lack the necessary resources to manufacture the desired equipment. -->
          <do_if value="$_RestockStation" exact="null">
-            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 51}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 51}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 51}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
@@ -102,16 +102,23 @@
             <set_value name="$_RestockPrice" exact="($_RestockStation.buildprice.{$_EquipmentMacro.ware} * ($_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count))Cr" operation="add"/>
          </do_for_each>
 
+         <set_value name="$_NewEquipmentPrice" exact="0Cr"/>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$EQUIPMENT_TABLE">
+            <do_if value="($_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count) gt 0">
+               <set_value name="$_NewEquipmentPrice" exact="($_RestockStation.buildprice.{$_EquipmentMacro.ware} * ($_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count))Cr" operation="add"/>
+            </do_if>
+         </do_for_each>
+
          <!-- We lack the necessary funds to restock the desired equipment. -->
          <do_if value="($_RestockPrice + 100000Cr) gt $_Ship.owner.money">
-            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 52}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 52}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 52}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
          <!-- text like: I will proceed to sell placeables, which are worth %1. -->
-         <set_value name="$_Price" exact="abs($_RestockPrice)"/>
-         <show_help custom="$RESTOCK_TITLE + '\n\n' + $EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <set_value name="$_Price" exact="abs($_NewEquipmentPrice)"/>
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
          <write_to_logbook title="$RESTOCK_TITLE" text="$EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
 
          <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_WantedLoadoutTable" price="$_RestockPrice" immediate="true" result="$_ModifyResult"/>
@@ -123,7 +130,7 @@
                <resume label="RESUME_LBL"/>
             </do_if>
             <!-- The process of creating the restock order has failed. -->
-            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 53}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 53}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 53}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="FINISH_LBL"/>
          </do_if>
