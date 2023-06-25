@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- French ~~ Français -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">Mode ASE</t>
       <t id="101">Recharger les balises de navigation?</t>
       <t id="102">Limite de réapprovisionnement</t>
+      <t id="103">Station sûre</t>
+      <t id="104">Envoyer au recyclage ?</t>
+      <t id="105">Inclure les navires de taille S ?</t>
+      <t id="106">Inclure les navires de taille M ?</t>
+      <t id="107">Inclure les navires de taille L ?</t>
+      <t id="108">Inclure les navires de taille XL ?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Navire abandonné</t>
       <t id="121">Je suis arrivé au navire abandonné :</t>
@@ -16,6 +23,7 @@
       <t id="124">J'ai marqué le navire abandonné et continue avec le suivant.</t>
       <t id="125">J'ai envoyé un marine sur le navire abandonné et j'attends qu'il en ait pris le contrôle.</t>
       <t id="126">Pour garantir la sécurité, notre navire nouvellement revendiqué se dirigera maintenant vers une station pour s'amarrer.</t>
+      <t id="127">Je vais procéder à l'achat de balises de navigation, qui valent :\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Aller vers le navire abandonné</t>
       <t id="141">Marquer le navire abandonné</t>

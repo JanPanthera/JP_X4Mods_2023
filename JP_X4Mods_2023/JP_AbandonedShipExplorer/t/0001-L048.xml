@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">Tryb ASE</t>
       <t id="101">Uzupełnić nawigacyjne boje?</t>
       <t id="102">Limit uzupełnienia</t>
+      <t id="103">Bezpieczna stacja</t>
+      <t id="104">Wysłać do recyklingu?</t>
+      <t id="105">Dołączyć statki klasy S?</t>
+      <t id="106">Dołączyć statki klasy M?</t>
+      <t id="107">Dołączyć statki klasy L?</t>
+      <t id="108">Dołączyć statki klasy XL?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Opuszczony statek</t>
       <t id="121">Dotarłem do opuszczonego statku:</t>
@@ -16,6 +23,7 @@
       <t id="124">Oznaczyłem opuszczony statek i kontynuuję z kolejnym.</t>
       <t id="125">Wysłałem marinesa na opuszczony statek i czekam, aż przejmie nad nim kontrolę.</t>
       <t id="126">Dla zapewnienia bezpieczeństwa, nasz nowo przejęty statek poleci teraz do stacji, aby się zadokować.</t>
+      <t id="127">Zamierzam kupić boje nawigacyjne, które są warte:\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Przejdź do opuszczonego statku</t>
       <t id="141">Oznacz opuszczony statek</t>

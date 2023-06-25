@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- English ~~ English-->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">ASE Mode</t>
       <t id="101">Restock navigation beacons?</t>
       <t id="102">Restock amount cap</t>
+      <t id="103">Safe Station</t>
+      <t id="104">Send to recycle?</t>
+      <t id="105">Include S Ships?</t>
+      <t id="106">Include M Ships?</t>
+      <t id="107">Include L Ships?</t>
+      <t id="108">Include XL Ships?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Abandoned Ship</t>
       <t id="121">I arrived at the abandoned ship:</t>
@@ -16,6 +23,7 @@
       <t id="124">I have marked the abandoned ship and continue with the next one.</t>
       <t id="125">I have sent a marine to the abandoned ship and am waiting until he has taken control of it.</t>
       <t id="126">To ensure safety, our newly claimed ship will now fly to a station to dock.</t>
+      <t id="127">I will proceed to buy navigation beacons, which are worth:\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Move to abandoned ship</t>
       <t id="141">Mark abandoned ship</t>

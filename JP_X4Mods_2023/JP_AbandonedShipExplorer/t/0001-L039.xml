@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Italian ~~ Italiano -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">Modalità ASE</t>
       <t id="101">Rifornire i beacon di navigazione?</t>
       <t id="102">Limite di rifornimento</t>
+      <t id="103">Stazione sicura</t>
+      <t id="104">Inviare al riciclo?</t>
+      <t id="105">Includere navi di dimensione S?</t>
+      <t id="106">Includere navi di dimensione M?</t>
+      <t id="107">Includere navi di dimensione L?</t>
+      <t id="108">Includere navi di dimensione XL?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Nave abbandonata</t>
       <t id="121">Sono arrivato alla nave abbandonata:</t>
@@ -16,6 +23,7 @@
       <t id="124">Ho segnato la nave abbandonata e continuo con la prossima.</t>
       <t id="125">Ho mandato un marine alla nave abbandonata e sto aspettando che ne prenda il controllo.</t>
       <t id="126">Per garantire la sicurezza, la nostra nave appena reclamata volerà ora verso una stazione per attraccare.</t>
+      <t id="127">Procederò all'acquisto di boe di navigazione, che valgono:\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Muoviti verso la nave abbandonata</t>
       <t id="141">Segna la nave abbandonata</t>

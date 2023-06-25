@@ -78,7 +78,7 @@
                </conditions>
                <actions>
 
-                  <set_value name="$DEBUG" exact="0"/>
+                  <set_value name="$DEBUG" exact="100"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
                      <set_value name="$_DebugScriptName" exact="'ASE_Cleanup_MD'"/>
@@ -104,7 +104,12 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 16">
+                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 22">
+                     <do_if value="$DEBUG gt 0">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Settings Reset'"/>
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                     </do_if>
                      <remove_value name="global.$AbandonedShipExplorer_Settings"/>
                   </do_if>
 

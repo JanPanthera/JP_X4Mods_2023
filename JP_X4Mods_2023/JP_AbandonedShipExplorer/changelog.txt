@@ -10,4 +10,7 @@ v2.0.1 -- Current Published Version
 
 v2.0.2 -- Current Development Version
 ~ Added: More Notificaitons and logging to the logbook
+~ Added: Ability to choose where the claimed ship should dock at for safety -- "Safe Station"
+~ Added: Ability to choose which class (S, M, L, XL) of abandoned ships the ship should include -- "Include S Ships?", "Include M Ships?", "Include L Ships?", "Include XL Ships?"
+~ Changed: Now only sectors that are known to the ship (player) will be scanned for abandoned ships.
 ~ Updated: Several minor enhancements have been made to the code and translations.

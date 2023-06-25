@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- German ~~ Deutsch -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">ASE-Modus</t>
       <t id="101">Navigationsbaken aufstocken?</t>
       <t id="102">Nachfüllmengenbegrenzung</t>
+      <t id="103">Sichere Station</t>
+      <t id="104">Zum Recyceln schicken?</t>
+      <t id="105">S-Schiffe einbeziehen?</t>
+      <t id="106">M-Schiffe einbeziehen?</t>
+      <t id="107">L-Schiffe einbeziehen?</t>
+      <t id="108">XL-Schiffe einbeziehen?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Verlassenes Schiff</t>
       <t id="121">Ich bin am verlassenen Schiff angekommen:</t>
@@ -16,6 +23,7 @@
       <t id="124">Ich habe das verlassene Schiff markiert und mache mit dem nächsten weiter.</t>
       <t id="125">Ich habe einen Marine zum verlassenen Schiff geschickt und warte, bis er die Kontrolle darüber übernommen hat.</t>
       <t id="126">Um die Sicherheit zu gewährleisten, wird unser neu beanspruchtes Schiff nun zu einer Station fliegen, um anzudocken.</t>
+      <t id="127">Ich werde mit dem Kauf von Navigationsbaken fortfahren, die einen Wert von %1 haben.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Zum verlassenen Schiff bewegen</t>
       <t id="141">Verlassenes Schiff markieren</t>

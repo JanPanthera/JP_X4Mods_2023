@@ -99,12 +99,13 @@
          </set_object_velocity>
 
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{8888888,120}' + '\033X\033#FF00CCCC#' + ' ~ ' + $_NavBeacon.sector.knownname + '\033X'"/>
-         <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                            {8888888, 121} + '\n' +
-                            $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
-                            {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
-                            {8888888, 124}"
-                    force="true" position="1" allowclose="true"/>
+         <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
+                                         {8888888, 121} + '\n' +
+                                         $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
+                                         {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                                         {8888888, 124}"/>
+         <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+         <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>

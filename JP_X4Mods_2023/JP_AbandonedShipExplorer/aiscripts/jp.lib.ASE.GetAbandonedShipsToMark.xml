@@ -5,6 +5,10 @@
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="OWNERLESS_SECTORS" default="true"/>
+      <param name="INCLUDE_S_SHIPS" default="100"/>
+      <param name="INCLUDE_M_SHIPS" default="100"/>
+      <param name="INCLUDE_L_SHIPS" default="100"/>
+      <param name="INCLUDE_XL_SHIPS" default="100"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="SHOW_MESSAGES" default="0"/>
       <param name="WRITE_TO_LOG" default="0"/>
@@ -51,10 +55,19 @@
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
-         <find_ship name="$_FoundAbandonedShips" space="player.galaxy" multiple="true">
-            <match owner="faction.ownerless"/>
-            <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
-         </find_ship>
+         <create_list name="$_AbandShipClasses"/>
+         <append_to_list name="$_AbandShipClasses" exact="class.ship_s"  chance="$INCLUDE_S_SHIPS"/>
+         <append_to_list name="$_AbandShipClasses" exact="class.ship_m"  chance="$INCLUDE_M_SHIPS"/>
+         <append_to_list name="$_AbandShipClasses" exact="class.ship_l"  chance="$INCLUDE_L_SHIPS"/>
+         <append_to_list name="$_AbandShipClasses" exact="class.ship_xl" chance="$INCLUDE_XL_SHIPS"/>
+
+         <do_if value="$INCLUDE_S_SHIPS or $INCLUDE_M_SHIPS or $INCLUDE_L_SHIPS or $INCLUDE_XL_SHIPS">
+            <find_ship name="$_FoundAbandonedShips" space="player.galaxy" multiple="true">
+               <match owner="faction.ownerless"/>
+               <match class="$_AbandShipClasses"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
+            </find_ship>
+         </do_if>
 
          <!-- Workaround to get blacklists running for abandoned ships -->
          <do_for_each name="$_FoundAbandonedShip" in="$_FoundAbandonedShips" reverse="true">
@@ -64,8 +77,10 @@
                <match owner="$_Ship.owner"/>
                <match_distance object="$_FoundAbandonedShip" space="$_FoundAbandonedShip.sector" max="10km"/>
             </find_object>
+            <check_object result="$_IsSectorKnown" object="$_FoundAbandonedShip.sector" knownto="$_Ship.owner"/>
             <do_if value="($_FoundAbandonedShip.sector.owner == faction.ownerless and not $OWNERLESS_SECTORS) or
                           ($_FoundAbandonedShip.sector.isblacklisted.{blacklisttype.sectoractivity}.{$blacklistgroup}.{$_Ship}) or
+                          not $_IsSectorKnown or
                           @$_NavBeacon != null">
                <remove_from_list name="$_FoundAbandonedShips" exact="$_FoundAbandonedShip"/>
             </do_if>
@@ -79,12 +94,14 @@
          </run_script>
 
          <!-- I will start scout for abandoned ships in sector %2%1\033X. -->
-         <run_script name="'jp.lib.GetFactionColorCode'">
-            <param name="FACTION" value="$_FoundAbandonedShips.{1}.sector.owner"/>
-            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
-         </run_script>
-         <show_help custom="$_ASE_Title + '\n\n' + {8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_ASE_Title" text="{8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$_FoundAbandonedShips.{1}.sector" chance="$WRITE_TO_LOG"/>
+         <do_if value="$_FoundAbandonedShips.count gt 0">
+            <run_script name="'jp.lib.GetFactionColorCode'">
+               <param name="FACTION" value="$_FoundAbandonedShips.{1}.sector.owner"/>
+               <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
+            </run_script>
+            <show_help custom="$_ASE_Title + '\n\n' + {8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_ASE_Title" text="{8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$_FoundAbandonedShips.{1}.sector" chance="$WRITE_TO_LOG"/>
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

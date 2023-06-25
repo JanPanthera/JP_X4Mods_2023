@@ -6,9 +6,10 @@
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="ABANDONED_SHIP" type="internal" default="null"/>
+         <param name="SAFE_STATION"   type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="SHOW_MESSAGES" type="internal" default="0"/>
-         <param name="WRITE_TO_LOG" type="internal" default="0"/>
+         <param name="WRITE_TO_LOG"  type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
@@ -107,12 +108,13 @@
                <param name="recycle" value="false"/>
                <param name="debugchance" value="0"/>
             </start_script>
-            <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                               {8888888, 121} + '\n' +
-                               $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
-                               {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
-                               {8888888, 125}"
-                       force="true" position="1" allowclose="true"/>
+            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
+                                            {8888888, 121} + '\n' +
+                                            $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
+                                            {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                                            {8888888, 125}"/>
+            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
             <wait exact="999h">
                <interrupt>
                   <conditions>
@@ -122,29 +124,34 @@
             </wait>
             <wait exact="5000ms"/>
             <create_list name="$_FoundStations"/>
-            <find_station name="$_FoundStations" sortbydistanceto="$_Ship" space="player.galaxy" multiple="true">
-               <match knownto="$_Ship.owner"/>
-               <match checkoperational="true"/>
-               <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
-            </find_station>
-            <do_if value="$_FoundStations.count gt 0">
+            <do_if value="@$SAFE_STATION.dockingallowed.{$ABANDONED_SHIP}">
+               <append_to_list name="$_FoundStations" exact="$SAFE_STATION"/>
+            </do_if>
+            <do_else>
+               <find_station name="$_FoundStations" functional="true" space="player.galaxy" sortbydistanceto="$_Ship" multiple="true">
+                  <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
+                  <match knownto="$_Ship.owner"/>
+               </find_station>
+            </do_else>
+            <do_if value="$_FoundStations.count gt 1">
                <run_script name="'jp.lib.SortByEstimatedTravelTime'">
                   <param name="LIST" value="$_FoundStations"/>
                   <save_retval name="_SortedList" variable="$_FoundStations"/>
                </run_script>
-               <do_for_each name="$_FoundStation" in="$_FoundStations">
-                  <do_if value="$_FoundStation.dockingallowed.{$ABANDONED_SHIP}">
-                     <create_order id="'DockAndWait'" object="$ABANDONED_SHIP">
-                        <param name="destination" value="$_FoundStation"/>
-                     </create_order>
-                     <break/>
-                  </do_if>
-               </do_for_each>
             </do_if>
-            <show_help custom="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                               {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
-                               {8888888, 126}"
-                       force="true" position="1" allowclose="true"/>
+            <do_for_each name="$_FoundStation" in="$_FoundStations">
+               <do_if value="$_FoundStation.dockingallowed.{$ABANDONED_SHIP}">
+                  <create_order id="'DockAndWait'" object="$ABANDONED_SHIP">
+                     <param name="destination" value="$_FoundStation"/>
+                  </create_order>
+                  <break/>
+               </do_if>
+            </do_for_each>
+            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
+                                            {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                                            {8888888, 126}"/>
+            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
          </do_if>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spanish ~~ Español -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">Modo ASE</t>
       <t id="101">¿Reponer balizas de navegación?</t>
       <t id="102">Límite de reposición</t>
+      <t id="103">Estación segura</t>
+      <t id="104">¿Enviar a reciclar?</t>
+      <t id="105">¿Incluir naves S?</t>
+      <t id="106">¿Incluir naves M?</t>
+      <t id="107">¿Incluir naves L?</t>
+      <t id="108">¿Incluir naves XL?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Nave abandonada</t>
       <t id="121">He llegado a la nave abandonada:</t>
@@ -16,6 +23,7 @@
       <t id="124">He marcado la nave abandonada y continuo con la siguiente.</t>
       <t id="125">He enviado un marine a la nave abandonada y estoy esperando hasta que él haya tomado el control de ella.</t>
       <t id="126">Para garantizar la seguridad, nuestra nave recién reclamada volará ahora a una estación para atracar.</t>
+      <t id="127">Procederé a comprar balizas de navegación, que valen:\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Ir a la nave abandonada</t>
       <t id="141">Marcar la nave abandonada</t>

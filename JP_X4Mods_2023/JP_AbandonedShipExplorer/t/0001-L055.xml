@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -8,6 +9,12 @@
       <t id="100">Modo ASE</t>
       <t id="101">Reabastecer balizas de navegação?</t>
       <t id="102">Limite de reabastecimento</t>
+      <t id="103">Estação segura</t>
+      <t id="104">Enviar para reciclagem?</t>
+      <t id="105">Incluir navios de tamanho S?</t>
+      <t id="106">Incluir navios de tamanho M?</t>
+      <t id="107">Incluir navios de tamanho L?</t>
+      <t id="108">Incluir navios de tamanho XL?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Nave abandonada</t>
       <t id="121">Cheguei na nave abandonada:</t>
@@ -16,6 +23,7 @@
       <t id="124">Marquei a nave abandonada e continuo com a próxima.</t>
       <t id="125">Enviei um fuzileiro naval para a nave abandonada e estou esperando até que ele tenha assumido o controle dela.</t>
       <t id="126">Para garantir a segurança, nossa nave recém-reivindicada agora voará para uma estação para atracar.</t>
+      <t id="127">Vou proceder para comprar balizas de navegação, que valem:\n%1.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="140">Mover para a nave abandonada</t>
       <t id="141">Marcar nave abandonada</t>
