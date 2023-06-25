@@ -70,6 +70,12 @@
       <t id="100">ASE Mode</t>
       <t id="101">Restock navigation beacons?</t>
       <t id="102">Restock amount cap</t>
+      <t id="103">Safe Station</t>
+      <t id="104">Send to recycle?</t>
+      <t id="105">Include S Ships?</t>
+      <t id="106">Include M Ships?</t>
+      <t id="107">Include L Ships?</t>
+      <t id="108">Include XL Ships?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="120">Abandoned Ship</t>
       <t id="121">I arrived at the abandoned ship:</t>
@@ -83,11 +89,13 @@
       <t id="141">Mark abandoned ship</t>
       <t id="142">Board abandoned ship</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="150">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
-      <t id="151">No marines are available for automatic ship boarding.</t>
-      <t id="152">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="160">\033#FFe27100#Abandoned Ships Exploration Paused\033X</t>
+      <t id="161">There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled.</t>
+      <t id="162">No marines are available for automatic ship boarding.</t>
+      <t id="163">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
+      <t id="164">I will start scout for abandoned ships in sector %2%1\033X.</t>
+      <t id="165">Marked: %1\nSector: %3%2\033X</t>
+      <t id="166">Boarded: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Uncovers, marks, or boards abandoned ships scattered across the galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
