@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Spanish ~~ Español -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -32,12 +33,15 @@
       <t id="40">Inactivo</t>
       <t id="41">Moverse al Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">Actualmente, no hay estaciones disponibles donde podríamos reponer nuestro equipo deseado.</t>
-      <t id="51">Actualmente, todas las estaciones descubiertas carecen de los recursos necesarios para fabricar el equipo deseado.</t>
-      <t id="52">Nos faltan los fondos necesarios para reponer el equipo deseado.</t>
-      <t id="53">El proceso de creación de la orden de reposición ha fallado.</t>
-      <t id="54">La orden de reposición de equipo ha fallado. Más detalles están disponibles en el libro de registro.</t>
-      <t id="55">Cambiaré al modo de espera e intentaré nuevamente más tarde.</t>
+      <t id="50">Actualmente, no hay estaciones disponibles donde podríamos reabastecer nuestro equipo deseado.</t>
+      <t id="51">Actualmente, todas las estaciones disponibles carecen de los recursos necesarios para fabricar el equipo necesario.\nIré a la estación más cercana, haré una solicitud de reabastecimiento, y luego esperaré la próxima reposición de recursos.</t>
+      <t id="52">Nos faltan los fondos necesarios para reabastecer el equipo deseado.</t>
+      <t id="53">El proceso de creación del pedido de reabastecimiento ha fallado.</t>
+      <t id="54">El pedido de reabastecimiento de equipo ha fallado. Más detalles están disponibles en el registro.</t>
+      <t id="55">Voy a cambiar a modo inactivo y lo intentaré de nuevo más tarde.</t>
+      <t id="56">Costo de cambio de equipo: %1\n</t>
+      <t id="57">\nVendo equipo por %1</t>
+      <t id="58">\nCompro equipo por %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Fallo en el cambio de equipo\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

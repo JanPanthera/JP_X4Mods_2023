@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -32,12 +33,15 @@
       <t id="40">Bezczynny</t>
       <t id="41">Przenieś do Sektora</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">Obecnie nie ma dostępnych stacji, na których moglibyśmy uzupełnić zapasy pożądanego sprzętu.</t>
-      <t id="51">Obecnie wszystkie odkryte stacje nie mają niezbędnych zasobów do wyprodukowania pożądanego sprzętu.</t>
-      <t id="52">Brakuje nam niezbędnych funduszy, aby uzupełnić zapasy pożądanego sprzętu.</t>
+      <t id="50">Obecnie nie ma dostępnych stacji, na których moglibyśmy uzupełnić zapas naszego pożądanego sprzętu.</t>
+      <t id="51">Obecnie wszystkie dostępne stacje nie mają wymaganych zasobów do wyprodukowania niezbędnego sprzętu.\nUdam się do najbliższej stacji, złożę prośbę o uzupełnienie zapasów, a następnie poczekam na następne uzupełnienie zasobów.</t>
+      <t id="52">Brakuje nam niezbędnych funduszy na uzupełnienie zapasów pożądanego sprzętu.</t>
       <t id="53">Proces tworzenia zamówienia na uzupełnienie zapasów nie powiódł się.</t>
-      <t id="54">Zamówienie na uzupełnienie zapasów sprzętu nie powiodło się. Więcej szczegółów znajduje się w dzienniku pokładowym.</t>
-      <t id="55">Przełączę się w tryb bezczynności i spróbuję ponownie później.</t>
+      <t id="54">Zamówienie na uzupełnienie zapasów sprzętu nie powiodło się. Więcej szczegółów znajduje się w dzienniku.</t>
+      <t id="55">Przejdę w tryb bezczynności i spróbuję ponownie później.</t>
+      <t id="56">Koszt zmiany sprzętu: %1\n</t>
+      <t id="57">\nSprzedaję sprzęt za %1</t>
+      <t id="58">\nKupuję sprzęt za %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Niepowodzenie zmiany sprzętu\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Italian ~~ Italiano -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -33,11 +34,14 @@
       <t id="41">Spostarsi nel Settore</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Al momento, non ci sono stazioni disponibili dove potremmo rifornire la nostra attrezzatura desiderata.</t>
-      <t id="51">Al momento, tutte le stazioni scoperte mancano delle risorse necessarie per fabbricare l'attrezzatura desiderata.</t>
-      <t id="52">Ci mancano i fondi necessari per rifornire l'attrezzatura desiderata.</t>
+      <t id="51">Al momento, tutte le stazioni disponibili mancano delle risorse necessarie per produrre l'attrezzatura necessaria.\nAndrò alla stazione più vicina, farò una richiesta di rifornimento, e poi aspetterò il prossimo rifornimento di risorse.</t>
+      <t id="52">Manciamo dei fondi necessari per rifornire l'attrezzatura desiderata.</t>
       <t id="53">Il processo di creazione dell'ordine di rifornimento è fallito.</t>
-      <t id="54">L'ordine di rifornimento dell'attrezzatura è fallito. Maggiori dettagli sono disponibili nel registro di bordo.</t>
-      <t id="55">Passerò in modalità inattiva e riproverò più tardi.</t>
+      <t id="54">L'ordine di rifornimento di attrezzature è fallito. Più dettagli sono disponibili nel registro.</t>
+      <t id="55">Passerò in modalità inattiva e proverò di nuovo più tardi.</t>
+      <t id="56">Costo del cambio di attrezzatura: %1\n</t>
+      <t id="57">\nVendo attrezzatura per %1</t>
+      <t id="58">\nCompro attrezzatura per %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Fallimento nel cambio di equipaggiamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

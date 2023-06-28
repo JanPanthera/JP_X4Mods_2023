@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_ScriptLibrary -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1">Skokové brány?</t>
+      <t id="2">Aktivní skokové brány?</t>
+      <t id="3">Neaktivní skokové brány?</t>
+      <t id="4">Akcelerátory?</t>
+      <t id="5">Aktivní akcelerátory?</t>
+      <t id="6">Neaktivní akcelerátory?</t>
+      <t id="7">Dálnice?</t>
+      <t id="8">Aktivní dálnice?</t>
+      <t id="9">Neaktivní dálnice?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="10">Stanice?</t>
+      <t id="11">Přístavy?</t>
+      <t id="12">Loděnice?</t>
+      <t id="13">Doky pro vybavení?</t>
+      <t id="14">Obchodní stanice?</t>
+      <t id="15">Pirátské základny?</t>
+      <t id="16">Zařízení pro zpracování odpadu?</t>
+      <t id="17">Obranné stanice?</t>
+      <t id="18">Hlavní stanice frakcí?</t>
+      <t id="19">Továrny?</t>
+      <t id="20">Staveniště?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="30">Sektory bez vlastníka?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="40">Nečinný</t>
+      <t id="41">Přesunout do sektoru</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="50">V současné době nejsou k dispozici žádné stanice, kde bychom mohli doplnit naše požadované vybavení.</t>
+      <t id="51">V současné době všechny dostupné stanice postrádají potřebné zdroje pro výrobu potřebného vybavení.\nOdeberu se na nejbližší stanici, zadám požadavek na doplnění zásob a poté budu čekat na další doplnění zdrojů.</t>
+      <t id="52">Nemáme dostatek finančních prostředků na doplnění požadovaného vybavení.</t>
+      <t id="53">Proces vytváření objednávky na doplnění zásob selhal.</t>
+      <t id="54">Objednávka na doplnění vybavení selhala. Více detailů je k dispozici v palubním deníku.</t>
+      <t id="55">Přepnu se do nečinného režimu a zkusím to později znovu.</t>
+      <t id="56">Náklady na výměnu vybavení: %1\n</t>
+      <t id="57">\nProdávám vybavení za %1</t>
+      <t id="58">\nKupuji vybavení za %1</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="60">\033#FFe27100#Selhání při výměně vybavení\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="80">Doba nečinnosti</t>
+      <t id="81">Nečinný: Přesunout na?</t>
+      <t id="82">Kam se přesunout?</t>
+      <t id="83">Nečinný: Sledovat?</t>
+      <t id="84">Koho sledovat?</t>
+      <t id="85">Nečinný: Dokování?</t>
+      <t id="86">Najít stanici?</t>
+      <t id="87">Kde dokovat?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="90">Zobrazit zprávy?</t>
+      <t id="91">Zapsat do palubního deníku?</t>
+      <t id="92">Přidat štítek k objednávce?</t>
+      <t id="93">Uložit nastavení objednávky?</t>
+      <t id="94">Resetovat nastavení objednávky?</t>
+      <t id="95">Nastavení objednávky uloženo.</t>
+      <t id="96">Nastavení objednávky resetováno.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

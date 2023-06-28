@@ -15,8 +15,6 @@
          <param name="FIND_STATION"   type="internal" default="null"/>
          <param name="WHERE_TO_DOCK"  type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_ScriptLibrary.logs'"/>
-         <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
@@ -36,6 +34,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
       <do_if value="not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING">
@@ -43,8 +42,12 @@
          <set_value name="$WHERE_TO_MOVE" exact="$START_POSITION"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.IdleReturnHome'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -110,11 +113,8 @@
                      <match checkoperational="true"/>
                      <match_relation_to faction="$_Ship.owner" comparison="ge" relation="dock"/>
                   </find_station>
-                  <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_FoundStations">
                      <param name="LIST" value="$_FoundStations"/>
-                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-                     <param name="DEBUG" value="$DEBUG"/>
-                     <save_retval name="_SortedList" variable="$_FoundStations"/>
                   </run_script>
                   <do_for_each name="$_FoundStation" in="$_FoundStations">
                      <do_if value="$_FoundStation.dockingallowed.{$_Ship}">

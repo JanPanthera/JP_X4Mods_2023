@@ -6,8 +6,6 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="FACTION_RELATION" default="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG_FOLDER_NAME" default="'JP_ScriptLibrary.logs'"/>
-      <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
@@ -15,9 +13,12 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.GetFactionRelationColorCode'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -41,10 +42,6 @@
 
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <!--
-           The initial value represents the starting value of the color transition.
-           The transition range determines how quickly the transition occurs.
-         -->
          <set_value name="$_Table" exact="table[]"/>
          <set_value name="$_Table.{-30}" exact="[[255,   0,   0], [255,   0,   0], 30.0,  1.0]" comment="[Red     to Red,     Initial value: 30.0, Transition range:  1.0]"/>
          <set_value name="$_Table.{-10}" exact="[[255,   0,   0], [255, 100, 100], 30.0, 20.0]" comment="[Red     to L.Red,   Initial value: 30.0, Transition range: 20.0]"/>
@@ -68,14 +65,11 @@
             </do_if>
          </do_for_each>
 
-         <run_script name="'jp.lib.ConvertARGBtoHex'">
+         <run_script name="'jp.lib.ConvertARGBtoHex'" result="$_FactionRelationColorCode">
             <param name="ALPHA" value="255"/>
             <param name="RED" value="$_R"/>
             <param name="GREEN" value="$_G"/>
             <param name="BLUE" value="$_B"/>
-            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-            <param name="DEBUG" value="$DEBUG"/>
-            <save_retval name="_HexColorString" variable="$_FactionRelationColorCode"/>
          </run_script>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -87,10 +81,7 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return>
-            <retval name="_FactionRelationColorCode" value="$_FactionRelationColorCode"/>
-            <retval name="_RGB" value="[$_R, $_G, $_B]"/>
-         </return>
+         <return value="$_FactionRelationColorCode"/>
 
       </actions>
    </attention>

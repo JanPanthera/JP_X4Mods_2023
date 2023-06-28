@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.RestockDeployables" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- Table with amounts mapped to deployables macros -->
+      <!-- Amounts are what we want at the end of the restock.. not the amount we need to change -->
+      <!-- If we go over the capacity of the ship, the $DEPLOYABLE_TABLE will be capped to the capacity -->
+      <param name="DEPLOYABLE_TABLE" default="table[]"/>
+      <param name="FORCE_RERSTOCK" default="false"/>
+      <param name="PURCHASE_THRESHOLD" default="100000Cr"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="RESTOCK_TITLE" default="'TODO: RESTOCK_TITLE'"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="debugchance" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_Result" exact="'Failed'"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_DeployablesCapacity" exact="$_Ship.ammostorage.deployable.capacity"/>
+      <set_value name="$_DeployablesFreeStorage" exact="$_Ship.ammostorage.deployable.free"/>
+      <set_value name="$_DeployablesToBuy" exact="table[]"/>
+      <set_value name="$_DeployablesToBuyAmount" exact="0"/>
+      <set_value name="$_DeployablesToSell" exact="table[]"/>
+      <set_value name="$_DeployablesToSellAmount" exact="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.RestockDeployables'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <set_command command="command.resupply"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <!-- Calculate the total amount of storage needed for the deployables inside the $DEPLOYABLE_TABLE -->
+         <set_value name="$_TotalStorageNeeded" exact="0"/>
+         <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$DEPLOYABLE_TABLE">
+            <set_value name="$_TotalStorageNeeded" exact="$_DeployableAmount" operation="add"/>
+         </do_for_each>
+
+         <!-- If there are more deployables in the $DEPLOYABLE_TABLE than the ship can hold,
+              we need to cap the $DEPLOYABLE_TABLE to the capacity of the ship. -->
+         <do_if value="$_TotalStorageNeeded gt $_DeployablesCapacity">
+            <do_while value="$_TotalStorageNeeded gt $_DeployablesCapacity">
+               <wait exact="1ms" comment="In case of an endless loop, the game will freeze if there is no wait."/>
+               <set_value name="$_HighestAmount" exact="0"/>
+               <set_value name="$_HighestMacro" exact="null"/>
+               <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$DEPLOYABLE_TABLE">
+                  <do_if value="$_DeployableAmount gt $_HighestAmount">
+                     <set_value name="$_HighestAmount" exact="$_DeployableAmount"/>
+                     <set_value name="$_HighestMacro" exact="$_DeployableMacro"/>
+                  </do_if>
+               </do_for_each>
+               <set_value name="$DEPLOYABLE_TABLE.{$_HighestMacro}" exact="1" operation="subtract"/>
+               <set_value name="$_TotalStorageNeeded"               exact="1" operation="subtract"/>
+            </do_while>
+         </do_if>
+
+         <!-- Populate the $_DeployablesToBuy and $_DeployablesToSell tables with
+              the macros and amounts of the deployables we need to buy and sell. -->
+         <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$DEPLOYABLE_TABLE">
+            <do_if value="$_DeployableAmount gt $_Ship.ammostorage.{$_DeployableMacro}.count">
+               <set_value name="$_DeployablesToBuy.{$_DeployableMacro}" exact="$_DeployableAmount - $_Ship.ammostorage.{$_DeployableMacro}.count" operation="add"/>
+               <set_value name="$_DeployablesToBuyAmount"               exact="$_DeployableAmount - $_Ship.ammostorage.{$_DeployableMacro}.count" operation="add"/>
+            </do_if>
+            <do_if value="$_DeployableAmount lt $_Ship.ammostorage.{$_DeployableMacro}.count">
+               <set_value name="$_DeployablesToSell.{$_DeployableMacro}" exact="$_Ship.ammostorage.{$_DeployableMacro}.count - $_DeployableAmount" operation="add"/>
+               <set_value name="$_DeployablesToSellAmount"               exact="$_Ship.ammostorage.{$_DeployableMacro}.count - $_DeployableAmount" operation="add"/>
+            </do_if>
+         </do_for_each>
+
+         <set_value name="$_TotalFreeStorage" exact="($_DeployablesFreeStorage + $_DeployablesToSellAmount)"/>
+
+         <!-- Not enough storage for the wanted Deployables and we are not allowed to sell any. -->
+         <!-- Should not occcur, but just in case the script that calls this script has forgotten to check for this. -->
+         <do_if value="not $FORCE_RERSTOCK and $_TotalFreeStorage == 0">
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Our storage is full and we are not allowed to sell any Deployables ~ $FORCE_RERSTOCK is false!'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+            <return value="'Failed'"/>
+         </do_if>
+
+         <do_if value="$FORCE_RERSTOCK and $_TotalFreeStorage lt $_DeployablesToBuyAmount">
+
+            <!-- We are allowed to sell some Deployables to make room for the wanted Deployables.
+                 So let's find out which Deployables we can sell. -->
+            <set_value name="$_PossibleSellableDeployables" exact="$_Ship.ammostorage.deployable.table"/>
+            <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$_DeployablesToBuy">
+               <set_value name="$_PossibleSellableDeployables.{$_DeployableMacro}" exact="0" operation="set"/>
+            </do_for_each>
+            <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$_DeployablesToSell">
+               <set_value name="$_PossibleSellableDeployables.{$_DeployableMacro}" exact="$_DeployableAmount" operation="subtract"/>
+            </do_for_each>
+            <set_value name="$_PossibleSellableDeployablesAmount" exact="0"/>
+            <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$_PossibleSellableDeployables">
+               <set_value name="$_PossibleSellableDeployablesAmount" exact="$_DeployableAmount" operation="add"/>
+            </do_for_each>
+
+            <!-- Add the Deployables we can sell to the $_DeployablesToSell table. -->
+            <do_while value="$_DeployablesToBuyAmount - $_TotalFreeStorage gt 0">
+               <wait exact="1ms" comment="In case of an endless loop, the game will freeze if there is no wait."/>
+               <do_if value="$_PossibleSellableDeployablesAmount == 0">
+                  <break/>
+               </do_if>
+               <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$_PossibleSellableDeployables">
+                  <do_if value="$_DeployableAmount gt 0">
+                     <set_value name="$_DeployablesToSell.{$_DeployableMacro}"           exact="1" operation="add"/>
+                     <set_value name="$_DeployablesToSellAmount"                         exact="1" operation="add"/>
+                     <set_value name="$_PossibleSellableDeployables.{$_DeployableMacro}" exact="1" operation="subtract"/>
+                     <set_value name="$_PossibleSellableDeployablesAmount"               exact="1" operation="subtract"/>
+                     <set_value name="$_TotalFreeStorage"                                exact="1" operation="add"/>
+                  </do_if>
+               </do_for_each>
+            </do_while>
+
+         </do_if>
+
+         <!-- Either we are allowed to sell Deployables to make space and there are not enough,
+              or we are not allowed to sell Deployables and we have not enough free storage.
+              Cap the deployables we want to buy to the amount of free storage we have. -->
+         <do_if value="$_TotalFreeStorage lt $_DeployablesToBuyAmount">
+            <do_while value="$_DeployablesToBuyAmount - $_TotalFreeStorage">
+               <wait exact="1ms" comment="In case of an endless loop, the game will freeze if there is no wait."/>
+               <do_for_each name="$_DeployableMacro" valuename="$_DeployableAmount" in="$_DeployablesToBuy">
+                  <do_if value="$_DeployablesToBuyAmount - $_TotalFreeStorage == 0">
+                     <break/>
+                  </do_if>
+                  <set_value name="$_DeployablesToBuy.{$_DeployableMacro}" exact="1" operation="subtract"/>
+                  <set_value name="$_DeployablesToBuyAmount"               exact="1" operation="subtract"/>
+               </do_for_each>
+            </do_while>
+         </do_if>
+
+         <!-- Create and populate the table that is used by add_build_to_modify_ship, 
+              by first adding all current Deployables, ammo and countermeasures to the table.
+              Then remove the Deployables we want to sell and add the Deployables we want to buy. -->
+         <set_value name="$_ModifiedEquipmentTable" exact="table[]"/>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_Ship.ammostorage.missile.table">
+            <set_value name="$_ModifiedEquipmentTable.{$_EquipmentMacro}" exact="$_EquipmentAmount"/>
+         </do_for_each>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_Ship.ammostorage.countermeasure.table">
+            <set_value name="$_ModifiedEquipmentTable.{$_EquipmentMacro}" exact="$_EquipmentAmount"/>
+         </do_for_each>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_Ship.ammostorage.deployable.table">
+            <set_value name="$_ModifiedEquipmentTable.{$_EquipmentMacro}" exact="$_EquipmentAmount"/>
+         </do_for_each>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToSell">
+            <set_value name="$_ModifiedEquipmentTable.{$_EquipmentMacro}" exact="$_DeployablesToSell.{$_EquipmentMacro}" operation="subtract"/>
+         </do_for_each>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
+            <set_value name="$_ModifiedEquipmentTable.{$_EquipmentMacro}" exact="$_DeployablesToBuy.{$_EquipmentMacro}" operation="add"/>
+         </do_for_each>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <!-- Find Stations where we can restock -->
+         <create_list name="$_FoundStations"/>
+         <run_script name="'jp.lib.FindStationToEquipAt'" result="$_FoundStations"/>
+
+         <!-- Message ~ Currently, there are no available stations where we could restock our desired equipment.
+                        Normally, this should not happen, but if it does, we will just get a message anyway. -->
+         <do_if value="$_FoundStations.count == 0">
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 50}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 50}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <!-- When we have Deployables to buy check all Stations if they have the needed resources -->
+         <set_value name="$_RestockStation" exact="null"/>
+         <do_if value="$_DeployablesToBuyAmount gt 0">
+            <set_value name="$_StationWareCheckTable" exact="table[]"/>
+            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
+               <set_value name="$_StationWareCheckTable.{$_EquipmentMacro.ware}" exact="$_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count"/>
+            </do_for_each>
+            <do_for_each name="$_Station" in="$_FoundStations">
+               <do_if value="$_Station.hasresourcesfor.{$_StationWareCheckTable}">
+                  <set_value name="$_RestockStation" exact="$_Station"/>
+                  <break/>
+               </do_if>
+            </do_for_each>
+            <remove_value name="$_StationWareCheckTable"/>
+            <!-- Message ~ At present, all discovered stations are insufficient in the necessary resources to fabricate the required equipment.
+                           The intended strategy is to navigate to the nearest station,
+                           generate a restock order, and await the subsequent resource replenishment. -->
+            <do_if value="$_RestockStation" exact="null">
+               <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 51}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+               <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 51}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+            </do_if>
+         </do_if>
+
+         <!-- Fall back to the first station if none of them has enough resources, or if we have nothing to buy. -->
+         <do_if value="$_RestockStation" exact="null">
+            <set_value name="$_RestockStation" exact="$_FoundStations.{1}"/>
+         </do_if>
+
+         <!-- Calculate the price for all the Deployables that we want to buy -->
+         <set_value name="$_TotalBuyPrice" exact="0Cr"/>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
+            <set_value name="$_TotalBuyPrice" exact="($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount)Cr" operation="add"/>
+         </do_for_each>
+
+         <!-- Calculate the price for all the Deployables that we want to sell -->
+         <set_value name="$_TotalSellPrice" exact="0Cr"/>
+         <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToSell">
+            <set_value name="$_TotalSellPrice" exact="($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount)Cr" operation="add"/>
+         </do_for_each>
+
+         <!-- Calculate the total price for the restock -->
+         <set_value name="$_RestockPrice" exact="$_TotalBuyPrice - $_TotalSellPrice"/>
+
+         <!-- We lack the necessary funds to restock the desired equipment. -->
+         <do_if value="($_RestockPrice + $_PurchaseThreshold) gt $_Ship.owner.money">
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 52}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 52}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockStation: %1 [%2]'.[$_RestockStation.knownname, $_RestockStation.idcode]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_TotalBuyPrice: %1'.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_TotalSellPrice: %1'.[$_TotalSellPrice.formatted.{'%.s %Cr'}]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockPrice: %1'.[$_RestockPrice.formatted.{'%.s %Cr'}]"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <!-- Create the text for the logbook and the message -->
+         <set_value name="$_Text" exact="{8888888, 56}.[$_RestockPrice.formatted.{'%.s %Cr'}]"/>
+
+         <do_if value="$_DeployablesToSellAmount gt 0">
+            <set_value name="$_Text" exact="{8888888, 57}.[$_TotalSellPrice.formatted.{'%.s %Cr'}]"/>
+            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToSell">
+               <set_value name="$_SellPrice" exact="(abs($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount))Cr"/>
+               <set_value name="$_Text" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_SellPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+            </do_for_each>
+            <do_if value="$_DeployablesToBuyAmount gt 0">
+               <set_value name="$_Text" exact="'\n'" operation="add"/>
+            </do_if>
+         </do_if>
+
+         <do_if value="$_DeployablesToBuyAmount gt 0">
+            <set_value name="$_Text" exact="{8888888, 58}.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]"/>
+            <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
+               <set_value name="$_BuyPrice" exact="(abs($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount))Cr"/>
+               <set_value name="$_Text" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_BuyPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+            </do_for_each>
+         </do_if>
+
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 1 then 100 else 0"/>
+         <write_to_logbook title="$RESTOCK_TITLE" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 1 then 100 else 0"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_ModifiedEquipmentTable" price="$_RestockPrice" immediate="true" result="$_ModifyResult"/>
+
+         <!-- The process of creating the restock order has failed. -->
+         <do_if value="not $_ModifyResult">
+            <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 53}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+            <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 53}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <set_value name="$_Result" exact="'Success'"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return value="$_Result"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

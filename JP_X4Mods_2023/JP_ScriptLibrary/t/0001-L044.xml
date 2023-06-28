@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- English ~~ English-->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -33,11 +34,14 @@
       <t id="41">Move to Sector</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Currently, there are no available stations where we could restock our desired equipment.</t>
-      <t id="51">Currently, all discovered stations lack the necessary resources to manufacture the desired equipment.</t>
+      <t id="51">Currently, all available stations lack the required resources to manufacture the necessary equipment.\nI will go to the nearest station, place a request for restocking, and then await the next resource replenishment.</t>
       <t id="52">We lack the necessary funds to restock the desired equipment.</t>
       <t id="53">The process of creating the restock order has failed.</t>
       <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
       <t id="55">I will switch to idle mode and try again later.</t>
+      <t id="56">Equipment change cost: %1\n</t>
+      <t id="57">\nI sell equipment for %1</t>
+      <t id="58">\nI buy equipment for %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

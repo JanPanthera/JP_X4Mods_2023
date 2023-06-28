@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- French ~~ Français -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -32,12 +33,15 @@
       <t id="40">Au repos</t>
       <t id="41">Déplacer vers le Secteur</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="50">Actuellement, il n'y a pas de stations disponibles où nous pourrions renouveler notre équipement souhaité.</t>
-      <t id="51">Actuellement, toutes les stations découvertes manquent des ressources nécessaires pour fabriquer l'équipement souhaité.</t>
-      <t id="52">Nous manquons des fonds nécessaires pour renouveler l'équipement souhaité.</t>
-      <t id="53">Le processus de création de l'ordre de réapprovisionnement a échoué.</t>
-      <t id="54">La commande de réapprovisionnement en équipement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
-      <t id="55">Je vais passer en mode inactif et réessayer plus tard.</t>
+      <t id="50">Actuellement, il n'y a pas de stations disponibles où nous pourrions réapprovisionner notre équipement souhaité.</t>
+      <t id="51">Actuellement, toutes les stations disponibles manquent des ressources nécessaires pour fabriquer l'équipement nécessaire.\nJe vais à la station la plus proche, fais une demande de réapprovisionnement, puis attends le prochain réapprovisionnement en ressources.</t>
+      <t id="52">Nous manquons des fonds nécessaires pour réapprovisionner l'équipement souhaité.</t>
+      <t id="53">Le processus de création de la commande de réapprovisionnement a échoué.</t>
+      <t id="54">La commande de réapprovisionnement d'équipement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
+      <t id="55">Je vais passer en mode veille et réessayer plus tard.</t>
+      <t id="56">Coût du changement d'équipement : %1\n</t>
+      <t id="57">\nJe vends de l'équipement pour %1</t>
+      <t id="58">\nJ'achète de l'équipement pour %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Échec du changement d'équipement\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
