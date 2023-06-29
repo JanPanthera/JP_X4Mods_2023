@@ -122,7 +122,7 @@
                      </do_for_each>
                   </do_if>
 
-                  <do_if  value="@global.$SD_SectorBlacklist != null">
+                  <do_if value="@global.$SD_SectorBlacklist != null">
                      <do_for_each name="$_Ship" in="global.$SD_SectorBlacklist">
                         <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
                            <remove_value name="global.$SD_SectorBlacklist.{$_Ship}"/>

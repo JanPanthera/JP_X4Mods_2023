@@ -40,4 +40,5 @@ v1.0.6 -- Current Development Version
          This issue caused the ship to dock and wait for resources, potentially for an extended period of time, depending on when the station was resupplied with resources.
 ~ Fixed: Rare case where the Sector selection could fail.
 ~ Changed: Moved some translations to the JP_ScriptLibrary.
+~ Updated: More optimizations for the greedy algorithm (position choosing for satellites).
 ~ Updated: Several code cleanup and translations changes.

@@ -109,8 +109,8 @@
             <!-- Placed satellite to %1\nSector: %3%2\033X -->
             <set_value name="$_Text" exact="{8888888, 1465}.[$OBJECT.knownname, $OBJECT.sector.knownname, $_ObjectSectorOwnerColor]"/>
          </do_else>
-         <show_help custom="$_SD_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES == 3 then 100 else 0"/>
-         <write_to_logbook title="$_SD_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$OBJECT" chance="if $WRITE_TO_LOG == 3 then 100 else 0"/>
+         <show_help custom="$_SD_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+         <write_to_logbook title="$_SD_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$OBJECT" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

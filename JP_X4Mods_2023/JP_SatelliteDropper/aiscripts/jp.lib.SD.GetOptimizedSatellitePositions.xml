@@ -49,42 +49,42 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <create_list name="$_OptimizedObjects"/>
+         <create_list name="$_MostCoveringObject"/>
+         <append_to_list name="$_MostCoveringObject" exact="null"/>
+         <append_to_list name="$_MostCoveringObject" exact="null"/>
          <do_for_each name="$_SatelliteMacro" in="$_SatelliteMacros" counter="$_ActualIteration">
-            <do_while value="$OBJECTS.count gt 0">
-               <wait exact="100ms"/>
-               <set_value name="$_MaxAmountCovered" exact="0"/>
-               <set_value name="$_MaxCoverObject" exact="$OBJECTS.{1}"/>
-               <set_value name="$_CanTheNextSatelliteCoverIt" exact="true"/>
-               <do_for_each name="$_Object" in="$OBJECTS">
-                  <create_list name="$_ObjectsInRange"/>
-                  <do_for_each name="$_PotentialObject" in="$OBJECTS">
-                     <do_if value="$_Object.distanceto.{$_PotentialObject} le $_SatelliteMacro.{2}">
-                        <do_if value="$_ActualIteration != $_SatelliteMacros.count">
-                           <do_if value="$_Object.distanceto.{$_PotentialObject} gt $_SatelliteMacros.{($_ActualIteration + 1)}.{2}">
-                              <set_value name="$_CanTheNextSatelliteCoverIt" exact="false"/>
-                           </do_if>
-                        </do_if>
-                        <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
-                     </do_if>
-                  </do_for_each>
-                  <do_if value="$_ObjectsInRange.count gt $_MaxAmountCovered">
-                     <set_value name="$_MaxAmountCovered" exact="$_ObjectsInRange.count"/>
-                     <set_value name="$_MaxCoverObject" exact="$_Object"/>
+            <set_value name="$_MostCoveringObject.{1}" exact="$OBJECTS.{1}"/>
+            <set_value name="$_MostCoveringObject.{2}" exact="$_SatelliteMacro.{1}"/>
+            <create_list name="$_MostCoveringObjectObjects"/>
+            <set_value name="$_MaxAmountCovered" exact="0"/>
+            <do_for_each name="$_Object" in="$OBJECTS">
+               <create_list name="$_ObjectsInRange"/>
+               <do_for_each name="$_PotentialObject" in="$OBJECTS">
+                  <do_if value="$_PotentialObject != $_Object and $_Object.distanceto.{$_PotentialObject} lt $_SatelliteMacro.{2}">
+                     <append_to_list name="$_ObjectsInRange" exact="$_PotentialObject"/>
                   </do_if>
                </do_for_each>
-               <do_if value="$_CanTheNextSatelliteCoverIt and $_ActualIteration != $_SatelliteMacros.count">
-                  <break/>
+               <do_if value="$_ObjectsInRange.count gt $_MaxAmountCovered">
+                  <set_value name="$_MaxAmountCovered" exact="$_ObjectsInRange.count"/>
+                  <set_value name="$_MostCoveringObject.{1}" exact="$_Object"/>
+                  <set_value name="$_MostCoveringObjectObjects" exact="$_ObjectsInRange"/>
                </do_if>
-               <append_to_list name="$_OptimizedObjects" exact="[$_MaxCoverObject, $_SatelliteMacro.{1}]"/>
-               <create_list name="$_RemainingObjects"/>
-               <do_for_each name="$_Object" in="$OBJECTS">
-                  <do_if value="$_Object.distanceto.{$_MaxCoverObject} gt $_SatelliteMacro.{2}">
-                     <append_to_list name="$_RemainingObjects" exact="$_Object"/>
+            </do_for_each>
+            <do_if value="$_ActualIteration != $_SatelliteMacros.count">
+               <set_value name="$_CanTheNextSatelliteCoverIt" exact="true"/>
+               <do_for_each name="$_ObjectInRange" in="$_MostCoveringObjectObjects">
+                  <do_if value="$_MostCoveringObject.{1}.distanceto.{$_ObjectInRange} gt $_SatelliteMacros.{($_ActualIteration + 1)}.{2}">
+                     <set_value name="$_CanTheNextSatelliteCoverIt" exact="false"/>
+                     <break/>
                   </do_if>
                </do_for_each>
-               <set_value name="$OBJECTS" exact="$_RemainingObjects"/>
-            </do_while>
+               <do_if value="$_CanTheNextSatelliteCoverIt">
+                  <continue/>
+               </do_if>
+            </do_if>
+            <do_if value="$_MostCoveringObjectObjects.count gt 0">
+               <break/>
+            </do_if>
          </do_for_each>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -96,8 +96,8 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <!-- _OptimizedObjects ~ [[OBJECT, SatelliteMacro], [OBJECT, SatelliteMacro]] -->
-         <return value="$_OptimizedObjects"/>
+         <!-- $_MostCoveringObject ~ [OBJECT, SatelliteMacro] -->
+         <return value="$_MostCoveringObject"/>
 
       </actions>
    </attention>

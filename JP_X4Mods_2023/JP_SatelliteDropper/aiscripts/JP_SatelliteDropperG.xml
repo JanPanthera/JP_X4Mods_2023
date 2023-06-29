@@ -116,6 +116,9 @@
             <input_param name="max" value="100"/>
             <input_param name="step" value="100"/>
          </param>
+         <param name="debugchance" text="{1041, 10086}" comment="Print debug output" type="bool" default="0" advanced="true">
+            <input_param name="truevalue" value="100"/>
+         </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
@@ -255,7 +258,7 @@
             <!-- The restock equipment order has failed. More detail is available in the logbook. -->
             <do_if value="$_Result == 'Failed'">
                <show_help custom="$_ASE_Title + '\n\n' + {8888888, 1460} + '\n' +  {8888888, 54}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
-               <write_to_logbook title="$_ASE_Title" text="{8888888, 1460} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG gt 0 then 100 else 0"/>
+               <write_to_logbook title="$_ASE_Title" text="{8888888, 1460} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
                <resume label="IDLE_LBL"/>
             </do_if>
          </do_if>
@@ -288,8 +291,8 @@
 
          <do_if value="$_FoundObjects.count == 0">
             <!-- There are no remaining structures left where we need to deploy a satellite. -->
-            <show_help custom="$_SD_Title + '\n\n' + {8888888, 1463} + '\n' + {8888888, 1462}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
-            <write_to_logbook title="$_SD_Title" text="{8888888, 1463} + '\n' + {8888888, 1462}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+            <show_help custom="$_SD_Title + '\n\n' + {8888888, 1460} + '\n' + {8888888, 1462}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+            <write_to_logbook title="$_SD_Title" text="{8888888, 1460} + '\n' + {8888888, 1462}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -308,8 +311,8 @@
             <param name="PLACE_SATELLITES_MK2" value="$PLACE_SATELLITES_MK2"/>
          </run_script>
          <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-            <param name="OBJECT" value="$_FoundObjects.{1}.{1}"/>
-            <param name="SATELLITE_MACRO" value="$_FoundObjects.{1}.{2}"/>
+            <param name="OBJECT" value="$_FoundObjects.{1}"/>
+            <param name="SATELLITE_MACRO" value="$_FoundObjects.{2}"/>
          </create_order>
          <wait exact="1000ms"/>
 
