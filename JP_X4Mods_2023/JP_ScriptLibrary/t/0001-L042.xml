@@ -40,7 +40,7 @@
       <t id="54">Objednávka na doplnění vybavení selhala. Více detailů je k dispozici v palubním deníku.</t>
       <t id="55">Přepnu se do nečinného režimu a zkusím to později znovu.</t>
       <t id="56">Půjdu vyměnit své vybavení na:\nStanice: %5%1 [%2]\033X\nVztah: %6%3\033X\nSektor: %7%4\033X\n</t>
-      <t id="57">Náklady na výměnu vybavení: %1\n</t>
+      <t id="57">\nNáklady na výměnu vybavení: %1\n</t>
       <t id="58">\nProdávám vybavení za %1</t>
       <t id="59">\nKupuji vybavení za %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

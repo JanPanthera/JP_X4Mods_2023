@@ -40,7 +40,7 @@
       <t id="54">L'ordine di rifornimento di attrezzature è fallito. Più dettagli sono disponibili nel registro.</t>
       <t id="55">Passerò in modalità inattiva e proverò di nuovo più tardi.</t>
       <t id="56">Andrò a cambiare la mia attrezzatura a:\nStazione: %5%1 [%2]\033X\nRelazione: %6%3\033X\nSettore: %7%4\033X\n</t>
-      <t id="57">Costo del cambio di attrezzatura: %1\n</t>
+      <t id="57">\nCosto del cambio di attrezzatura: %1\n</t>
       <t id="58">\nVendo attrezzatura per %1</t>
       <t id="59">\nCompro attrezzatura per %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

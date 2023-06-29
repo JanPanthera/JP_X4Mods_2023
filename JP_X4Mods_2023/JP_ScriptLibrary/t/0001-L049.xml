@@ -40,7 +40,7 @@
       <t id="54">Der Befehl für die Ausrüstungsänderung ist fehlgeschlagen. Weitere Details finden Sie im Logbuch.</t>
       <t id="55">Ich wechsle in den Leerlaufmodus und versuche es später erneut.</t>
       <t id="56">Ich werde meine Ausrüstung wechseln bei:\nStation: %5%1 [%2]\033X\nBeziehung: %6%3\033X\nSektor: %7%4\033X\n</t>
-      <t id="57">Ausrüstungswechselkosten: %1\n</t>
+      <t id="57">\nAusrüstungswechselkosten: %1\n</t>
       <t id="58">\nIch verkaufe Ausrüstung für %1</t>
       <t id="59">\nIch kaufe Ausrüstung für %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

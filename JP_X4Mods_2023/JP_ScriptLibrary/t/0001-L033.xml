@@ -40,7 +40,7 @@
       <t id="54">La commande de réapprovisionnement d'équipement a échoué. Plus de détails sont disponibles dans le journal de bord.</t>
       <t id="55">Je vais passer en mode veille et réessayer plus tard.</t>
       <t id="56">Je vais changer mon équipement à:\nStation: %5%1 [%2]\033X\nRelation: %6%3\033X\nSecteur: %7%4\033X\n</t>
-      <t id="57">Coût du changement d'équipement : %1\n</t>
+      <t id="57">\nCoût du changement d'équipement : %1\n</t>
       <t id="58">\nJe vends de l'équipement pour %1</t>
       <t id="59">\nJ'achète de l'équipement pour %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
