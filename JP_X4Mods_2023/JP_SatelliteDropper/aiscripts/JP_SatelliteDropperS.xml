@@ -101,12 +101,12 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{34} else 2">
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{34} else 1">
             <input_param name="min" value="0"/>
             <input_param name="max" value="3"/>
             <input_param name="step" value="1"/>
          </param>
-         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{35} else 2">
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{35} else 3">
             <input_param name="min" value="0"/>
             <input_param name="max" value="3"/>
             <input_param name="step" value="1"/>

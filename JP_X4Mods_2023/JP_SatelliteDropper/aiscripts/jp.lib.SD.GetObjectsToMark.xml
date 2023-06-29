@@ -181,6 +181,7 @@
                <create_list name="$_Stations"/>
                <find_object name="$_Stations" space="$_Sector" multiple="true" checkoperational="false">
                   <match exactclass="class.station"/>
+                  <match knownto="$_Ship.owner"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
                <do_for_each name="$_Station" in="$_Stations">
