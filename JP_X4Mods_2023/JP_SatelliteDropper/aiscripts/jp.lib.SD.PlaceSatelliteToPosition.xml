@@ -90,7 +90,9 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
-         <wait exact="3000ms"/>
+         <set_object_velocity object="$_Satellite">
+            <linear x="0" y="0" z="0"/>
+         </set_object_velocity>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -98,6 +100,8 @@
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service"/>
+         
+         <wait exact="2000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

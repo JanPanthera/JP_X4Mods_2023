@@ -4,7 +4,7 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SECTOR" default="null"/>
+      <param name="SECTOR"            default="null"/>
       <param name="OWNERLESS_SECTORS" default="true"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="JUMP_GATES"              default="false"/>
@@ -144,7 +144,7 @@
                   <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                      <match knownto="$_Ship.owner"/>
                      <match active="true"/>
-                     <match macro="[macro.props_gates_orb_accelerator_01_macro]"/>
+                     <match macro="[macro.props_gates_orb_accelerator_01_macro, macro.props_gates_orb_accelerator_02_macro, macro.transorbital_accelerator_01_macro]"/>
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
@@ -152,7 +152,7 @@
                   <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                      <match knownto="$_Ship.owner"/>
                      <match active="false"/>
-                     <match macro="[macro.props_gates_orb_accelerator_01_macro]"/>
+                     <match macro="[macro.props_gates_orb_accelerator_01_macro, macro.props_gates_orb_accelerator_02_macro, macro.transorbital_accelerator_01_macro]"/>
                      <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                   </find_object>
                </do_if>
