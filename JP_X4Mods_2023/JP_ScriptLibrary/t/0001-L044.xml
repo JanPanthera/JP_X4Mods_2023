@@ -39,9 +39,10 @@
       <t id="53">The process of creating the restock order has failed.</t>
       <t id="54">The restock equipment order has failed. More detail is available in the logbook.</t>
       <t id="55">I will switch to idle mode and try again later.</t>
-      <t id="56">Equipment change cost: %1\n</t>
-      <t id="57">\nI sell equipment for %1</t>
-      <t id="58">\nI buy equipment for %1</t>
+      <t id="56">I'll go change my equipment at:\nStation: %5%1 [%2]\033X\nRelation: %6%3\033X\nSector: %7%4\033X\n</t>
+      <t id="57">Equipment change cost: %1\n</t>
+      <t id="58">\nI sell equipment for %1</t>
+      <t id="59">\nI buy equipment for %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Equipment Change Failure\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

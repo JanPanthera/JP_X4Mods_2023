@@ -39,9 +39,10 @@
       <t id="53">O processo de criação do pedido de reabastecimento falhou.</t>
       <t id="54">O pedido de reabastecimento do equipamento falhou. Mais detalhes estão disponíveis no registro.</t>
       <t id="55">Vou mudar para o modo de inatividade e tentar novamente mais tarde.</t>
-      <t id="56">Custo da mudança de equipamento: %1\n</t>
-      <t id="57">\nVendo equipamento por %1</t>
-      <t id="58">\nCompro equipamento por %1</t>
+      <t id="56">Vou mudar meu equipamento em:\nEstação: %5%1 [%2]\033X\nRelação: %6%3\033X\nSetor: %7%4\033X\n</t>
+      <t id="57">Custo da mudança de equipamento: %1\n</t>
+      <t id="58">\nVendo equipamento por %1</t>
+      <t id="59">\nCompro equipamento por %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Falha na mudança de equipamento\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

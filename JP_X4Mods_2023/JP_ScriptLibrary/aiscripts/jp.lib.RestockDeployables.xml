@@ -200,7 +200,7 @@
          <do_if value="$_DeployablesToBuyAmount gt 0">
             <set_value name="$_StationWareCheckTable" exact="table[]"/>
             <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
-               <set_value name="$_StationWareCheckTable.{$_EquipmentMacro.ware}" exact="$_EquipmentAmount - $_Ship.ammostorage.{$_EquipmentMacro}.count"/>
+               <set_value name="$_StationWareCheckTable.{$_EquipmentMacro.ware}" exact="$_EquipmentAmount"/>
             </do_for_each>
             <do_for_each name="$_Station" in="$_FoundStations">
                <do_if value="$_Station.hasresourcesfor.{$_StationWareCheckTable}">
@@ -248,29 +248,64 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <!-- Create the text for the logbook and the message -->
-         <set_value name="$_Text" exact="{8888888, 56}.[$_RestockPrice.formatted.{'%.s %Cr'}]"/>
 
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_RestockStationOwnerColor">
+            <param name="FACTION" value="$_RestockStation.owner"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_RestockStationSectorOwnerColor">
+            <param name="FACTION" value="$_RestockStation.sector.owner"/>
+         </run_script>
+
+         <run_script name="'jp.lib.GetFactionRelationColorCode'" result="$_RestockStationOwnerRelationColorCode">
+            <param name="FACTION_RELATION" value="$_Ship.owner.relation.{$_RestockStation.relationto.{$_Ship}}.uivalue"/>
+         </run_script>
+
+         <set_value name="$_LogText" exact="''"/>
+         <set_value name="$_HelpText" exact="''"/>
+
+         <!-- I'll go change my equipment:\nStation: %5%1 [%2]\033X\nRelation: %6%3\033X\nSector: %7%4\033X -->
+         <set_value name="$_HelpText" exact="{8888888, 56}.[$_RestockStation.knownname, $_RestockStation.idcode,
+                                            $_Ship.owner.relation.{$_RestockStation.relationto.{$_Ship}}.uivalue, $_RestockStation.sector.knownname,
+                                            $_RestockStationOwnerColor, $_RestockStationOwnerRelationColorCode, $_RestockStationSectorOwnerColor]"/>
+
+         <set_value name="$_LogText" exact="{8888888, 56}.[$_RestockStation.knownname, $_RestockStation.idcode,
+                                            $_Ship.owner.relation.{$_RestockStation.relationto.{$_Ship}}.uivalue, $_RestockStation.sector.knownname,
+                                            $_RestockStationOwnerColor, $_RestockStationOwnerRelationColorCode, $_RestockStationSectorOwnerColor]"/>
+
+
+         <!-- Equipment change cost: %1\n -->
+         <set_value name="$_HelpText" exact="{8888888, 57}.[$_RestockPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+         <set_value name="$_LogText" exact="{8888888, 57}.[$_RestockPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+
+         <!-- \nI sell equipment for %1 -->
          <do_if value="$_DeployablesToSellAmount gt 0">
-            <set_value name="$_Text" exact="{8888888, 57}.[$_TotalSellPrice.formatted.{'%.s %Cr'}]"/>
+            <set_value name="$_HelpText" exact="{8888888, 58}.[$_TotalSellPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <set_value name="$_LogText" exact="{8888888, 58}.[$_TotalSellPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
             <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToSell">
                <set_value name="$_SellPrice" exact="(abs($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount))Cr"/>
-               <set_value name="$_Text" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_SellPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+               <set_value name="$_HelpText" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_SellPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+               <set_value name="$_LogText" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_SellPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
             </do_for_each>
-            <do_if value="$_DeployablesToBuyAmount gt 0">
-               <set_value name="$_Text" exact="'\n'" operation="add"/>
-            </do_if>
+            <set_value name="$_HelpText" exact="'\n'" operation="add"/>
+            <set_value name="$_LogText" exact="'\n'" operation="add"/>
          </do_if>
 
+         <!-- \nI buy equipment for %1 -->
          <do_if value="$_DeployablesToBuyAmount gt 0">
-            <set_value name="$_Text" exact="{8888888, 58}.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]"/>
+            <set_value name="$_HelpText" exact="{8888888, 59}.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <set_value name="$_LogText" exact="{8888888, 59}.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
             <do_for_each name="$_EquipmentMacro" valuename="$_EquipmentAmount" in="$_DeployablesToBuy">
                <set_value name="$_BuyPrice" exact="(abs($_RestockStation.buildprice.{$_EquipmentMacro.ware} * $_EquipmentAmount))Cr"/>
-               <set_value name="$_Text" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_BuyPrice.formatted.{'%.s %Cr'}]" operation="add"/>
+               <set_value name="$_HelpText" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_BuyPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+               <set_value name="$_LogText" exact="'\n%1 x %2 ~ %3.'.[$_EquipmentAmount, $_EquipmentMacro.name, $_BuyPrice.formatted.{'%.s %Cr'}]" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
             </do_for_each>
+            <set_value name="$_HelpText" exact="'\n'" operation="add" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <set_value name="$_LogText" exact="'\n\n'" operation="add" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
-         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-         <write_to_logbook title="$RESTOCK_TITLE" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_HelpText" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 0 then 100 else 0"/>
+         <write_to_logbook title="$RESTOCK_TITLE" text="'\n' + $_LogText" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 0 then 100 else 0"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

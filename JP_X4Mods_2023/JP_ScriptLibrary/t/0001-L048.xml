@@ -39,9 +39,10 @@
       <t id="53">Proces tworzenia zamówienia na uzupełnienie zapasów nie powiódł się.</t>
       <t id="54">Zamówienie na uzupełnienie zapasów sprzętu nie powiodło się. Więcej szczegółów znajduje się w dzienniku.</t>
       <t id="55">Przejdę w tryb bezczynności i spróbuję ponownie później.</t>
-      <t id="56">Koszt zmiany sprzętu: %1\n</t>
-      <t id="57">\nSprzedaję sprzęt za %1</t>
-      <t id="58">\nKupuję sprzęt za %1</t>
+      <t id="56">Pójdę zmienić mój sprzęt na:\nStacja: %5%1 [%2]\033X\nRelacja: %6%3\033X\nSektor: %7%4\033X\n</t>
+      <t id="57">Koszt zmiany sprzętu: %1\n</t>
+      <t id="58">\nSprzedaję sprzęt za %1</t>
+      <t id="59">\nKupuję sprzęt za %1</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="60">\033#FFe27100#Niepowodzenie zmiany sprzętu\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
