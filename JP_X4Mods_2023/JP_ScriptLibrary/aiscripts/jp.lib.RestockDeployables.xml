@@ -239,7 +239,7 @@
          <set_value name="$_RestockPrice" exact="$_TotalBuyPrice - $_TotalSellPrice"/>
 
          <!-- We lack the necessary funds to restock the desired equipment. -->
-         <do_if value="($_RestockPrice + $_PurchaseThreshold) gt $_Ship.owner.money">
+         <do_if value="($_RestockPrice + $PURCHASE_THRESHOLD) gt $_Ship.owner.money">
             <show_help custom="$RESTOCK_TITLE + '\n\n' + {8888888, 60} + '\n' + {8888888, 52}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
             <write_to_logbook title="$RESTOCK_TITLE" text="{8888888, 60} + '\n' + {8888888, 52}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
             <resume label="FINISH_LBL"/>

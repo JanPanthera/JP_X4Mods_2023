@@ -21,4 +21,5 @@ v1.0.2 -- Current Published Version
 
 v1.0.3 -- Current Development Version
 ~ Added: Czech translations
+~ Added: jp.lib.RestockDeployables.xml
 ~ Updated: Several code cleanup and translations changes.
