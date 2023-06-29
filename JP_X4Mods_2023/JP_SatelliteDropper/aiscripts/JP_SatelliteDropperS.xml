@@ -26,7 +26,7 @@
             <input_param name="truevalue" value="100"/>
          </param>
          <param name="RESTOCK_SATELLITES" text="{8888888, 1402}" comment="Restock satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{3} else 100"/>
-         <param name="RESTOCK_AMOUNT_CAP" text="{8888888, 1403}" comment="Restock amount?" type="number" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{4} else 10">
+         <param name="RESTOCK_AMOUNT_CAP" text="{8888888, 1403}" comment="Restock amount?" type="number" default="[(if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{4} else 10), this.ship.ammostorage.deployable.capacity].min">
             <input_param name="min" value="2"/>
             <input_param name="max" value="this.ship.ammostorage.deployable.capacity"/>
             <input_param name="step" value="2"/>
@@ -85,6 +85,7 @@
          <param name="WHERE_TO_MOVE" text="- {8888888, 82}" comment="Where to move?" type="position" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{28} else [this.ship.sector, this.ship.sector.coreposition]">
             <input_param name="class" value="class.sector"/>
          </param>
+         <param name="START_POSITION" type="internal" default="[this.ship.sector, this.ship.position]"/>
          <param name="IDLE_FOLLOW" text="{8888888, 83}" comment="Idle: Follow?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{29} else false"/>
          <param name="WHO_TO_FOLLOW" text="- {8888888, 84}" comment="Who to follow?" type="object" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{30} else null">
             <input_param name="class" value="[class.ship]"/>
@@ -257,8 +258,8 @@
             </do_if>
             <set_value name="$_RestockAmount" exact="($RESTOCK_AMOUNT_CAP / 2)i" chance="$_MultiSatMode"/>
             <set_value name="$_RestockEquipmentTable" exact="table[]"/>
-            <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk1}" exact="$RESTOCK_AMOUNT_CAP" chance="$PLACE_SATELLITES_MK1"/>
-            <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk2}" exact="$RESTOCK_AMOUNT_CAP" chance="$PLACE_SATELLITES_MK2"/>
+            <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk1}" exact="$_RestockAmount" chance="$PLACE_SATELLITES_MK1"/>
+            <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk2}" exact="$_RestockAmount" chance="$PLACE_SATELLITES_MK2"/>
             <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
                <param name="DEPLOYABLE_TABLE" value="$_RestockEquipmentTable"/>
                <param name="FORCE_RERSTOCK" value="true"/>
