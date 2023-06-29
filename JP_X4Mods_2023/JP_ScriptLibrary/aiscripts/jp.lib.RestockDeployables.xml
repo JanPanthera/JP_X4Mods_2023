@@ -245,15 +245,6 @@
             <resume label="FINISH_LBL"/>
          </do_if>
 
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockStation: %1 [%2]'.[$_RestockStation.knownname, $_RestockStation.idcode]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_TotalBuyPrice: %1'.[$_TotalBuyPrice.formatted.{'%.s %Cr'}]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_TotalSellPrice: %1'.[$_TotalSellPrice.formatted.{'%.s %Cr'}]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_RestockPrice: %1'.[$_RestockPrice.formatted.{'%.s %Cr'}]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-         </do_if>
-
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <!-- Create the text for the logbook and the message -->
@@ -278,8 +269,8 @@
             </do_for_each>
          </do_if>
 
-         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 1 then 100 else 0"/>
-         <write_to_logbook title="$RESTOCK_TITLE" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 1 then 100 else 0"/>
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+         <write_to_logbook title="$RESTOCK_TITLE" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
