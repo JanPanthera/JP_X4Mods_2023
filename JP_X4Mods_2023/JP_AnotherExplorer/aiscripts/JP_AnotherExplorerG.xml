@@ -5,7 +5,7 @@
    <order id="JP_AnotherExplorerG" name="_{8888888, 97}AnotherExplorer - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 471}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
@@ -74,11 +74,15 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{30} else 100">
-            <input_param name="truevalue" value="100"/>
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="number" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{30} else 1">
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="3"/>
+            <input_param name="step" value="1"/>
          </param>
-         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{31} else 100">
-            <input_param name="truevalue" value="100"/>
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="number" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{31} else 3">
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="3"/>
+            <input_param name="step" value="1"/>
          </param>
          <param name="ADD_ORDER_TAG" text="{8888888, 92}" comment="Add order tag?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{32} else true"/>
          <param name="SAVE_ORDER_SETTINGS" text="{8888888, 93}" comment="Save Order Settings?" type="bool" default="false"/>
@@ -89,14 +93,13 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_AnotherExplorer.logs'"/>
          <param name="DEBUG" text="Debug" type="number" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{33} else 0" advanced="true">
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
             <input_param name="step" value="100"/>
          </param>
-         <param name="debugchance" text="{1041, 10086}" comment="Print debug output" type="bool" default="0" advanced="true">
-            <input_param name="truevalue" value="100"/>
-         </param>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
@@ -124,8 +127,8 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_AE_Title" text="$_AE_Title">
          <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
@@ -134,7 +137,7 @@
       <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
+         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'JP_AnotherExplorerG'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -146,9 +149,8 @@
                             $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                             $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                             $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                            $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
-                            $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
-                            $OWNERLESS_SECTORS,
+                            $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS, 
+                            $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES, $OWNERLESS_SECTORS,
                             $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                             $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
                             $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
@@ -164,12 +166,12 @@
             </do_for_each>
          </do_else>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
+         <show_help allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$AnotherExplorer_Settings"/>
-         <show_help duration="5s" allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
+         <show_help allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -206,7 +208,7 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <create_list name="$_FoundObjects"/>
-         <run_script name="'jp.lib.AE.GetObjectsToUncover'">
+         <run_script name="'jp.lib.AE.GetObjectsToUncover'" result="$_FoundObjects">
             <param name="SECTOR"                  value="@global.$AE_SectorBlacklist.{$_Ship}"/>
             <param name="OWNERLESS_SECTORS"       value="$OWNERLESS_SECTORS"/>
             <param name="JUMP_GATES"              value="$JUMP_GATES"/>
@@ -229,15 +231,11 @@
             <param name="FACTION_HEADQUARTERS"    value="$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS"    value="$NON_SPECIAL_STATIONS"/>
             <param name="CONSTRUCTION_SITES"      value="$CONSTRUCTION_SITES"/>
-            <param name="SHOW_MESSAGES"           value="$SHOW_MESSAGES"/>
-            <param name="WRITE_TO_LOG"            value="$WRITE_TO_LOG"/>
-            <param name="DEBUG"                   value="$DEBUG"/>
-            <save_retval name="_FoundObjects" variable="$_FoundObjects"/>
          </run_script>
 
          <do_if value="$_FoundObjects.count == 0">
             <!-- There are no remaining objects within my defined workspace that need to be uncovered. -->
-            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
+            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
             <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
             <resume label="IDLE_LBL"/>
          </do_if>
@@ -246,9 +244,6 @@
             <do_for_each name="$_FoundObject" in="$_FoundObjects">
                <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'" immediate="true">
                   <param name="OBJECT" value="$_FoundObject"/>
-                  <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
-                  <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
-                  <param name="DEBUG"  value="$DEBUG"/>
                </create_order>
                <wait exact="1000ms"/>
                <break/>
@@ -258,8 +253,8 @@
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 55}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_AE_Title + '\n\n' + {8888888, 1460} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
+         <write_to_logbook title="$_AE_Title" text="{8888888, 1460} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
@@ -270,8 +265,6 @@
             <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
-            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-            <param name="DEBUG" value="$DEBUG"/>
          </create_order>
          <wait exact="1000ms"/>
 

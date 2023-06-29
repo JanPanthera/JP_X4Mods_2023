@@ -26,7 +26,7 @@
             <param name="DEFENCE_STATIONS"     value="$order.$DEFENCE_STATIONS"/>
             <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>
-            <param name="CONSTRUCTION_SITES" value="$order.$CONSTRUCTION_SITES"/>
+            <param name="CONSTRUCTION_SITES"   value="$order.$CONSTRUCTION_SITES"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -43,6 +43,8 @@
             <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
             <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
             <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="DEBUG" value="$order.$DEBUG"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          </run_script>
       </do_if>

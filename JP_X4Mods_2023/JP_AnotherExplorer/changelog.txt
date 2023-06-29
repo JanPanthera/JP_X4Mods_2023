@@ -47,5 +47,6 @@ v1.0.6 -- Current Published Version
 ~ Updated: Some minor code and translation changes.
 
 v1.0.7 -- Current Development Version
-~ Added: More Notificaitons and logging to the logbook
-~ Updated: Several minor enhancements have been made to the code and translations.
+~ Added: More logging and notifications.
+~ Fixed: Rare case where the Sector selection could fail.
+~ Updated: Several code cleanup and translations changes.
