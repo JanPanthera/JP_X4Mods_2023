@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- German ~~ Deutsch -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Mk1 Satelliten?</t>
@@ -9,34 +11,15 @@
       <t id="1402">Satelliten aufstocken?</t>
       <t id="1403">Nachfüllmengenbegrenzung</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Sprungtore?</t>
-      <t id="1421">Aktive Sprungtore?</t>
-      <t id="1422">Inaktive Sprungtore?</t>
-      <t id="1423">Beschleuniger?</t>
-      <t id="1424">Aktive Beschleuniger?</t>
-      <t id="1425">Inaktive Beschleuniger?</t>
-      <t id="1426">Superhighways?</t>
-      <t id="1427">Aktive Superhighways?</t>
-      <t id="1428">Inaktive Superhighways?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1430">Stationen?</t>
-      <t id="1431">Raumdocks?</t>
-      <t id="1432">Schiffswerften?</t>
-      <t id="1433">Ausrüstungsdocks?</t>
-      <t id="1434">Handelsstationen?</t>
-      <t id="1435">Piratenbasen?</t>
-      <t id="1436">Schrottverarbeitungsanlagen?</t>
-      <t id="1437">Verteidigungsstationen?</t>
-      <t id="1438">Fraktionshauptquartiere?</t>
-      <t id="1439">Nicht spezielle Stationen?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Satellit an Objekt platzieren</t>
       <t id="1441">Satellit an Position platzieren</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Es stehen keine oder nicht genug Satelliten zur Verfügung, und die Wiederauffüllung von Satelliten ist deaktiviert.\nBei der Verwendung beider Satellitentypen muss mindestens ein Satellit jedes Typs verfügbar sein.</t>
-      <t id="1451">Es gibt keine verbleibenden Sprungtore, Beschleuniger, Superhighways und Stationen, an denen wir einen Satelliten platzieren müssen.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">\033#FFe27100#Satellitenplatzierung pausiert\033X</t>
+      <t id="1460">\033#FFe27100#Satellitenplatzierung Pausiert\033X</t>
+      <t id="1461">Es gibt keine oder nicht genug Satelliten und die Nachfüllung von Satelliten ist deaktiviert.\nBei der Verwendung beider Satellitentypen muss mindestens ein Satellit jedes Typs verfügbar sein.</t>
+      <t id="1462">Es gibt keine verbleibenden Strukturen, an denen wir einen Satelliten platzieren müssen.</t>
+      <t id="1463">Ich beginne mit der Platzierung von Satelliten im Sektor %2%1\033X.</t>
+      <t id="1464">Satellit platziert bei %5%1 [%2]\033X\nVerhältnis zu uns: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="1465">Satellit platziert bei %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways innerhalb eines Sektors platzieren.</t>
       <t id="1471">Satelliten an Stationen, Sprungtoren, Beschleunigern und Superhighways in der gesamten Galaxie platzieren.</t>

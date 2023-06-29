@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Satelity Mk1?</t>
@@ -9,34 +11,15 @@
       <t id="1402">Uzupełnienie satelitów?</t>
       <t id="1403">Ilość uzupełnienia</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Bramy skokowe?</t>
-      <t id="1421">Aktywne bramy skokowe?</t>
-      <t id="1422">Nieaktywne bramy skokowe?</t>
-      <t id="1423">Akceleratory?</t>
-      <t id="1424">Aktywne akceleratory?</t>
-      <t id="1425">Nieaktywne akceleratory?</t>
-      <t id="1426">Super autostrady?</t>
-      <t id="1427">Aktywne super autostrady?</t>
-      <t id="1428">Nieaktywne super autostrady?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1430">Stacje?</t>
-      <t id="1431">Doki?</t>
-      <t id="1432">Stocznie?</t>
-      <t id="1433">Doki sprzętowe?</t>
-      <t id="1434">Stacje handlowe?</t>
-      <t id="1435">Bazy piratów?</t>
-      <t id="1436">Zakłady przetwarzania złomu?</t>
-      <t id="1437">Stacje obronne?</t>
-      <t id="1438">Siedziby frakcji?</t>
-      <t id="1439">Nie specjalne stacje?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Umieść satelitę na obiekcie</t>
       <t id="1441">Umieść satelitę w pozycji</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Nie ma dostępnych satelitów lub jest ich za mało, a uzupełnianie satelitów jest wyłączone.\nPrzy korzystaniu z obu typów satelitów, przynajmniej jeden satelita każdego typu musi być dostępny.</t>
-      <t id="1451">Nie ma już Bramek Skokowych, Akceleratorów, Super Autostrad i Stacji, gdzie potrzebujemy rozmieścić satelitę.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">\033#FFe27100#Umieszczanie Satelitów Zawieszone\033X</t>
+      <t id="1460">\033#FFe27100#Umieszczanie Satelitów Wstrzymane\033X</t>
+      <t id="1461">Nie ma dostępnych lub jest niewystarczająca ilość satelitów, a uzupełnianie satelitów jest wyłączone.\nPrzy korzystaniu z obu typów satelitów, przynajmniej jeden satelita każdego typu musi być dostępny.</t>
+      <t id="1462">Nie ma już żadnych struktur, w których musimy rozmieścić satelitę.</t>
+      <t id="1463">Zacznę umieszczać satelity w sektorze %2%1\033X.</t>
+      <t id="1464">Satelita umieszczony na %5%1 [%2]\033X\nRelacja z nami: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="1465">Satelita umieszczony na %1\nSektor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">Rozmieść satelity na Stacjach, Bramek Skokowych, Akceleratorach i Super Autostradach w sektorze.</t>
       <t id="1471">Rozmieść satelity na Stacjach, Bramek Skokowych, Akceleratorach i Super Autostradach w całej galaktyce.</t>

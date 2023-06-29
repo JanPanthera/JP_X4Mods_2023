@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Default ~~ English -->
+
 <language>
    <page id="8888888" voice="no">
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -10,37 +11,18 @@
       <t id="1402">Restock satellites?</t>
       <t id="1403">Restock amount cap</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Jump Gates?</t>
-      <t id="1421">Active Jump Gates?</t>
-      <t id="1422">Inactive Gump Gates?</t>
-      <t id="1423">Accelerators?</t>
-      <t id="1424">Active Accelerators?</t>
-      <t id="1425">Inactive Accelerators?</t>
-      <t id="1426">Superhighways?</t>
-      <t id="1427">Active Superhighways?</t>
-      <t id="1428">Inactive Superhighways?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1430">Stations?</t>
-      <t id="1431">Wharfs?</t>
-      <t id="1432">Shipyards?</t>
-      <t id="1433">Equipment docks?</t>
-      <t id="1434">Trading stations?</t>
-      <t id="1435">Pirate bases?</t>
-      <t id="1436">Scrap processing facilities?</t>
-      <t id="1437">Defense stations?</t>
-      <t id="1438">Faction Headquarters?</t>
-      <t id="1439">Non Special Stations?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Place satellite to object</t>
       <t id="1441">Place satellite to position</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">There are no satellites available or not enough, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each type must be available.</t>
-      <t id="1451">There are no remaining Jumpgates, Accelerators, Superhighways, and Stations where we need to deploy a satellite.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">\033#FFe27100#Satellite Placement Paused\033X</t>
+      <t id="1461">There are no or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each type must be available.</t>
+      <t id="1462">There are no remaining structures left where we need to deploy a satellite.</t>
+      <t id="1463">I will start placing satellites in sector %2%1\033X.</t>
+      <t id="1464">Satellite placed at %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X</t>
+      <t id="1465">Satellite placed at %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1470">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways within a sector.</t>
-      <t id="1471">Deploy satellites at Stations, Jumpgates, Accelerators, and Superhighways throughout the entire galaxy.</t>
+      <t id="1470">Deploys satellites at Stations, Jumpgates, Accelerators, and/or Superhighways within a sector.</t>
+      <t id="1471">Deploys satellites at Stations, Jumpgates, Accelerators, and/or Superhighways throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

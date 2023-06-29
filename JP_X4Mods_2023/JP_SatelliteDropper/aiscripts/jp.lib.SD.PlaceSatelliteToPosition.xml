@@ -9,7 +9,7 @@
          <param name="POSITION" type="internal" default="null"/>
          <param name="SATELLITE_MACRO" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
@@ -30,6 +30,16 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_SD_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_SD_Title" text="$_SD_Title">
+         <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+      </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -51,43 +61,38 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <set_command command="command.investigate"/>
+
          <do_if value="$_Ship.sector != $OBJECT.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$OBJECT.sector"/>
-               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-               <param name="DEBUG" value="$DEBUG"/>
             </create_order>
          </do_if>
-
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="2000ms"/>
 
          <create_position name="$_Position" space="$SECTOR" value="$POSITION"/>
          <set_value name="$LOCATION" exact="[$SECTOR, $_Position]"/>
-
          <set_command command="command.move" param="$SECTOR"/>
          <set_command_action commandaction="commandaction.flying"/>
-         
          <run_script name="'move.generic'">
             <param name="destination" value="$SECTOR"/>
             <param name="position" value="$_Position"/>
             <param name="precise" value="true"/>
             <param name="recallsubordinates" value="false"/>
             <param name="changecommandaction" value="false"/>
-            <param name="debugchance" value="0"/>
          </run_script>
 
          <label name="FINISH_MOVING_LBL"/>
          <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
+         <wait exact="2000ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
-
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
-         <set_object_velocity object="$_Satellite">
-            <linear x="0" y="0" z="0"/>
-         </set_object_velocity>
+         <wait exact="3000ms"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_object_name object="$_Satellite" name="'\033#FF00CC66#' + $SATELLITE_MACRO.name + '\033X\033#FF00CCCC#' + ' ~ ' + $_Satellite.sector.knownname + '\033X'"/>
 

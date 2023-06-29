@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_SatelliteDropper -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1400">Satelity Mk1?</t>
+      <t id="1401">Satelity Mk2?</t>
+      <t id="1402">Doplnit satelity?</t>
+      <t id="1403">Limit množství doplnění</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1440">Umístit satelit k objektu</t>
+      <t id="1441">Umístit satelit na pozici</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1460">\033#FFe27100#Umístění Satelitů Pozastaveno\033X</t>
+      <t id="1461">Nejsou k dispozici žádné nebo nedostatek satelitů a doplňování satelitů je deaktivováno.\nPři použití obou typů satelitů musí být k dispozici alespoň jeden satelit každého typu.</t>
+      <t id="1462">Nezbyly žádné struktury, kde potřebujeme nasadit satelit.</t>
+      <t id="1463">Začnu umísťovat satelity v sektoru %2%1\033X.</t>
+      <t id="1464">Satelit umístěn na %5%1 [%2]\033X\nVztah k nám: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="1465">Satelit umístěn na %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1470">Nasadí satelity na stanice, skokové brány, akcelerátory a/nebo superdálnice v rámci sektoru.</t>
+      <t id="1471">Nasadí satelity na stanice, skokové brány, akcelerátory a/nebo superdálnice po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

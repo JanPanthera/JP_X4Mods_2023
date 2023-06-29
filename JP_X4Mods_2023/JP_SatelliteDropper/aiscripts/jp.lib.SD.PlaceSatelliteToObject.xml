@@ -8,7 +8,7 @@
          <param name="OBJECT" type="internal" default="null"/>
          <param name="SATELLITE_MACRO" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
@@ -29,6 +29,16 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_SD_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$_SD_Title" text="$_SD_Title">
+         <replace string="'\033#FFA95908##SD-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##SD-G\033X ~ '" with="''"/>
+      </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -50,43 +60,59 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <set_command command="command.investigate"/>
+
          <do_if value="$_Ship.sector != $OBJECT.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$OBJECT.sector"/>
-               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-               <param name="DEBUG" value="$DEBUG"/>
             </create_order>
          </do_if>
-
          <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
+         <wait exact="2000ms"/>
 
          <create_position name="$_Position" space="$OBJECT.sector" object="$OBJECT" y="(($OBJECT.height / 2) + ($_Ship.height / 2) + 2km)"/>
          <set_value name="$LOCATION" exact="[$OBJECT.sector, $_Position]"/>
-
          <set_command command="command.move" param="$OBJECT"/>
          <set_command_action commandaction="commandaction.flying"/>
-         
          <run_script name="'move.generic'">
             <param name="destination" value="$OBJECT.sector"/>
             <param name="position" value="$_Position"/>
             <param name="precise" value="true"/>
             <param name="recallsubordinates" value="false"/>
             <param name="changecommandaction" value="false"/>
-            <param name="debugchance" value="0"/>
          </run_script>
 
          <label name="FINISH_MOVING_LBL"/>
          <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
+         <wait exact="2000ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
-         
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
-         <set_object_velocity object="$_Satellite">
-            <linear x="0" y="0" z="0"/>
-         </set_object_velocity>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectOwnerColor">
+            <param name="FACTION" value="$OBJECT.owner"/>
+         </run_script>
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
+            <param name="FACTION" value="$OBJECT.sector.owner"/>
+         </run_script>
+         <run_script name="'jp.lib.GetFactionRelationColorCode'" result="$_FactionRelationColorCode">
+            <param name="FACTION_RELATION" value="$_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue"/>
+         </run_script>
+         <do_if value="$OBJECT.isrealclass.{class.station}">
+            <!-- Placed satellite to %5%1 [%2]\033X\nRelation to us: %7%3\033X\nSector: %6%4\033X -->
+            <set_value name="$_Text" exact="{8888888, 1464}.[$OBJECT.knownname, $OBJECT.idcode, $_Ship.owner.relation.{$OBJECT.relationto.{$_Ship}}.uivalue, $OBJECT.sector.knownname, $_ObjectOwnerColor, $_ObjectSectorOwnerColor, $_FactionRelationColorCode]"/>
+         </do_if>
+         <do_else>
+            <!-- Placed satellite to %1\nSector: %3%2\033X -->
+            <set_value name="$_Text" exact="{8888888, 1465}.[$OBJECT.knownname, $OBJECT.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         </do_else>
+         <show_help custom="$_SD_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES == 3 then 100 else 0"/>
+         <write_to_logbook title="$_SD_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$OBJECT" chance="if $WRITE_TO_LOG == 3 then 100 else 0"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_value name="$_DestinationName" exact="if @$OBJECT.exit.sector.knownname != null then @$OBJECT.exit.sector.knownname else '{1001, 9002}'"/>
          <do_if value="$OBJECT.class == class.gate">
@@ -102,6 +128,8 @@
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_SATELLITE_PLACE'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_SATELLITE_PLACE'" role="entityrole.service"/>
 
+         <wait exact="2000ms"/>
+         
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="FINISH_LBL"/>

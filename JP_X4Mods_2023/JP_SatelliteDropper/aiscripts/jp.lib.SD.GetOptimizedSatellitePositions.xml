@@ -8,13 +8,14 @@
       <param name="PLACE_SATELLITES_MK1" default="true"/>
       <param name="PLACE_SATELLITES_MK2" default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="0"/>
+      <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2">
          <set_value name="$_SatelliteMacros" exact="[[ware.satellite_mk2.objectmacro, 75km], [ware.satellite_mk1.objectmacro, 30km]]"/>
@@ -22,6 +23,8 @@
       <do_else>
          <set_value name="$_SatelliteMacros" exact="if $PLACE_SATELLITES_MK1 then [[ware.satellite_mk1.objectmacro, 30km]] else [[ware.satellite_mk2.objectmacro, 75km]]"/>
       </do_else>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SatelliteDropper.logs'"/>
@@ -93,10 +96,8 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return>
-            <!-- _OptimizedObjects ~ [[OBJECT, SatelliteMacro], [OBJECT, SatelliteMacro]] -->
-            <retval name="_OptimizedObjects" value="$_OptimizedObjects"/>
-         </return>
+         <!-- _OptimizedObjects ~ [[OBJECT, SatelliteMacro], [OBJECT, SatelliteMacro]] -->
+         <return value="$_OptimizedObjects"/>
 
       </actions>
    </attention>

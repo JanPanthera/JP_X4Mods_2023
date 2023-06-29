@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- French ~~ Français -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Satellites Mk1?</t>
@@ -9,34 +11,15 @@
       <t id="1402">Réapprovisionnement en satellites?</t>
       <t id="1403">Quantité à réapprovisionner</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Portes de saut ?</t>
-      <t id="1421">Portes de saut actives ?</t>
-      <t id="1422">Portes de saut inactives ?</t>
-      <t id="1423">Accélérateurs ?</t>
-      <t id="1424">Accélérateurs actifs ?</t>
-      <t id="1425">Accélérateurs inactifs ?</t>
-      <t id="1426">Super autoroutes ?</t>
-      <t id="1427">Super autoroutes actives ?</t>
-      <t id="1428">Super autoroutes inactives ?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1430">Stations ?</t>
-      <t id="1431">Chantiers navals ?</t>
-      <t id="1432">Cale sèche ?</t>
-      <t id="1433">Docks d'équipement ?</t>
-      <t id="1434">Stations de commerce ?</t>
-      <t id="1435">Bases de pirates ?</t>
-      <t id="1436">Installations de traitement des déchets ?</t>
-      <t id="1437">Stations de défense ?</t>
-      <t id="1438">Quartiers généraux de faction ?</t>
-      <t id="1439">Stations non spéciales ?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Placer le satellite à l'objet</t>
       <t id="1441">Positionner le satellite</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Il n'y a pas de satellites disponibles ou pas assez, et le réapprovisionnement en satellites est désactivé.\nLors de l'utilisation des deux types de satellites, au moins un de chaque type doit être disponible.</t>
-      <t id="1451">Il ne reste plus de Portails de Saut, Accélérateurs, Super Autoroutes et Stations où nous avons besoin de déployer un satellite.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1460">\033#FFe27100#Placement de Satellites en Pause\033X</t>
+      <t id="1460">\033#FFe27100#Placement des Satellites en Pause\033X</t>
+      <t id="1461">Il n'y a pas ou pas assez de satellites disponibles, et le réapprovisionnement des satellites est désactivé.\nLors de l'utilisation des deux types de satellites, au moins un de chaque type doit être disponible.</t>
+      <t id="1462">Il ne reste aucune structure où nous devons déployer un satellite.</t>
+      <t id="1463">Je vais commencer à placer des satellites dans le secteur %2%1\033X.</t>
+      <t id="1464">Satellite placé à %5%1 [%2]\033X\nRelation avec nous: %7%3\033X\nSecteur: %6%4\033X</t>
+      <t id="1465">Satellite placé à %1\nSecteur: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">Déployez des satellites dans les Stations, Portails de Saut, Accélérateurs et Super Autoroutes dans un secteur.</t>
       <t id="1471">Déployez des satellites dans les Stations, Portails de Saut, Accélérateurs et Super Autoroutes dans toute la galaxie.</t>

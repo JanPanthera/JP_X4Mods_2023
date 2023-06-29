@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SatelliteDropper -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1400">Satélites Mk1?</t>
@@ -9,34 +11,15 @@
       <t id="1402">Reabastecer satélites?</t>
       <t id="1403">Quantidade de reabastecimento</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1420">Portais de salto?</t>
-      <t id="1421">Portais de salto ativos?</t>
-      <t id="1422">Portais de salto inativos?</t>
-      <t id="1423">Aceleradores?</t>
-      <t id="1424">Aceleradores ativos?</t>
-      <t id="1425">Aceleradores inativos?</t>
-      <t id="1426">Superestradas?</t>
-      <t id="1427">Superestradas ativas?</t>
-      <t id="1428">Superestradas inativas?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1430">Estações?</t>
-      <t id="1431">Cais?</t>
-      <t id="1432">Estaleiros?</t>
-      <t id="1433">Docks de equipamentos?</t>
-      <t id="1434">Estações de comércio?</t>
-      <t id="1435">Bases piratas?</t>
-      <t id="1436">Instalações de processamento de sucata?</t>
-      <t id="1437">Estações de defesa?</t>
-      <t id="1438">Quartéis-generais da facção?</t>
-      <t id="1439">Estações não especiais?</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1440">Colocar satélite no objeto</t>
       <t id="1441">Colocar satélite na posição</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1450">Não há satélites disponíveis ou não o suficiente, e o reabastecimento de satélites está desativado.\nAo usar os dois tipos de satélites, pelo menos um de cada tipo deve estar disponível.</t>
-      <t id="1451">Não há mais Portais de Salto, Aceleradores, Super Rodovias e Estações onde precisamos implantar um satélite.</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1460">\033#FFe27100#Colocação de Satélites Pausada\033X</t>
+      <t id="1461">Não há ou não há satélites suficientes disponíveis, e a reposição de satélites está desativada.\nAo usar os dois tipos de satélites, deve haver pelo menos um de cada tipo disponível.</t>
+      <t id="1462">Não há mais estruturas restantes onde precisamos implantar um satélite.</t>
+      <t id="1463">Vou começar a colocar satélites no setor %2%1\033X.</t>
+      <t id="1464">Satélite colocado em %5%1 [%2]\033X\nRelação conosco: %7%3\033X\nSetor: %6%4\033X</t>
+      <t id="1465">Satélite colocado em %1\nSetor: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1470">Implantar satélites em Estações, Portais de Salto, Aceleradores e Super Rodovias dentro de um setor.</t>
       <t id="1471">Implantar satélites em Estações, Portais de Salto, Aceleradores e Super Rodovias em toda a galáxia.</t>
