@@ -1,0 +1,42 @@
+<diff>
+
+   <do_for_each name="$_Station" in="$_Stations">
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Station Name: %1'.[@$_Station.knownname]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'People: %1'.[@$_Station.people.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Available People: %1'.[@$_Station.availablepeople.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Workforce: %1'.[@$_Station.workforce.amount]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Workforce optimal: %1'.[@$_Station.workforce.optimal]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Cargo: %1'.[@$_Station.cargo.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Wares: %1'.[@$_Station.wares.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Trade Wares %1'.[@$_Station.tradewares.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Buildship Wares %1'.[@$_Station.buildships.wares.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Buildequipment Wares %1'.[@$_Station.buildequipment.wares.list]"/>
+      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+   </do_for_each>
+
+   <!-- the entry will only appear in the logbook of the ship when its idcode is inside the title -->
+   <write_to_logbook title="'Title %1'.[$_Ship.idcode]" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="100"/>
+
+</diff>
+
+<!--
+Händlerrang:
+Verkäufer, Fortgeschrittener Verkäufer, Kleinlieferant, Händler, Fortgeschrittener Händler,
+Kaufmann, Fortgeschrittener Kaufmann, Großhändler, Fortgeschrittener Großhändler, Professioneller Großhändler,
+Freibeuter, Berüchtigter Freibeuter, Professioneller Freibeuter, Fabrikant, Fortgeschrittener Fabrikant,
+Professioneller Fabrikant, Unternehmer, Fortgeschrittener Unternehmer, Professioneller Unternehmer, Mogul,
+Fortgeschrittener Mogul, Professioneller Mogul, Magnat, Transportmagnat, Fortgeschrittener Magnat, Professioneller Magnat,
+Ultimativer Magnat, Tycoon, Transporttycoon, Pangalaktischer Tycoon, X-TREME
+-->
+
+<!--
+Kampfrang:
+Harmlos, Anfänger, Erfahren, Rekrut, Schütze, Unteroffizier, Oberleutnant, Leutnant, Ausbilder,
+Feldwebel, Hauptmann, Major, Präzisionsschütze, Scharfschütze, Kommandant, Oberstleutnant,
+Oberst, Kommodore, Vizeadmiral, Admiral, Ass dritter Klasse, Ass zweiter Klasse,
+Ass erster Klasse, Kampfass dritter Klasse, Kampfass zweiter Klasse, Kampfass erster Klasse,
+Ass der Asse dritter Klasse, Ass der Asse zweiter Klasse, Ass der Asse erster Klasse
+Ehrwürdiger Veteran, X-TREME
+-->
