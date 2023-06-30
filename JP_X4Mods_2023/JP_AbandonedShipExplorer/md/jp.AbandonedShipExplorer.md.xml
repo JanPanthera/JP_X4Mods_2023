@@ -105,11 +105,6 @@
 
                   <!-- a safety check if the count of parameters changes -->
                   <do_if value="@global.$AbandonedShipExplorer_Settings.count != 22">
-                     <do_if value="$DEBUG gt 0">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Settings Reset'"/>
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                     </do_if>
                      <remove_value name="global.$AbandonedShipExplorer_Settings"/>
                   </do_if>
 

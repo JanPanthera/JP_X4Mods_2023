@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_AbandonedShipExplorer" name="JP_AbandonedShipExplorer" description="This script enables your spaceship to find, mark, or board abandoned ships across the entire galaxy." author="JanPanthera" version="202" date="2023-06-24" save="0" enabled="1">
+<content id="JP_AbandonedShipExplorer" name="JP_AbandonedShipExplorer" description="This script enables your spaceship to find, mark, or board abandoned ships across the entire galaxy." author="JanPanthera" version="202" date="2023-06-30" save="0" enabled="1">
    <text language="7"  name="JP_AbandonedShipExplorer" description="Этот сценарий позволяет вашему космическому кораблю находить, помечать или бортить заброшенные корабли по всей галактике." author="JanPanthera"/>
    <text language="33" name="JP_AbandonedShipExplorer" description="Ce script permet à votre vaisseau spatial de trouver, de marquer ou de monter à bord des vaisseaux abandonnés dans toute la galaxie." author="JanPanthera"/>
    <text language="34" name="JP_AbandonedShipExplorer" description="Este script permite que tu nave espacial encuentre, marque o aborde naves abandonadas en toda la galaxia." author="JanPanthera"/>

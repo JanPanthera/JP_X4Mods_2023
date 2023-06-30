@@ -4,16 +4,12 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="INCLUDE_S_SHIPS"   default="100"/>
+      <param name="INCLUDE_M_SHIPS"   default="100"/>
+      <param name="INCLUDE_L_SHIPS"   default="100"/>
+      <param name="INCLUDE_XL_SHIPS"  default="100"/>
       <param name="OWNERLESS_SECTORS" default="true"/>
-      <param name="INCLUDE_S_SHIPS" default="100"/>
-      <param name="INCLUDE_M_SHIPS" default="100"/>
-      <param name="INCLUDE_L_SHIPS" default="100"/>
-      <param name="INCLUDE_XL_SHIPS" default="100"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SHOW_MESSAGES" default="0"/>
-      <param name="WRITE_TO_LOG" default="0"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
@@ -21,12 +17,16 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_ASE_Title" text="$_ASE_Title">
          <replace string="'\033#FFA95908##ASE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
       </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_FoundAbandonedShips"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -86,21 +86,17 @@
             </do_if>
          </do_for_each>
 
-         <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+         <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_FoundAbandonedShips">
             <param name="LIST" value="$_FoundAbandonedShips"/>
-            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-            <param name="DEBUG" value="$DEBUG"/>
-            <save_retval name="_SortedList" variable="$_FoundAbandonedShips"/>
          </run_script>
 
-         <!-- I will start scout for abandoned ships in sector %2%1\033X. -->
          <do_if value="$_FoundAbandonedShips.count gt 0">
-            <run_script name="'jp.lib.GetFactionColorCode'">
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$_FoundAbandonedShips.{1}.sector.owner"/>
-               <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
             </run_script>
-            <show_help custom="$_ASE_Title + '\n\n' + {8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_ASE_Title" text="{8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$_FoundAbandonedShips.{1}.sector" chance="$WRITE_TO_LOG"/>
+            <!-- I will start scout for abandoned ships in sector %2%1\033X. -->
+            <show_help custom="$_ASE_Title + '\n\n' + {8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_ASE_Title" text="{8888888, 164}.[$_FoundAbandonedShips.{1}.sector.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$_FoundAbandonedShips.{1}.sector" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -112,9 +108,7 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return>
-            <retval name="_FoundAbandonedShips" value="$_FoundAbandonedShips"/>
-         </return>
+         <return value="$_FoundAbandonedShips"/>
 
       </actions>
    </attention>

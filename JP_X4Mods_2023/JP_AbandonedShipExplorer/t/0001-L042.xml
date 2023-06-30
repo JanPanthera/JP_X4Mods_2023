@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AbandonedShipExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="100">Mód ASE</t>
+      <t id="101">Doplnit navigační majáky?</t>
+      <t id="102">Omezení množství pro doplnění</t>
+      <t id="103">Bezpečná stanice</t>
+      <t id="104">Poslat k recyklaci?</t>
+      <t id="105">Zahrnout lodě velikosti S?</t>
+      <t id="106">Zahrnout lodě velikosti M?</t>
+      <t id="107">Zahrnout lodě velikosti L?</t>
+      <t id="108">Zahrnout lodě velikosti XL?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="120">Opustěná loď</t>
+      <t id="121">Dorazil jsem k opuštěné lodi:</t>
+      <t id="122">Počkám na vás, dokud neovládnete opuštěnou loď.</t>
+      <t id="123">Počkám na vás, dokud neovládnete opuštěnou loď a vrátíte se zpět na mou palubu.</t>
+      <t id="124">Označil jsem opuštěnou loď a pokračuji k další.</t>
+      <t id="125">Poslal jsem k opuštěné lodi námořníka a čekám, až ji ovládne.</t>
+      <t id="126">Pro zajištění bezpečnosti nyní naše nově nabytá loď odletí na stanici k přistání.</t>
+      <t id="127">Pokračuji v nákupu navigačních majáků, jejichž hodnota je:\n%1.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="140">Přesunout se k opuštěné lodi</t>
+      <t id="141">Označit opuštěnou loď</t>
+      <t id="142">Obsadit opuštěnou loď</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="160">\033#FFe27100#Průzkum opuštěných lodí pozastaven\033X</t>
+      <t id="161">Navigační majáky nejsou k dispozici nebo jich není dostatek a automatické doplnění navigačních majáků je vypnuto.</t>
+      <t id="162">Pro automatické obsazení lodí nejsou k dispozici námořníci.</t>
+      <t id="163">Momentálně nejsou k dispozici žádné opuštěné lodě, které bychom mohli dosáhnout nebo které by bylo třeba označit nebo převzít.</t>
+      <t id="164">Začnu hledat opuštěné lodě v sektoru %2%1\033X.</t>
+      <t id="165">Označeno: %1\nSektor: %3%2\033X</t>
+      <t id="166">Obsazeno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="171">Odhaluje, označuje nebo obsazuje opuštěné lodě roztroušené po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

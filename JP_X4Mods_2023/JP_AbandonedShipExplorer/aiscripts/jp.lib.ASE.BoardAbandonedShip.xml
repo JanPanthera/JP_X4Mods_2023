@@ -8,10 +8,6 @@
          <param name="ABANDONED_SHIP" type="internal" default="null"/>
          <param name="SAFE_STATION"   type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" type="internal" default="0"/>
-         <param name="WRITE_TO_LOG"  type="internal" default="0"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
@@ -30,15 +26,19 @@
    </interrupts>
 
    <init>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_ASE_Title" text="$_ASE_Title">
          <replace string="'\033#FFA95908##ASE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
       </substitute_text>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.ASE.BoardAbandonedShip'"/>
@@ -59,23 +59,20 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <set_command command="command.investigate"/>
+
          <do_if value="$_Ship.sector != $ABANDONED_SHIP.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$ABANDONED_SHIP.sector"/>
-               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-               <param name="DEBUG" value="$DEBUG"/>
             </create_order>
          </do_if>
-
          <stop_moving object="$_Ship"/>
          <wait exact="1ms"/>
 
          <create_position name="$_Position" space="$ABANDONED_SHIP.sector" object="$ABANDONED_SHIP" y="(($ABANDONED_SHIP.height / 2) + ($_Ship.height / 2) + 10m)"/>
          <set_value name="$LOCATION" exact="[$ABANDONED_SHIP.sector, $_Position]"/>
-
          <set_command command="command.move" param="$ABANDONED_SHIP"/>
          <set_command_action commandaction="commandaction.flying"/>
-
          <run_script name="'move.generic'">
             <param name="destination" value="$ABANDONED_SHIP.sector"/>
             <param name="position" value="$_Position"/>
@@ -91,6 +88,8 @@
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <do_if value="$_Ship.people.{entityrole.marine}.list.count gt 0">
             <set_value name="$_MarineTemplate" exact="$_Ship.people.{entityrole.marine}.list.random"/>
@@ -113,8 +112,8 @@
                                             $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 125}"/>
-            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
             <wait exact="999h">
                <interrupt>
                   <conditions>
@@ -134,9 +133,8 @@
                </find_station>
             </do_else>
             <do_if value="$_FoundStations.count gt 1">
-               <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_FoundStations">
                   <param name="LIST" value="$_FoundStations"/>
-                  <save_retval name="_SortedList" variable="$_FoundStations"/>
                </run_script>
             </do_if>
             <do_for_each name="$_FoundStation" in="$_FoundStations">
@@ -150,22 +148,21 @@
             <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 126}"/>
-            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>
 
-         <run_script name="'jp.lib.GetFactionColorCode'">
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
             <param name="FACTION" value="$ABANDONED_SHIP.sector.owner"/>
-            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
          </run_script>
 
          <!-- Boarded: %1\nSector: %3%2\033X -->
          <set_value name="$_Text" exact="{8888888, 166}.[$ABANDONED_SHIP.knownname, $ABANDONED_SHIP.sector.knownname, $_ObjectSectorOwnerColor]"/>
-         <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+         <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
