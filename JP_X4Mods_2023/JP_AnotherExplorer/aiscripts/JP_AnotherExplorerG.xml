@@ -166,12 +166,14 @@
             </do_for_each>
          </do_else>
          <remove_value name="$_SettingsList"/>
-         <show_help allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
+         <show_help custom="$_AE_Title + '\n\n' + {8888888, 95}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_AE_Title" text="{8888888, 95}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$AnotherExplorer_Settings"/>
-         <show_help allowclose="true" log="true" custom="'JP_AnotherExplorerG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
+         <show_help custom="$_AE_Title + '\n\n' + {8888888, 96}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_AE_Title" text="{8888888, 96}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -235,8 +237,8 @@
 
          <do_if value="$_FoundObjects.count == 0">
             <!-- There are no remaining objects within my defined workspace that need to be uncovered. -->
-            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+            <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -253,8 +255,8 @@
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_AE_Title + '\n\n' + {8888888, 1460} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES gt 0 then 100 else 0"/>
-         <write_to_logbook title="$_AE_Title" text="{8888888, 1460} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG gt 0 then 100 else 0"/>
+         <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>

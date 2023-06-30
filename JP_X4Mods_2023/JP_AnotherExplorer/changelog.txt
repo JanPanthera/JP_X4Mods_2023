@@ -47,6 +47,7 @@ v1.0.6 -- Current Published Version
 ~ Updated: Some minor code and translation changes.
 
 v1.0.7 -- Current Development Version
+~ Added: Czech translation.
 ~ Added: More logging and notifications.
 ~ Fixed: Rare case where the Sector selection could fail.
-~ Updated: Several code cleanup and translations changes.
+~ Updated: Several code clean up and translations changes.

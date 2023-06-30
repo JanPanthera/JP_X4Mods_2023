@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_AnotherExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="440">Objevte neznámý objekt</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="460">\033#FFe27100#Průzkum Pozastaven\033X</t>
+      <t id="461">V mém definovaném pracovním prostoru již nejsou žádné objekty, které by bylo třeba odhalit.</t>
+      <t id="462">Začnu odhalovat objekty v sektoru %2%1\033X.</t>
+      <t id="463">Objeveno: %5%1 [%2]\033X\nVztah k nám: %7%3\033X\nSektor: %6%4\033X</t>
+      <t id="464">Objeveno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="470">Odhaluje stanice, skokové brány, akcelerátory a superdálnice v konkrétním sektoru.</t>
+      <t id="471">Odhaluje stanice, skokové brány, akcelerátory a superdálnice po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
