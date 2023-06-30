@@ -97,8 +97,7 @@
          </run_script>
 
          <do_if value="$ASE_MODE == 1">
-            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']\n' +
-                                            {8888888, 121} + '\n' +
+            <set_value name="$_Text" exact="{8888888, 121} + '\n' +
                                             $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']\n' +
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 122}"/>
@@ -114,8 +113,7 @@
          </do_if>
 
          <do_if value="$ASE_MODE == 2">
-            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']\n' +
-                                            {8888888, 121} + '\n' +
+            <set_value name="$_Text" exact="{8888888, 121} + '\n' +
                                             $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']\n' +
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 123}"/>

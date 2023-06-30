@@ -96,8 +96,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{8888888,120}' + '\033X\033#FF00CCCC#' + ' ~ ' + $_NavBeacon.sector.knownname + '\033X'"/>
-         <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                                         {8888888, 121} + '\n' +
+         <set_value name="$_Text" exact="{8888888, 121} + '\n' +
                                          $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
                                          {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                          {8888888, 124}"/>

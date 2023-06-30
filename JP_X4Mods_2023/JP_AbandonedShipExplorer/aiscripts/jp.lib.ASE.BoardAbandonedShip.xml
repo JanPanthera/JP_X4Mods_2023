@@ -107,8 +107,7 @@
                <param name="recycle" value="false"/>
                <param name="debugchance" value="0"/>
             </start_script>
-            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                                            {8888888, 121} + '\n' +
+            <set_value name="$_Text" exact="{8888888, 121} + '\n' +
                                             $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 125}"/>
@@ -145,8 +144,7 @@
                   <break/>
                </do_if>
             </do_for_each>
-            <set_value name="$_Text" exact="$_Ship.knownname + ' [' + $_Ship.idcode + ']' + '\n' +
-                                            {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+            <set_value name="$_Text" exact="{20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 126}"/>
             <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
             <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
