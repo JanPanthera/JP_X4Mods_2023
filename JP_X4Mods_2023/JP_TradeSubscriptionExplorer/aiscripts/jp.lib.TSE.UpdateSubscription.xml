@@ -69,6 +69,10 @@
 
          <set_command command="command.investigate"/>
 
+         <check_object result="$_Result" object="$STATION">
+            <match tradesknownto="$_Ship.owner"/>
+         </check_object>
+
          <do_if value="$_Ship.sector != $STATION.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$STATION.sector"/>
