@@ -304,8 +304,8 @@
             <set_value name="$_LogText" exact="'\n\n'" operation="add" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
-         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_HelpText" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 0 then 100 else 0"/>
-         <write_to_logbook title="$RESTOCK_TITLE" text="'\n' + $_LogText" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 0 then 100 else 0"/>
+         <show_help custom="$RESTOCK_TITLE + '\n\n' + $_HelpText" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$RESTOCK_TITLE" text="'\n' + $_LogText" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
