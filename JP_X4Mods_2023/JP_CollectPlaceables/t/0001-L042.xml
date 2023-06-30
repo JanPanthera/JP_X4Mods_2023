@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_CollectPlaceables -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="800">Sbírat normální miny?</t>
+      <t id="801">Sbírat sledovací miny?</t>
+      <t id="802">Sbírat miny přítel/nepřítel?</t>
+      <t id="803">Sbírat laserturmy Mk1?</t>
+      <t id="804">Sbírat laserturmy Mk2?</t>
+      <t id="805">Sbírat normální satelity?</t>
+      <t id="806">Sbírat pokročilé satelity?</t>
+      <t id="807">Sbírat navigační majáky?</t>
+      <t id="808">Sbírat sondy pro zdroje?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="810">Prodat umístitelné objekty?</t>
+      <t id="811">Prodat normální miny?</t>
+      <t id="812">Prodat sledovací miny?</t>
+      <t id="813">Prodat miny přítel/nepřítel?</t>
+      <t id="814">Prodat laserturmy Mk1?</t>
+      <t id="815">Prodat laserturmy Mk2?</t>
+      <t id="816">Prodat normální satelity?</t>
+      <t id="817">Prodat pokročilé satelity?</t>
+      <t id="818">Prodat navigační majáky?</t>
+      <t id="819">Prodat sondy pro zdroje?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="840">Sbírat umístitelné objekty</t>
+      <t id="841">Prodat umístitelné objekty</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="860">\033#FFe27100#Sběr Pozastaven\033X</t>
+      <t id="861">Pokračuji v prodeji umístitelných objektů, jejichž hodnota je:\n%1.</t>
+      <t id="862">Už není více úložiště pro sběr dalších umístitelných objektů a já sám nemohu vyprázdnit své úložiště pro nasazení.</t>
+      <t id="863">Úložiště pro umístitelné objekty je plné a nesmíme prodat umístitelné objekty, které momentálně máme.</t>
+      <t id="864">V mém definovaném pracovním prostoru nejsou žádné zbývající umístitelné objekty, které bychom potřebovali sesbírat.</t>
+      <t id="866">Začnu sbírat umístitelné objekty v sektoru %2%1\033X.</t>
+      <t id="867">Sesbíráno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="870">Sbírá umístitelné položky, jako jsou satelity nebo miny, v jednom sektoru.</t>
+      <t id="871">Sbírá umístitelné položky, jako jsou satelity nebo miny, po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

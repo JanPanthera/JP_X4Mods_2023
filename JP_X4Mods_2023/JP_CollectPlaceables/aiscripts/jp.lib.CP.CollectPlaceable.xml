@@ -7,10 +7,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACEABLE" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" type="internal" default="0"/>
-         <param name="WRITE_TO_LOG" type="internal" default="0"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
@@ -32,12 +28,16 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_CP_Title" text="$_CP_Title">
          <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
       </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
@@ -64,11 +64,8 @@
          <do_if value="$_Ship.sector != $PLACEABLE.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$PLACEABLE.sector"/>
-               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-               <param name="DEBUG" value="$DEBUG"/>
             </create_order>
          </do_if>
-
          <stop_moving object="$_Ship"/>
          <wait exact="2000ms"/>
 
@@ -79,10 +76,8 @@
             <create_position name="$_Position" space="$PLACEABLE.sector" object="$PLACEABLE" y="(($PLACEABLE.height / 2) + ($_Ship.height / 2) + 10m)"/>
          </do_else>
          <set_value name="$LOCATION" exact="[$PLACEABLE.sector, $_Position]"/>
-
          <set_command command="command.move" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.flying"/>
-
          <run_script name="'move.generic'">
             <param name="destination" value="$PLACEABLE.sector"/>
             <param name="position" value="$_Position"/>
@@ -99,15 +94,18 @@
          <set_command command="command.collect" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
-         <run_script name="'jp.lib.GetFactionColorCode'">
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
             <param name="FACTION" value="$PLACEABLE.sector.owner"/>
-            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
          </run_script>
 
          <!-- Collected: %1\nSector: %3%2\033X -->
          <set_value name="$_Text" exact="{8888888, 867}.[$PLACEABLE.knownname, $PLACEABLE.sector.knownname, $_ObjectSectorOwnerColor]"/>
-         <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$PLACEABLE.sector" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$PLACEABLE.sector" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+         
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <collect_deployable object="$_Ship" deployable="$PLACEABLE"/>
 

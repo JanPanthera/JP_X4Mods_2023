@@ -4,23 +4,19 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SECTOR" default="null"/>
+      <param name="SECTOR"            default="null"/>
       <param name="OWNERLESS_SECTORS" default="true"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="COLLECT_REGULAR_MINES" default="false"/>
-      <param name="COLLECT_TRACKER_MINES" default="false"/>
-      <param name="COLLECT_FRIENDFOE_MINES" default="false"/>
-      <param name="COLLECT_MK1_LASER_TOWERS" default="false"/>
-      <param name="COLLECT_MK2_LASER_TOWERS" default="false"/>
-      <param name="COLLECT_REGULAR_SATELLITES" default="false"/>
+      <param name="COLLECT_REGULAR_MINES"       default="false"/>
+      <param name="COLLECT_TRACKER_MINES"       default="false"/>
+      <param name="COLLECT_FRIENDFOE_MINES"     default="false"/>
+      <param name="COLLECT_MK1_LASER_TOWERS"    default="false"/>
+      <param name="COLLECT_MK2_LASER_TOWERS"    default="false"/>
+      <param name="COLLECT_REGULAR_SATELLITES"  default="false"/>
       <param name="COLLECT_ADVANCED_SATELLITES" default="false"/>
-      <param name="COLLECT_NAVIGATION_BEACONS" default="false"/>
-      <param name="COLLECT_RESOURCE_PROBES" default="false"/>
+      <param name="COLLECT_NAVIGATION_BEACONS"  default="false"/>
+      <param name="COLLECT_RESOURCE_PROBES"     default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SHOW_MESSAGES" default="0"/>
-      <param name="WRITE_TO_LOG" default="0"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
@@ -28,8 +24,8 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_CP_Title" text="$_CP_Title">
          <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
@@ -39,6 +35,10 @@
       <create_list name="$_FoundPlaceables"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
@@ -76,12 +76,14 @@
          <do_if value="$SECTOR == null">
             <do_if value="$OWNERLESS_SECTORS">
                <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
                   <match_gate_distance object="$_Ship" min="0"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
                </find_sector>
             </do_if>
             <do_else>
                <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
                   <match owner="faction.ownerless" negate="true"/>
                   <match_gate_distance object="$_Ship" min="0"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
@@ -98,23 +100,10 @@
                <remove_value name="$_BlacklistedSectors"/>
             </do_if>
             <do_if value="$_Sectors.count gt 1">
-               <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_Sectors">
                   <param name="LIST" value="$_Sectors"/>
-                  <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-                  <param name="DEBUG" value="$DEBUG"/>
-                  <save_retval name="_SortedList" variable="$_Sectors"/>
                </run_script>
             </do_if>
-         </do_if>
-
-         <do_if value="$DEBUG gt 0">
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sectors.count: %1'.[$_Sectors.count]"/>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-            <do_for_each name="$_Sector" in="$_Sectors">
-               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1 ~ Owner: %2'.[$_Sector.knownname, $_Sector.owner]"/>
-            </do_for_each>
-            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
          <do_for_each name="$_Sector" in="$_Sectors">
@@ -193,22 +182,9 @@
 
             <do_if value="$_FoundPlaceables.count gt 0">
                <do_if value="$_FoundPlaceables.count gt 1">
-                  <run_script name="'jp.lib.SortByEstimatedTravelTime'">
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_FoundPlaceables">
                      <param name="LIST" value="$_FoundPlaceables"/>
-                     <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-                     <param name="DEBUG" value="$DEBUG"/>
-                     <save_retval name="_SortedList" variable="$_FoundPlaceables"/>
                   </run_script>
-               </do_if>
-               <set_value name="$SECTOR" exact="$_Sector"/>
-               <do_if value="$DEBUG gt 0">
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'Sector: %1 ~ $_FoundPlaceables.count: %2'.[$SECTOR.knownname, $_FoundPlaceables.count]"/>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                  <do_for_each name="$_FoundPlaceable" in="$_FoundPlaceables">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_FoundPlaceable: %1'.[$_FoundPlaceable.knownname]"/>
-                  </do_for_each>
-                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                </do_if>
                <break/>
             </do_if>
@@ -224,13 +200,12 @@
          </do_if>
 
          <do_if value="@global.$CP_SectorBlacklist.{$_Ship} == null and $SECTOR != null">
-            <!-- I will start collecting placeables in sector %2%1\033X. -->
-            <run_script name="'jp.lib.GetFactionColorCode'">
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$SECTOR.owner"/>
-               <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
             </run_script>
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="$WRITE_TO_LOG"/>
+            <!-- I will start collecting placeables in sector %2%1\033X. -->
+            <show_help custom="$_CP_Title + '\n\n' + {8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_CP_Title" text="{8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <do_if value="$_FoundPlaceables.count gt 0">
@@ -248,9 +223,7 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return>
-            <retval name="_FoundPlaceables" value="$_FoundPlaceables"/>
-         </return>
+         <return value="$_FoundPlaceables"/>
 
       </actions>
    </attention>

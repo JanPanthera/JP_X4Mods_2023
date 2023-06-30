@@ -4,41 +4,42 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SELL_REGULAR_MINES" default="false"/>
-      <param name="SELL_TRACKER_MINES" default="false"/>
-      <param name="SELL_FRIENDFOE_MINES" default="false"/>
-      <param name="SELL_MK1_LASER_TOWERS" default="false"/>
-      <param name="SELL_MK2_LASER_TOWERS" default="false"/>
-      <param name="SELL_REGULAR_SATELLITES" default="false"/>
+      <param name="SELL_REGULAR_MINES"       default="false"/>
+      <param name="SELL_TRACKER_MINES"       default="false"/>
+      <param name="SELL_FRIENDFOE_MINES"     default="false"/>
+      <param name="SELL_MK1_LASER_TOWERS"    default="false"/>
+      <param name="SELL_MK2_LASER_TOWERS"    default="false"/>
+      <param name="SELL_REGULAR_SATELLITES"  default="false"/>
       <param name="SELL_ADVANCED_SATELLITES" default="false"/>
-      <param name="SELL_NAVIGATION_BEACONS" default="false"/>
-      <param name="SELL_RESOURCE_PROBES" default="false"/>
+      <param name="SELL_NAVIGATION_BEACONS"  default="false"/>
+      <param name="SELL_RESOURCE_PROBES"     default="false"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="SHOW_MESSAGES" default="0"/>
-      <param name="WRITE_TO_LOG" default="0"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="DEBUG" default="0"/>
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
 
    <init>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_Result" exact="'Failed'"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_CP_Title" text="$_CP_Title">
          <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
       </substitute_text>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Result" exact="'Failed'"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.CP.SellPlaceables'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
@@ -75,8 +76,8 @@
 
          <do_if value="$_PlaceablesToSellCount == 0">
             <!-- The storage for placeables is full, and we're not permitted to sell the placeables we currently have. -->
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 863}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 863}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 863}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 863}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
             <resume label="FINISH_LBL"/>
          </do_if>
 
@@ -85,22 +86,16 @@
             <set_value name="$_PlaceablesToSell.{$_PlaceablesMacro.{1}}" exact="0" chance="$_PlaceablesMacro.{2}"/>
          </do_for_each>
 
-         <run_script name="'jp.lib.RestockEquipment'">
-            <param name="EQUIPMENT_TABLE" value="$_PlaceablesToSell"/>
+         <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
+            <param name="DEPLOYABLE_TABLE" value="$_PlaceablesToSell"/>
             <param name="RESTOCK_TITLE" value="$_CP_Title"/>
-            <param name="EQUIPMENT_BUYSELL_TEXT" value="{8888888, 861}"/>
-            <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
-            <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
-            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-            <param name="DEBUG" value="$DEBUG"/>
-            <save_retval name="_Result" variable="$_Result"/>
          </run_script>
 
          <!-- The restock equipment order has failed. More detail is available in the logbook. -->
          <do_if value="$_Result == 'Failed'">
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' +  {8888888, 54}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
-            <resume label="FINISH_LBL"/>
+            <show_help custom="$_ASE_Title + '\n\n' + {8888888, 1460} + '\n' +  {8888888, 54}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+            <write_to_logbook title="$_ASE_Title" text="{8888888, 1460} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <resume label="IDLE_LBL"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

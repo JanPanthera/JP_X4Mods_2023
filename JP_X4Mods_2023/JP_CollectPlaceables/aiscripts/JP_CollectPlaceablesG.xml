@@ -54,7 +54,7 @@
             <input_param name="truevalue" value="100"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_003" text="----------------------------------" type="object" default="null">
+         <param name="PLACE_HOLDER_995" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
@@ -91,11 +91,15 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{29} else 100">
-            <input_param name="truevalue" value="100"/>
+         <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="number" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{29} else 1">
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="3"/>
+            <input_param name="step" value="1"/>
          </param>
-         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{30} else 100">
-            <input_param name="truevalue" value="100"/>
+         <param name="WRITE_TO_LOG" text="{8888888, 91}" comment="Write to logbook?" type="number" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{30} else 3">
+            <input_param name="min" value="0"/>
+            <input_param name="max" value="3"/>
+            <input_param name="step" value="1"/>
          </param>
          <param name="ADD_ORDER_TAG" text="{8888888, 92}" comment="Add order tag?" type="bool" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{31} else true"/>
          <param name="SAVE_ORDER_SETTINGS" text="{8888888, 93}" comment="Save Order Settings?" type="bool" default="false"/>
@@ -106,14 +110,13 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_CollectPlaceables.logs'"/>
          <param name="DEBUG" text="Debug" type="number" default="if global.$CollectPlaceables_Settings? then global.$CollectPlaceables_Settings.{32} else 0" advanced="true">
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
             <input_param name="step" value="100"/>
          </param>
-         <param name="debugchance" text="{1041, 10086}" comment="Print debug output" type="bool" default="0" advanced="true">
-            <input_param name="truevalue" value="100"/>
-         </param>
+         <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_999" text="----------------------------------" type="object" default="null" advanced="true">
             <input_param name="class" value="[]"/>
@@ -141,8 +144,8 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_CP_Title" text="$_CP_Title">
          <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
@@ -151,7 +154,7 @@
       <add_to_group object="$_Ship" groupname="global.$CP_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'JP_CollectPlaceablesG'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -183,12 +186,14 @@
             </do_for_each>
          </do_else>
          <remove_value name="$_SettingsList"/>
-         <show_help duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 95}'"/>
+         <show_help custom="$_CP_Title + '\n\n' + {8888888, 95}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_CP_Title" text="{8888888, 95}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$RESET_ORDER_SETTINGS">
          <remove_value name="global.$CollectPlaceables_Settings"/>
-         <show_help duration="5s" allowclose="true" custom="'JP_CollectPlaceablesG' + ' ~\n' + $_Ship.knownname + ' [' + $_Ship.idcode + ']\n\n' + '{8888888, 96}'"/>
+         <show_help custom="$_CP_Title + '\n\n' + {8888888, 96}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_CP_Title" text="{8888888, 96}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -228,11 +233,11 @@
             <remove_value name="$_GoSell"/>
             <do_if value="not $SELL_PLACEABLES">
                <!-- There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself. -->
-               <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 862}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-               <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 862}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+               <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 862}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+               <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 862}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
                <resume label="IDLE_LBL"/>
             </do_if>
-            <run_script name="'jp.lib.CP.SellPlaceables'">
+            <run_script name="'jp.lib.CP.SellPlaceables'" result="$_Result">
                <param name="SELL_REGULAR_MINES" value="$SELL_REGULAR_MINES"/>
                <param name="SELL_TRACKER_MINES" value="$SELL_TRACKER_MINES"/>
                <param name="SELL_FRIENDFOE_MINES" value="$SELL_FRIENDFOE_MINES"/>
@@ -242,10 +247,6 @@
                <param name="SELL_ADVANCED_SATELLITES" value="$SELL_ADVANCED_SATELLITES"/>
                <param name="SELL_NAVIGATION_BEACONS" value="$SELL_NAVIGATION_BEACONS"/>
                <param name="SELL_RESOURCE_PROBES" value="$SELL_RESOURCE_PROBES"/>
-               <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
-               <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
-               <param name="DEBUG" value="$DEBUG"/>
-               <save_retval name="_Result" variable="$_Result"/>
             </run_script>
             <do_if value="@$_Result != 'Success'">
                <resume label="IDLE_LBL"/>
@@ -253,7 +254,7 @@
          </do_if>
 
          <create_list name="$_FoundPlaceables"/>
-         <run_script name="'jp.lib.CP.GetPlaceablesToCollect'">
+         <run_script name="'jp.lib.CP.GetPlaceablesToCollect'" result="$_FoundPlaceables">
             <param name="SECTOR" value="@global.$CP_SectorBlacklist.{$_Ship}"/>
             <param name="OWNERLESS_SECTORS" value="$OWNERLESS_SECTORS"/>
             <param name="COLLECT_REGULAR_MINES" value="$COLLECT_REGULAR_MINES"/>
@@ -265,10 +266,6 @@
             <param name="COLLECT_ADVANCED_SATELLITES" value="$COLLECT_ADVANCED_SATELLITES"/>
             <param name="COLLECT_NAVIGATION_BEACONS" value="$COLLECT_NAVIGATION_BEACONS"/>
             <param name="COLLECT_RESOURCE_PROBES" value="$COLLECT_RESOURCE_PROBES"/>
-            <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
-            <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
-            <param name="DEBUG" value="$DEBUG"/>
-            <save_retval name="_FoundPlaceables" variable="$_FoundPlaceables"/>
          </run_script>
 
          <do_if value="$_FoundPlaceables.count == 0">
@@ -277,8 +274,8 @@
                <resume label="RESUME_LBL"/>
             </do_if>
             <!-- There are no remaining placeables within my defined workspace left that we need to collect. -->
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 864}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 864}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 864}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 864}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -286,9 +283,6 @@
             <do_for_each name="$_FoundPlaceable" in="$_FoundPlaceables">
                <create_order object="$_Ship" id="'JP_lib_CP_CollectPlaceable'" immediate="true">
                   <param name="PLACEABLE" value="$_FoundPlaceable"/>
-                  <param name="SHOW_MESSAGES"  value="$SHOW_MESSAGES"/>
-                  <param name="WRITE_TO_LOG"  value="$WRITE_TO_LOG"/>
-                  <param name="DEBUG" value="$DEBUG"/>
                </create_order>
                <wait exact="1000ms"/>
                <break/>
@@ -298,8 +292,8 @@
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 55}" position="1" duration="5s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
+         <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME" value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
@@ -310,8 +304,6 @@
             <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
-            <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-            <param name="DEBUG" value="$DEBUG"/>
          </create_order>
          <wait exact="1000ms"/>
 

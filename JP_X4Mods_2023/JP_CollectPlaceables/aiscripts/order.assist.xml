@@ -16,7 +16,7 @@
             <param name="COLLECT_NAVIGATION_BEACONS"  value="$order.$COLLECT_NAVIGATION_BEACONS"/>
             <param name="COLLECT_RESOURCE_PROBES"     value="$order.$COLLECT_RESOURCE_PROBES"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="SELL_PLACEABLES"       value="$order.$SELL_PLACEABLES"/>
+            <param name="SELL_PLACEABLES"          value="$order.$SELL_PLACEABLES"/>
             <param name="SELL_REGULAR_MINES"       value="$order.$SELL_REGULAR_MINES"/>
             <param name="SELL_TRACKER_MINES"       value="$order.$SELL_TRACKER_MINES"/>
             <param name="SELL_FRIENDFOE_MINES"     value="$order.$SELL_FRIENDFOE_MINES"/>
@@ -42,6 +42,8 @@
             <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
             <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
             <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="DEBUG" value="$order.$DEBUG"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          </run_script>
       </do_if>
