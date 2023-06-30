@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_DataVaultExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="900">Doplnit navigační majáky?</t>
+      <t id="901">Omezení množství pro doplnění</t>
+      <t id="902">Domovská pozice</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="940">Označit datové trezory</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="960">\033#FFe27100#Označování datových trezorů pozastaveno\033X</t>
+      <t id="961">Navigační majáky nejsou k dispozici nebo jich není dostatek a automatické doplnění navigačních majáků je vypnuto.</t>
+      <t id="962">Momentálně nejsou k dispozici žádné datové trezory, které bychom mohli dosáhnout nebo které by bylo třeba označit.</t>
+      <t id="963">Začnu označovat datový trezor v sektoru %2%1\033X.</t>
+      <t id="964">Označeno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="971">Umístit navigační majáky vedle datových trezorů po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

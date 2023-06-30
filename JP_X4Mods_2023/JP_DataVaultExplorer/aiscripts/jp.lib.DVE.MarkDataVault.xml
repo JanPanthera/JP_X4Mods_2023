@@ -7,10 +7,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="DATA_VAULT" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SHOW_MESSAGES" type="internal" default="0"/>
-         <param name="WRITE_TO_LOG" type="internal" default="0"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG" type="internal" default="0"/>
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
@@ -32,12 +28,16 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_OrderName" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder.name else $_Ship.defaultorder.name"/>
-      <set_value name="$_DVE_Title" exact="'%1 ~ %2 [%3]'.[$_OrderName, $_Ship.knownname, $_Ship.idcode]"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <set_value name="$_DVE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
       <substitute_text source="$_DVE_Title" text="$_DVE_Title">
          <replace string="'\033#FFA95908##DVE-S\033X ~ '" with="''"/>
          <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
       </substitute_text>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
@@ -64,20 +64,15 @@
          <do_if value="$_Ship.sector != $DATA_VAULT.sector">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$DATA_VAULT.sector"/>
-               <param name="DEBUG_FOLDER_NAME" value="@$_DebugFolderName"/>
-               <param name="DEBUG" value="$DEBUG"/>
             </create_order>
          </do_if>
-
          <stop_moving object="$_Ship"/>
          <wait exact="1ms"/>
 
          <create_position name="$_Position" space="$DATA_VAULT.sector" object="$DATA_VAULT" y="(($DATA_VAULT.height / 2) + ($_Ship.height / 2) + 10m)"/>
          <set_value name="$LOCATION" exact="[$DATA_VAULT.sector, $_Position]"/>
-
          <set_command command="command.move" param="$DATA_VAULT"/>
          <set_command_action commandaction="commandaction.flying"/>
-
          <run_script name="'move.generic'">
             <param name="destination" value="$DATA_VAULT.sector"/>
             <param name="position" value="$_Position"/>
@@ -100,18 +95,21 @@
          </set_object_velocity>
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{20109,8901}' + '\033X\033#FF00CCCC#' + ' ~ ' + $_NavBeacon.sector.knownname + '\033X'"/>
 
-         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_DATAVAULT_MARKED'"/>
-         <apply_experience object="$_Ship" experience="'JP_SHIP_DATAVAULT_MARKED'" role="entityrole.service"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <run_script name="'jp.lib.GetFactionColorCode'">
+         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
             <param name="FACTION" value="$DATA_VAULT.sector.owner"/>
-            <save_retval name="_FactionColorCode" variable="$_ObjectSectorOwnerColor"/>
          </run_script>
 
          <!-- Marked: %1\nSector: %3%2\033X -->
          <set_value name="$_Text" exact="{8888888, 964}.[$DATA_VAULT.knownname, $DATA_VAULT.sector.knownname, $_ObjectSectorOwnerColor]"/>
-         <show_help custom="$_DVE_Title + '\n\n' + $_Text" position="1" duration="3s" allowclose="true" chance="$SHOW_MESSAGES"/>
-         <write_to_logbook title="$_DVE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$DATA_VAULT" chance="$WRITE_TO_LOG"/>
+         <show_help custom="$_DVE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+         <write_to_logbook title="$_DVE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$DATA_VAULT" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_DATAVAULT_MARKED'"/>
+         <apply_experience object="$_Ship" experience="'JP_SHIP_DATAVAULT_MARKED'" role="entityrole.service"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

@@ -18,8 +18,6 @@
       <t id="963">I will start mark a datavault in sector %2%1\033X.</t>
       <t id="964">Marked: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="960">\033#FFe27100#Datavault Marking Paused\033X</t>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="971">Place navigation beacons beside data vaults throughout the galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
