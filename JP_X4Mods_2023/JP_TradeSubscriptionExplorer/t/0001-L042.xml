@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_TradeSubscriptionExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1940">Obnovit obchodní předplatné</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1960">\033#FFe27100#Obnova obchodních předplatných pozastavena\033X</t>
+      <t id="1961">V mém definovaném pracovním prostoru již nejsou žádné stanice, které by vyžadovaly aktualizaci obchodního předplatného.</t>
+      <t id="1962">Začnu aktualizovat obchodní předplatné v sektoru %2%1\033X.</t>
+      <t id="1963">Obnoveno předplatné na %5%1 [%2]\033X\nVztah k nám: %7%3\033X\nSektor: %6%4\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1970">Obnovuje obchodní předplatné pro stanice v konkrétním sektoru.</t>
+      <t id="1971">Obnovuje obchodní předplatné pro stanice po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

@@ -29,5 +29,8 @@ v2.0.3 -- Current Published Version
 ~ Updated: Some minor code and translation changes.
 
 v2.0.4 -- Current Development Version
-~ Added: More Notificaitons and logging to the logbook
-~ Updated: Several minor enhancements have been made to the code and translations.
+~ Added: Czech translation.
+~ Added: More logging and notifications.
+~ Added: A option to update trade subscriptions from construction sites.
+~ Fixed: Rare case where the Sector selection could fail.
+~ Updated: Several code clean up and translations changes.

@@ -131,7 +131,7 @@
                   </do_if>
 
                   <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$TradeSubscriptionExplorer_Settings.count != 22">
+                  <do_if value="@global.$TradeSubscriptionExplorer_Settings.count != 23">
                      <remove_value name="global.$TradeSubscriptionExplorer_Settings"/>
                   </do_if>
 
@@ -155,10 +155,16 @@
                </conditions>
                <actions>
                   <set_value name="$_Ship" exact="event.object"/>
+                  <do_if value="global.$TSE_SectorBlacklist.{$_Ship}?">
+                     <remove_value name="global.$TSE_SectorBlacklist.{$_Ship}"/>
+                  </do_if>
                   <cancel_all_orders object="$_Ship"/>
                   <do_if value="$_Ship.subordinates.count gt 0">
                      <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
                         <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                           <do_if value="global.$TSE_SectorBlacklist.{$_Subordinate}?">
+                              <remove_value name="global.$TSE_SectorBlacklist.{$_Subordinate}"/>
+                           </do_if>
                            <cancel_all_orders object="$_Subordinate"/>
                            <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
                               <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
