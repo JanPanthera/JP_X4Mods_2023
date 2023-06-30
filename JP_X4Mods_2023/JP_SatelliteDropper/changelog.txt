@@ -32,7 +32,7 @@ v1.0.5 -- Current Published Version
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
 v1.0.6 -- Current Development Version
-~ Added: Chzech translation.
+~ Added: Czech translation.
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Added: More logging and notifications.
