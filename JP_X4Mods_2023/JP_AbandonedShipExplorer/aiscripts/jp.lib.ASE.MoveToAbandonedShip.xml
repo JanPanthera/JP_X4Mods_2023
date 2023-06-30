@@ -103,7 +103,7 @@
                                             {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
                                             {8888888, 122}"/>
             <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="if $ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
             <wait exact="999h">
                <interrupt>
                   <conditions>
