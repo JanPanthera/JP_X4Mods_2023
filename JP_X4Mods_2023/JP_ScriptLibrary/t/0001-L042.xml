@@ -32,6 +32,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Nečinný</t>
       <t id="41">Přesunout do sektoru</t>
+      <t id="42">Přesunout na pozici</t>
+      <t id="43">Přesunout k objektu</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">V současné době nejsou k dispozici žádné stanice, kde bychom mohli doplnit naše požadované vybavení.</t>
       <t id="51">V současné době všechny dostupné stanice postrádají potřebné zdroje pro výrobu potřebného vybavení.\nOdeberu se na nejbližší stanici, zadám požadavek na doplnění zásob a poté budu čekat na další doplnění zdrojů.</t>

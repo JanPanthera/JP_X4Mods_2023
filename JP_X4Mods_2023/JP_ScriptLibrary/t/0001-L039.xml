@@ -31,7 +31,9 @@
       <t id="30">Settori senza proprietario?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Inattivo</t>
-      <t id="41">Spostarsi nel Settore</t>
+      <t id="41">Muoversi nel settore</t>
+      <t id="42">Muoversi nella posizione</t>
+      <t id="43">Muoversi verso l'oggetto</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Al momento, non ci sono stazioni disponibili dove potremmo rifornire la nostra attrezzatura desiderata.</t>
       <t id="51">Al momento, tutte le stazioni disponibili mancano delle risorse necessarie per produrre l'attrezzatura necessaria.\nAndrò alla stazione più vicina, farò una richiesta di rifornimento, e poi aspetterò il prossimo rifornimento di risorse.</t>

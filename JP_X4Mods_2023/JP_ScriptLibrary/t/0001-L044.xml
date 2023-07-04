@@ -32,6 +32,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Idle</t>
       <t id="41">Move to Sector</t>
+      <t id="42">Move to Position</t>
+      <t id="43">Move to Object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Currently, there are no available stations where we could restock our desired equipment.</t>
       <t id="51">Currently, all available stations lack the required resources to manufacture the necessary equipment.\nI will go to the nearest station, place a request for restocking, and then await the next resource replenishment.</t>

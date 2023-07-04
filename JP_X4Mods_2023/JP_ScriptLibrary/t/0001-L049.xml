@@ -32,6 +32,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Leerlauf</t>
       <t id="41">Zum Sektor bewegen</t>
+      <t id="42">Zu Position bewegen</t>
+      <t id="43">Zu Objekt bewegen</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Derzeit gibt es keine verfügbaren Stationen, an denen wir unsere gewünschte Ausrüstung ändern könnten.</t>
       <t id="51">Derzeit fehlen allen verfügbaren Stationen die benötigten Ressourcen zur Herstellung der benötigten Ausrüstung.\nIch werde zur nächstgelegenen Station gehen, eine Anfrage zur Auffüllung stellen und dann auf die nächste Ressourcennachfüllung warten.</t>

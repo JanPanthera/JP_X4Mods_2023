@@ -31,7 +31,9 @@
       <t id="30">¿Sectores sin dueño?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Inactivo</t>
-      <t id="41">Moverse al Sector</t>
+      <t id="41">Moverse al sector</t>
+      <t id="42">Moverse a la posición</t>
+      <t id="43">Moverse al objeto</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Actualmente, no hay estaciones disponibles donde podríamos reabastecer nuestro equipo deseado.</t>
       <t id="51">Actualmente, todas las estaciones disponibles carecen de los recursos necesarios para fabricar el equipo necesario.\nIré a la estación más cercana, haré una solicitud de reabastecimiento, y luego esperaré la próxima reposición de recursos.</t>

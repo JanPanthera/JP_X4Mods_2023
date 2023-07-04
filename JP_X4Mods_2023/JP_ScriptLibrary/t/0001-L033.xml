@@ -30,8 +30,10 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="30">Secteurs sans propriétaire?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="40">Au repos</t>
-      <t id="41">Déplacer vers le Secteur</t>
+      <t id="40">Inactif</t>
+      <t id="41">Se déplacer vers le secteur</t>
+      <t id="42">Se déplacer vers la position</t>
+      <t id="43">Se déplacer vers l'objet</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Actuellement, il n'y a pas de stations disponibles où nous pourrions réapprovisionner notre équipement souhaité.</t>
       <t id="51">Actuellement, toutes les stations disponibles manquent des ressources nécessaires pour fabriquer l'équipement nécessaire.\nJe vais à la station la plus proche, fais une demande de réapprovisionnement, puis attends le prochain réapprovisionnement en ressources.</t>

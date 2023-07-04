@@ -31,7 +31,9 @@
       <t id="30">Sektory bez właściciela?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Bezczynny</t>
-      <t id="41">Przenieś do Sektora</t>
+      <t id="41">Przenieś do sektora</t>
+      <t id="42">Przenieś na pozycję</t>
+      <t id="43">Przenieś do obiektu</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Obecnie nie ma dostępnych stacji, na których moglibyśmy uzupełnić zapas naszego pożądanego sprzętu.</t>
       <t id="51">Obecnie wszystkie dostępne stacje nie mają wymaganych zasobów do wyprodukowania niezbędnego sprzętu.\nUdam się do najbliższej stacji, złożę prośbę o uzupełnienie zapasów, a następnie poczekam na następne uzupełnienie zasobów.</t>

@@ -30,8 +30,10 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="30">Setores sem dono?</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="40">Ocioso</t>
-      <t id="41">Mover para o Setor</t>
+      <t id="40">Inativo</t>
+      <t id="41">Mover para o setor</t>
+      <t id="42">Mover para a posição</t>
+      <t id="43">Mover para o objeto</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Atualmente, não há estações disponíveis onde poderíamos reabastecer nosso equipamento desejado.</t>
       <t id="51">Atualmente, todas as estações disponíveis não possuem os recursos necessários para fabricar o equipamento necessário.\nIrei para a estação mais próxima, farei um pedido de reabastecimento, e então aguardarei o próximo reabastecimento de recursos.</t>

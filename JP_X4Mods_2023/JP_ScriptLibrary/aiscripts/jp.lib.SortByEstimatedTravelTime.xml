@@ -47,6 +47,15 @@
             </do_for_each>
             <sort_list list="$_SectorTravelTimes" sortbyvalue="loop.element.{2}"/>
             <clear_list list="$LIST"/>
+            <do_if value="$_SectorTravelTimes.{1}.{1}.isclass.{class.sector}">
+               <do_for_each name="$_Sector" in="$_SectorTravelTimes" reverse="true">
+                  <do_if value="$_Sector.{1} == $_Ship.sector">
+                     <remove_from_list name="$_SectorTravelTimes" exact="$_Sector"/>
+                     <append_to_list name="$LIST" exact="$_Ship.sector"/>
+                     <break/>
+                  </do_if>
+               </do_for_each>
+            </do_if>
             <do_for_each name="$_SectorTravelTime" in="$_SectorTravelTimes">
                <append_to_list name="$LIST" exact="$_SectorTravelTime.{1}"/>
             </do_for_each>
