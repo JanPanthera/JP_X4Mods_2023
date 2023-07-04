@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_SpiralExplorer" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera" version="100" date="2023-05-03" save="0" enabled="1">
-   <text language="7"  name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="33" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="34" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="39" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="44" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="48" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="49" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="55" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="81" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="82" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="86" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
-   <text language="88" name="JP_SpiralExplorer" description="Explores a sector by flying a spiral." author="JanPanthera"/>
+<content id="JP_SpiralExplorer" name="JP_SpiralExplorer" description="Uncovers the fog within a specific sector as well as sectors throughout the entire galaxy." author="JanPanthera" version="110" date="2023-07-04" save="0" enabled="1">
+   <text language="7"  name="JP_SpiralExplorer" description="Разгоняет туман в конкретном секторе, а также в секторах по всей галактике." author="JanPanthera"/>
+   <text language="33" name="JP_SpiralExplorer" description="Dissipe le brouillard dans un secteur spécifique ainsi que dans les secteurs de toute la galaxie." author="JanPanthera"/>
+   <text language="34" name="JP_SpiralExplorer" description="Despeja la niebla dentro de un sector específico así como en sectores en toda la galaxia." author="JanPanthera"/>
+   <text language="39" name="JP_SpiralExplorer" description="Dissipa la nebbia all'interno di un settore specifico e nei settori di tutta la galassia." author="JanPanthera"/>
+   <text language="42" name="JP_SpiralExplorer" description="Rozptýlí mlhu v konkrétním sektoru i v sektorech po celé galaxii." author="JanPanthera"/>
+   <text language="44" name="JP_SpiralExplorer" description="Uncovers the fog within a specific sector as well as sectors throughout the entire galaxy." author="JanPanthera"/>
+   <text language="48" name="JP_SpiralExplorer" description="Rozprasza mgłę w konkretnym sektorze, a także w sektorach na całej galaktyce." author="JanPanthera"/>
+   <text language="49" name="JP_SpiralExplorer" description="Lüftet den Nebel in einem spezifischen Sektor sowie in Sektoren in der gesamten Galaxie." author="JanPanthera"/>
+   <text language="55" name="JP_SpiralExplorer" description="Desvenda a névoa dentro de um setor específico e em setores em toda a galáxia." author="JanPanthera"/>
+   <text language="81" name="JP_SpiralExplorer" description="特定のセクターだけでなく、全銀河のセクター内の霧を晴らします。" author="JanPanthera"/>
+   <text language="82" name="JP_SpiralExplorer" description="특정 섹터 뿐만 아니라 전체 은하계의 섹터 내의 안개를 제거합니다." author="JanPanthera"/>
+   <text language="86" name="JP_SpiralExplorer" description="揭示特定区域以及整个银河系中的区域内的雾气。" author="JanPanthera"/>
+   <text language="88" name="JP_SpiralExplorer" description="揭示特定區域以及整個銀河系中的區域內的霧氣。" author="JanPanthera"/>
+   <dependency id="JP_ScriptLibrary"/>
 </content>

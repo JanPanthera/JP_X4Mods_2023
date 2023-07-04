@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Italian ~~ Italiano -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SpiralExplorer -->
-      <t id="1000">In to Out?</t>
-      <t id="1001">Radar range</t>
-      <t id="1002">Start orbit</t>
-      <t id="1003">Orbit count</t>
-      <t id="1004">Orbit precision</t>
-      <t id="1004">Center</t>
-      <t id="1097">\033#B600CCCC#</t>
-      <t id="1098">\033#FF00CC66#</t>
-      <t id="1099">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1000">Precisione della spirale</t>
+      <t id="1001">Raggio interno</t>
+      <t id="1002">Raggio esterno</t>
+      <t id="1003">Da dentro a fuori?</t>
+      <t id="1004">Creare ordini?</t>
+      <t id="1005">Trovare il raggio interno?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Scoprire il settore</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Scoperta a spirale in pausa\033X</t>
+      <t id="1061">Non ci sono più settori rimanenti che dobbiamo scoprire, o di cui abbiamo conoscenza o che possiamo raggiungere.</t>
+      <t id="1062">Inizierò a scoprire il settore %2%1\033X.</t>
+      <t id="1063">Settore scoperto: %2%1\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1070">Scopre la nebbia all'interno di un settore specifico.</t>
+      <t id="1071">Scopre la nebbia nei settori in tutta la galassia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.SE.GeneratePositions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="IN_TO_OUT" default="true"/>
+      <param name="CENTER_POSITION" default="position.[0, 0, 0]"/>
+      <param name="SPIRAL_PRECISION" default="60"/>
+      <param name="INNER_RADIUS" default="0"/>
+      <param name="OUTER_RADIUS" default="400km"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="debugchance" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <create_list name="$_Positions"/>
+      <set_value name="$_SpiralPrecision" exact="(360 / $SPIRAL_PRECISION)"/>
+      <set_value name="$_StartAngle" exact="(pi / 1.5)"/>
+      <set_value name="$_AngleShift" exact="(2 * pi / $_SpiralPrecision)"/>
+      <set_value name="$_RadarRange" exact="($_Ship.maxradarrange * 2.4)"/>
+      <set_value name="$INNER_RADIUS" exact="[$INNER_RADIUS, ($_RadarRange / 2)].max"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.SE.GeneratePositions'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_value name="$_TotalDistance" exact="$OUTER_RADIUS - $INNER_RADIUS"/>
+
+         <do_if value="$_TotalDistance le 20km">
+            <do_all exact="$_SpiralPrecision + 1" counter="$_it">
+               <set_value name="$_Angle" exact="$_StartAngle + ($_it - 1) * (2 * pi / $_SpiralPrecision)"/>
+               <create_position name="$_Position" x="$CENTER_POSITION.x + $OUTER_RADIUS * cos($_Angle)"
+                                                  z="$CENTER_POSITION.z + $OUTER_RADIUS * sin($_Angle)"
+                                                  y="$CENTER_POSITION.y"/>
+               <append_to_list name="$_Positions" exact="$_Position"/>
+            </do_all>
+         </do_if>
+         <do_elseif value="$_TotalDistance le $_RadarRange">
+            <do_all exact="$_SpiralPrecision + 1" counter="$_it">
+               <set_value name="$_Angle" exact="$_StartAngle + ($_it - 1) * (2 * pi / $_SpiralPrecision)"/>
+               <create_position name="$_Position" x="$CENTER_POSITION.x + $OUTER_RADIUS * cos($_Angle)"
+                                                  z="$CENTER_POSITION.z + $OUTER_RADIUS * sin($_Angle)"
+                                                  y="$CENTER_POSITION.y"/>
+               <append_to_list name="$_Positions" exact="$_Position"/>
+            </do_all>
+            <set_value name="$_StartAngle" exact="$_StartAngle + $_AngleShift"/>
+            <do_all exact="$_SpiralPrecision + 1" counter="$_it">
+               <set_value name="$_Angle" exact="$_StartAngle + ($_it - 1) * (2 * pi / $_SpiralPrecision)"/>
+               <create_position name="$_Position" x="$CENTER_POSITION.x + $INNER_RADIUS * cos($_Angle)"
+                                                  z="$CENTER_POSITION.z + $INNER_RADIUS * sin($_Angle)"
+                                                  y="$CENTER_POSITION.y"/>
+               <append_to_list name="$_Positions" exact="$_Position"/>
+            </do_all>
+         </do_elseif>
+         <do_else>
+            <set_value name="$_TotalCircles" exact="($_TotalDistance / $_RadarRange)i"/>
+            <do_if value="$_TotalDistance / $_RadarRange != $_TotalCircles">
+               <set_value name="$_TotalCircles" exact="$_TotalCircles + 1"/>
+            </do_if>
+            <set_value name="$_RadarRange" exact="$_TotalDistance / $_TotalCircles"/>
+
+            <set_value name="$_CurrentCircleRadius" exact="$OUTER_RADIUS"/>
+            <do_while value="$_CurrentCircleRadius ge $INNER_RADIUS - 1">
+               <wait exact="1ms"/>
+               <do_all exact="$_SpiralPrecision + 1" counter="$_it">
+                  <set_value name="$_Angle" exact="$_StartAngle + ($_it - 1) * (2 * pi / $_SpiralPrecision)"/>
+                  <create_position name="$_Position" x="$CENTER_POSITION.x + $_CurrentCircleRadius * cos($_Angle)"
+                                                     z="$CENTER_POSITION.z + $_CurrentCircleRadius * sin($_Angle)"
+                                                     y="$CENTER_POSITION.y"/>
+                  <append_to_list name="$_Positions" exact="$_Position"/>
+               </do_all>
+               <set_value name="$_StartAngle" exact="$_StartAngle + $_AngleShift"/>
+               <set_value name="$_CurrentCircleRadius" exact="$_RadarRange" operation="subtract"/>
+            </do_while>
+         </do_else>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return value="$_Positions"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

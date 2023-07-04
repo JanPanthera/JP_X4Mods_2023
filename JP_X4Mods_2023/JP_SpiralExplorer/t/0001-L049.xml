@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- German ~~ Deutsch -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SpiralExplorer -->
-      <t id="1000">Innen nach Außen?</t>
-      <t id="1001">Radarreichweite</t>
-      <t id="1002">Start Orbit</t>
-      <t id="1003">Orbit Anzahl</t>
-      <t id="1004">Orbit genauigkeit</t>
-      <t id="1005">Mittelpunkt</t>
-      <t id="1097">\033#B600CCCC#</t>
-      <t id="1098">\033#FF00CC66#</t>
-      <t id="1099">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1000">Präzision der Spirale</t>
+      <t id="1001">Innenradius</t>
+      <t id="1002">Außenradius</t>
+      <t id="1003">Von innen nach außen?</t>
+      <t id="1004">Aufträge erstellen?</t>
+      <t id="1005">Innenradius finden?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Sektor aufdecken</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Spiral-Aufdeckung pausiert\033X</t>
+      <t id="1061">Es gibt keine verbleibenden Sektoren, die wir aufdecken müssen, oder von denen wir wissen oder die wir erreichen können.</t>
+      <t id="1062">Ich werde beginnen, den Sektor %2%1\033X aufzudecken.</t>
+      <t id="1063">Sektor Aufgedeckt: %2%1\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1070">Deckt den Nebel in einem bestimmten Sektor auf.</t>
+      <t id="1071">Deckt den Nebel in Sektoren in der gesamten Galaxie auf.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

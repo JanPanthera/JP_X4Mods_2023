@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Polish ~~ Polski -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SpiralExplorer -->
-      <t id="1000">In to Out?</t>
-      <t id="1001">Radar range</t>
-      <t id="1002">Start orbit</t>
-      <t id="1003">Orbit count</t>
-      <t id="1004">Orbit precision</t>
-      <t id="1004">Center</t>
-      <t id="1097">\033#B600CCCC#</t>
-      <t id="1098">\033#FF00CC66#</t>
-      <t id="1099">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1000">Dokładność spirali</t>
+      <t id="1001">Promień wewnętrzny</t>
+      <t id="1002">Promień zewnętrzny</t>
+      <t id="1003">Od wewnątrz do zewnątrz?</t>
+      <t id="1004">Utworzyć zamówienia?</t>
+      <t id="1005">Znaleźć promień wewnętrzny?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Odkryj sektor</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Odkrywanie spiralne wstrzymane\033X</t>
+      <t id="1061">Nie ma więcej sektorów do odkrycia, o których wiemy lub które możemy osiągnąć.</t>
+      <t id="1062">Zacznę odkrywać sektor %2%1\033X.</t>
+      <t id="1063">Odkryty sektor: %2%1\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1070">Odkrywa mgłę w określonym sektorze.</t>
+      <t id="1071">Odkrywa mgłę w sektorach na całej galaktyce.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

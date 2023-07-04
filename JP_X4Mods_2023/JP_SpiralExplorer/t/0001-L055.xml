@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
 <language>
    <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SpiralExplorer -->
-      <t id="1000">In to Out?</t>
-      <t id="1001">Radar range</t>
-      <t id="1002">Start orbit</t>
-      <t id="1003">Orbit count</t>
-      <t id="1004">Orbit precision</t>
-      <t id="1004">Center</t>
-      <t id="1097">\033#B600CCCC#</t>
-      <t id="1098">\033#FF00CC66#</t>
-      <t id="1099">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1000">Precisão da espiral</t>
+      <t id="1001">Raio interno</t>
+      <t id="1002">Raio externo</t>
+      <t id="1003">De dentro para fora?</t>
+      <t id="1004">Criar pedidos?</t>
+      <t id="1005">Encontrar o raio interno?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Revelar setor</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Descobrimento em espiral pausado\033X</t>
+      <t id="1061">Não há mais setores restantes que precisamos descobrir, ou que conhecemos ou podemos alcançar.</t>
+      <t id="1062">Vou começar a revelar o setor %2%1\033X.</t>
+      <t id="1063">Setor revelado: %2%1\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1070">Revela a neblina dentro de um setor específico.</t>
+      <t id="1071">Revela a neblina nos setores em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

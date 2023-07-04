@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- JP_SpiralExplorer -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1000">Přesnost spirály</t>
+      <t id="1001">Vnitřní poloměr</t>
+      <t id="1002">Vnější poloměr</t>
+      <t id="1003">Zevnitř ven?</t>
+      <t id="1004">Vytvořit objednávky?</t>
+      <t id="1005">Najít vnitřní poloměr?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Odhalit sektor</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Odhalování spirály pozastaveno\033X</t>
+      <t id="1061">Nejsou žádné zbývající sektory, které potřebujeme odhalit, nebo o kterých víme, nebo které můžeme dosáhnout.</t>
+      <t id="1062">Začnu odhalovat sektor %2%1\033X.</t>
+      <t id="1063">Odhalený sektor: %2%1\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1070">Odhaluje mlhu v konkrétním sektoru.</t>
+      <t id="1071">Odhaluje mlhu v sektorech v celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
