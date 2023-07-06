@@ -38,7 +38,7 @@
             <cue name="DVE_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
-                  <set_value name="$DEBUG" exact="0"/>
+                  <set_value name="$DEBUG" exact="md.JP_DataVaultExplorer_MD.SD_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
                      <set_value name="$_DebugScriptName" exact="'DVE_Debug_MD'"/>
@@ -49,11 +49,11 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="$DEBUG gt 0">
+                  <do_if value="$DEBUG gt 0 and @global.$DVE_ShipsGroup != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$DVE_ShipsGroup.count %1'.[global.$DVE_ShipsGroup.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" in="global.$DVE_ShipsGroup" chance="if @global.$DVE_ShipsGroup.count gt 0 then 100 else 0">
+                     <do_for_each name="$_Ship" in="global.$DVE_ShipsGroup">
                         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -75,7 +75,7 @@
                </conditions>
                <actions>
 
-                  <set_value name="$DEBUG" exact="0"/>
+                  <set_value name="$DEBUG" exact="md.JP_DataVaultExplorer_MD.SD_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_DataVaultExplorer.logs'"/>
                      <set_value name="$_DebugScriptName" exact="'DVE_Cleanup_MD'"/>

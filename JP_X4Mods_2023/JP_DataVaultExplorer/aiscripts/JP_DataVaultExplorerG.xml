@@ -10,6 +10,13 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="RESTOCK_NAV_BEACONS" text="{8888888, 900}" comment="Restock navigation beacons?" type="bool" default="true"/>
          <param name="RESTOCK_AMOUNT_CAP" text="{8888888, 901}" comment="Restock amount cap" type="number" default="10">
             <input_param name="min" value="2"/>
@@ -19,13 +26,6 @@
          <param name="HOME_POSITION" text="{8888888, 902}" comment="Home Position" type="position" default="[this.ship.sector, this.ship.sector.coreposition]">
             <input_param name="class" value="class.sector"/>
          </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
-            <input_param name="class" value="[]"/>
-            <input_param name="playerreadonly" value="true"/>
-         </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_997" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -135,9 +135,6 @@
                <resume label="HOME_LBL"/>
             </do_if>
             <set_value name="$_DeployablesTable" exact="table[]"/>
-            <do_for_each name="$_DeployableMacro" in="$_Ship.ammostorage.deployable.table">
-               <set_value name="$_DeployablesTable.{$_DeployableMacro}" exact="0"/>
-            </do_for_each>
             <set_value name="$_DeployablesTable.{ware.waypointmarker_01.objectmacro}" exact="$RESTOCK_AMOUNT_CAP"/>
             <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
                <param name="DEPLOYABLE_TABLE" value="$_DeployablesTable"/>
@@ -165,9 +162,10 @@
          </do_if>
 
          <create_order object="$_Ship" id="'JP_lib_DVE_MarkDataVault'" immediate="true">
+            <param name="SECTOR" value="$_FoundDataVaults.{1}.sector"/>
             <param name="DATA_VAULT" value="$_FoundDataVaults.{1}"/>
          </create_order>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
 
          <resume label="RESUME_LBL"/>
 
@@ -175,7 +173,10 @@
          <create_order object="$_Ship" id="'MoveWait'" default="true">
             <param name="destination" value="$HOME_POSITION"/>
          </create_order>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
+
+         <label name="END_LBL"/>
+         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
