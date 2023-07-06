@@ -224,7 +224,7 @@
 
          <do_if value="$_FoundObjects.count gt 0 and
                       (@global.$AE_SectorBlacklist.{$_Ship} == null or
-                       @global.$AE_SectorBlacklist.{$_Ship} != null and @global.$AE_SectorBlacklist.{$_Ship} != @$SECTOR)">
+                       @global.$AE_SectorBlacklist.{$_Ship} != null and @global.$AE_SectorBlacklist.{$_Ship} != $SECTOR)">
             <set_value name="global.$AE_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
             <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$SECTOR.owner"/>

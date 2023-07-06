@@ -5,44 +5,47 @@
    <order id="JP_AnotherExplorerG" name="_{8888888, 97}AnotherExplorer - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 471}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR" text="{20001, 201}" comment="Sector" type="internal" default="this.ship.sector">
+            <input_param name="class" value="class.sector"/>
+         </param>
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{1} else true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="JUMP_GATES"              text="{8888888, 1}"   comment="Jump Gates?"             type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{1} else true"/>
-         <param name="ACTIVE_JUMP_GATES"       text="- {8888888, 2}" comment="Active Jump Gates?"      type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{2} else true"/>
-         <param name="INACTIVE_JUMP_GATES"     text="- {8888888, 3}" comment="Inactive Jump Gates?"    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{3} else true"/>
-         <param name="ACCELERATORS"            text="{8888888, 4}"   comment="Accelerators?"           type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{4} else true"/>
-         <param name="ACTIVE_ACCELERATORS"     text="- {8888888, 5}" comment="Active Accelerators?"    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{5} else true"/>
-         <param name="INACTIVE_ACCELERATORS"   text="- {8888888, 6}" comment="Inactive Accelerators?"  type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{6} else true"/>
-         <param name="SUPER_HIGHWAYS"          text="{8888888, 7}"   comment="Superhighways?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{7} else true"/>
-         <param name="ACTIVE_SUPER_HIGHWAYS"   text="- {8888888, 8}" comment="Active Superhighways?"   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{8} else true"/>
-         <param name="INACTIVE_SUPER_HIGHWAYS" text="- {8888888, 9}" comment="Inactive Superhighways?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{9} else true"/>
+         <param name="JUMP_GATES"              text="{8888888, 1}"   comment="Jump Gates?"             type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{2} else true"/>
+         <param name="ACTIVE_JUMP_GATES"       text="- {8888888, 2}" comment="Active Jump Gates?"      type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{3} else true"/>
+         <param name="INACTIVE_JUMP_GATES"     text="- {8888888, 3}" comment="Inactive Jump Gates?"    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{4} else true"/>
+         <param name="ACCELERATORS"            text="{8888888, 4}"   comment="Accelerators?"           type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{5} else true"/>
+         <param name="ACTIVE_ACCELERATORS"     text="- {8888888, 5}" comment="Active Accelerators?"    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{6} else true"/>
+         <param name="INACTIVE_ACCELERATORS"   text="- {8888888, 6}" comment="Inactive Accelerators?"  type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{7} else true"/>
+         <param name="SUPER_HIGHWAYS"          text="{8888888, 7}"   comment="Superhighways?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{8} else true"/>
+         <param name="ACTIVE_SUPER_HIGHWAYS"   text="- {8888888, 8}" comment="Active Superhighways?"   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{9} else true"/>
+         <param name="INACTIVE_SUPER_HIGHWAYS" text="- {8888888, 9}" comment="Inactive Superhighways?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{10} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="STATIONS"             text="{8888888, 10}"   comment="Stations?"                    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{10} else true"/>
-         <param name="WHARFS"               text="- {8888888, 11}" comment="Wharfs?"                      type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{11} else true"/>
-         <param name="SHIPYARDS"            text="- {8888888, 12}" comment="Shipyards?"                   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{12} else true"/>
-         <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{13} else true"/>
-         <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{14} else true"/>
-         <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{15} else true"/>
-         <param name="RECYCLING_FACILITIES" text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{16} else true"/>
-         <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{17} else true"/>
-         <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{18} else true"/>
-         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else true"/>
-         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{20} else true"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_995" text="----------------------------------" type="object" default="null">
-            <input_param name="class" value="[]"/>
-            <input_param name="playerreadonly" value="true"/>
-         </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{21} else true"/>
+         <param name="STATIONS"             text="{8888888, 10}"   comment="Stations?"                    type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{11} else true"/>
+         <param name="WHARFS"               text="- {8888888, 11}" comment="Wharfs?"                      type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{12} else true"/>
+         <param name="SHIPYARDS"            text="- {8888888, 12}" comment="Shipyards?"                   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{13} else true"/>
+         <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{14} else true"/>
+         <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{15} else true"/>
+         <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{16} else true"/>
+         <param name="RECYCLING_FACILITIES" text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{17} else true"/>
+         <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{18} else true"/>
+         <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{19} else true"/>
+         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{20} else true"/>
+         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{21} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -144,16 +147,16 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$SAVE_ORDER_SETTINGS">
          <create_list name="$_SettingsList"/>
-         <append_list_elements name="$_SettingsList" other="[
-                            $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
-                            $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
-                            $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
-                            $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                            $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS, 
-                            $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES, $OWNERLESS_SECTORS,
-                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
-                            $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                            $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
+         <append_list_elements name="$_SettingsList" other="[$OWNERLESS_SECTORS,
+                               $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
+                               $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
+                               $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
+                               $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
+                               $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
+                               $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
+                               $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                               $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                               $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
          <do_if value="not global.$AnotherExplorer_Settings?">
             <create_list name="global.$AnotherExplorer_Settings"/>
             <append_list_elements name="global.$AnotherExplorer_Settings" other="$_SettingsList"/>
