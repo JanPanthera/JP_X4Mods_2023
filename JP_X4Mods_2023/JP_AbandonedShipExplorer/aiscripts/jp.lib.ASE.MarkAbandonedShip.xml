@@ -5,6 +5,7 @@
    <order id="JP_lib_ASE_MarkAbandonedShip" name="{8888888, 141}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR"         type="internal" default="null"/>
          <param name="ABANDONED_SHIP" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
@@ -34,12 +35,12 @@
          <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.ASE.MarkAbandonedShip'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -59,33 +60,19 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="$_Ship.sector != $ABANDONED_SHIP.sector">
-            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
-               <param name="SECTOR" value="$ABANDONED_SHIP.sector"/>
+         <get_safe_pos result="$_Position" sector="$SECTOR" object="$ABANDONED_SHIP" directionobject="$SECTOR" direction="quadrant.up" y="100m" ignoredangerousregions="true"/>
+
+         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 2km">
+            <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true">
+               <param name="SECTOR"   value="$SECTOR"/>
+               <param name="OBJECT"   value="$ABANDONED_SHIP"/>
+               <param name="POSITION" value="$_Position"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
-         <stop_moving object="$_Ship"/>
-         <wait exact="1ms"/>
 
-         <create_position name="$_Position" space="$ABANDONED_SHIP.sector" object="$ABANDONED_SHIP" y="(($ABANDONED_SHIP.height / 2) + ($_Ship.height / 2) + 10m)"/>
-         <set_value name="$LOCATION" exact="[$ABANDONED_SHIP.sector, $_Position]"/>
-         <set_command command="command.move" param="$ABANDONED_SHIP"/>
-         <set_command_action commandaction="commandaction.flying"/>
-         <run_script name="'move.generic'">
-            <param name="destination" value="$ABANDONED_SHIP.sector"/>
-            <param name="position" value="$_Position"/>
-            <param name="precise" value="true"/>
-            <param name="recallsubordinates" value="false"/>
-            <param name="changecommandaction" value="false"/>
-            <param name="debugchance" value="0"/>
-         </run_script>
-
-         <label name="FINISH_MOVING_LBL"/>
-         <stop_moving object="$_Ship" immediate="true"/>
-         <wait exact="1000ms"/>
-
-         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
@@ -98,7 +85,7 @@
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{8888888,120}' + '\033X\033#FF00CCCC#' + ' ~ ' + $_NavBeacon.sector.knownname + '\033X'"/>
          <set_value name="$_Text" exact="{8888888, 121} + '\n' +
                                          $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']' + '\n' +
-                                         {20001, 201} + ': ' + $ABANDONED_SHIP.sector.knownname + ' ~ ' + $ABANDONED_SHIP.sector.owner.knownname + '\n' + 
+                                         {20001, 201} + ': ' + $SECTOR.knownname + ' ~ ' + $SECTOR.owner.knownname + '\n' + 
                                          {8888888, 124}"/>
          <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
          <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
@@ -107,17 +94,20 @@
          <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>
 
          <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
-            <param name="FACTION" value="$ABANDONED_SHIP.sector.owner"/>
+            <param name="FACTION" value="$SECTOR.owner"/>
          </run_script>
 
          <!-- Marked: %1\nSector: %3%2\033X -->
-         <set_value name="$_Text" exact="{8888888, 165}.[$ABANDONED_SHIP.knownname, $ABANDONED_SHIP.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         <set_value name="$_Text" exact="{8888888, 165}.[$ABANDONED_SHIP.knownname, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
          <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
          <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
 
-         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
          <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

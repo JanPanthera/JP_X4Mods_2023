@@ -5,7 +5,7 @@
    <order id="JP_AbandonedShipExplorerG" name="_{8888888, 97}AbandonedShipExplorer - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 171}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
@@ -33,12 +33,12 @@
             <input_param name="max" value="this.ship.ammostorage.deployable.capacity"/>
             <input_param name="step" value="2"/>
          </param>
-         <param name="SEND_TO_RECYCLE" text="{8888888, 104}" comment="Send to recycle?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{8} else false" advanced="true"/>
+         <param name="SEND_TO_RECYCLE" text="{8888888, 104}" comment="Send to recycle?" type="internal" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{8} else false"/>
          <param name="SAFE_STATION" text="{8888888, 103}" comment="Safe Station" type="object" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{9} else null">
             <input_param name="class" value="[class.station]"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
+         <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
@@ -94,7 +94,7 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_AnotherExplorer.logs'"/>
+         <param name="DEBUG_FOLDER_NAME" type="internal" default="'JP_AbandonedShipExplorer.logs'"/>
          <param name="DEBUG" text="Debug" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{22} else 0" advanced="true">
             <input_param name="min" value="0"/>
             <input_param name="max" value="100"/>
@@ -152,7 +152,7 @@
                                $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                                $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
                                $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
-         <do_if value="global.$AbandonedShipExplorer_Settings?" negate="true">
+         <do_if value="not global.$AbandonedShipExplorer_Settings?">
             <create_list name="global.$AbandonedShipExplorer_Settings"/>
             <append_list_elements name="global.$AbandonedShipExplorer_Settings" other="$_SettingsList"/>
          </do_if>
@@ -216,9 +216,6 @@
                   <resume label="IDLE_LBL"/>
                </do_if>
                <set_value name="$_DeployablesTable" exact="table[]"/>
-               <do_for_each name="$_DeployableMacro" in="$_Ship.ammostorage.deployable.table">
-                  <set_value name="$_DeployablesTable.{$_DeployableMacro}" exact="0"/>
-               </do_for_each>
                <set_value name="$_DeployablesTable.{ware.waypointmarker_01.objectmacro}" exact="$RESTOCK_AMOUNT_CAP"/>
                <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
                   <param name="DEPLOYABLE_TABLE" value="$_DeployablesTable"/>
@@ -263,24 +260,30 @@
          <!--Mode 2 ~ The $_Ship flies to the abandoned ship and waits until the player has taken over the abandoned ship and comes back on board of the $_Ship.-->
          <do_if value="$ASE_MODE == 1 or $ASE_MODE == 2">
             <create_order object="$_Ship" id="'JP_lib_ASE_MoveToAbandonedShip'" immediate="true">
+               <param name="SECTOR"         value="$_FoundAbandonedShips.{1}.sector"/>
                <param name="ABANDONED_SHIP" value="$_FoundAbandonedShips.{1}"/>
                <param name="ASE_MODE"       value="$ASE_MODE"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
 
          <!--Mode 3 ~ The $_Ship flies to the abandoned ship and places a navigation beacon besides it.-->
          <do_if value="$ASE_MODE == 3">
             <create_order object="$_Ship" id="'JP_lib_ASE_MarkAbandonedShip'" immediate="true">
+               <param name="SECTOR"         value="$_FoundAbandonedShips.{1}.sector"/>
                <param name="ABANDONED_SHIP" value="$_FoundAbandonedShips.{1}"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
 
          <!--Mode 4 ~ The $_Ship flies to the abandoned ship and tries to claim it by sending a marine to the abandoned ship.-->
          <do_if value="$ASE_MODE == 4">
             <create_order object="$_Ship" id="'JP_lib_ASE_BoardAbandonedShip'" immediate="true">
+               <param name="SECTOR"         value="$_FoundAbandonedShips.{1}.sector"/>
                <param name="ABANDONED_SHIP" value="$_FoundAbandonedShips.{1}"/>
                <param name="SAFE_STATION"   value="$SAFE_STATION"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
 
          <label name="IDLE_LBL"/>
@@ -299,11 +302,14 @@
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
          </create_order>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
