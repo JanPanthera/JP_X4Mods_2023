@@ -192,7 +192,6 @@
 
          <create_list name="$_FoundStations"/>
          <run_script name="'jp.lib.TSE.GetTradesubscriptionsToUpdate'" result="$_FoundStations">
-            <param name="SECTOR"                  value="@global.$TSE_SectorBlacklist.{$_Ship}"/>
             <param name="OWNERLESS_SECTORS"       value="$OWNERLESS_SECTORS"/>
             <param name="WHARFS"                  value="$WHARFS"/>
             <param name="SHIPYARDS"               value="$SHIPYARDS"/>
@@ -216,9 +215,10 @@
          <do_if value="$_FoundStations.count gt 0">
             <do_for_each name="$_FoundStation" in="$_FoundStations">
                <create_order object="$_Ship" id="'JP_lib_TSE_UpdateSubscription'" immediate="true">
+                  <param name="SECTOR" value="global.$TSE_SectorBlacklist.{$_Ship}"/>
                   <param name="STATION" value="$_FoundStation"/>
                </create_order>
-               <wait exact="1000ms"/>
+               <wait exact="1ms"/>
                <break/>
             </do_for_each>
          </do_if>
@@ -239,7 +239,7 @@
             <param name="FIND_STATION" value="$FIND_STATION"/>
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
          </create_order>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

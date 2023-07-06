@@ -32,17 +32,17 @@
          <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_Sectors"/>
       <create_list name="$_FoundStations"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.TSE.GetTradesubscriptionsToUpdate'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -65,12 +65,9 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <do_while value="global.$TSEGetTradesubscriptionsToUpdateAlreadyProcessing?">
-            <wait exact="1ms" comment="danger!"/>
+            <wait exact="1ms" comment="Game will freeze when no wait is added!"/>
          </do_while>
          <set_value name="global.$TSEGetTradesubscriptionsToUpdateAlreadyProcessing"/>
-
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
@@ -116,34 +113,28 @@
                <match tradesknownto="$_Ship.owner" negate="true"/>
                <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
             </find_object>
-            <do_for_each name="$_Station" in="$_Stations">
-               <do_if value="($_Station.isconstruction and $CONSTRUCTION_SITES)">
-                  <check_object result="$_TradesKnown" object="$_Station.buildstorage">
-                     <match tradesknownto="$_Ship.owner"/>
-                  </check_object>
+            <do_for_each name="$_Station" in="$_Stations" reverse="true">
+               <do_if value="$_Station.iswreck or ($_Station.isconstruction and $_Station.buildstorage.hastradesubscription)">
+                  <continue/>
                </do_if>
-               <do_if value="($_Station.isconstruction and not $_TradesKnown and $CONSTRUCTION_SITES) or
-                             ($_Station.iswharf and $WHARFS) or
-                             ($_Station.isshipyard and $SHIPYARDS) or
-                             ($_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and $EQUIPMENTDOCKS) or
-                             ($_Station.istradestation and $TRADING_STATIONS) or
-                             ($_Station.ispiratebase and $PIRATE_BASES) or
-                             ($_Station.isrecyclingfacility and $RECYCLING_STATIONS) or
-                             ($_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and $DEFENCE_STATIONS) or
-                             ($_Station.isfactionheadquarters and not $_Station.ispiratebase and $FACTION_HEADQUARTERS) or
-                             (not $_Station.isconstruction and
-                              not $_Station.iswharf and
-                              not $_Station.isshipyard and
-                              not $_Station.isequipmentdock and
-                              not $_Station.istradestation and
-                              not $_Station.ispiratebase and
-                              not $_Station.isrecyclingfacility and
-                              not $_Station.isdefencestation and
-                              not $_Station.isfactionheadquarters and
-                              $NON_SPECIAL_STATIONS) and
-                              not $_Station.iswreck">
-                  <append_to_list name="$_FoundStations" exact="$_Station"/>
+               <do_if value="$_Station.isconstruction and not $CONSTRUCTION_SITES or
+                                $_Station.iswharf and not $WHARFS or
+                                $_Station.isshipyard and not $SHIPYARDS or
+                                $_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and not $EQUIPMENTDOCKS or
+                                $_Station.istradestation and not $TRADING_STATIONS or
+                                $_Station.ispiratebase and not $PIRATE_BASES or
+                                $_Station.isrecyclingfacility and not $RECYCLING_FACILITIES or
+                                $_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and not $DEFENCE_STATIONS or
+                                $_Station.isfactionheadquarters and not $_Station.ispiratebase and not $FACTION_HEADQUARTERS">
+                  <continue/>
                </do_if>
+               <do_if value="(not $_Station.isconstruction and not $_Station.iswharf and not $_Station.isshipyard and
+                                 not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and
+                                 not $_Station.isrecyclingfacility and not $_Station.isdefencestation and
+                                 not $_Station.isfactionheadquarters and not $NON_SPECIAL_STATIONS)">
+                  <continue/>
+               </do_if>
+               <append_to_list name="$_FoundStations" exact="$_Station"/>
             </do_for_each>
             <remove_value name="$_Stations"/>
 
@@ -161,23 +152,19 @@
 
          <do_if value="$_FoundStations.count == 0 and @global.$TSE_SectorBlacklist.{$_Ship} != null">
             <set_value name="global.$TSE_SectorBlacklist.{$_Ship}" exact="null"/>
-            <do_if value="$_Ship.defaultorder.id == 'JP_TradeSubscriptionExplorerG' or $_Ship.defaultorder.id == 'Assist'">
-               <set_value name="$SECTOR" exact="null"/>
-               <resume label="RESUME_LBL"/>
-            </do_if>
          </do_if>
 
-         <do_if value="@global.$TSE_SectorBlacklist.{$_Ship} == null and $SECTOR != null">
+         <do_if value="$_FoundStations.count gt 0 and
+                      (@global.$TSE_SectorBlacklist.{$_Ship} == null or
+                       @global.$TSE_SectorBlacklist.{$_Ship} != null and @global.$TSE_SectorBlacklist.{$_Ship} != $SECTOR)">
+            <set_value name="global.$TSE_SectorBlacklist.{$_Ship}" exact="$SECTOR "/>
             <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$SECTOR.owner"/>
             </run_script>
             <!-- I will start update trade subscriptions in sector %2%1\033X. -->
-            <show_help custom="$_TSE_Title + '\n\n' + {8888888, 1962}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-            <write_to_logbook title="$_TSE_Title" text="{8888888, 1962}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
-         </do_if>
-
-         <do_if value="$_FoundStations.count gt 0">
-            <set_value name="global.$TSE_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
+            <set_value name="$_Text" exact="{8888888, 1962}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+            <show_help custom="$_TSE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_TSE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <remove_value name="global.$TSEGetTradesubscriptionsToUpdateAlreadyProcessing"/>

@@ -5,24 +5,15 @@
    <order id="JP_lib_TSE_UpdateSubscription" name="{8888888, 1940}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR"  type="internal" default="null"/>
          <param name="STATION" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
-      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
    </order>
 
    <interrupts>
-      <handler comment="Stop moving when we have updated the trade subscription of $STATION">
-         <conditions>
-            <event_object_entered_live_view object="$STATION"/>
-         </conditions>
-         <actions>
-            <abort_called_scripts resume="FINISH_MOVING_LBL"/>
-         </actions>
-      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -43,9 +34,9 @@
          <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
@@ -68,37 +59,30 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.calculating"/>
 
-         <check_object result="$_Result" object="$STATION">
-            <match tradesknownto="$_Ship.owner"/>
-         </check_object>
-
-         <do_if value="$_Ship.sector != $STATION.sector">
-            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
-               <param name="SECTOR" value="$STATION.sector"/>
-            </create_order>
+         <set_value name="$_IsKnown" exact="false"/>
+         <do_if value="$STATION.isconstruction">
+            <get_safe_pos result="$_Position" sector="$STATION" object="$STATION.buildstorage" directionobject="$SECTOR" direction="quadrant.up" y="4km"/>
+            <do_if value="$STATION.isinliveview or ($_Ship.distanceto.[$SECTOR, $_Position] le $_Ship.maxradarrange)">
+               <set_value name="$_TradesKnown" exact="true"/>
+            </do_if>
          </do_if>
-         <stop_moving object="$_Ship"/>
-         <wait exact="2000ms"/>
+         <do_else>
+            <get_safe_pos result="$_Position" sector="$SECTOR" object="$STATION" directionobject="$SECTOR" direction="quadrant.up" y="4km"/>
+            <check_object result="$_TradesKnown" object="$STATION">
+               <match tradesknownto="$_Ship.owner"/>
+            </check_object>
+         </do_else>
 
-         <create_position name="$_Position" space="$STATION.sector" object="$STATION" y="(($STATION.height / 2) + ($_Ship.height / 2) + 1km)"/>
-         <set_value name="$LOCATION" exact="[$STATION.sector, $_Position]"/>
-         <set_command command="command.move" param="$STATION"/>
-         <set_command_action commandaction="commandaction.flying"/>
-         <run_script name="'move.generic'">
-            <param name="destination" value="$STATION.sector"/>
-            <param name="position" value="$_Position"/>
-            <param name="playerprecise" value="true"/>
-            <param name="recallsubordinates" value="false"/>
-            <param name="changecommandaction" value="false"/>
-            <param name="debugchance" value="0"/>
-         </run_script>
+         <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true" chance="if not $_TradesKnown then 100 else 0">
+            <param name="SECTOR"                value="$SECTOR"/>
+            <param name="OBJECT"                value="if $STATION.isconstruction then $STATION.buildstorage else $STATION"/>
+            <param name="POSITION"              value="$_Position"/>
+            <param name="INTERRUPT_ON_LIVEVIEW" value="true"/>
+         </create_order>
+         <wait exact="1ms"/>
 
-         <label name="FINISH_MOVING_LBL"/>
-         <stop_moving object="$_Ship"/>
-         <wait exact="1000ms"/>
-
-         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
