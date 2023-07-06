@@ -61,9 +61,9 @@
 
          <set_command command="command.investigate"/>
 
-         <get_safe_pos result="$_Position" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR" direction="quadrant.up"/>
+         <get_safe_pos result="$_Position" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR" direction="quadrant.up" radius="1km"/>
 
-         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 1km">
+         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 4km">
             <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true">
                <param name="SECTOR"   value="$SECTOR"/>
                <param name="OBJECT"   value="$OBJECT"/>
@@ -74,10 +74,10 @@
 
          <set_command_action commandaction="commandaction.standingby"/>
 
+         <stop_moving object="$_Ship"/>
+         <wait exact="1000ms"/>
          <launch_satellite object="$_Ship" macro="$SATELLITE_MACRO" name="$_Satellite"/>
-         <set_object_velocity object="$_Satellite">
-            <linear x="0" y="0" z="0"/>
-         </set_object_velocity>
+         <wait exact="2000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

@@ -20,6 +20,7 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PRIORITIZE_GATES" text="Prioritize Gates?" comment="Prioritize Gates?" type="bool" default="false"/>
          <param name="PLACE_SATELLITES_MK1" text="{8888888, 1400}" comment="Place mk1 satellites?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{2} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
@@ -299,16 +300,18 @@
             <resume label="IDLE_LBL"/>
          </do_if>
 
-         <do_for_each name="$_FoundObject" in="$_FoundObjects">
-            <do_if value="$_FoundObject.class == class.gate or $_FoundObject.class == class.highwayentrygate">
-               <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-                  <param name="SECTOR" value="global.$SD_SectorBlacklist.{$_Ship}"/>
-                  <param name="OBJECT" value="$_FoundObject"/>
-                  <param name="SATELLITE_MACRO" value="if $PLACE_SATELLITES_MK2 then $_SatelliteMacroMk2 else $_SatelliteMacroMk1"/>
-               </create_order>
-               <wait exact="1ms"/>
-            </do_if>
-         </do_for_each>
+         <do_if value="$PRIORITIZE_GATES">
+            <do_for_each name="$_FoundObject" in="$_FoundObjects">
+               <do_if value="$_FoundObject.class == class.gate or $_FoundObject.class == class.highwayentrygate">
+                  <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
+                     <param name="SECTOR" value="global.$SD_SectorBlacklist.{$_Ship}"/>
+                     <param name="OBJECT" value="$_FoundObject"/>
+                     <param name="SATELLITE_MACRO" value="if $PLACE_SATELLITES_MK2 then $_SatelliteMacroMk2 else $_SatelliteMacroMk1"/>
+                  </create_order>
+                  <wait exact="1ms"/>
+               </do_if>
+            </do_for_each>
+         </do_if>
          <run_script name="'jp.lib.SD.GetOptimizedSatellitePositions'" result="$_FoundObjects">
             <param name="OBJECTS" value="$_FoundObjects"/>
             <param name="PLACE_SATELLITES_MK1" value="$PLACE_SATELLITES_MK1"/>

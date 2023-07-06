@@ -91,17 +91,29 @@
                   </do_if>
                </do_for_each>
 
+               <set_value name="$_CanTheNextSatelliteCoverIt" exact="true"/>
+               <create_list name="$_TempMostCoveringObjectObjects"/>
+               <append_list_elements name="$_TempMostCoveringObjectObjects" other="$_MostCoveringObjectObjects"/>
+               <append_to_list name="$_TempMostCoveringObjectObjects" exact="$_MostCoveringObject"/>
+               <do_for_each name="$_PotentialCenterObject" in="$_TempMostCoveringObjectObjects">
+                  <set_value name="$_CanTheNextSatelliteCoverIt" exact="true"/>
+                  <do_for_each name="$_ObjectInRange" in="$_TempMostCoveringObjectObjects">
+                     <do_if value="$_PotentialCenterObject.distanceto.{$_ObjectInRange} gt $_NextSatelliteRadarRange">
+                        <set_value name="$_CanTheNextSatelliteCoverIt" exact="false"/>
+                        <break/>
+                     </do_if>
+                  </do_for_each>
+                  <do_if value="$_CanTheNextSatelliteCoverIt">
+                     <set_value name="$_MostCoveringObject" exact="$_PotentialCenterObject"/>
+                     <break/>
+                  </do_if>
+               </do_for_each>
+
                <do_if value="$_CanTheNextSatelliteCoverIt">
                   <!--<set_value name="$_SatelliteMacroToUse" exact="$_SatelliteMacros.{($_ActualSatelliteMacroIteration + 1)}"/>-->
                   <continue/>
                </do_if>
             </do_if>
-
-            <!--
-               Go throught all objects that $_MostCoveringObject.{1} can cover with its current satellite range,
-               and check if the next satellite can cover them too, also check if the next satellite can cover it when,
-               one of the objects that are in range of $_MostCoveringObject.{1} is the new center of the next satellite.
-             -->
 
             <do_if value="$_MostCoveringObjectObjects.count gt 0">
                <break/>
