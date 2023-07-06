@@ -5,13 +5,12 @@
    <order id="JP_lib_CP_CollectPlaceable" name="{8888888, 840}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR"    type="internal" default="null"/>
          <param name="PLACEABLE" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
-      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
    </order>
 
    <interrupts>
@@ -35,12 +34,12 @@
          <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.CP.CollectPlaceable'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -61,50 +60,35 @@
 
          <set_command command="command.collect" param="$PLACEABLE"/>
 
-         <do_if value="$_Ship.sector != $PLACEABLE.sector">
-            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
-               <param name="SECTOR" value="$PLACEABLE.sector"/>
-            </create_order>
-         </do_if>
-         <stop_moving object="$_Ship"/>
-         <wait exact="2000ms"/>
-
          <do_if value="$PLACEABLE.isclass.{class.mine}">
-            <create_position name="$_Position" space="$PLACEABLE.sector" object="$PLACEABLE" y="(($PLACEABLE.height / 2) + ($_Ship.height / 2) + 1km)"/>
+            <get_safe_pos result="$_Position" sector="$SECTOR" object="$PLACEABLE" directionobject="$SECTOR" direction="quadrant.up" y="1000m" ignoredangerousregions="true"/>
          </do_if>
          <do_else>
-            <create_position name="$_Position" space="$PLACEABLE.sector" object="$PLACEABLE" y="(($PLACEABLE.height / 2) + ($_Ship.height / 2) + 10m)"/>
+            <get_safe_pos result="$_Position" sector="$SECTOR" object="$PLACEABLE" directionobject="$SECTOR" direction="quadrant.up" y="100m" ignoredangerousregions="true"/>
          </do_else>
-         <set_value name="$LOCATION" exact="[$PLACEABLE.sector, $_Position]"/>
-         <set_command command="command.move" param="$PLACEABLE"/>
-         <set_command_action commandaction="commandaction.flying"/>
-         <run_script name="'move.generic'">
-            <param name="destination" value="$PLACEABLE.sector"/>
-            <param name="position" value="$_Position"/>
-            <param name="precise" value="true"/>
-            <param name="recallsubordinates" value="false"/>
-            <param name="changecommandaction" value="false"/>
-            <param name="debugchance" value="0"/>
-         </run_script>
 
-         <label name="FINISH_MOVING_LBL"/>
-         <stop_moving object="$_Ship"/>
-         <wait exact="1000ms"/>
+         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 4km">
+            <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true">
+               <param name="SECTOR"   value="$SECTOR"/>
+               <param name="OBJECT"   value="$PLACEABLE"/>
+               <param name="POSITION" value="$_Position"/>
+            </create_order>
+            <wait exact="1ms"/>
+         </do_if>
 
-         <set_command command="command.collect" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.standingby"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
-            <param name="FACTION" value="$PLACEABLE.sector.owner"/>
+            <param name="FACTION" value="$SECTOR.owner"/>
          </run_script>
 
          <!-- Collected: %1\nSector: %3%2\033X -->
-         <set_value name="$_Text" exact="{8888888, 867}.[$PLACEABLE.knownname, $PLACEABLE.sector.knownname, $_ObjectSectorOwnerColor]"/>
+         <set_value name="$_Text" exact="{8888888, 867}.[$PLACEABLE.knownname, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
          <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
-         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$PLACEABLE.sector" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
-         
+         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <collect_deployable object="$_Ship" deployable="$PLACEABLE"/>
@@ -112,9 +96,12 @@
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_PLACEABLE_COLLECTED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_PLACEABLE_COLLECTED'" role="entityrole.service"/>
 
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

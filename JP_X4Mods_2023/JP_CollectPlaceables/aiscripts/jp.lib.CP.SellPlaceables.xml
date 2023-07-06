@@ -30,12 +30,12 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Result" exact="'Failed'"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.CP.SellPlaceables'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -95,12 +95,15 @@
          <do_if value="$_Result == 'Failed'">
             <show_help custom="$_ASE_Title + '\n\n' + {8888888, 1460} + '\n' +  {8888888, 54}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
             <write_to_logbook title="$_ASE_Title" text="{8888888, 1460} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-            <resume label="IDLE_LBL"/>
+            <resume label="FINISH_LBL"/>
          </do_if>
+
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

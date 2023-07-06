@@ -36,12 +36,12 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.CP.GetPlaceablesToCollect'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -64,12 +64,9 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <do_while value="global.$CPGetPlaceablesToCollectAlreadyProcessing?">
-            <wait exact="1ms" comment="danger!"/>
+            <wait exact="1ms" comment="Game will freeze when no wait is added!"/>
          </do_while>
          <set_value name="global.$CPGetPlaceablesToCollectAlreadyProcessing"/>
-
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
@@ -186,6 +183,7 @@
                      <param name="LIST" value="$_FoundPlaceables"/>
                   </run_script>
                </do_if>
+               <set_value name="$SECTOR" exact="$_Sector"/>
                <break/>
             </do_if>
 
@@ -193,30 +191,26 @@
 
          <do_if value="$_FoundPlaceables.count == 0 and @global.$CP_SectorBlacklist.{$_Ship} != null">
             <set_value name="global.$CP_SectorBlacklist.{$_Ship}" exact="null"/>
-            <do_if value="$_Ship.defaultorder.id == 'JP_CollectPlaceablesG' or $_Ship.defaultorder.id == 'Assist'">
-               <set_value name="$SECTOR" exact="null"/>
-               <resume label="RESUME_LBL"/>
-            </do_if>
          </do_if>
 
-         <do_if value="@global.$CP_SectorBlacklist.{$_Ship} == null and $SECTOR != null">
+         <do_if value="$_FoundPlaceables.count gt 0 and
+                      (@global.$CP_SectorBlacklist.{$_Ship} == null or
+                       @global.$CP_SectorBlacklist.{$_Ship} != null and @global.$CP_SectorBlacklist.{$_Ship} != $SECTOR)">
+            <set_value name="global.$CP_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
             <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$SECTOR.owner"/>
             </run_script>
             <!-- I will start collecting placeables in sector %2%1\033X. -->
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
-         </do_if>
-
-         <do_if value="$_FoundPlaceables.count gt 0">
-            <set_value name="global.$CP_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
+            <set_value name="$_Text" exact="{8888888, 866}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+            <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <remove_value name="global.$CPGetPlaceablesToCollectAlreadyProcessing"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

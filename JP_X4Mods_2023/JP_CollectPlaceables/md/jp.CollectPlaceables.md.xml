@@ -41,7 +41,7 @@
             <cue name="CP_Debug_MD" instantiate="false" checkinterval="1s">
                <actions>
 
-                  <set_value name="$DEBUG" exact="0"/>
+                  <set_value name="$DEBUG" exact="md.JP_CollectPlaceables_MD.CP_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
                      <set_value name="$_DebugScriptName" exact="'CP_Debug_MD'"/>
@@ -52,21 +52,21 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="$DEBUG gt 0">
+                  <do_if value="$DEBUG gt 0 and @global.$CP_ShipsGroup != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_ShipsGroup.count %1'.[global.$CP_ShipsGroup.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" in="global.$CP_ShipsGroup" chance="if @global.$CP_ShipsGroup.count gt 0 then 100 else 0">
+                     <do_for_each name="$_Ship" in="global.$CP_ShipsGroup">
                         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
 
-                  <do_if value="$DEBUG gt 0">
+                  <do_if value="$DEBUG gt 0 and @global.$CP_SectorBlacklist != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_SectorBlacklist.keys.count %1'.[global.$CP_SectorBlacklist.keys.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$CP_SectorBlacklist" chance="if @global.$CP_SectorBlacklist then 100 else 0">
+                     <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$CP_SectorBlacklist">
                         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idccode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -92,7 +92,7 @@
                </conditions>
                <actions>
 
-                  <set_value name="$DEBUG" exact="0"/>
+                  <set_value name="$DEBUG" exact="md.JP_CollectPlaceables_MD.CP_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
                      <set_value name="$_DebugScriptName" exact="'CP_Cleanup_MD'"/>
