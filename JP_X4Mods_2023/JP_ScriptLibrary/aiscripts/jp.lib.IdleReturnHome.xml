@@ -42,9 +42,9 @@
          <set_value name="$WHERE_TO_MOVE" exact="$START_POSITION"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -78,11 +78,16 @@
          <label name="IDLE_MOVE_TO_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$IDLE_MOVE_TO">
-            <create_order object="$_Ship" id="'MoveWait'" immediate="true">
-               <param name="IDLE_RETURN_HOME" value="true"/>
-               <param name="destination" value="$WHERE_TO_MOVE"/>
-               <param name="timeout" value="999h"/>
-            </create_order>
+            <do_if value="$_Ship.distanceto.[$WHERE_TO_MOVE.{1}, $WHERE_TO_MOVE.{2}] gt 10km">
+               <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
+                  <param name="SECTOR"   value="$WHERE_TO_MOVE.{1}"/>
+                  <param name="POSITION" value="$WHERE_TO_MOVE.{2}"/>
+               </create_order>
+            </do_if>
+            <do_else>
+               <wait exact="$IDLE_TIME"/>
+            </do_else>
+            <wait exact="1ms"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->

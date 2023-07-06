@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<aiscript name="jp.lib.MoveToPosition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+<aiscript name="jp.lib.MoveToObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_MoveToPosition" name="{8888888, 42}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_MoveToObject" name="{8888888, 43}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR"            type="internal" default="null"/>
-         <param name="POSITION"          type="internal" default="null"/>
-         <param name="USE_LOCAL_HIGHWAY" type="internal" default="this.ship.canenterhighway"/>
-         <param name="USE_TRAVEL_DRIVE"  type="internal" default="true"/>
-         <param name="FORCE_POSITION"    type="internal" default="true"/>
-         <param name="SKIP_SECTOR_CHECK" type="internal" default="false"/>
+         <param name="SECTOR"                type="internal" default="null"/>
+         <param name="OBJECT"                type="internal" default="null"/>
+         <param name="POSITION"              type="internal" default="null"/>
+         <param name="USE_LOCAL_HIGHWAY"     type="internal" default="this.ship.canenterhighway"/>
+         <param name="USE_TRAVEL_DRIVE"      type="internal" default="true"/>
+         <param name="FORCE_POSITION"        type="internal" default="true"/>
+         <param name="SKIP_SECTOR_CHECK"     type="internal" default="false"/>
+         <param name="INTERRUPT_ON_LIVEVIEW" type="internal" default="false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$SECTOR" position="$POSITION" condition="@$SECTOR != null and @$POSITION != null"/>
-      <location object="$SECTOR" condition="@$SECTOR != null"/>
+      <location object="$OBJECT" position="$POSITION" condition="@OBJECT != null and @$POSITION != null"/>
+      <location object="$OBJECT" condition="@$OBJECT != null"/>
    </order>
 
    <interrupts>
+      <handler comment="Stop moving when OBJECT comes in live view">
+         <conditions>
+            <check_any>
+               <event_object_entered_live_view object="$OBJECT"/>
+            </check_any>
+            <check_value value="$INTERRUPT_ON_LIVEVIEW"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="FINISH_LBL"/>
+         </actions>
+      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -39,7 +52,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
-         <set_value name="$_DebugScriptName" exact="'jp.lib.MoveToPosition'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.MoveToObject'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -57,7 +70,7 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.move" param="$SECTOR"/>
+         <set_command command="command.move" param="$OBJECT"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
          <do_if value="not $SKIP_SECTOR_CHECK and $_Ship.sector != $SECTOR">
@@ -67,17 +80,23 @@
          </do_if>
 
          <set_command_action commandaction="commandaction.flying"/>
-
+         <do_if value="@$POSITION == null">
+            <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR"/>
+         </do_if>
          <move_to destination="$SECTOR" object="$_Ship" forceposition="$FORCE_POSITION" travel="$USE_TRAVEL_DRIVE"
-                  uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.default">
+                  uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.generic">
             <position value="$POSITION"/>
          </move_to>
 
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+         <stop_moving object="$_Ship"/>
          <set_command_action commandaction="commandaction.standingby"/>
+         <wait exact="1ms"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
