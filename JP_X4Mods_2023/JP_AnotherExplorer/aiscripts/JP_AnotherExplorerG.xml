@@ -211,7 +211,6 @@
 
          <create_list name="$_FoundObjects"/>
          <run_script name="'jp.lib.AE.GetObjectsToUncover'" result="$_FoundObjects">
-            <param name="SECTOR"                  value="@global.$AE_SectorBlacklist.{$_Ship}"/>
             <param name="OWNERLESS_SECTORS"       value="$OWNERLESS_SECTORS"/>
             <param name="JUMP_GATES"              value="$JUMP_GATES"/>
             <param name="ACTIVE_JUMP_GATES"       value="$ACTIVE_JUMP_GATES"/>

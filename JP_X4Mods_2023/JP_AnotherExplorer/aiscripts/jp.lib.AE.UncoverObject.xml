@@ -39,7 +39,7 @@
       <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.AE.UncoverObject'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
