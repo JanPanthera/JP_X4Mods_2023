@@ -23,7 +23,7 @@
       <param name="EQUIPMENTDOCKS"       default="false"/>
       <param name="TRADING_STATIONS"     default="false"/>
       <param name="PIRATE_BASES"         default="false"/>
-      <param name="RECYCLING_STATIONS"   default="false"/>
+      <param name="RECYCLING_FACILITIES" default="false"/>
       <param name="DEFENCE_STATIONS"     default="false"/>
       <param name="FACTION_HEADQUARTERS" default="false"/>
       <param name="NON_SPECIAL_STATIONS" default="false"/>
@@ -43,9 +43,9 @@
          <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_Sectors"/>
       <create_list name="$_FoundObjects"/>
@@ -178,33 +178,32 @@
             <do_if value="$STATIONS">
                <create_list name="$_Stations"/>
                <find_object name="$_Stations" space="$_Sector" multiple="true" checkoperational="false">
-                  <match exactclass="class.station"/>
                   <match knownto="$_Ship.owner" negate="true"/>
+                  <match exactclass="class.station"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
-               <do_for_each name="$_Station" in="$_Stations">
-                  <do_if value="($_Station.isconstruction and $CONSTRUCTION_SITES) or
-                                ($_Station.iswharf and $WHARFS) or
-                                ($_Station.isshipyard and $SHIPYARDS) or
-                                ($_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and $EQUIPMENTDOCKS) or
-                                ($_Station.istradestation and $TRADING_STATIONS) or
-                                ($_Station.ispiratebase and $PIRATE_BASES) or
-                                ($_Station.isrecyclingfacility and $RECYCLING_STATIONS) or
-                                ($_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and $DEFENCE_STATIONS) or
-                                ($_Station.isfactionheadquarters and not $_Station.ispiratebase and $FACTION_HEADQUARTERS) or
-                                (not $_Station.isconstruction and
-                                 not $_Station.iswharf and
-                                 not $_Station.isshipyard and
-                                 not $_Station.isequipmentdock and
-                                 not $_Station.istradestation and
-                                 not $_Station.ispiratebase and
-                                 not $_Station.isrecyclingfacility and
-                                 not $_Station.isdefencestation and
-                                 not $_Station.isfactionheadquarters and
-                                 $NON_SPECIAL_STATIONS) and
-                                 not $_Station.iswreck">
-                     <append_to_list name="$_FoundObjects" exact="$_Station"/>
+               <do_for_each name="$_Station" in="$_Stations" reverse="true">
+                  <do_if value="$_Station.iswreck or $_Station.isinliveview">
+                     <continue/>
                   </do_if>
+                  <do_if value="$_Station.isconstruction and not $CONSTRUCTION_SITES or
+                                $_Station.iswharf and not $WHARFS or
+                                $_Station.isshipyard and not $SHIPYARDS or
+                                $_Station.isequipmentdock and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.ispiratebase and not $EQUIPMENTDOCKS or
+                                $_Station.istradestation and not $TRADING_STATIONS or
+                                $_Station.ispiratebase and not $PIRATE_BASES or
+                                $_Station.isrecyclingfacility and not $RECYCLING_FACILITIES or
+                                $_Station.isdefencestation and not $_Station.iswharf and not $_Station.isshipyard and not $_Station.istradestation and not $_Station.ispiratebase and not $_Station.isfactionheadquarters and not $DEFENCE_STATIONS or
+                                $_Station.isfactionheadquarters and not $_Station.ispiratebase and not $FACTION_HEADQUARTERS">
+                     <continue/>
+                  </do_if>
+                  <do_if value="(not $_Station.isconstruction and not $_Station.iswharf and not $_Station.isshipyard and
+                                 not $_Station.isequipmentdock and not $_Station.istradestation and not $_Station.ispiratebase and
+                                 not $_Station.isrecyclingfacility and not $_Station.isdefencestation and
+                                 not $_Station.isfactionheadquarters and not $NON_SPECIAL_STATIONS)">
+                     <continue/>
+                  </do_if>
+                  <append_to_list name="$_FoundObjects" exact="$_Station"/>
                </do_for_each>
                <remove_value name="$_Stations"/>
             </do_if>
@@ -244,9 +243,12 @@
 
          <remove_value name="global.$AEGetObjectsToUncoverAlreadyProcessing"/>
 
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

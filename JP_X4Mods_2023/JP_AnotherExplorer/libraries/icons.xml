@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <icons>
-   <icon name="order_jp_anotherexplorers" texture="assets\fx\gui\textures\order\order_recon.tga" height="32" width="32"></icon>
-   <icon name="order_jp_anotherexplorerg" texture="assets\fx\gui\textures\order\order_recon.tga" height="32" width="32"></icon>
+   <icon name="order_jp_anotherexplorers" texture="assets\fx\gui\textures\order\order_explore.tga" height="32" width="32"></icon>
+   <icon name="order_jp_anotherexplorerg" texture="assets\fx\gui\textures\order\order_explore.tga" height="32" width="32"></icon>
    <icon name="order_jp_lib_ae_uncoverobject" texture="assets\fx\gui\textures\order\order_explore.tga" height="32" width="32"></icon>
 </icons>
