@@ -4,6 +4,7 @@
 
    <params>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SECTOR"            default="null"/>
       <param name="OWNERLESS_SECTORS" default="true"/>
       <param name="SPIRAL_PRECISION"  default="60"/>
       <param name="OUTER_RADIUS"      default="100km"/>
@@ -22,16 +23,17 @@
          <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
       </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$_Sector" exact="null"/>
+      <create_list name="$_Sectors"/>
       <set_value name="$_InnerRadius" exact="null"/>
-      <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
-         <set_value name="$_DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.SE.GetSectorToUncover'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
@@ -58,82 +60,84 @@
          </do_while>
          <set_value name="global.$SEGetSectorToUncoverAlreadyProcessing"/>
 
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
-
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
-         <create_list name="$_Sectors"/>
-         <do_if value="$OWNERLESS_SECTORS">
-            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
-               <match knownto="$_Ship.owner"/>
-               <match_gate_distance object="$_Ship" min="0"/>
-               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
-            </find_sector>
-         </do_if>
-         <do_else>
-            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
-               <match knownto="$_Ship.owner"/>
-               <match owner="faction.ownerless" negate="true"/>
-               <match_gate_distance object="$_Ship" min="0"/>
-               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
-            </find_sector>
-         </do_else>
-
-         <do_if value="global.$SE_SectorBlacklist.keys.count gt 0">
-            <create_list name="$_BlacklistedSectors"/>
-            <do_for_each name="$__Ship" valuename="$__Sector" in="global.$SE_SectorBlacklist">
-               <append_to_list name="$_BlacklistedSectors" exact="$__Sector"/>
-            </do_for_each>
-            <remove_from_list name="$_Sectors" list="$_BlacklistedSectors"/>
-            <remove_value name="$_BlacklistedSectors"/>
-         </do_if>
-
-         <do_if value="$_Sectors.count gt 0">
+         <do_if value="$SECTOR == null">
+            <do_if value="$OWNERLESS_SECTORS">
+               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
+                  <match_gate_distance object="$_Ship" min="0"/>
+                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+               </find_sector>
+            </do_if>
+            <do_else>
+               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+                  <match knownto="$_Ship.owner"/>
+                  <match owner="faction.ownerless" negate="true"/>
+                  <match_gate_distance object="$_Ship" min="0"/>
+                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+               </find_sector>
+            </do_else>
+            <do_if value="global.$SE_SectorBlacklist.keys.count gt 0">
+               <create_list name="$_BlacklistedSectors"/>
+               <do_for_each name="$__Ship" valuename="$__Sector" in="global.$SE_SectorBlacklist">
+                  <do_if value="$__Ship != $_Ship and @$__Sector != null">
+                     <append_to_list name="$_BlacklistedSectors" exact="$__Sector"/>
+                  </do_if>
+               </do_for_each>
+               <remove_from_list name="$_Sectors" list="$_BlacklistedSectors"/>
+               <remove_value name="$_BlacklistedSectors"/>
+            </do_if>
             <do_if value="$_Sectors.count gt 1">
                <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_Sectors">
                   <param name="LIST" value="$_Sectors"/>
                </run_script>
             </do_if>
+         </do_if>
 
-            <set_value name="$_SectorFound" exact="false"/>
-            <do_for_each name="$__Sector" in="$_Sectors">
-               <find_closest_undiscovered_position result="$_ClosestCoveredPosition" sector="$__Sector" range="$OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))">
-                  <position value="$__Sector.coreposition"/>
-                  <rangecenter value="$__Sector.coreposition"/>
-               </find_closest_undiscovered_position>
-               <do_if value="@$_ClosestCoveredPosition != null and ($_ClosestCoveredPosition.distanceto.{$__Sector.coreposition} lt ($OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))))">
-                  <set_value name="$_InnerRadius" exact="$_ClosestCoveredPosition.distanceto.{$__Sector.coreposition}"/>
-                  <set_value name="$_Sector" exact="$__Sector"/>
-                  <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="$__Sector"/>
-                  <set_value name="$_SectorFound" exact="true"/>
-                  <break/>
-               </do_if>
-            </do_for_each>
-
-            <do_if value="$_SectorFound">
-               <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
-                  <param name="FACTION" value="$_Sector.owner"/>
-               </run_script>
-               <!-- I will start uncover the sector %2%1\033X. -->
-               <set_value name="$_Text" exact="{8888888, 1062}.[$_Sector.knownname,  $_ObjectSectorOwnerColor]"/>
-               <show_help custom="$_SE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-               <write_to_logbook title="$_SE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$_Sector" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+         <set_value name="$_SectorFound" exact="false"/>
+         <do_for_each name="$_Sector" in="$_Sectors">
+            <find_closest_undiscovered_position result="$_ClosestCoveredPosition" sector="$_Sector" range="$OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))">
+               <position value="$_Sector.coreposition"/>
+               <rangecenter value="$_Sector.coreposition"/>
+            </find_closest_undiscovered_position>
+            <do_if value="@$_ClosestCoveredPosition != null and ($_ClosestCoveredPosition.distanceto.{$_Sector.coreposition} lt ($OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))))">
+               <set_value name="$_InnerRadius" exact="$_ClosestCoveredPosition.distanceto.{$_Sector.coreposition}"/>
+               <set_value name="$SECTOR" exact="$_Sector"/>
+               <set_value name="$_SectorFound" exact="true"/>
+               <break/>
             </do_if>
+         </do_for_each>
+
+         <do_if value="not $_SectorFound and @global.$SE_SectorBlacklist.{$_Ship} != null">
+            <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="null"/>
+         </do_if>
+
+         <do_if value="$_SectorFound and
+                      (@global.$SE_SectorBlacklist.{$_Ship} == null or
+                       @global.$SE_SectorBlacklist.{$_Ship} != null and @global.$SE_SectorBlacklist.{$_Ship} != $SECTOR)">
+            <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
+               <param name="FACTION" value="$SECTOR.owner"/>
+            </run_script>
+            <!-- I will start uncover the sector %2%1\033X. -->
+            <set_value name="$_Text" exact="{8888888, 1062}.[$SECTOR.knownname,  $_ObjectSectorOwnerColor]"/>
+            <show_help custom="$_SE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+            <write_to_logbook title="$_SE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
          </do_if>
 
          <remove_value name="global.$SEGetSectorToUncoverAlreadyProcessing"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return value="[$_Sector, $_InnerRadius]"/>
+         <return value="[$SECTOR, $_InnerRadius]"/>
 
       </actions>
    </attention>

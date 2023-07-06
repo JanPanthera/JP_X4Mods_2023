@@ -26,7 +26,7 @@
       <set_value name="$_RadarRange" exact="($_Ship.maxradarrange * 2.4)"/>
       <set_value name="$INNER_RADIUS" exact="[$INNER_RADIUS, ($_RadarRange / 2)].max"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$DEBUG" exact="$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
@@ -98,9 +98,12 @@
             </do_while>
          </do_else>
 
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>

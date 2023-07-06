@@ -156,7 +156,7 @@
                              $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                              $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
                              $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
-         <do_if value="global.$SpiralExplorer_Settings?" negate="true">
+         <do_if value="not global.$SpiralExplorer_Settings?">
             <create_list name="global.$SpiralExplorer_Settings"/>
             <append_list_elements name="global.$SpiralExplorer_Settings" other="$_SettingsList"/>
          </do_if>
@@ -236,7 +236,7 @@
             <param name="INNER_RADIUS"     value="$INNER_RADIUS"/>
             <param name="OUTER_RADIUS"     value="$OUTER_RADIUS"/>
          </run_script>
-         <wait exact="1000ms"/>
+         <wait exact="1ms"/>
 
          <create_order id="'JP_lib_SE_UncoverSector'" object="$_Ship" immediate="true">
             <param name="SECTOR"        value="$SECTOR"/>
@@ -263,9 +263,12 @@
             <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
          </create_order>
 
+         <label name="FINISH_LBL"/>
+         <wait exact="1ms"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
+         <label name="END_LBL"/>
          <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
