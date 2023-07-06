@@ -69,7 +69,7 @@
          <set_command_action commandaction="commandaction.flying"/>
 
          <move_to destination="$SECTOR" object="$_Ship" forceposition="$FORCE_POSITION" travel="$USE_TRAVEL_DRIVE"
-                  uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.default">
+                  uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.generic">
             <position value="$POSITION"/>
          </move_to>
 

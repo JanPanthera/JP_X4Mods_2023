@@ -83,10 +83,17 @@
          <do_if value="@$POSITION == null">
             <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR"/>
          </do_if>
+
+         <label name="MOVE_LBL"/>
          <move_to destination="$SECTOR" object="$_Ship" forceposition="$FORCE_POSITION" travel="$USE_TRAVEL_DRIVE"
                   uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.generic">
             <position value="$POSITION"/>
+            <interrupt_after_time time="1s"/>
          </move_to>
+
+         <do_if value="$_Ship.distanceto.[$SECTOR, $POSITION] gt 10m">
+            <resume label="MOVE_LBL"/>
+         </do_if>
 
          <label name="FINISH_LBL"/>
          <wait exact="1ms"/>
