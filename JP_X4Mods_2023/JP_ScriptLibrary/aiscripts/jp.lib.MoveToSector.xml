@@ -5,14 +5,17 @@
    <order id="JP_lib_MoveToSector" name="{8888888, 41}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR" type="internal" default="null"/>
-         <param name="POSITION" type="internal" default="null"/>
+         <param name="SECTOR"            type="internal" default="null"/>
+         <param name="POSITION"          type="internal" default="null"/>
+         <param name="USE_LOCAL_HIGHWAY" type="internal" default="this.ship.canenterhighway"/>
+         <param name="USE_TRAVEL_DRIVE"  type="internal" default="true"/>
+         <param name="FORCE_POSITION"    type="internal" default="true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$SECTOR" position="$POSITION" condition="@$SECTOR != null and @$POSITION != null"/>
-      <location object="$SECTOR" condition="@$SECTOR != null"/>
+      <location object="$SECTOR" position="$POSITION" condition="$SECTOR != null and $POSITION != null"/>
+      <location object="$SECTOR" condition="$SECTOR != null"/>
    </order>
 
    <interrupts>
@@ -30,6 +33,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_IsCapShip" exact="$_Ship.isclass.{[class.ship_l, class.ship_xl]}"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -53,43 +58,87 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
-
-         <!-- Initially, we search for a path utilizing the blacklist. However, if we can't find a path, we disregard the blacklist. 
-              This is crucial to ensure that $_Ship can always reach its target sector. 
-              A stricter blacklist usage may be implemented in the future. -->
-
          <set_command command="command.move" param="$SECTOR"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="$_Ship.sector != $SECTOR">
+         <label name="RESUME_LBL"/>
+         <wait exact="1ms"/>
+
+         <!-- TODO:
+                Implement a blacklist usage that is stricter than the current one.
+         -->
+
+         <do_while value="$_Ship.sector != $SECTOR">
+            <wait exact="1s"/>
             <include_interrupt_actions ref="GetBlacklistgroup"/>
 
-            <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" useblacklist="$blacklistgroup" multiple="true">
+            <get_global_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$USE_LOCAL_HIGHWAY" useblacklist="$blacklistgroup" multiple="true">
                <start object="$_Ship"/>
                <end object="$SECTOR"/>
-            </get_jump_path>
+            </get_global_path>
+
             <do_if value="$_PathComponents.count lt 2">
-               <get_jump_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$_Ship.canenterhighway" multiple="true">
+               <get_global_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$USE_LOCAL_HIGHWAY" multiple="true">
                   <start object="$_Ship"/>
                   <end object="$SECTOR"/>
-               </get_jump_path>
+               </get_global_path>
             </do_if>
 
-            <set_command_action commandaction="commandaction.flying"/>
+            <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
 
-            <do_for_each name="$_PathComponent" in="$_PathComponents">
-               <move_to object="$_Ship" destination="$_PathComponent" travel="true" uselocalhighways="$_Ship.canenterhighway" finishonapproach="false" flightbehaviour="flightbehaviour.generic">
-                  <interrupt>
-                     <conditions>
-                        <event_object_changed_sector object="$_Ship"/>
-                     </conditions>
-                  </interrupt>
-               </move_to>
+               <set_value name="$_PathComponentSector" exact="$_PathComponent.sector"/>
+               <do_if value="not $_PathComponentSector.isclass.sector">
+                  <create_list name="$_Sectors"/>
+                  <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
+                     <match_gate_distance object="$_PathComponent" max="0"/>
+                  </find_sector>
+                  <do_for_each name="$_Sector" in="$_Sectors">
+                     <do_if value="$_PathComponent.hascontext.{$_Sector}">
+                        <set_value name="$_PathComponentSector" exact="$_Sector"/>
+                        <break/>
+                     </do_if>
+                  </do_for_each>
+                  <remove_value name="$_Sectors"/>
+               </do_if>
+
+               <!-- Ring-Highway transition -->
+               <do_if value="$_PathComponent.isclass.highway and @$_PathComponents.indexof.{@$_PathComponent.exitjumpgate}">
+                  <do_if value="not $_Ship.zone.isclass.highway">
+                     <move_to object="$_Ship" destination="$SECTOR" uselocalhighways="true" travel="true" finishonapproach="true">
+                        <interrupt>
+                           <conditions>
+                              <event_object_changed_zone object="$_Ship"/>
+                              <check_value value="$_Ship.zone.isclass.highway"/>
+                           </conditions>
+                        </interrupt>
+                     </move_to>
+                  </do_if>
+                  <wait exact="600s">
+                     <interrupt>
+                        <conditions>
+                           <event_object_changed_sector object="$_Ship"/>
+                        </conditions>
+                     </interrupt>
+                  </wait>
+                  <break/>
+               </do_if>
+
+               <!-- Gate, Accelerator, Superhighway transition -->
+               <do_if value="($_PathComponent.isclass.gate and not $_PathComponent.isaccelerator) or
+                             ($_PathComponent.isclass.gate and $_PathComponent.isaccelerator) or
+                             ($_PathComponent.macro.id == 'he_gen_superhighway_entrance_01_macro') and
+                              $_PathComponentSector == $_Ship.sector">
+                  <run_script name="'jp.lib.MoveThroughGate'">
+                     <param name="GATE" value="$_PathComponent"/>
+                  </run_script>
+                  <break/>
+               </do_if>
+
             </do_for_each>
-         </do_if>
 
+         </do_while>
+
+         <!-- Move to a specific position in the sector? -->
          <do_if value="@$POSITION != null and @$_Ship.distanceto.{@$POSITION} gt 1km">
             <create_order id="'JP_lib_MoveToPosition'" object="$_Ship">
                <param name="SECTOR" value="$SECTOR"/>
@@ -97,8 +146,6 @@
                <param name="SKIP_SECTOR_CHECK" value="true"/>
             </create_order>
          </do_if>
-
-         <set_command_action commandaction="commandaction.standingby"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 

@@ -21,8 +21,10 @@ v1.0.2 -- Current Published Version
 
 v1.0.3 -- Current Development Version
 ~ Added: Czech translations
+~ Added: jp.lib.MoveThroughGate.xml - Simple implementation of the moving through a gate, accelerator or superhighway.
 ~ Added: jp.lib.MoveToPosition.xml - Simple implementation of the MoveToPosition to get the ability to change parameters like "uselocalhighway" or "traveldrive".
 ~ Added: jp.lib.RestockDeployables.xml - This function limits the number of deployables that a ship can store before swapping them out, sells existing deployables to create room for new ones, or it can be used exclusively for selling deployables.
 ~ Updated: jp.lib.MoveToSector.xml - S and M ships now correctly utilize the Ring Highway. L and XL ships currently use the Gates by flying through them, similar to the way S and M ships do.
 ~ Updated: jp.lib.SortByEstimatedTravelTime.xml - when the input is a list of Sectors, the sector where we currently are will always be prioritized and placed first in the list.
+~ Updated: Several code changes inside jp.lib.MoveToPosition.xml, jp.lib.MoveToObject.xml and jp.lib.MoveToSector.xml to make them more efficient and stable.
 ~ Updated: Several code cleanup and translations changes.

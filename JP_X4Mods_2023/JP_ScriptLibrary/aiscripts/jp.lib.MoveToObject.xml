@@ -5,29 +5,27 @@
    <order id="JP_lib_MoveToObject" name="{8888888, 43}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR"                type="internal" default="null"/>
-         <param name="OBJECT"                type="internal" default="null"/>
-         <param name="POSITION"              type="internal" default="null"/>
-         <param name="USE_LOCAL_HIGHWAY"     type="internal" default="this.ship.canenterhighway"/>
-         <param name="USE_TRAVEL_DRIVE"      type="internal" default="true"/>
-         <param name="FORCE_POSITION"        type="internal" default="true"/>
-         <param name="SKIP_SECTOR_CHECK"     type="internal" default="false"/>
-         <param name="INTERRUPT_ON_LIVEVIEW" type="internal" default="false"/>
+         <param name="OBJECT"                  type="internal" default="null"/>
+         <param name="DIRECTION_OBJECT"        type="internal" default="null"/>
+         <param name="DIRECTION"               type="internal" default="null"/>
+         <param name="DISTANCE_TO_OBJECT"      type="internal" default="1km"/>
+         <param name="USE_LOCAL_HIGHWAY"       type="internal" default="this.ship.canenterhighway"/>
+         <param name="USE_TRAVEL_DRIVE"        type="internal" default="true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR"   type="internal" default="null"/>
+         <param name="POSITION" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$OBJECT" position="$POSITION" condition="@OBJECT != null and @$POSITION != null"/>
-      <location object="$OBJECT" condition="@$OBJECT != null"/>
+      <location object="$SECTOR" position="$POSITION" condition="@$SECTOR != null and @$POSITION != null"/>
+      <location object="$SECTOR" condition="@$SECTOR != null"/>
    </order>
 
    <interrupts>
-      <handler comment="Stop moving when OBJECT comes in live view">
+      <handler>
          <conditions>
-            <check_any>
-               <event_object_entered_live_view object="$OBJECT"/>
-            </check_any>
-            <check_value value="$INTERRUPT_ON_LIVEVIEW"/>
+            <event_object_signalled object="this.ship" param="'MOVE_TO_OBJECT_INTERRUPT'"/>
          </conditions>
          <actions>
             <abort_called_scripts resume="FINISH_LBL"/>
@@ -70,35 +68,72 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.move" param="$OBJECT"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="not $SKIP_SECTOR_CHECK and $_Ship.sector != $SECTOR">
+         <set_value name="$SECTOR" exact="$OBJECT.sector"/>
+         <do_if value="not $SECTOR.isclass.sector">
+            <create_list name="$_Sectors"/>
+            <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
+               <match_gate_distance object="$OBJECT" max="0"/>
+            </find_sector>
+            <do_for_each name="$_Sector" in="$_Sectors">
+               <do_if value="$OBJECT.hascontext.{$_Sector}">
+                  <set_value name="$SECTOR" exact="$_Sector"/>
+                  <break/>
+               </do_if>
+            </do_for_each>
+            <remove_value name="$_Sectors"/>
+         </do_if>
+
+         <do_if value="$_Ship.sector != $SECTOR">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$SECTOR"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
+
+         <do_if value="@$DIRECTION_OBJECT != null">
+            <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" directionobject="$DIRECTION_OBJECT" radius="$_Ship.size + $DISTANCE_TO_OBJECT"/>
+         </do_if>
+         <do_elseif value="@$DIRECTION != null">
+            <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" direction="$DIRECTION" radius="$_Ship.size + $DISTANCE_TO_OBJECT"/>
+         </do_elseif>
+         <do_else>
+            <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" radius="$_Ship.size + $DISTANCE_TO_OBJECT"/>
+         </do_else>
 
          <set_command_action commandaction="commandaction.flying"/>
-         <do_if value="@$POSITION == null">
-            <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR"/>
-         </do_if>
 
-         <label name="MOVE_LBL"/>
-         <move_to destination="$SECTOR" object="$_Ship" forceposition="$FORCE_POSITION" travel="$USE_TRAVEL_DRIVE"
-                  uselocalhighways="$USE_LOCAL_HIGHWAY" flightbehaviour="flightbehaviour.generic">
-            <position value="$POSITION"/>
-            <interrupt_after_time time="1s"/>
+         <!-- Long distance travel -->
+         <label name="LONG_DISTANCE_MOVE_LBL"/>
+         <wait exact="1ms"/>
+
+         <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" comment="Make sure $POSITION is still safe."/>
+         <move_to object="$_Ship" destination="$SECTOR" forceposition="false" finishonapproach="true" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
+            <position space="$SECTOR" value="$POSITION"/>
+            <interrupt>
+               <conditions>
+                  <event_object_changed_zone object="$_Ship"/>
+                  <check_value value="$OBJECT.zone.adjacentzones.indexof.{$_Ship.zone}"/>
+               </conditions>
+            </interrupt>
          </move_to>
+         <wait exact="1ms"/>
 
-         <do_if value="$_Ship.distanceto.[$SECTOR, $POSITION] gt 10m">
-            <resume label="MOVE_LBL"/>
-         </do_if>
+         <!-- Short distance travel -->
+         <label name="SHORT_DISTANCE_MOVE_LBL"/>
+         <wait exact="1ms"/>
+
+         <do_while value="$_Ship.distanceto.[$SECTOR, $POSITION] gt 100m">
+            <wait exact="1ms"/>
+            <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" comment="Make sure $POSITION is still safe."/>
+            <move_to object="$_Ship" destination="$SECTOR" forceposition="true" finishonapproach="true" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
+               <position space="$SECTOR" value="$POSITION"/>
+               <interrupt_after_time time="1000ms"/>
+            </move_to>
+         </do_while>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
-         <stop_moving object="$_Ship"/>
-         <set_command_action commandaction="commandaction.standingby"/>
          <wait exact="1ms"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
