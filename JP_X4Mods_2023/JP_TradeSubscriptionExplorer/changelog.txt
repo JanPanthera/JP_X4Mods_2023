@@ -33,4 +33,5 @@ v2.0.4 -- Current Development Version
 ~ Added: More logging and notifications.
 ~ Added: A option to update trade subscriptions from construction sites.
 ~ Fixed: Rare case where the Sector selection could fail.
+~ Updated: The move logic now uses the new jp.lib.MoveToObject.xml script.
 ~ Updated: Several code clean up and translations changes.
