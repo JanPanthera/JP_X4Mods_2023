@@ -11,9 +11,18 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
+      <location object="$OBJECT" condition="@$OBJECT != null"/>
    </order>
 
    <interrupts>
+      <handler>
+         <conditions>
+            <event_object_entered_live_view object="$OBJECT"/>
+         </conditions>
+         <actions>
+            <signal_objects object="this.ship" param="'MOVE_TO_OBJECT_INTERRUPT'"/>
+         </actions>
+      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -61,29 +70,16 @@
          <set_command command="command.explore"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <set_value name="$_IsKnown" exact="false"/>
-         <do_if value="$OBJECT.isconstruction">
-            <get_safe_pos result="$_Position" sector="$SECTOR" object="$OBJECT.buildstorage" directionobject="$SECTOR" direction="quadrant.up" y="4km"/>
-            <do_if value="$OBJECT.isinliveview or ($_Ship.distanceto.[$SECTOR, $_Position] le $_Ship.maxradarrange)">
-               <set_value name="$_IsKnown" exact="true"/>
-            </do_if>
-         </do_if>
-         <do_else>
-            <get_safe_pos result="$_Position" sector="$SECTOR" object="$OBJECT" directionobject="$SECTOR" direction="quadrant.up" y="4km"/>
-            <check_object result="$_IsKnown" object="$OBJECT">
-               <match knownto="$_Ship.owner"/>
-            </check_object>
-         </do_else>
-
-         <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true" chance="if not $_IsKnown then 100 else 0">
-            <param name="SECTOR"                value="$SECTOR"/>
-            <param name="OBJECT"                value="if $OBJECT.isconstruction then $OBJECT.buildstorage else $OBJECT"/>
-            <param name="POSITION"              value="$_Position"/>
-            <param name="INTERRUPT_ON_LIVEVIEW" value="true"/>
-         </create_order>
-         <wait exact="1ms"/>
+         <run_script name="'jp.lib.MoveToObject'">
+            <param name="OBJECT" value="(if $OBJECT.isconstruction then $OBJECT.buildstorage else $OBJECT)"/>
+            <param name="DIRECTION_OBJECT" value="$_Ship"/>
+            <param name="DISTANCE_TO_OBJECT" value="5km"/>
+         </run_script>
 
          <set_command_action commandaction="commandaction.standingby"/>
+
+         <stop_moving object="$_Ship"/>
+         <wait exact="1000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
