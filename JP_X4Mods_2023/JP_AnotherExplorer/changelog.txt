@@ -50,4 +50,5 @@ v1.0.7 -- Current Development Version
 ~ Added: Czech translation.
 ~ Added: More logging and notifications.
 ~ Fixed: Rare case where the Sector selection could fail.
+~ Updated: The move logic now uses the new jp.lib.MoveToObject.xml script.
 ~ Updated: Several code clean up and translations changes.
