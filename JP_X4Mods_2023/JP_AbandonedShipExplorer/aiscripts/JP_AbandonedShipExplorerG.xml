@@ -5,45 +5,45 @@
    <order id="JP_AbandonedShipExplorerG" name="_{8888888, 97}AbandonedShipExplorer - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 171}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{1} else true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="ASE_MODE" text="{8888888, 100}" comment="ASE Mode" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{1} else 3">
+         <param name="ASE_MODE" text="{8888888, 100}" comment="ASE Mode" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{2} else 3">
             <input_param name="min" value="1"/>
             <input_param name="max" value="4"/>
             <input_param name="step" value="1"/>
          </param>
-         <param name="INCLUDE_S_SHIPS"  text="{8888888, 105}" comment="Include S Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{2} else 100">
+         <param name="INCLUDE_S_SHIPS"  text="{8888888, 105}" comment="Include S Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{3} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="INCLUDE_M_SHIPS"  text="{8888888, 106}" comment="Include M Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{3} else 100">
+         <param name="INCLUDE_M_SHIPS"  text="{8888888, 106}" comment="Include M Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{4} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="INCLUDE_L_SHIPS"  text="{8888888, 107}" comment="Include L Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{4} else 100">
+         <param name="INCLUDE_L_SHIPS"  text="{8888888, 107}" comment="Include L Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{5} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="INCLUDE_XL_SHIPS" text="{8888888, 108}" comment="Include XL Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{5} else 100">
+         <param name="INCLUDE_XL_SHIPS" text="{8888888, 108}" comment="Include XL Ships?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{6} else 100">
             <input_param name="truevalue" value="100"/>
          </param>
-         <param name="RESTOCK_NAV_BEACONS" text="{8888888, 101}" comment="Restock navigation beacons?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{6} else true"/>
-         <param name="RESTOCK_AMOUNT_CAP" text="- {8888888, 102}" comment="Restock amount cap" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{7} else [10, this.ship.ammostorage.deployable.capacity].min">
+         <param name="RESTOCK_NAV_BEACONS" text="{8888888, 101}" comment="Restock navigation beacons?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{7} else true"/>
+         <param name="RESTOCK_AMOUNT_CAP" text="- {8888888, 102}" comment="Restock amount cap" type="number" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{8} else [10, this.ship.ammostorage.deployable.capacity].min">
             <input_param name="min" value="2"/>
             <input_param name="max" value="this.ship.ammostorage.deployable.capacity"/>
             <input_param name="step" value="2"/>
          </param>
-         <param name="SEND_TO_RECYCLE" text="{8888888, 104}" comment="Send to recycle?" type="internal" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{8} else false"/>
-         <param name="SAFE_STATION" text="{8888888, 103}" comment="Safe Station" type="object" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{9} else null">
+         <param name="SEND_TO_RECYCLE" text="{8888888, 104}" comment="Send to recycle?" type="internal" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{9} else false"/>
+         <param name="SAFE_STATION" text="{8888888, 103}" comment="Safe Station" type="object" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{10} else null">
             <input_param name="class" value="[class.station]"/>
          </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
-            <input_param name="class" value="[]"/>
-            <input_param name="playerreadonly" value="true"/>
-         </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$AbandonedShipExplorer_Settings? then global.$AbandonedShipExplorer_Settings.{10} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
@@ -152,12 +152,13 @@
          <do_if value="$SAVE_ORDER_SETTINGS">
             <create_list name="global.$AbandonedShipExplorer_Settings" chance="if global.$AbandonedShipExplorer_Settings? then 0 else 100"/>
             <clear_list list="global.$AbandonedShipExplorer_Settings" chance="if global.$AbandonedShipExplorer_Settings? then 100 else 0"/>
-            <append_list_elements name="global.$AbandonedShipExplorer_Settings" other="[
-                               $ASE_MODE, $INCLUDE_S_SHIPS, $INCLUDE_M_SHIPS, $INCLUDE_L_SHIPS, $INCLUDE_XL_SHIPS,
-                               $RESTOCK_NAV_BEACONS, $RESTOCK_AMOUNT_CAP, $SEND_TO_RECYCLE, $SAFE_STATION,
-                               $OWNERLESS_SECTORS, $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
-                               $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                               $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
+            <append_list_elements name="global.$AbandonedShipExplorer_Settings"
+                                  other="[$OWNERLESS_SECTORS, $ASE_MODE,
+                                          $INCLUDE_S_SHIPS, $INCLUDE_M_SHIPS, $INCLUDE_L_SHIPS, $INCLUDE_XL_SHIPS,
+                                          $RESTOCK_NAV_BEACONS, $RESTOCK_AMOUNT_CAP, $SEND_TO_RECYCLE, $SAFE_STATION,
+                                          $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                                          $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                                          $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
             <run_script name="'jp.lib.MessageLog'">
                <param name="TEXT"  value="{8888888, 95}"/>
             </run_script>
@@ -275,7 +276,6 @@
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
-            <param name="IDLE_TITLE"     value="$IDLE_TITLE"/>
             <param name="IDLE_TIME"      value="$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$IDLE_MOVE_TO"/>
             <param name="WHERE_TO_MOVE"  value="$WHERE_TO_MOVE"/>
