@@ -37,21 +37,13 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_AE_Title" text="$_AE_Title">
-         <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_Sectors"/>
       <create_list name="$_FoundObjects"/>
-      <set_value name="global.$AE_SectorBlacklist.{$_Ship}" exact="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -230,9 +222,12 @@
                <param name="FACTION" value="$SECTOR.owner"/>
             </run_script>
             <!-- I will start uncover objects in sector %2%1\033X. -->
-            <set_value name="$_Text" exact="{8888888, 462}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
-            <show_help custom="$_AE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-            <write_to_logbook title="$_AE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="{8888888, 462}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+               <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+               <param name="MESSAGE_CHANCE"     value="2"/>
+               <param name="LOG_CHANCE"         value="2"/>
+            </run_script>
          </do_if>
 
          <remove_value name="global.$AEGetObjectsToUncoverAlreadyProcessing"/>

@@ -52,6 +52,7 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="IDLE_TITLE" type="internal" default="{8888888, 460}" comment="\033#FFe27100#Exploring Paused\033X"/>
          <param name="IDLE_TIME" text="{8888888, 80}" comment="Idle Time" type="time" default="if global.$AnotherExplorer_Settings? then global.$AnotherExplorer_Settings.{22} else 600s">
             <input_param name="min" value="60s"/>
             <input_param name="max" value="3600s"/>
@@ -130,12 +131,6 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_AE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_AE_Title" text="$_AE_Title">
-         <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -145,48 +140,10 @@
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$SAVE_ORDER_SETTINGS">
-         <create_list name="$_SettingsList"/>
-         <append_list_elements name="$_SettingsList" other="[$OWNERLESS_SECTORS,
-                               $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
-                               $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
-                               $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
-                               $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                               $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
-                               $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
-                               $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
-                               $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                               $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
-         <do_if value="not global.$AnotherExplorer_Settings?">
-            <create_list name="global.$AnotherExplorer_Settings"/>
-            <append_list_elements name="global.$AnotherExplorer_Settings" other="$_SettingsList"/>
-         </do_if>
-         <do_else>
-            <do_for_each name="$_Setting" in="global.$AnotherExplorer_Settings" counter="$_it">
-               <do_if value="$_Setting != $_SettingsList.{$_it}">
-                  <set_value name="global.$AnotherExplorer_Settings.{$_it}" exact="$_SettingsList.{$_it}"/>
-               </do_if>
-            </do_for_each>
-         </do_else>
-         <remove_value name="$_SettingsList"/>
-         <show_help custom="$_AE_Title + '\n\n' + {8888888, 95}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_AE_Title" text="{8888888, 95}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$RESET_ORDER_SETTINGS">
-         <remove_value name="global.$AnotherExplorer_Settings"/>
-         <show_help custom="$_AE_Title + '\n\n' + {8888888, 96}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_AE_Title" text="{8888888, 96}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
       <actions>
-
-         <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
-            <resume label="FINISH_LBL"/>
-         </do_if>
 
          <label name="INIT_LBL"/>
          <wait exact="1ms"/>
@@ -195,6 +152,34 @@
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
 
+         <do_if value="$SAVE_ORDER_SETTINGS">
+            <create_list name="global.$AnotherExplorer_Settings" chance="if global.$AnotherExplorer_Settings? then 0 else 100"/>
+            <clear_list list="global.$AnotherExplorer_Settings" chance="if global.$AnotherExplorer_Settings? then 100 else 0"/>
+            <append_list_elements name="global.$AnotherExplorer_Settings"
+                                  other="[$OWNERLESS_SECTORS,
+                                          $JUMP_GATES, $ACTIVE_JUMP_GATES, $INACTIVE_JUMP_GATES,
+                                          $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
+                                          $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
+                                          $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
+                                          $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
+                                          $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
+                                          $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                                          $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                                          $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="{8888888, 95}"/>
+            </run_script>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <do_if value="$RESET_ORDER_SETTINGS">
+            <remove_value name="global.$AnotherExplorer_Settings"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="{8888888, 96}"/>
+            </run_script>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+         
          <do_if value="$ADD_ORDER_TAG">
             <substitute_text source="$_Ship.knownname" text="$_ResultName">
                <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
@@ -239,8 +224,9 @@
 
          <do_if value="$_FoundObjects.count == 0">
             <!-- There are no remaining objects within my defined workspace that need to be uncovered. -->
-            <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 461}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 461}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 461}]"/>
+            </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
 
@@ -258,18 +244,16 @@
          <label name="IDLE_LBL"/>
          <wait exact="1ms"/>
          <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_AE_Title + '\n\n' + {8888888, 460} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_AE_Title" text="{8888888, 460} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
-            <param name="IDLE_TIME" value="$IDLE_TIME"/>
-            <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
-            <param name="WHERE_TO_MOVE" value="$WHERE_TO_MOVE"/>
+            <param name="IDLE_TIME"      value="$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO"   value="$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE"  value="$WHERE_TO_MOVE"/>
             <param name="START_POSITION" value="$START_POSITION"/>
-            <param name="IDLE_FOLLOW" value="$IDLE_FOLLOW"/>
-            <param name="WHO_TO_FOLLOW" value="$WHO_TO_FOLLOW"/>
-            <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
-            <param name="FIND_STATION" value="$FIND_STATION"/>
-            <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
+            <param name="IDLE_FOLLOW"    value="$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW"  value="$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING"   value="$IDLE_DOCKING"/>
+            <param name="FIND_STATION"   value="$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK"  value="$WHERE_TO_DOCK"/>
          </create_order>
          <wait exact="1ms"/>
 
