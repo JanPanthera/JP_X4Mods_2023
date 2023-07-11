@@ -11,8 +11,6 @@
       <param name="FORCE_RERSTOCK" default="false"/>
       <param name="PURCHASE_THRESHOLD" default="100000Cr"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="RESTOCK_TITLE" default="'TODO: RESTOCK_TITLE'"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="debugchance" default="0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </params>
@@ -29,6 +27,23 @@
       <set_value name="$_DeployablesToBuyAmount" exact="0"/>
       <set_value name="$_DeployablesToSell" exact="table[]"/>
       <set_value name="$_DeployablesToSellAmount" exact="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$RESTOCK_TITLE" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
+      <substitute_text source="$RESTOCK_TITLE" text="$RESTOCK_TITLE">
+         <replace string="'\033#FFCEFBA1# ~ Idle\033X'"   with="''"/>
+         <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##AE-S\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##AE-G\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##CP-S\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##CP-G\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##SD-S\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##SD-G\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##SE-S\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##SE-G\033X ~ '"  with="''"/>
+         <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
+         <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
+      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
       <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>

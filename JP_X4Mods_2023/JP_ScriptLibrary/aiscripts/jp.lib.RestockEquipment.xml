@@ -6,7 +6,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="EQUIPMENT_TABLE" default="table[]"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <param name="RESTOCK_TITLE" default="'TODO: RESTOCK_TITLE'"/>
+      <param name="GENERATE_TITLE" default="true"/>
+      <param name="RESTOCK_TITLE"  default="''"/>
       <param name="EQUIPMENT_BUYSELL_TEXT" default="'TODO: EQUIPMENT_BUYSELL_TEXT'"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <param name="debugchance" default="0"/>
@@ -18,6 +19,25 @@
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <set_value name="$_Result" exact="'Failed'"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$GENERATE_TITLE and $RESTOCK_TITLE == ''">
+         <set_value name="$RESTOCK_TITLE" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
+         <substitute_text source="$RESTOCK_TITLE" text="$RESTOCK_TITLE">
+            <replace string="'\033#FFCEFBA1# ~ Idle\033X'"   with="''"/>
+            <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
+            <replace string="'\033#FFA95908##AE-S\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##AE-G\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##CP-S\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##CP-G\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
+            <replace string="'\033#FFA95908##SD-S\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##SD-G\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##SE-S\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##SE-G\033X ~ '"  with="''"/>
+            <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
+            <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
+         </substitute_text>
+      </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
       <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>

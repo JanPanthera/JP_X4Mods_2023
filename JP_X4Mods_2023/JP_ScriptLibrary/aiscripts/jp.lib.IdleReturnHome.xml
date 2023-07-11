@@ -14,6 +14,7 @@
          <param name="IDLE_DOCKING"   type="internal" default="null"/>
          <param name="FIND_STATION"   type="internal" default="null"/>
          <param name="WHERE_TO_DOCK"  type="internal" default="null"/>
+         <param name="IDLE_TITLE"     type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -37,19 +38,14 @@
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
-      <do_if value="not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING">
-         <set_value name="$IDLE_MOVE_TO" exact="true" chance="100"/>
-         <set_value name="$WHERE_TO_MOVE" exact="$START_POSITION"/>
-      </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$IDLE_TITLE" exact="@$_DefaultOrderParamRef.$IDLE_TITLE"/>
+      <set_value name="$DEBUG"      exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
          <set_value name="$_DebugScriptName" exact="'jp.lib.IdleReturnHome'"/>
-         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+         <set_value name="$_DebugFileName"   exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
@@ -71,7 +67,16 @@
             <set_object_name object="$_Ship" name="$_Ship.knownname + '\033#FFCEFBA1# ~ Idle\033X'"/>
          </do_if>
 
+         <do_if value="not $IDLE_MOVE_TO and not $IDLE_FOLLOW and not $IDLE_DOCKING">
+            <set_value name="$IDLE_MOVE_TO" exact="true" chance="100"/>
+            <set_value name="$WHERE_TO_MOVE" exact="$START_POSITION"/>
+         </do_if>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <run_script name="'jp.lib.MessageLog'">
+            <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 55}]"/>
+         </run_script>
 
          <set_command_action commandaction="commandaction.standingby"/>
 

@@ -88,6 +88,7 @@
                <conditions>
                   <event_object_changed_zone object="$_Ship"/>
                   <check_value value="$_PositionZone.adjacentzones.indexof.{$_Ship.zone}"/>
+                  <check_value value="not $_Ship.zone.isclass.highway"/>
                </conditions>
             </interrupt>
          </move_to>
