@@ -34,8 +34,8 @@
       <t id="162">No marines are available for automatic ship boarding.</t>
       <t id="163">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
       <t id="164">I will start scout for abandoned ships in sector %2%1\033X.</t>
-      <t id="165">Marked: %1\nSector: %3%2\033X</t>
-      <t id="166">Boarded: %1\nSector: %3%2\033X</t>
+      <t id="165">Marked: %1 [%2]\nSector: %4%3\033X</t>
+      <t id="166">Boarded: %1 [%2]\nSector: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Uncovers, marks, or boards abandoned ships scattered across the galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

@@ -34,8 +34,8 @@
       <t id="162">Aucun marine n'est disponible pour l'embarquement automatique des navires.</t>
       <t id="163">Actuellement, il ne reste aucun navire abandonné que nous pouvons atteindre ou qui nécessite d'être marqué ou revendiqué.</t>
       <t id="164">Je vais commencer à rechercher des navires abandonnés dans le secteur %2%1\033X.</t>
-      <t id="165">Marqué: %1\nSecteur: %3%2\033X</t>
-      <t id="166">Embarqué: %1\nSecteur: %3%2\033X</t>
+      <t id="165">Marqué: %1 [%2]\nSecteur: %4%3\033X</t>
+      <t id="166">Embarqué: %1 [%2]\nSecteur: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Découvre, marque ou embarque sur des navires abandonnés éparpillés dans toute la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

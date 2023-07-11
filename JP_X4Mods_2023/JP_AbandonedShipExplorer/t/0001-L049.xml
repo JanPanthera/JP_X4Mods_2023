@@ -34,8 +34,8 @@
       <t id="162">Keine Marines sind für das automatische Entern von Schiffen verfügbar.</t>
       <t id="163">Derzeit sind keine verlassenen Schiffe mehr vorhanden, die wir erreichen können oder die markiert oder beansprucht werden müssen.</t>
       <t id="164">Ich werde beginnen, nach verlassenen Schiffen im Sektor %2%1\033X zu suchen.</t>
-      <t id="165">Markiert: %1\nSektor: %3%2\033X</t>
-      <t id="166">Geentert: %1\nSektor: %3%2\033X</t>
+      <t id="165">Markiert: %1 [%2]\nSektor: %4%3\033X</t>
+      <t id="166">Geentert: %1 [%2]\nSektor: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Deckt auf, markiert oder entert verlassene Schiffe, die über die ganze Galaxie verstreut sind.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

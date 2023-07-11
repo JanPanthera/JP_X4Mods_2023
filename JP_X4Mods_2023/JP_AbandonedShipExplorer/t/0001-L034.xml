@@ -34,8 +34,8 @@
       <t id="162">No hay marines disponibles para el abordaje automático de naves.</t>
       <t id="163">Actualmente, no quedan naves abandonadas a las que podamos llegar o que necesitemos marcar o reclamar.</t>
       <t id="164">Comenzaré a buscar naves abandonadas en el sector %2%1\033X.</t>
-      <t id="165">Marcado: %1\nSector: %3%2\033X</t>
-      <t id="166">Abordado: %1\nSector: %3%2\033X</t>
+      <t id="165">Marcado: %1 [%2]\nSector: %4%3\033X</t>
+      <t id="166">Abordado: %1 [%2]\nSector: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Descubre, marca o aborda naves abandonadas dispersas por toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

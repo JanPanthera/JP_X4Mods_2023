@@ -34,8 +34,8 @@
       <t id="162">Não há fuzileiros navais disponíveis para o embarque automático de navios.</t>
       <t id="163">Atualmente, não há navios abandonados restantes que possamos alcançar ou que precisem ser marcados ou reclamados.</t>
       <t id="164">Vou começar a procurar navios abandonados no setor %2%1\033X.</t>
-      <t id="165">Marcado: %1\nSetor: %3%2\033X</t>
-      <t id="166">Embarcado: %1\nSetor: %3%2\033X</t>
+      <t id="165">Marcado: %1 [%2]\nSetor: %4%3\033X</t>
+      <t id="166">Embarcado: %1 [%2]\nSetor: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Descobre, marca ou embarca em navios abandonados espalhados pela galáxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->

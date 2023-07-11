@@ -13,8 +13,6 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="@$LOCATION.{1}" position="@$LOCATION.{2}" condition="@$LOCATION.{1} and @$LOCATION.{2}"/>
-      <location object="@$LOCATION.{1}" condition="@$LOCATION.{1}"/>
    </order>
 
    <interrupts>
@@ -31,15 +29,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_ASE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_ASE_Title" text="$_ASE_Title">
-         <replace string="'\033#FFA95908##ASE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -64,18 +55,21 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <get_safe_pos result="$_Position" sector="$SECTOR" object="$ABANDONED_SHIP" directionobject="$SECTOR" direction="quadrant.up" y="100m" ignoredangerousregions="true"/>
-
-         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 2km">
-            <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true">
-               <param name="SECTOR"   value="$SECTOR"/>
-               <param name="OBJECT"   value="$ABANDONED_SHIP"/>
-               <param name="POSITION" value="$_Position"/>
+         <do_if value="$_Ship.distanceto.{$ABANDONED_SHIP} gt 5km">
+            <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
+               <param name="OBJECT" value="$ABANDONED_SHIP"/>
+               <param name="DIRECTION_OBJECT" value="$ABANDONED_SHIP"/>
+               <param name="DIRECTION_OFFSET" value="position.[0, 0, ($ABANDONED_SHIP.size / 2) + ($_Ship.size / 2) + 100m]"/>
+               <param name="ORIENTATION" value="'object'"/>
+               <param name="IGNORE_DANGEROUS_REGIONS" value="true"/>
             </create_order>
             <wait exact="1ms"/>
          </do_if>
 
          <set_command_action commandaction="commandaction.standingby"/>
+
+         <stop_moving object="$_Ship"/>
+         <wait exact="1000ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -84,12 +78,17 @@
          </run_script>
 
          <do_if value="$ASE_MODE == 1">
-            <set_value name="$_Text" exact="{8888888, 121} + '\n' +
-                                            $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']\n' +
-                                            {20001, 201} + ': ' + $SECTOR.knownname + ' ~ ' + $SECTOR.owner.knownname + '\n' + 
-                                            {8888888, 122}"/>
-            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <!-- I arrived at the abandoned ship:
+                 abandonedship.name [abandonedship.idcode]
+                 Sector: sectorownercolor sector.name 
+                 I wait for you until you have taken control of the abandoned ship.
+            -->
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="'%1\n%2 [%3]\n%4: %5%6\033X\n%7'.[{8888888, 121}, $ABANDONED_SHIP.knownname, $ABANDONED_SHIP.idcode, {20001, 201}, $_ObjectSectorOwnerColor, $SECTOR.knownname, {8888888, 122}]"/>
+               <param name="INTERACTION_OBJECT" value="$ABANDONED_SHIP"/>
+               <param name="MESSAGE_CHANCE"     value="1"/>
+               <param name="LOG_CHANCE"         value="1"/>
+            </run_script>
             <wait exact="999h">
                <interrupt>
                   <conditions>
@@ -100,12 +99,17 @@
          </do_if>
 
          <do_if value="$ASE_MODE == 2">
-            <set_value name="$_Text" exact="{8888888, 121} + '\n' +
-                                            $ABANDONED_SHIP.knownname + ' [' + $ABANDONED_SHIP.idcode + ']\n' +
-                                            {20001, 201} + ': ' + $SECTOR.knownname + ' ~ ' + $SECTOR.owner.knownname + '\n' + 
-                                            {8888888, 123}"/>
-            <show_help custom="$_ASE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_ASE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$ABANDONED_SHIP" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <!-- I arrived at the abandoned ship:
+                 abandonedship.name [abandonedship.idcode]
+                 Sector: sectorownercolor sector.name 
+                 I wait for you until you have taken control of the abandoned ship and your are back on board of mine.
+            -->
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="'%1\n%2 [%3]\n%4: %5%6\033X\n%7'.[{8888888, 121}, $ABANDONED_SHIP.knownname, $ABANDONED_SHIP.idcode, {20001, 201}, $_ObjectSectorOwnerColor, $SECTOR.knownname, {8888888, 123}]"/>
+               <param name="INTERACTION_OBJECT" value="$ABANDONED_SHIP"/>
+               <param name="MESSAGE_CHANCE"     value="1"/>
+               <param name="LOG_CHANCE"         value="1"/>
+            </run_script>
             <wait exact="999h">
                <interrupt>
                   <conditions>
@@ -121,9 +125,6 @@
 
          <apply_experience entity="$_Ship.pilot" experience="'JP_ABANDONED_SHIP_DISCOVERED'"/>
          <apply_experience object="$_Ship" experience="'JP_ABANDONED_SHIP_DISCOVERED'" role="entityrole.service"/>
-
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

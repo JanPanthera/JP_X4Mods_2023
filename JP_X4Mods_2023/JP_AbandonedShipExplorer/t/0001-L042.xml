@@ -34,8 +34,8 @@
       <t id="162">Pro automatické obsazení lodí nejsou k dispozici námořníci.</t>
       <t id="163">Momentálně nejsou k dispozici žádné opuštěné lodě, které bychom mohli dosáhnout nebo které by bylo třeba označit nebo převzít.</t>
       <t id="164">Začnu hledat opuštěné lodě v sektoru %2%1\033X.</t>
-      <t id="165">Označeno: %1\nSektor: %3%2\033X</t>
-      <t id="166">Obsazeno: %1\nSektor: %3%2\033X</t>
+      <t id="165">Označeno: %1 [%2]\nSektor: %4%3\033X</t>
+      <t id="166">Obsazeno: %1 [%2]\nSektor: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Odhaluje, označuje nebo obsazuje opuštěné lodě roztroušené po celé galaxii.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
