@@ -14,7 +14,6 @@
          <param name="IDLE_DOCKING"   type="internal" default="null"/>
          <param name="FIND_STATION"   type="internal" default="null"/>
          <param name="WHERE_TO_DOCK"  type="internal" default="null"/>
-         <param name="IDLE_TITLE"     type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
