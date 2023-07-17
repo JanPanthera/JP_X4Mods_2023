@@ -134,13 +134,13 @@
 
          </do_for_each>
 
-         <!-- Removing sector from blacklist if no objects found -->
+         <!-- Removing sector from blacklist if no stations found -->
          <do_if value="$_FoundStations.count == 0 and @global.$TSE_ShipsCurrentSectorTable.{$_Ship} != null">
             <remove_from_group group="global.$TSE_SectorsBlacklistGroup" object="global.$TSE_ShipsCurrentSectorTable.{$_Ship}"/>
             <set_value name="global.$TSE_ShipsCurrentSectorTable.{$_Ship}" exact="null"/>
          </do_if>
 
-         <!-- Adding sector to blacklist if objects found and sector not same as current -->
+         <!-- Adding sector to blacklist if stations found and sector not same as current -->
          <do_if value="$_FoundStations.count and @global.$TSE_ShipsCurrentSectorTable.{$_Ship} != $SECTOR">
             <!-- If we had previously blacklisted a sector, remove it from blacklist -->
             <do_if value="@global.$TSE_ShipsCurrentSectorTable.{$_Ship} != null">
