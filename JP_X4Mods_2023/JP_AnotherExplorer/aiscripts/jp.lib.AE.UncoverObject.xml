@@ -44,7 +44,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -55,16 +54,17 @@
          <set_command command="command.explore"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <run_script name="'jp.lib.MoveToObject'" result="$_MoveToObjectResult">
-            <param name="OBJECT" value="$OBJECT"/>
-            <param name="DISTANCE_TO_OBJECT" value="if $OBJECT.mayattack.{$_Ship} then $_Ship.maxradarrange else 30km"/>
+         <run_script name="'jp.lib.MoveToObject'">
+            <param name="OBJECT" value="(if $OBJECT.isconstruction then $OBJECT.buildstorage else $OBJECT)"/>
+            <param name="POSITION_SPACE" value="$_Ship"/>
+            <param name="DISTANCE_TO_OBJECT" value="($_Ship.maxradarrange * 0.75)"/>
+            <param name="FORCE_POSITION" value="false"/>
             <param name="FINISH_ON_APPROACH" value="true"/>
          </run_script>
 
-         <set_command_action commandaction="commandaction.standingby"/>
-
-         <stop_moving object="$_Ship"/>
-         <wait exact="1000ms"/>
+         <do_while value="not $OBJECT.isknown">
+            <wait exact="5s"/>
+         </do_while>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -102,7 +102,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

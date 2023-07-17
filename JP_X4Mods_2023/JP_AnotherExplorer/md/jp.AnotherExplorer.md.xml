@@ -3,7 +3,7 @@
 <mdscript name="JP_AnotherExplorer_MD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
    <cues>
 
-      <cue name="AE_Setup_MD" instantiate="true">
+      <cue name="AE_Setup_MD">
          <conditions>
             <check_any>
                <event_game_started/>
@@ -23,10 +23,28 @@
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-            <create_group groupname="global.$AE_ShipsGroup" chance="(if not global.$AE_ShipsGroup? then 100 else 0)"/>
+            <!-- a safety check if the count of parameters changes -->
+            <do_if value="@global.$AnotherExplorer_Settings.count != 33">
+               <remove_value name="global.$AnotherExplorer_Settings"/>
+            </do_if>
 
-            <!-- [ [$_Ship, $_Sector] ] -->
-            <set_value name="global.$AE_SectorBlacklist" exact="table[]" chance="(if not global.$AE_SectorBlacklist? then 100 else 0)"/>
+            <!-- group ~ [$_Ship, $_Ship, ...] -->
+            <do_if value="global.$AE_ShipsGroup? and typeof global.$AE_ShipsGroup != datatype.group">
+               <remove_value name="global.$AE_ShipsGroup"/>
+            </do_if>
+            <create_group groupname="global.$AE_ShipsGroup" chance="if not global.$AE_ShipsGroup? then 100 else 0"/>
+
+            <!-- group ~ [$_Sector, $_Sector, ...] -->
+            <do_if value="global.$AE_SectorsBlacklistGroup? and typeof global.$AE_SectorsBlacklistGroup != datatype.group">
+               <remove_value name="global.$AE_SectorsBlacklistGroup"/>
+            </do_if>
+            <create_group groupname="global.$AE_SectorsBlacklistGroup" chance="if not global.$AE_SectorsBlacklistGroup? then 100 else 0"/>
+
+            <!-- table[] ~ key = Ship, value = [Sector] -->
+            <do_if value="global.$AE_ShipsTable? and typeof global.$AE_ShipsTable != datatype.table">
+               <remove_value name="global.$AE_ShipsTable"/>
+            </do_if>
+            <set_value name="global.$AE_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$AE_ShipsTable? then 100 else 0)"/>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -38,7 +56,10 @@
          </actions>
          <cues>
 
-            <cue name="AE_Debug_MD" instantiate="false" checkinterval="1s">
+            <cue name="AE_Debug_MD" instantiate="true">
+               <conditions>
+                  <event_cue_signalled/>
+               </conditions>
                <actions>
 
                   <set_value name="$DEBUG" exact="md.JP_AnotherExplorer_MD.AE_Setup_MD.$DEBUG"/>
@@ -62,11 +83,21 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
 
-                  <do_if value="$DEBUG gt 0 and @global.$AE_SectorBlacklist != null">
+                  <do_if value="$DEBUG gt 0 and @global.$AE_SectorsBlacklistGroup != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AE_SectorBlacklist.keys.count %1'.[global.$AE_SectorBlacklist.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AE_SectorsBlacklistGroup.count %1'.[global.$AE_SectorsBlacklistGroup.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$AE_SectorBlacklist">
+                     <do_for_each name="$_Sector" in="global.$AE_SectorsBlacklistGroup">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG gt 0 and @global.$AE_ShipsCurrentSectorTable != null">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$AE_ShipsCurrentSectorTable.keys.count %1'.[global.$AE_ShipsCurrentSectorTable.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$AE_ShipsCurrentSectorTable">
                         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -82,13 +113,10 @@
                </actions>
             </cue>
 
-            <cue name="AE_Cleanup_MD" instantiate="true" checkinterval="1s">
+            <cue name="AE_Cleanup_MD" instantiate="true">
                <conditions>
-                  <check_any>
-                     <check_value value="global.$AE_ShipsGroup?"/>
-                     <check_value value="global.$AE_SectorBlacklist?"/>
-                     <check_value value="global.$AnotherExplorer_Settings?"/>
-                  </check_any>
+                  <event_cue_signalled/>
+                  <check_value value="global.$AE_ShipsGroup.count"/>
                </conditions>
                <actions>
 
@@ -103,37 +131,25 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="@global.$AE_ShipsGroup.count gt 0">
-                     <do_for_each name="$_Ship" in="global.$AE_ShipsGroup" reverse="true">
-                        <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_AnotherExplorerG'">
-                           <continue/>
-                        </do_if>
-                        <do_if value="$_Ship.defaultorder.id" list="['JP_AnotherExplorerG', 'JP_AnotherExplorerS']">
-                           <continue/>
-                        </do_if>
-                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                           <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
-                           <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
-                        </substitute_text>
-                        <set_object_name object="$_Ship" name="$_ResultName"/>
-                        <cancel_all_orders object="$_Ship"/>
-                        <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
-                        <remove_from_group group="global.$AE_ShipsGroup" object="$_Ship"/>
-                     </do_for_each>
-                  </do_if>
-
-                  <do_if  value="@global.$AE_SectorBlacklist != null">
-                     <do_for_each name="$_Ship" in="global.$AE_SectorBlacklist">
-                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
-                           <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
-                        </do_if>
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$AnotherExplorer_Settings.count != 33">
-                     <remove_value name="global.$AnotherExplorer_Settings"/>
-                  </do_if>
+                  <do_for_each name="$_Ship" in="global.$AE_ShipsGroup" reverse="true">
+                     <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_AnotherExplorerG'">
+                        <continue/>
+                     </do_if>
+                     <do_if value="$_Ship.defaultorder.id" list="['JP_AnotherExplorerG', 'JP_AnotherExplorerS']">
+                        <continue/>
+                     </do_if>
+                     <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                        <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
+                        <replace string="'\033#FFA95908##AE-G\033X ~ '" with="''"/>
+                     </substitute_text>
+                     <set_object_name object="$_Ship" name="$_ResultName"/>
+                     <cancel_all_orders object="$_Ship"/>
+                     <do_if value="global.$AE_ShipsCurrentSectorTable.{$_Ship} != null">
+                        <remove_from_group group="global.$AE_SectorsBlacklistGroup" object="global.$AE_ShipsCurrentSectorTable.{$_Ship}"/>
+                     </do_if>
+                     <remove_value name="global.$AE_ShipsCurrentSectorTable.{$_Ship}"/>
+                     <remove_from_group group="global.$AE_ShipsGroup" object="$_Ship"/>
+                  </do_for_each>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -145,7 +161,17 @@
                </actions>
             </cue>
 
-            <cue name="AE_EventOrderStarted_MD" instantiate="true">
+            <cue name="AE_EventObjectDestroyed_MD" instantiate="true">
+               <conditions>
+                  <event_object_destroyed group="global.$AE_ShipsGroup"/>
+               </conditions>
+               <actions>
+                  <remove_value name="global.$AE_ShipsCurrentSectorTable.{event.object}"/>
+                  <remove_from_group group="global.$AE_ShipsGroup" object="event.object"/>
+               </actions>
+            </cue>
+
+            <cue name="AE_EventObjectOrderReady_MD" instantiate="true">
                <conditions>
                   <event_object_order_ready group="global.$AE_ShipsGroup"/>
                   <check_any>
@@ -155,15 +181,15 @@
                </conditions>
                <actions>
                   <set_value name="$_Ship" exact="event.object"/>
-                  <do_if value="global.$AE_SectorBlacklist.{$_Ship}?">
-                     <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
+                  <do_if value="global.$AE_ShipsCurrentSectorTable.{$_Ship}?">
+                     <remove_value name="global.$AE_ShipsCurrentSectorTable.{$_Ship}"/>
                   </do_if>
                   <cancel_all_orders object="$_Ship"/>
                   <do_if value="$_Ship.subordinates.count gt 0">
                      <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
                         <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
-                           <do_if value="global.$AE_SectorBlacklist.{$_Subordinate}?">
-                              <remove_value name="global.$AE_SectorBlacklist.{$_Subordinate}"/>
+                           <do_if value="global.$AE_ShipsCurrentSectorTable.{$_Subordinate}?">
+                              <remove_value name="global.$AE_ShipsCurrentSectorTable.{$_Subordinate}"/>
                            </do_if>
                            <cancel_all_orders object="$_Subordinate"/>
                            <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
@@ -182,8 +208,16 @@
                </actions>
             </cue>
 
+            <cue name="AE_Timer_MD" instantiate="true" checkinterval="1s">
+               <actions>
+                  <signal_cue_instantly cue="md.JP_AnotherExplorer_MD.AE_Setup_MD.AE_Cleanup_MD"/>
+                  <signal_cue_instantly cue="md.JP_AnotherExplorer_MD.AE_Setup_MD.AE_Debug_MD"/>
+               </actions>
+            </cue>
+
          </cues>
       </cue>
+
 
    </cues>
 </mdscript>

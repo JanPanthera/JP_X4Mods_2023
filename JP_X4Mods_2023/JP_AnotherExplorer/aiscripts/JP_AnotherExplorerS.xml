@@ -131,8 +131,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <add_to_group object="$_Ship" groupname="global.$AE_ShipsGroup"/>
+      <add_to_group groupname="global.$AE_ShipsGroup" object="$_Ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
@@ -146,7 +145,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
+
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -161,7 +160,7 @@
                                           $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                                           $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                                           $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                                          $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS,
+                                          $PIRATE_BASES, $RECYCLING_FACILITIES, $DEFENCE_STATIONS,
                                           $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
                                           $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                                           $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
@@ -179,7 +178,7 @@
             </run_script>
             <resume label="FINISH_LBL"/>
          </do_if>
-         
+
          <do_if value="$ADD_ORDER_TAG">
             <substitute_text source="$_Ship.knownname" text="$_ResultName">
                <replace string="'\033#FFA95908##AE-S\033X ~ '" with="''"/>
@@ -190,9 +189,6 @@
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
@@ -230,19 +226,14 @@
             <resume label="IDLE_LBL"/>
          </do_if>
 
-         <do_if value="$_FoundObjects.count gt 0">
-            <do_for_each name="$_FoundObject" in="$_FoundObjects">
-               <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'" immediate="true">
-                  <param name="SECTOR" value="$SECTOR"/>
-                  <param name="OBJECT" value="$_FoundObject"/>
-               </create_order>
-               <wait exact="1ms"/>
-               <break/>
-            </do_for_each>
-         </do_if>
+         <create_order object="$_Ship" id="'JP_lib_AE_UncoverObject'" immediate="true">
+            <param name="SECTOR" value="$SECTOR"/>
+            <param name="OBJECT" value="$_FoundObjects.{1}"/>
+         </create_order>
+         <wait exact="1ms"/>
 
          <label name="IDLE_LBL"/>
-         <wait exact="1ms"/>
+
          <!-- I will switch to idle mode and try again later. -->
          <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
             <param name="IDLE_TIME"      value="$IDLE_TIME"/>
@@ -258,12 +249,11 @@
          <wait exact="1ms"/>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
+
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
