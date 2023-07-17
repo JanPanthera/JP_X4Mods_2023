@@ -88,7 +88,7 @@
 
             <cue name="SL_ManageIdleReturnHome_MD" instantiate="true">
                <conditions>
-                  <event_cue_signalled/>
+                  <event_cue_signalled cue="SL_ManageIdleReturnHome_MD"/>
                   <check_value value="@global.$SL_IdleShips.keys.count"/>
                </conditions>
                <actions>
@@ -138,8 +138,8 @@
 
             <cue name="SL_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
-                  <signal_cue_instantly cue="md.JP_ScriptLibrary_MD.SL_Setup_MD.SL_ManageIdleReturnHome_MD"/>
-                  <signal_cue_instantly cue="md.JP_ScriptLibrary_MD.SL_Setup_MD.SL_Debug_MD"/>
+                  <signal_cue_instantly cue="SL_ManageIdleReturnHome_MD"/>
+                  <signal_cue_instantly cue="SL_Debug_MD"/>
                </actions>
             </cue>
 
