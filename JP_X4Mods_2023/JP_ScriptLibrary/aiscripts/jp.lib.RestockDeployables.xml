@@ -61,16 +61,12 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <set_command command="command.resupply"/>
          <set_command_action commandaction="commandaction.calculating"/>
@@ -325,6 +321,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_ModifiedEquipmentTable" price="$_RestockPrice" immediate="true" result="$_ModifyResult"/>
+         <wait exact="1ms"/>
 
          <!-- The process of creating the restock order has failed. -->
          <do_if value="not $_ModifyResult">
@@ -335,10 +332,11 @@
 
          <set_value name="$_Result" exact="'Success'"/>
 
+         <label name="FINISH_LBL"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+         <label name="END_LBL"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

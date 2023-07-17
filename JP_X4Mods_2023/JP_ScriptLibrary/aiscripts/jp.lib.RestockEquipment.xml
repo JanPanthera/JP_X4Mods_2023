@@ -55,7 +55,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -64,7 +63,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <set_command command="command.resupply"/>
          <set_command_action commandaction="commandaction.calculating"/>
@@ -138,6 +136,7 @@
          <write_to_logbook title="$RESTOCK_TITLE" text="$EQUIPMENT_BUYSELL_TEXT.[$_Price.formatted.{'%.s %Cr'}]" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
 
          <add_build_to_modify_ship buildobject="$_Ship" object="$_RestockStation" ammo="$_WantedLoadoutTable" price="$_RestockPrice" immediate="true" result="$_ModifyResult"/>
+         <wait exact="1ms"/>
 
          <do_if value="not $_ModifyResult">
             <set_value name="$_ResumeCounter" exact="if not $_ResumeCounter? then 0 else ($_ResumeCounter + 1)"/>
@@ -152,11 +151,12 @@
          </do_if>
 
          <set_value name="$_Result" exact="'Success'"/>
+         
+         <label name="FINISH_LBL"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+         <label name="END_LBL"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

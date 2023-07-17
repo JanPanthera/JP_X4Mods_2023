@@ -10,10 +10,18 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$_Location.{1}" position="$_Location.{2}" condition="@$_Location.{1} != null and @$_Location.{2} != null"/>
+      <location object="$LOCATION.{1}" position="$LOCATION.{2}" condition="@$LOCATION.{1} != null and @$LOCATION.{2} != null"/>
+      <location object="$LOCATION.{1}" condition="@$LOCATION.{1} != null"/>
    </order>
 
    <interrupts>
+      <library>
+         <actions name="CalculateRandomGateApproachOffsets">
+            <set_value name="$_RandomOffsetX" min="-1000m" max="1000m" profile="bell"/>
+            <set_value name="$_RandomOffsetY" min="-1000m" max="1000m" profile="bell"/>
+            <set_value name="$_RandomOffsetZ" min="3000m"  max="6000m" profile="bell"/>
+         </actions>
+      </library>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -45,7 +53,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -53,120 +60,94 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
-
-         <!-- TODO:
-                Correct transition in to other sectors for L/XL ships (Warp Drive)?
-         -->
+         <!-- TODO: Adjust the transition into other sectors for L/XL ships (Warp Drive)? -->
 
          <set_command command="command.move" param="$GATE"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <wait exact="1ms"/>
+         <!-- Determine the entry and exit gates based on the gate type. -->
+         <do_if value="$GATE.isclass.gate or $GATE.isclass.highwayentrygate">
+            <set_value name="$_EntryGate" exact="$GATE"/>
+            <set_value name="$_ExitGate"  exact="$GATE.exit"/>
+         </do_if>
+         <do_elseif value="$GATE.isclass.highway">
+            <set_value name="$_EntryGate" exact="$GATE.entry"/>
+            <set_value name="$_ExitGate" exact="$GATE.entry.exit"/>
+         </do_elseif>
 
-         <include_interrupt_actions ref="GetBlacklistgroup"/>
+         <!-- Assign the sectors and types based on the gate -->
+         <set_value name="$_EntryGateSector" exact="$_EntryGate.sector"/>
+         <set_value name="$_ExitGateSector"  exact="$_ExitGate.sector"/>
+         <set_value name="$_IsGate"          exact="@$_EntryGate.isclass.gate and not @$_EntryGate.isaccelerator"/>
+         <set_value name="$_IsAccelerator"   exact="@$_EntryGate.isclass.gate and @$_EntryGate.isaccelerator"/>
+         <set_value name="$_IsSuperhighway"  exact="@$_EntryGate.isclass.highwayentrygate"/>
 
-         <set_value name="$_EntryGate"       exact="$GATE"/>
-         <set_value name="$_ExitGate"        exact="$_EntryGate.exit"/>
-         <set_value name="$_EntryGateSector" exact="null"/>
-         <set_value name="$_ExitGateSector"  exact="null"/>
-         <find_sector name="$_Sectors" space="player.galaxy" multiple="true"/>
-         <do_for_each name="$_Sector" in="$_Sectors">
-            <do_if value="$_EntryGate.hascontext.{$_Sector}">
-               <set_value name="$_EntryGateSector" exact="$_Sector"/>
-            </do_if>
-            <do_if value="$_ExitGate.hascontext.{$_Sector}">
-               <set_value name="$_ExitGateSector" exact="$_Sector"/>
-            </do_if>
-            <do_if value="$_EntryGateSector != null and $_ExitGateSector != null">
-               <break/>
-            </do_if>
-         </do_for_each>
-         <remove_value name="$_Sectors"/>
+         <!-- Include code that calculates random offsets for the final approach position to the gate -->
+         <set_value name="$_Gate" exact="$_EntryGate"/>
+         <include_interrupt_actions ref="CalculateRandomGateApproachOffsets"/>
 
-         <set_value name="$_EntryGate" exact="$GATE"/>
-         <set_value name="$_ExitGate" exact="$_EntryGate.exit"/>
+         <!-- Determine ship movement based on the type of gate and the size of the ship -->
+         <do_if value="@$_IsGate and @$_IsCapShip">
+            <!-- Specific behavior for capital ships and gates -->
+            <set_value name="$_Radius" exact="4km"/>
+            <create_list name="$_CapShipApproachPositions"/>
 
-         <create_list name="$_Sectors"/>
-         <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
-            <match_gate_distance object="$_EntryGate" max="0"/>
-         </find_sector>
-         <do_for_each name="$_Sector" in="$_Sectors">
-            <do_if value="$_EntryGate.hascontext.{$_Sector}">
-               <set_value name="$_EntryGateSector" exact="$_Sector"/>
-               <break/>
-            </do_if>
-         </do_for_each>
-         <remove_value name="$_Sectors"/>
+            <create_position name="$_EvalPosLeft" space="$_EntryGateSector" object="$_EntryGate" x="-$_Radius"/>
+            <create_position name="$_EvalPosRight" space="$_EntryGateSector" object="$_EntryGate" x="$_Radius"/>
 
-         <create_list name="$_Sectors"/>
-         <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
-            <match_gate_distance object="$_ExitGate" max="0"/>
-         </find_sector>
-         <do_for_each name="$_Sector" in="$_Sectors">
-            <do_if value="$_ExitGate.hascontext.{$_Sector}">
-               <set_value name="$_ExitGateSector" exact="$_Sector"/>
-               <break/>
-            </do_if>
-         </do_for_each>
-         <remove_value name="$_Sectors"/>
-
-         <set_value name="$_RandomGateApproachDistance" exact="6000m"/>
-         <!--<set_value name="$_RandomGateApproachDistance" min="4000m" max="8000m" profile="bell"/>-->
-         <set_value name="$_IsGate"         exact="$_EntryGate.isclass.gate and not $_EntryGate.isaccelerator"/>
-         <set_value name="$_IsAccelerator"  exact="$_EntryGate.isclass.gate and $_EntryGate.isaccelerator"/>
-         <set_value name="$_IsSuperhighway" exact="$_EntryGate.macro.id == 'he_gen_superhighway_entrance_01_macro'"/>
-
-         <do_if value="$_IsGate">
-            <do_if value="$_IsCapShip">
-               <create_position name="$_EvalPositionLeft" space="$_EntryGateSector" object="$_EntryGate" x="-3km" z="-6km" y="0"/>
-               <create_position name="$_EvalPositionRight" space="$_EntryGateSector" object="$_EntryGate" x="3km" z="-6km" y="0"/>
-               <set_value name="$_EntryPosition" exact="if ($_Ship.distanceto.[$_EntryGateSector, $_EvalPositionLeft] lt $_Ship.distanceto.[$_EntryGateSector, $_EvalPositionRight]) then $_EvalPositionLeft else $_EvalPositionRight"/>
-               <create_position name="$_ExitPosition" space="$_ExitGateSector" object="$_ExitGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
+            <do_if value="$_Ship.distanceto.[$_EntryGateSector, $_EvalPosLeft] lt $_Ship.distanceto.[$_EntryGateSector, $_EvalPosRight]">
+               <set_value name="$_Radius" exact="-$_Radius"/>
+               <set_value name="$_AngleSteps" exact="[0, 45, 90, 135, 180]"/>
             </do_if>
             <do_else>
-               <create_position name="$_EntryPosition" space="$_EntryGateSector" object="$_EntryGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
-               <create_position name="$_ExitPosition" space="$_ExitGateSector" object="$_ExitGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
+               <set_value name="$_Radius" exact="$_Radius"/>
+               <set_value name="$_AngleSteps" exact="[0, -45, -90, -135, -180]"/>
             </do_else>
+
+            <do_for_each name="$_Angle" in="$_AngleSteps">
+               <set_value name="$_AngleRadian" exact="$_Angle * pi / 180"/>
+               <create_position name="$_CirclePos" space="$_EntryGateSector" object="$_EntryGate"
+                                x="$_Radius * cos($_AngleRadian) + $_Radius"
+                                y="0"
+                                z="$_Radius * sin($_AngleRadian) + -$_RandomOffsetZ"/>
+
+               <append_to_list name="$_CapShipApproachPositions" exact="$_CirclePos"/>
+            </do_for_each>
          </do_if>
-         <do_elseif value="$_IsAccelerator">
-            <create_position name="$_EntryPosition" space="$_EntryGateSector" object="$_EntryGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
-            <create_position name="$_ExitPosition" space="$_ExitGateSector" object="$_ExitGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
+         <do_elseif value="@$_IsSuperhighway">
+            <!-- Specific behavior for superhighways -->
+            <get_safe_pos result="$_EntryGateApproachPosition" sector="$_EntryGateSector" object="$_EntryGate" radius="$_Ship.size" ignored="$_Ship" x="$_RandomOffsetX" y="$_RandomOffsetY" z="-$_RandomOffsetZ"/>
          </do_elseif>
-         <do_elseif value="$_IsSuperhighway">
-            <create_position name="$_EntryPosition" space="$_EntryGateSector" object="$_EntryGate" x="0" z="-($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
-            <create_position name="$_ExitPosition" space="$_ExitGateSector" object="$_ExitGate" x="0" z="($_Ship.size + $_RandomGateApproachDistance)" y="0"/>
-         </do_elseif>
+         <do_else>
+            <!-- Default behavior ~ includes jump gates and accelerators -->
+            <get_safe_pos result="$_EntryGateApproachPosition" sector="$_EntryGateSector" object="$_EntryGate" radius="$_Ship.size" ignored="$_Ship" x="$_RandomOffsetX" y="$_RandomOffsetY" z="$_RandomOffsetZ"/>
+         </do_else>
 
-         <set_command_action commandaction="commandaction.flying"/>
-
-         <!-- Move to the $_EntryPosition of the $_EntryGate. -->
-         <do_while value="$_Ship.distanceto.[$_EntryGateSector, $_EntryPosition] gt 5km">
-            <wait exact="1ms"/>
-            <get_safe_pos result="$_EntryPosition" sector="$_EntryGateSector" value="$_EntryPosition" radius="$_Ship.size" ignored="$_Ship"/>
-            <set_value name="$_Location" exact="[$_EntryGateSector, $_EntryPosition]"/>
-            <create_order object="$_Ship" id="'JP_lib_MoveToPosition'" immediate="true" chance="0" comment="Debug">
+         <!-- For capital ships, use the list of approach positions -->
+         <!-- For all other ships, use the calculated approach position. -->
+         <do_if value="@$_IsCapShip">
+            <set_value name="$LOCATION" exact="[$_EntryGateSector, $_CapShipApproachPositions.{1}]"/>
+            <run_script name="'jp.lib.MoveToPosition'">
                <param name="SECTOR" value="$_EntryGateSector"/>
-               <param name="POSITION" value="$_EntryPosition"/>
-               <param name="PRECISION" value="2500m"/>
-               <param name="SKIP_SECTOR_CHECK" value="true"/>
-            </create_order>
-            <run_script name="'jp.lib.MoveToPosition'" chance="100" comment="Release">
-               <param name="SECTOR" value="$_EntryGateSector"/>
-               <param name="POSITION" value="$_EntryPosition"/>
-               <param name="PRECISION" value="2500m"/>
-               <param name="SKIP_SECTOR_CHECK" value="true"/>
+               <param name="POSITIONS" value="$_CapShipApproachPositions"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
             </run_script>
-         </do_while>
+         </do_if>
+         <do_else>
+            <set_value name="$LOCATION" exact="[$_EntryGateSector, $_EntryGateApproachPosition]"/>
+            <run_script name="'jp.lib.MoveToPosition'">
+               <param name="SECTOR" value="$_EntryGateSector"/>
+               <param name="POSITION" value="$_EntryGateApproachPosition"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
+            </run_script>
+         </do_else>
 
-         <!-- Make sure $_ExitPosition is still a safe position. -->
-         <get_safe_pos result="$_ExitPosition" sector="$_ExitGateSector" value="$_ExitPosition" radius="$_Ship.size" ignored="$_Ship"/>
-         <set_value name="$_Location" exact="[$_ExitGateSector, $_ExitPosition]"/>
-
-         <!-- Transition through the Gate or Accelerator. -->
-         <do_if value="$_IsGate or $_IsAccelerator">
-            <do_if value="$_Ship.isclass.{[class.ship_l, class.ship_xl]}">
+         <set_value name="$LOCATION" exact="[$_ExitGate, null]"/>
+         <!-- Execute the transition through the gate based on the ship size. -->
+         <do_if value="@$_IsGate or @$_IsAccelerator">
+            <do_if value="@$_IsCapShip">
                <move_gate object="$_Ship" gate="$_EntryGate">
                   <interrupt>
                      <conditions>
@@ -174,36 +155,26 @@
                      </conditions>
                   </interrupt>
                </move_gate>
-               <get_safe_pos result="$_ExitPosition" sector="$_ExitGateSector" value="$_ExitPosition" radius="$_Ship.size" ignored="$_Ship"/>
-               <warp object="$_Ship" sector="$_ExitGateSector">
-                  <position space="$_ExitGateSector" value="$_ExitPosition"/>
-                  <orientation orientation="look_away" refobject="$_ExitGate"/>
-               </warp>
-               <wait exact="100ms"/>
             </do_if>
             <do_else>
-               <get_gate_approach_pos ship="$_Ship" gate="$_ExitGate" position="$_Position" rotation="$_Rotation"/>
-               <move_to object="$_Ship" destination="$_ExitGate" forceposition="true" uselocalhighways="$_Ship.canenterhighway" travel="true" finishonapproach="true">
-                  <position space="$_ExitGate" value="$_Position"/>
-                  <rotation value="$_Rotation"/>
+               <move_to object="$_Ship" destination="$_ExitGate">
                   <interrupt>
                      <conditions>
                         <event_object_changed_sector object="$_Ship"/>
                      </conditions>
                   </interrupt>
                </move_to>
-               <!--<warp object="$_Ship" sector="$_ExitGateSector">
-                  <position space="$_ExitGateSector" value="$_ExitPosition"/>
-                  <orientation orientation="look_away" refobject="$_ExitGate"/>
-               </warp>-->
-               <wait exact="100ms"/>
             </do_else>
+            <stop_moving object="$_Ship" immediate="true"/>
+            <warp object="$_Ship" sector="$_ExitGateSector">
+               <position space="$_ExitGateSector" object="$_ExitGate" value="position.[$_RandomOffsetX, $_RandomOffsetY, 1km + $_Ship.length / 2]"/>
+               <rotation pitch="$_ExitGate.rotation.pitch" yaw="$_ExitGate.rotation.yaw" roll="$_ExitGate.rotation.roll"/>
+            </warp>
          </do_if>
 
          <!-- Transition through the Superhighway. -->
-         <do_if value="$_IsSuperhighway">
-            <move_to object="$_Ship" destination="$_ExitGateSector" forceposition="true" uselocalhighways="false" travel="true">
-               <position space="$_ExitGateSector" value="$_ExitPosition"/>
+         <do_if value="@$_IsSuperhighway">
+            <move_to object="$_Ship" destination="$_ExitGate">
                <interrupt>
                   <conditions>
                      <event_object_changed_zone object="$_Ship"/>
@@ -218,13 +189,26 @@
                   </conditions>
                </interrupt>
             </wait>
-            <wait exact="100ms"/>
          </do_if>
+
+         <!-- Include code that calculates random offsets for the final position for clearing the gate -->
+         <set_value name="$_Gate" exact="$_ExitGate"/>
+         <include_interrupt_actions ref="CalculateRandomGateApproachOffsets"/>
+
+         <!-- After the transition, move the ship away from the exit gate to a safe position. -->
+         <remove_value name="$_MaxOffset"/>
+         <get_safe_pos result="$_ExitGateApproachPosition" sector="$_ExitGateSector" object="$_ExitGate" radius="$_Ship.size" ignored="$_Ship"  x="$_RandomOffsetX" y="$_RandomOffsetY" z="$_RandomOffsetZ"/>
+         <set_value name="$LOCATION" exact="[$_ExitGateSector, $_ExitGateApproachPosition]"/>
+         <run_script name="'jp.lib.MoveToPosition'">
+            <param name="SECTOR" value="$_ExitGateSector"/>
+            <param name="POSITION" value="$_ExitGateApproachPosition"/>
+            <param name="FORCE_POSITION" value="true"/>
+            <param name="FINISH_ON_APPROACH" value="true"/>
+         </run_script>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

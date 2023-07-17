@@ -5,19 +5,26 @@
    <order id="JP_lib_MoveToObject" name="{8888888, 43}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <!--DISTANCE_TO_OBJECT - used if $POSITION_SPACE is of class object
+             POSITION_SPACE - 'sector_space', 'object_space', any object
+             ROTATION_SPACE - 'sector_space', 'object_space', any object
+             ROTATION_ORIENTATION - 'align', 'look_at', 'look_away', 'align_left', 'align_right'-->
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="OBJECT"                   type="internal" default="null"/>
-         <param name="DIRECTION_ORIENTATION"    type="internal" default="'look_at'"/>
-         <param name="DIRECTION_OFFSET"         type="internal" default="position.[0, 0, 0]"/>
-         <param name="DIRECTION_OBJECT"         type="internal" default="this.ship"/>
-         <param name="ORIENTATION"              type="internal" default="'object'"/>
-         <param name="DISTANCE_TO_OBJECT"       type="internal" default="this.ship.size"/>
+         <param name="POSITION_SPACE"           type="internal" default="'object_space'"/>
+         <param name="POSITION_OFFSET"          type="internal" default="position.[0, 0, 0]"/>
+         <param name="DISTANCE_TO_OBJECT"       type="internal" default="10km"/>
+
+         <param name="ROTATION_SPACE"           type="internal" default="'object_space'"/>
+         <param name="ROTATION_ORIENTATION"     type="internal" default="'look_at'"/>
+
+         <param name="FORCE_POSITION"           type="internal" default="true"/>
+         <param name="FORCE_ROTATION"           type="internal" default="true"/>
          <param name="USE_LOCAL_HIGHWAY"        type="internal" default="this.ship.canenterhighway"/>
          <param name="USE_TRAVEL_DRIVE"         type="internal" default="true"/>
          <param name="FINISH_ON_APPROACH"       type="internal" default="false"/>
-         <param name="FORCE_POSITION"           type="internal" default="true"/>
-         <param name="FORCE_ROTATION"           type="internal" default="true"/>
+         <param name="SKIP_SECTOR_CHECK"        type="internal" default="false"/>
          <param name="IGNORE_DANGEROUS_REGIONS" type="internal" default="false"/>
-         <param name="INTERRUPT_RADAR_RANGE"    type="internal" default="20km"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="SECTOR"   type="internal" default="null"/>
          <param name="POSITION" type="internal" default="null"/>
@@ -35,8 +42,7 @@
             <event_object_signalled object="this.ship" param="'MOVE_TO_OBJECT_INTERRUPT'"/>
          </conditions>
          <actions>
-            <show_help allowclose="true" duration="1s" custom="'MOVE_TO_OBJECT_INTERRUPT'" chance="$DEBUG"/>
-            <abort_called_scripts resume="FINISH_LBL" chance="0"/>
+            <abort_called_scripts resume="FINISH_LBL"/>
          </actions>
       </handler>
       <handler ref="AttackHandler"/>
@@ -68,7 +74,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -80,149 +85,98 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <set_value name="$SECTOR" exact="$OBJECT.sector"/>
-         <do_if value="not $SECTOR.isclass.sector">
-            <create_list name="$_Sectors"/>
-            <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
-               <match_gate_distance object="$OBJECT" max="0"/>
-            </find_sector>
-            <do_for_each name="$_Sector" in="$_Sectors">
-               <do_if value="$OBJECT.hascontext.{$_Sector}">
-                  <set_value name="$SECTOR" exact="$_Sector"/>
-                  <break/>
-               </do_if>
-            </do_for_each>
-            <remove_value name="$_Sectors"/>
+         <do_if value="@$OBJECT.sector == null">
+            <do_if value="$OBJECT.isclass.highway">
+               <set_value name="$SECTOR" exact="$OBJECT.origin.sector"/>
+            </do_if>
          </do_if>
 
          <do_if value="$_Ship.sector != $SECTOR">
-            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+            <run_script name="'jp.lib.MoveToSector'">
                <param name="SECTOR" value="$SECTOR"/>
-            </create_order>
-            <wait exact="1ms"/>
+            </run_script>
          </do_if>
 
-         <do_if value="$DIRECTION_OBJECT == $OBJECT">
-            <do_if value="$ORIENTATION == 'object'">
-               <create_position name="$POSITION" space="$SECTOR" object="$OBJECT" x="$DIRECTION_OFFSET.x" y="$DIRECTION_OFFSET.y" z="$DIRECTION_OFFSET.z"/>
-            </do_if>
-            <do_elseif value="$ORIENTATION == 'sector'">
-               <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
-               <create_position name="$POSITION" space="$SECTOR" value="$_ObjectPos" x="$DIRECTION_OFFSET.x" y="$DIRECTION_OFFSET.y" z="$DIRECTION_OFFSET.z"/>
-            </do_elseif>
-            <do_if value="$DIRECTION_ORIENTATION == 'look_at'">
-               <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
-               <create_orientation name="$ROTATION" orientation="look_at" refposition="$_ObjectPos">
-                  <position space="$SECTOR" value="$POSITION"/>
-               </create_orientation>
-            </do_if>
-            <do_else>
-               <create_rotation name="$ROTATION" pitch="$OBJECT.rotation.pitch" yaw="$OBJECT.rotation.yaw" roll="$OBJECT.rotation.roll"/>
-            </do_else>
+         <!-- Create a new position by applying $POSITION_OFFSET to either object_space or sector_space -->
+         <do_if value="@$POSITION_SPACE == 'object_space'">
+            <create_position name="$POSITION" space="$SECTOR" object="$OBJECT" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
          </do_if>
-         <do_else>
-            <create_position name="$_DirectionObjectPos" space="$SECTOR" object="$DIRECTION_OBJECT"/>
+         <do_elseif value="@$POSITION_SPACE == 'sector_space'">
+            <create_position name="$POSITION" space="$SECTOR" object="$OBJECT"/>
+            <create_position name="$POSITION" space="$SECTOR" object="$SECTOR" value="$POSITION" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
+         </do_elseif>
+         <!-- If $POSITION_SPACE is an object, create a position towards it -->
+         <do_elseif value="@$POSITION_SPACE.isclass.object">
+            <create_position name="$_DirectionObjectPos" space="$SECTOR" object="$POSITION_SPACE"/>
             <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
-            <do_if value="$DIRECTION_ORIENTATION == 'look_at'">
-               <create_orientation name="$DIRECTION_ROT" orientation="look_at" refposition="$_DirectionObjectPos">
-                  <position space="$SECTOR" value="$_ObjectPos"/>
-               </create_orientation>
-               <create_orientation name="$ROTATION" orientation="look_away" refposition="$_DirectionObjectPos">
+            <create_orientation name="$DIRECTION" orientation="look_at" refposition="$_DirectionObjectPos">
+               <position space="$SECTOR" value="$_ObjectPos"/>
+            </create_orientation>
+            <create_position name="$POSITION" space="$SECTOR" value="$_ObjectPos"
+                             x="$DISTANCE_TO_OBJECT * sin($DIRECTION.yaw)"
+                             y="$DISTANCE_TO_OBJECT * sin($DIRECTION.pitch)"
+                             z="$DISTANCE_TO_OBJECT * cos($DIRECTION.yaw)"/>
+         </do_elseif>
+
+         <!-- If $ROTATION_SPACE is an object, create a rotation towards it -->
+         <do_if value="@$ROTATION_SPACE.isclass.object">
+            <create_position name="$_DirectionObjectPos" space="$SECTOR" object="$ROTATION_SPACE"/>
+            <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
+            <create_orientation name="$ROTATION" orientation="look_at" refposition="$_ObjectPos">
+               <position space="$SECTOR" value="$_DirectionObjectPos"/>
+            </create_orientation>
+         </do_if>
+         <!-- If $ROTATION_SPACE is 'object_space' create a rotation that depends on $ROTATION_ORIENTATION of the $OBJECT -->
+         <do_elseif value="@$ROTATION_SPACE == 'object_space'">
+            <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
+            <do_if value="$ROTATION_ORIENTATION == 'look_at'">
+               <create_orientation name="$ROTATION" orientation="look_away" refposition="$POSITION">
                   <position space="$SECTOR" value="$_ObjectPos"/>
                </create_orientation>
             </do_if>
-            <do_elseif value="$DIRECTION_ORIENTATION == 'look_away'">
-               <create_orientation name="$DIRECTION_ROT" orientation="look_away" refposition="$_DirectionObjectPos">
-                  <position space="$SECTOR" value="$_ObjectPos"/>
-               </create_orientation>
-               <create_orientation name="$ROTATION" orientation="look_at" refposition="$_DirectionObjectPos">
+            <do_elseif value="$ROTATION_ORIENTATION == 'look_away'">
+               <create_orientation name="$ROTATION" orientation="look_at" refposition="$POSITION">
                   <position space="$SECTOR" value="$_ObjectPos"/>
                </create_orientation>
             </do_elseif>
-            <do_elseif value="$DIRECTION_ORIENTATION == 'align_left'">
-               <create_orientation name="$DIRECTION_ROT" orientation="align_left" refposition="$_DirectionObjectPos">
-                  <position space="$SECTOR" value="$_ObjectPos"/>
-               </create_orientation>
-               <create_orientation name="$ROTATION" orientation="align_right" refposition="$_DirectionObjectPos">
+            <do_elseif value="$ROTATION_ORIENTATION == 'align_left'">
+               <create_orientation name="$ROTATION" orientation="align_right" refposition="$POSITION">
                   <position space="$SECTOR" value="$_ObjectPos"/>
                </create_orientation>
             </do_elseif>
-            <do_elseif value="$DIRECTION_ORIENTATION == 'align_right'">
-               <create_orientation name="$DIRECTION_ROT" orientation="align_right" refposition="$_DirectionObjectPos">
-                  <position space="$SECTOR" value="$_ObjectPos"/>
-               </create_orientation>
-               <create_orientation name="$ROTATION" orientation="align_left" refposition="$_DirectionObjectPos">
+            <do_elseif value="$ROTATION_ORIENTATION == 'align_right'">
+               <create_orientation name="$ROTATION" orientation="align_left" refposition="$POSITION">
                   <position space="$SECTOR" value="$_ObjectPos"/>
                </create_orientation>
             </do_elseif>
-            <create_position name="$POSITION" space="$SECTOR" value="$_ObjectPos" x="($DISTANCE_TO_OBJECT * sin($DIRECTION_ROT.yaw) + $DIRECTION_OFFSET.x)" y="($DISTANCE_TO_OBJECT * sin($DIRECTION_ROT.pitch) + $DIRECTION_OFFSET.y)" z="($DISTANCE_TO_OBJECT * cos($DIRECTION_ROT.yaw) + $DIRECTION_OFFSET.z)"/>
+            <do_else>
+               <create_rotation name="$ROTATION" value="$OBJECT.rotation"/>
+            </do_else>
+         </do_elseif>
+         <do_else>
+            <create_rotation name="$ROTATION" value="$_Ship.rotation"/>
          </do_else>
 
-         <wait exact="1ms"/>
-
-         <set_command_action commandaction="commandaction.flying"/>
-
-         <!-- Long distance travel -->
-         <do_if value="$_Ship.distanceto.[$SECTOR, $POSITION] ge $_Ship.maxradarrange * 2">
-            <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" ignoredangerousregions="$IGNORE_DANGEROUS_REGIONS" comment="Make sure $POSITION is still safe."/>
-            <get_zone_at_position name="$_PositionZone" sector="$SECTOR" value="$POSITION"/>
-            <move_to object="$_Ship" destination="$SECTOR" forceposition="true" finishonapproach="false" flightbehaviour="flightbehaviour.none" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
-               <position space="$SECTOR" object="$SECTOR" value="$POSITION"/>
-               <interrupt>
-                  <conditions>
-                     <check_any>
-                        <check_all>
-                           <event_object_changed_zone object="$_Ship"/>
-                           <check_value value="$OBJECT.zone.adjacentzones.indexof.{$_Ship.zone}"/>
-                           <check_value value="not $_Ship.zone.isclass.highway"/>
-                        </check_all>
-                        <check_all>
-                           <event_object_changed_zone object="$_Ship"/>
-                           <check_value value="$_Ship.zone == $_PositionZone"/>
-                        </check_all>
-                     </check_any>
-                  </conditions>
-               </interrupt>
-            </move_to>
-            <wait exact="1ms"/>
-         </do_if>
-
-         <!-- Short distance travel -->
-         <do_if value="$_Ship.distanceto.[$SECTOR, $POSITION] ge $INTERRUPT_RADAR_RANGE">
-            <!--<set_flight_control_model object="$_Ship" flightcontrolmodel="flightcontrolmodel.steering"/>-->
-            <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" ignoredangerousregions="$IGNORE_DANGEROUS_REGIONS" comment="Make sure $POSITION is still safe."/>
-            <do_while value="$_Ship.distanceto.[$SECTOR, $POSITION] ge $INTERRUPT_RADAR_RANGE">
-               <move_to object="$_Ship" destination="$SECTOR" forceposition="true" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
-                  <position space="$SECTOR" object="$SECTOR" value="$POSITION"/>
-                  <interrupt_after_time time="1000ms"/>
-               </move_to>
-            </do_while>
-            <wait exact="1ms"/>
-            <do_if value="$FINISH_ON_APPROACH">
-               <stop_moving object="$_Ship"/>
-            </do_if>
-         </do_if>
-
-         <!-- Last positioning movement -->
-         <do_if value="not $FINISH_ON_APPROACH">
-            <!--<set_flight_control_model object="$_Ship" flightcontrolmodel="flightcontrolmodel.steering"/>-->
-            <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" ignoredangerousregions="$IGNORE_DANGEROUS_REGIONS" comment="Make sure $POSITION is still safe."/>
-            <move_to object="$_Ship" destination="$SECTOR" forceposition="$FORCE_POSITION" forcerotation="$FORCE_ROTATION" uselocalhighways="false" travel="false" boost="false">
-               <position space="$SECTOR" object="$SECTOR" value="$POSITION"/>
-               <rotation value="$ROTATION"/>
-            </move_to>
-         </do_if>
+         <run_script name="'jp.lib.MoveToPosition'">
+            <param name="SECTOR"                   value="$SECTOR"/>
+            <param name="POSITION"                 value="$POSITION"/>
+            <param name="ROTATION"                 value="$ROTATION"/>
+            <param name="USE_LOCAL_HIGHWAY"        value="$USE_LOCAL_HIGHWAY"/>
+            <param name="USE_TRAVEL_DRIVE"         value="$USE_TRAVEL_DRIVE"/>
+            <param name="FINISH_ON_APPROACH"       value="$FINISH_ON_APPROACH"/>
+            <param name="SKIP_SECTOR_CHECK"        value="$SKIP_SECTOR_CHECK"/>
+            <param name="FORCE_POSITION"           value="$FORCE_POSITION"/>
+            <param name="FORCE_ROTATION"           value="$FORCE_ROTATION"/>
+            <param name="IGNORE_DANGEROUS_REGIONS" value="$IGNORE_DANGEROUS_REGIONS"/>
+         </run_script>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
-
-         <set_to_default_flight_control_model object="this.ship"/>
-         <stop_moving object="this.ship"/>
-         <stop_boost object="this.ship"/>
+         <stop_moving object="$_Ship"/>
+         <stop_boost object="$_Ship"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -232,9 +186,8 @@
    </attention>
 
    <on_abort>
-      <set_to_default_flight_control_model object="this.ship"/>
-      <stop_moving object="this.ship"/>
-      <stop_boost object="this.ship"/>
+      <stop_moving object="$_Ship"/>
+      <stop_boost object="$_Ship"/>
    </on_abort>
 
 </aiscript>

@@ -8,8 +8,6 @@
          <param name="SECTOR"            type="internal" default="null"/>
          <param name="POSITION"          type="internal" default="null"/>
          <param name="USE_LOCAL_HIGHWAY" type="internal" default="this.ship.canenterhighway"/>
-         <param name="USE_TRAVEL_DRIVE"  type="internal" default="true"/>
-         <param name="FORCE_POSITION"    type="internal" default="true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -50,7 +48,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -58,25 +55,25 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <!-- TODO: Implement a blacklist usage that is stricter than the current one. -->
+
          <set_command command="command.move" param="$SECTOR"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
 
-         <!-- TODO:
-                Implement a blacklist usage that is stricter than the current one.
-         -->
-
+         <!-- While ship isn't in the target sector, continue finding the path -->
          <do_while value="$_Ship.sector != $SECTOR">
-            <wait exact="1s"/>
-            <include_interrupt_actions ref="GetBlacklistgroup"/>
+            <wait exact="1ms"/>
 
+            <!-- Get the global path to the target sector by using the associated blacklist group -->
             <get_global_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$USE_LOCAL_HIGHWAY" useblacklist="$blacklistgroup" multiple="true">
                <start object="$_Ship"/>
                <end object="$SECTOR"/>
             </get_global_path>
 
+            <!-- If there is no path, we try again without using the blacklist,
+                 and if that fails, the sector is unreachable. -->
             <do_if value="$_PathComponents.count lt 2">
                <get_global_path component="$_PathComponents" refobject="$_Ship" uselocalhighways="$USE_LOCAL_HIGHWAY" multiple="true">
                   <start object="$_Ship"/>
@@ -84,26 +81,20 @@
                </get_global_path>
             </do_if>
 
+            <!-- Iterate through each path component -->
             <do_for_each name="$_PathComponent" in="$_PathComponents" counter="$_it">
 
                <set_value name="$_PathComponentSector" exact="$_PathComponent.sector"/>
-               <do_if value="not $_PathComponentSector.isclass.sector">
-                  <create_list name="$_Sectors"/>
-                  <find_sector name="$_Sectors" space="player.galaxy" multiple="true">
-                     <match_gate_distance object="$_PathComponent" max="0"/>
-                  </find_sector>
-                  <do_for_each name="$_Sector" in="$_Sectors">
-                     <do_if value="$_PathComponent.hascontext.{$_Sector}">
-                        <set_value name="$_PathComponentSector" exact="$_Sector"/>
-                        <break/>
-                     </do_if>
-                  </do_for_each>
-                  <remove_value name="$_Sectors"/>
+               <do_if value="@$_PathComponentSector == null">
+                  <do_if value="@$_PathComponent.issuperhighway">
+                     <set_value name="$_PathComponentSector" exact="$_PathComponent.origin.sector"/>
+                  </do_if>
                </do_if>
 
-               <!-- Ring-Highway transition -->
-               <do_if value="$_PathComponent.isclass.highway and @$_PathComponents.indexof.{@$_PathComponent.exitjumpgate}">
+               <!-- Handle the special case of the Ring-Highway transition -->
+               <do_if value="$_PathComponent.isclass.highway and @$_PathComponent.exitjumpgate != null">
                   <do_if value="not $_Ship.zone.isclass.highway">
+                     <set_flight_control_model object="$_Ship" flightcontrolmodel="flightcontrolmodel.spline"/>
                      <move_to object="$_Ship" destination="$SECTOR" uselocalhighways="true" travel="true" finishonapproach="true">
                         <interrupt>
                            <conditions>
@@ -113,20 +104,22 @@
                         </interrupt>
                      </move_to>
                   </do_if>
-                  <wait exact="600s">
-                     <interrupt>
-                        <conditions>
-                           <event_object_changed_sector object="$_Ship"/>
-                        </conditions>
-                     </interrupt>
-                  </wait>
-                  <break/>
+                  <do_if value="@$_PathComponents.indexof.{@$_PathComponent.exitjumpgate}">
+                     <wait exact="600s">
+                        <interrupt>
+                           <conditions>
+                              <event_object_changed_sector object="$_Ship"/>
+                           </conditions>
+                        </interrupt>
+                     </wait>
+                     <set_to_default_flight_control_model object="$_Ship"/>
+                     <break/>
+                  </do_if>
                </do_if>
 
-               <!-- Gate, Accelerator, Superhighway transition -->
-               <do_if value="($_PathComponent.isclass.gate and not $_PathComponent.isaccelerator) or
-                             ($_PathComponent.isclass.gate and $_PathComponent.isaccelerator) or
-                             ($_PathComponent.macro.id == 'he_gen_superhighway_entrance_01_macro') and
+               <!-- Handle other gate transitions -->
+               <set_to_default_flight_control_model object="$_Ship"/>
+               <do_if value="(@$_PathComponent.isclass.gate or @$_PathComponent.issuperhighway) and
                               $_PathComponentSector == $_Ship.sector">
                   <run_script name="'jp.lib.MoveThroughGate'">
                      <param name="GATE" value="$_PathComponent"/>
@@ -138,19 +131,28 @@
 
          </do_while>
 
-         <!-- Move to a specific position in the sector? -->
-         <do_if value="@$POSITION != null and @$_Ship.distanceto.{@$POSITION} gt 1km">
-            <create_order id="'JP_lib_MoveToPosition'" object="$_Ship">
+         <!-- Leave the highway if in target sector -->
+         <do_if value="$_Ship.zone.isclass.highway">
+            <set_to_default_flight_control_model object="$_Ship"/>
+            <set_value name="$_RandomX" min="-2000m" max="2000m" profile="bell"/>
+            <create_position name="$_Position" space="$SECTOR" object="$_Ship" x="$_RandomX" y="2500m" z="10000m"/>
+            <move_to object="$_Ship" destination="$SECTOR" forceposition="true" finishonapproach="true">
+               <position space="$SECTOR" object="$SECTOR" value="$_Position"/>
+            </move_to>
+         </do_if>
+
+         <!-- Move to a specific position if provided -->
+         <do_if value="@$POSITION != null">
+            <run_script name="'jp.lib.MoveToPosition'">
                <param name="SECTOR" value="$SECTOR"/>
                <param name="POSITION" value="$POSITION"/>
                <param name="SKIP_SECTOR_CHECK" value="true"/>
-            </create_order>
+            </run_script>
          </do_if>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+         <label name="END_LBL"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -160,6 +162,7 @@
    </attention>
 
    <on_abort>
+      <set_to_default_flight_control_model object="this.ship"/>
    </on_abort>
 
 </aiscript>

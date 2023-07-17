@@ -53,7 +53,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -80,24 +79,22 @@
          <set_command_action commandaction="commandaction.standingby"/>
 
          <label name="IDLE_MOVE_TO_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$IDLE_MOVE_TO">
             <do_if value="$_Ship.distanceto.[$WHERE_TO_MOVE.{1}, $WHERE_TO_MOVE.{2}] gt 10km">
                <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
                   <param name="SECTOR"   value="$WHERE_TO_MOVE.{1}"/>
                   <param name="POSITION" value="$WHERE_TO_MOVE.{2}"/>
                </create_order>
+               <wait exact="1ms"/>
             </do_if>
             <do_else>
                <wait exact="$IDLE_TIME"/>
             </do_else>
-            <wait exact="1ms"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_FOLLOW_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$IDLE_FOLLOW">
             <do_if value="$WHO_TO_FOLLOW == null">
                <set_value name="$IDLE_MOVE_TO" exact="true"/>
@@ -107,12 +104,12 @@
                <param name="IDLE_RETURN_HOME" value="true"/>
                <param name="target" value="$WHO_TO_FOLLOW"/>
             </create_order>
+            <wait exact="1ms"/>
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="IDLE_DOCKING_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$IDLE_DOCKING">
             <do_if value="not @$WHERE_TO_DOCK.dockingallowed.{$_Ship}">
                <do_if value="$FIND_STATION">
@@ -147,8 +144,7 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+         <label name="END_LBL"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
