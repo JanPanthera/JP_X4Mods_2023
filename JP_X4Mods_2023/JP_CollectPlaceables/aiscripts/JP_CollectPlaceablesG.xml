@@ -265,7 +265,7 @@
          </do_if>
 
          <create_order object="$_Ship" id="'JP_lib_CP_CollectPlaceable'" immediate="true">
-            <param name="SECTOR"    value="global.$CP_SectorBlacklist.{$_Ship}"/>
+            <param name="SECTOR"    value="global.$CP_ShipsCurrentSectorTable.{$_Ship}"/>
             <param name="PLACEABLE" value="$_FoundPlaceables.{1}"/>
          </create_order>
          <wait exact="1ms"/>

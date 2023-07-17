@@ -12,7 +12,7 @@
          </conditions>
          <actions>
 
-            <set_value name="$DEBUG" exact="0"/>
+            <set_value name="$DEBUG" exact="100"/>
             <do_if value="$DEBUG gt 0">
                <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
                <set_value name="$_DebugScriptName" exact="'CP_Setup_MD'"/>
@@ -58,7 +58,7 @@
          </actions>
          <cues>
 
-            <cue name="CP_Debug_MD" instantiate="true">
+            <cue name="CP_DebugInfo_MD" instantiate="true">
                <conditions>
                   <event_cue_signalled/>
                </conditions>
@@ -67,7 +67,7 @@
                   <set_value name="$DEBUG" exact="md.JP_CollectPlaceables_MD.CP_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'CP_Debug_MD'"/>
+                     <set_value name="$_DebugScriptName" exact="'CP_DebugInfo_MD'"/>
                      <set_value name="$_DebugFileName" exact="'cp.Debug.md.xml.log'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -213,7 +213,7 @@
             <cue name="CP_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
                   <signal_cue_instantly cue="CP_Cleanup_MD"/>
-                  <signal_cue_instantly cue="CP_Debug_MD"/>
+                  <signal_cue_instantly cue="CP_DebugInfo_MD"/>
                </actions>
             </cue>
 

@@ -179,7 +179,7 @@
          </do_if>
 
          <!-- Adding sector to blacklist if placeables found and sector not same as current -->
-         <do_if value="$_FoundObjects.count and @global.$CP_ShipsCurrentSectorTable.{$_Ship} != $SECTOR">
+         <do_if value="$_FoundPlaceables.count and @global.$CP_ShipsCurrentSectorTable.{$_Ship} != $SECTOR">
             <!-- If we had previously blacklisted a sector, remove it from blacklist -->
             <do_if value="@global.$CP_ShipsCurrentSectorTable.{$_Ship} != null">
                <remove_from_group group="global.$CP_SectorsBlacklistGroup" object="global.$CP_ShipsCurrentSectorTable.{$_Ship}"/>

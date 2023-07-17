@@ -85,17 +85,14 @@
 
          <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
             <param name="DEPLOYABLE_TABLE" value="$_PlaceablesToSell"/>
-            <param name="RESTOCK_TITLE" value="$_CP_Title"/>
+            <param name="FORCE_RERSTOCK" value="true"/>
          </run_script>
 
          <!-- TODO: Check TEXT -->
          <!-- The restock equipment order has failed. More detail is available in the logbook. -->
          <do_if value="$_Result == 'Failed'">
             <run_script name="'jp.lib.MessageLog'">
-               <param name="TEXT"               value="'%1\n%2'.[$_DefaultOrderParamRef.$IDLE_TITLE, {8888888, 54}]"/>
-               <param name="INTERACTION_OBJECT" value="$_Ship"/>
-               <param name="MESSAGE_CHANCE"     value="1"/>
-               <param name="LOG_CHANCE"         value="1"/>
+               <param name="TEXT" value="'%1\n%2'.[$_DefaultOrderParamRef.$IDLE_TITLE, {8888888, 54}]"/>
             </run_script>
             <resume label="FINISH_LBL"/>
          </do_if>
