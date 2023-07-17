@@ -40,11 +40,14 @@
             </do_if>
             <create_group groupname="global.$AE_SectorsBlacklistGroup" chance="if not global.$AE_SectorsBlacklistGroup? then 100 else 0"/>
 
-            <!-- table[] ~ key = Ship, value = [Sector] -->
-            <do_if value="global.$AE_ShipsTable? and typeof global.$AE_ShipsTable != datatype.table">
-               <remove_value name="global.$AE_ShipsTable"/>
+            <!-- table[] ~ key = Ship, value = Sector -->
+            <do_if value="global.$AE_ShipsCurrentSectorTable? and typeof global.$AE_ShipsCurrentSectorTable != datatype.table">
+               <remove_value name="global.$AE_ShipsCurrentSectorTable"/>
             </do_if>
-            <set_value name="global.$AE_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$AE_ShipsTable? then 100 else 0)"/>
+            <set_value name="global.$AE_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$AE_ShipsCurrentSectorTable? then 100 else 0)"/>
+
+            <!-- Cleanup of unused global ~ remove in a future version -->
+            <remove_value name="global.$AE_SectorBlacklist" chance="if global.$TSE_SectorBlacklist? then 100 else 0"/>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -210,14 +213,13 @@
 
             <cue name="AE_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
-                  <signal_cue_instantly cue="md.JP_AnotherExplorer_MD.AE_Setup_MD.AE_Cleanup_MD"/>
-                  <signal_cue_instantly cue="md.JP_AnotherExplorer_MD.AE_Setup_MD.AE_Debug_MD"/>
+                  <signal_cue_instantly cue="AE_Cleanup_MD"/>
+                  <signal_cue_instantly cue="AE_Debug_MD"/>
                </actions>
             </cue>
 
          </cues>
       </cue>
-
 
    </cues>
 </mdscript>
