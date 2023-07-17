@@ -5,13 +5,15 @@
    <order id="JP_lib_CP_CollectPlaceable" name="{8888888, 840}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR"    type="internal" default="null"/>
-         <param name="PLACEABLE" type="internal" default="null"/>
+         <param name="SECTOR"      type="internal" default="null"/>
+         <param name="PLACEABLE"   type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="POSITION"    type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$PLACEABLE" condition="@$PLACEABLE != null"/>
+      <location object="$SECTOR" position="$POSITION" condition="@$SECTOR != null and $POSITION != null"/>
    </order>
 
    <interrupts>
@@ -54,8 +56,10 @@
          <set_command command="command.collect" param="$PLACEABLE"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
+         <create_position name="$POSITION" space="$SECTOR" object="$PLACEABLE"/>
+
          <do_if value="$PLACEABLE.isclass.{class.mine}">
-            <set_value name="$_Distance" exact="100m"/>
+            <set_value name="$_Distance" exact="160m"/>
          </do_if>
          <do_else>
             <set_value name="$_Distance" exact="10m"/>
@@ -71,11 +75,12 @@
 
          <set_value name="$_PlaceableName" exact="$PLACEABLE.knownname"/>
 
-         <wait exact="1s"/>
-         <set_object_active object="$PLACEABLE" activate="false"/>
          <wait exact="2s"/>
+         <set_object_active object="$PLACEABLE" activate="false"/>
+         <wait exact="3s"/>
+         <set_command command="command.investigate"/>
          <collect_deployable object="$_Ship" deployable="$PLACEABLE"/>
-         <wait exact="1s"/>
+         <wait exact="2s"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
