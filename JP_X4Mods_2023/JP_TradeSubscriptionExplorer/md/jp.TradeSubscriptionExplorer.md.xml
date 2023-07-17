@@ -213,8 +213,8 @@
 
             <cue name="TSE_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
-                  <signal_cue_instantly cue="md.JP_TradeSubscriptionExplorer_MD.TSE_Setup_MD.TSE_Cleanup_MD"/>
-                  <signal_cue_instantly cue="md.JP_TradeSubscriptionExplorer_MD.TSE_Setup_MD.TSE_Debug_MD"/>
+                  <signal_cue_instantly cue="TSE_Cleanup_MD"/>
+                  <signal_cue_instantly cue="TSE_Debug_MD"/>
                </actions>
             </cue>
 
