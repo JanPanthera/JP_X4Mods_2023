@@ -59,7 +59,7 @@
          </actions>
          <cues>
 
-            <cue name="AE_Debug_MD" instantiate="true">
+            <cue name="AE_DebugInfo_MD" instantiate="true">
                <conditions>
                   <event_cue_signalled/>
                </conditions>
@@ -68,7 +68,7 @@
                   <set_value name="$DEBUG" exact="md.JP_AnotherExplorer_MD.AE_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_AnotherExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'AE_Debug_MD'"/>
+                     <set_value name="$_DebugScriptName" exact="'AE_DebugInfo_MD'"/>
                      <set_value name="$_DebugFileName" exact="'ae.Debug.md.xml.log'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -214,7 +214,7 @@
             <cue name="AE_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
                   <signal_cue_instantly cue="AE_Cleanup_MD"/>
-                  <signal_cue_instantly cue="AE_Debug_MD"/>
+                  <signal_cue_instantly cue="AE_DebugInfo_MD"/>
                </actions>
             </cue>
 
