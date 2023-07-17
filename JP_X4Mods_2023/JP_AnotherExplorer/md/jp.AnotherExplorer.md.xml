@@ -47,7 +47,7 @@
             <set_value name="global.$AE_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$AE_ShipsCurrentSectorTable? then 100 else 0)"/>
 
             <!-- Cleanup of unused global ~ remove in a future version -->
-            <remove_value name="global.$AE_SectorBlacklist" chance="if global.$TSE_SectorBlacklist? then 100 else 0"/>
+            <remove_value name="global.$AE_SectorBlacklist" chance="if global.$AE_SectorBlacklist? then 100 else 0"/>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
