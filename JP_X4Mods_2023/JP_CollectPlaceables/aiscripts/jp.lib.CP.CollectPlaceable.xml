@@ -11,6 +11,7 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
+      <location object="$PLACEABLE" condition="@$PLACEABLE != null"/>
    </order>
 
    <interrupts>
@@ -28,15 +29,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_CP_Title" text="$_CP_Title">
-         <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -50,7 +44,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -59,24 +52,22 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_command command="command.collect" param="$PLACEABLE"/>
+         <set_command_action commandaction="commandaction.calculating"/>
 
          <do_if value="$PLACEABLE.isclass.{class.mine}">
-            <get_safe_pos result="$_Position" sector="$SECTOR" object="$PLACEABLE" directionobject="$SECTOR" direction="quadrant.up" y="1000m" ignoredangerousregions="true"/>
+            <set_value name="$_Distance" exact="100m"/>
          </do_if>
          <do_else>
-            <get_safe_pos result="$_Position" sector="$SECTOR" object="$PLACEABLE" directionobject="$SECTOR" direction="quadrant.up" y="100m" ignoredangerousregions="true"/>
+            <set_value name="$_Distance" exact="10m"/>
          </do_else>
 
-         <do_if value="$_Ship.distanceto.[$SECTOR, $_Position] gt 4km">
-            <create_order id="'JP_lib_MoveToObject'" object="$_Ship" immediate="true">
-               <param name="SECTOR"   value="$SECTOR"/>
-               <param name="OBJECT"   value="$PLACEABLE"/>
-               <param name="POSITION" value="$_Position"/>
-            </create_order>
-            <wait exact="1ms"/>
-         </do_if>
-
-         <set_command_action commandaction="commandaction.standingby"/>
+         <run_script name="'jp.lib.MoveToObject'">
+            <param name="OBJECT" value="$PLACEABLE"/>
+            <param name="POSITION_SPACE" value="$_Ship"/>
+            <param name="DISTANCE_TO_OBJECT" value="$_Distance"/>
+            <param name="FORCE_POSITION" value="true"/>
+            <param name="FINISH_ON_APPROACH" value="true"/>
+         </run_script>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -86,8 +77,13 @@
 
          <!-- Collected: %1\nSector: %3%2\033X -->
          <set_value name="$_Text" exact="{8888888, 867}.[$PLACEABLE.knownname, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
-         <show_help custom="$_CP_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
-         <write_to_logbook title="$_CP_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+
+         <run_script name="'jp.lib.MessageLog'">
+            <param name="TEXT"               value="$_Text"/>
+            <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+            <param name="MESSAGE_CHANCE"     value="3"/>
+            <param name="LOG_CHANCE"         value="3"/>
+         </run_script>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -96,13 +92,9 @@
          <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_PLACEABLE_COLLECTED'"/>
          <apply_experience object="$_Ship" experience="'JP_SHIP_PLACEABLE_COLLECTED'" role="entityrole.service"/>
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
-
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

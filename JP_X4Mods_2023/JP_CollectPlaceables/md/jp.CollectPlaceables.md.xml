@@ -23,11 +23,31 @@
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-            <create_group groupname="global.$CP_ShipsGroup" chance="(if not global.$CP_ShipsGroup? then 100 else 0)"/>
+            <!-- a safety check if the count of parameters changes -->
+            <do_if value="@global.$CollectPlaceables_Settings.count != 32">
+               <remove_value name="global.$CollectPlaceables_Settings"/>
+            </do_if>
 
-            <!-- [ [$_Ship, $_Sector] ] -->
-            <set_value name="global.$CP_SectorBlacklist" exact="table[]" chance="(if not global.$CP_SectorBlacklist? then 100 else 0)"/>
+            <!-- group ~ [$_Ship, $_Ship, ...] -->
+            <do_if value="global.$CP_ShipsGroup? and typeof global.$CP_ShipsGroup != datatype.group">
+               <remove_value name="global.$CP_ShipsGroup"/>
+            </do_if>
+            <create_group groupname="global.$CP_ShipsGroup" chance="if not global.$CP_ShipsGroup? then 100 else 0"/>
 
+            <!-- group ~ [$_Sector, $_Sector, ...] -->
+            <do_if value="global.$CP_SectorsBlacklistGroup? and typeof global.$CP_SectorsBlacklistGroup != datatype.group">
+               <remove_value name="global.$CP_SectorsBlacklistGroup"/>
+            </do_if>
+            <create_group groupname="global.$CP_SectorsBlacklistGroup" chance="if not global.$CP_SectorsBlacklistGroup? then 100 else 0"/>
+
+            <!-- table[] ~ key = Ship, value = Sector -->
+            <do_if value="global.$CP_ShipsCurrentSectorTable? and typeof global.$CP_ShipsCurrentSectorTable != datatype.table">
+               <remove_value name="global.$CP_ShipsCurrentSectorTable"/>
+            </do_if>
+            <set_value name="global.$CP_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$CP_ShipsCurrentSectorTable? then 100 else 0)"/>
+
+            <!-- Cleanup of unused global ~ remove in a future version -->
+            <remove_value name="global.$CP_SectorBlacklist" chance="if global.$CP_SectorBlacklist? then 100 else 0"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
             <do_if value="$DEBUG gt 0">
@@ -38,7 +58,10 @@
          </actions>
          <cues>
 
-            <cue name="CP_Debug_MD" instantiate="false" checkinterval="1s">
+            <cue name="CP_Debug_MD" instantiate="true">
+               <conditions>
+                  <event_cue_signalled/>
+               </conditions>
                <actions>
 
                   <set_value name="$DEBUG" exact="md.JP_CollectPlaceables_MD.CP_Setup_MD.$DEBUG"/>
@@ -62,12 +85,22 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
 
-                  <do_if value="$DEBUG gt 0 and @global.$CP_SectorBlacklist != null">
+                  <do_if value="$DEBUG gt 0 and @global.$CP_SectorsBlacklistGroup != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_SectorBlacklist.keys.count %1'.[global.$CP_SectorBlacklist.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_SectorsBlacklistGroup.count %1'.[global.$CP_SectorsBlacklistGroup.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship"  valuename="$_Sector" in="global.$CP_SectorBlacklist">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idccode, @$_Sector.knownname]"/>
+                     <do_for_each name="$_Sector" in="global.$CP_SectorsBlacklistGroup">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG gt 0 and @global.$CP_ShipsCurrentSectorTable != null">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CP_ShipsCurrentSectorTable.keys.count %1'.[global.$CP_ShipsCurrentSectorTable.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$CP_ShipsCurrentSectorTable">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
@@ -82,13 +115,10 @@
                </actions>
             </cue>
 
-            <cue name="CP_Cleanup_MD" instantiate="true" checkinterval="1s">
+            <cue name="CP_Cleanup_MD" instantiate="true">
                <conditions>
-                  <check_any>
-                     <check_value value="global.$CP_ShipsGroup?"/>
-                     <check_value value="global.$CP_SectorBlacklist?"/>
-                     <check_value value="global.$CollectPlaceables_Settings?"/>
-                  </check_any>
+                  <event_cue_signalled/>
+                  <check_value value="global.$CP_ShipsGroup.count"/>
                </conditions>
                <actions>
 
@@ -103,37 +133,25 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="@global.$CP_ShipsGroup.count gt 0">
-                     <do_for_each name="$_Ship" in="global.$CP_ShipsGroup" reverse="true">
-                        <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_CollectPlaceablesG'">
-                           <continue/>
-                        </do_if>
-                        <do_if value="$_Ship.defaultorder.id" list="['JP_CollectPlaceablesG', 'JP_CollectPlaceablesS']">
-                           <continue/>
-                        </do_if>
-                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                           <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
-                           <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
-                        </substitute_text>
-                        <set_object_name object="$_Ship" name="$_ResultName"/>
-                        <cancel_all_orders object="$_Ship"/>
-                        <remove_value name="global.$CP_SectorBlacklist.{$_Ship}"/>
-                        <remove_from_group group="global.$CP_ShipsGroup" object="$_Ship"/>
-                     </do_for_each>
-                  </do_if>
-
-                  <do_if  value="@global.$CP_SectorBlacklist != null">
-                     <do_for_each name="$_Ship" in="global.$CP_SectorBlacklist">
-                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
-                           <remove_value name="global.$CP_SectorBlacklist.{$_Ship}"/>
-                        </do_if>
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$CollectPlaceables_Settings.count != 32">
-                     <remove_value name="global.$CollectPlaceables_Settings"/>
-                  </do_if>
+                  <do_for_each name="$_Ship" in="global.$CP_ShipsGroup" reverse="true">
+                     <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_CollectPlaceablesG'">
+                        <continue/>
+                     </do_if>
+                     <do_if value="$_Ship.defaultorder.id" list="['JP_CollectPlaceablesG', 'JP_CollectPlaceablesS']">
+                        <continue/>
+                     </do_if>
+                     <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                        <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
+                        <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
+                     </substitute_text>
+                     <set_object_name object="$_Ship" name="$_ResultName"/>
+                     <cancel_all_orders object="$_Ship"/>
+                     <do_if value="global.$CP_ShipsCurrentSectorTable.{$_Ship} != null">
+                        <remove_from_group group="global.$CP_SectorsBlacklistGroup" object="global.$CP_ShipsCurrentSectorTable.{$_Ship}"/>
+                     </do_if>
+                     <remove_value name="global.$CP_ShipsCurrentSectorTable.{$_Ship}"/>
+                     <remove_from_group group="global.$CP_ShipsGroup" object="$_Ship"/>
+                  </do_for_each>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -145,7 +163,17 @@
                </actions>
             </cue>
 
-            <cue name="CP_EventOrderStarted_MD" instantiate="true">
+            <cue name="CP_EventObjectDestroyed_MD" instantiate="true">
+               <conditions>
+                  <event_object_destroyed group="global.$CP_ShipsGroup"/>
+               </conditions>
+               <actions>
+                  <remove_value name="global.$CP_ShipsCurrentSectorTable.{event.object}"/>
+                  <remove_from_group group="global.$CP_ShipsGroup" object="event.object"/>
+               </actions>
+            </cue>
+
+            <cue name="CP_EventObjectOrderReady_MD" instantiate="true">
                <conditions>
                   <event_object_order_ready group="global.$CP_ShipsGroup"/>
                   <check_any>
@@ -155,15 +183,15 @@
                </conditions>
                <actions>
                   <set_value name="$_Ship" exact="event.object"/>
-                  <do_if value="global.$AE_SectorBlacklist.{$_Ship}?">
-                     <remove_value name="global.$AE_SectorBlacklist.{$_Ship}"/>
+                  <do_if value="global.$CP_ShipsCurrentSectorTable.{$_Ship}?">
+                     <remove_value name="global.$CP_ShipsCurrentSectorTable.{$_Ship}"/>
                   </do_if>
                   <cancel_all_orders object="$_Ship"/>
                   <do_if value="$_Ship.subordinates.count gt 0">
                      <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
                         <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
-                           <do_if value="global.$AE_SectorBlacklist.{$_Subordinate}?">
-                              <remove_value name="global.$AE_SectorBlacklist.{$_Subordinate}"/>
+                           <do_if value="global.$CP_ShipsCurrentSectorTable.{$_Subordinate}?">
+                              <remove_value name="global.$CP_ShipsCurrentSectorTable.{$_Subordinate}"/>
                            </do_if>
                            <cancel_all_orders object="$_Subordinate"/>
                            <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
@@ -179,6 +207,13 @@
                      <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
                   </substitute_text>
                   <set_object_name object="$_Ship" name="$_ResultName"/>
+               </actions>
+            </cue>
+
+            <cue name="CP_Timer_MD" instantiate="true" checkinterval="1s">
+               <actions>
+                  <signal_cue_instantly cue="CP_Cleanup_MD"/>
+                  <signal_cue_instantly cue="CP_Debug_MD"/>
                </actions>
             </cue>
 

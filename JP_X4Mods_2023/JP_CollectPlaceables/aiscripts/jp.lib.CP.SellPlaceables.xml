@@ -22,17 +22,10 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_CP_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_CP_Title" text="$_CP_Title">
-         <replace string="'\033#FFA95908##CP-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##CP-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Result" exact="'Failed'"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -46,7 +39,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -74,10 +66,15 @@
             <set_value name="$_PlaceablesToSellCount" exact="$_Ship.ammostorage.{$_PlaceablesMacro.{1}}.count" operation="add" chance="$_PlaceablesMacro.{2}"/>
          </do_for_each>
 
+         <!-- TODO: Check TEXT -->
          <do_if value="$_PlaceablesToSellCount == 0">
             <!-- The storage for placeables is full, and we're not permitted to sell the placeables we currently have. -->
-            <show_help custom="$_CP_Title + '\n\n' + {8888888, 860} + '\n' + {8888888, 863}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-            <write_to_logbook title="$_CP_Title" text="{8888888, 860} + '\n' + {8888888, 863}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="'%1\n%2'.[$_DefaultOrderParamRef.$IDLE_TITLE, {8888888, 863}]"/>
+               <param name="INTERACTION_OBJECT" value="$_Ship"/>
+               <param name="MESSAGE_CHANCE"     value="2"/>
+               <param name="LOG_CHANCE"         value="2"/>
+            </run_script>
             <resume label="FINISH_LBL"/>
          </do_if>
 
@@ -91,28 +88,29 @@
             <param name="RESTOCK_TITLE" value="$_CP_Title"/>
          </run_script>
 
+         <!-- TODO: Check TEXT -->
          <!-- The restock equipment order has failed. More detail is available in the logbook. -->
          <do_if value="$_Result == 'Failed'">
-            <show_help custom="$_ASE_Title + '\n\n' + {8888888, 1460} + '\n' +  {8888888, 54}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_ASE_Title" text="{8888888, 1460} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="'%1\n%2'.[$_DefaultOrderParamRef.$IDLE_TITLE, {8888888, 54}]"/>
+               <param name="INTERACTION_OBJECT" value="$_Ship"/>
+               <param name="MESSAGE_CHANCE"     value="1"/>
+               <param name="LOG_CHANCE"         value="1"/>
+            </run_script>
             <resume label="FINISH_LBL"/>
          </do_if>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
          </do_if>
 
-         <return>
-            <retval name="_Result" value="$_Result"/>
-         </return>
+         <return value="$_Result"/>
 
       </actions>
    </attention>
