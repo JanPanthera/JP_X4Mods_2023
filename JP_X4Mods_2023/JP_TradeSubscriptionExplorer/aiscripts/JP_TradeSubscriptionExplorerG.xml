@@ -5,34 +5,38 @@
    <order id="JP_TradeSubscriptionExplorerG" name="_{8888888, 97}TradeSubscriptionExplorer - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 1971}" category="navigation" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
+            <input_param name="class" value="[]"/>
+            <input_param name="playerreadonly" value="true"/>
+         </param>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR" text="{20001, 201}" comment="Sector" type="internal" default="this.ship.sector">
+            <input_param name="class" value="class.sector"/>
+         </param>
+         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{1} else true"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_001" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="WHARFS"               text="- {8888888, 11}" comment="Wharfs?"                      type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{1} else true"/>
-         <param name="SHIPYARDS"            text="- {8888888, 12}" comment="Shipyards?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{2} else true"/>
-         <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{3} else true"/>
-         <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{4} else true"/>
-         <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{5} else true"/>
-         <param name="RECYCLING_STATIONS"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{6} else true"/>
-         <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{7} else true"/>
-         <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{8} else true"/>
-         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{9} else true"/>
-         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{10} else true"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="PLACE_HOLDER_002" text="----------------------------------" type="object" default="null">
-            <input_param name="class" value="[]"/>
-            <input_param name="playerreadonly" value="true"/>
-         </param>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="OWNERLESS_SECTORS" text="{8888888, 30}" comment="Ownerless Sectors?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{11} else true"/>
+         <param name="WHARFS"               text="- {8888888, 11}" comment="Wharfs?"                      type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{2} else true"/>
+         <param name="SHIPYARDS"            text="- {8888888, 12}" comment="Shipyards?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{3} else true"/>
+         <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{4} else true"/>
+         <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{5} else true"/>
+         <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{6} else true"/>
+         <param name="RECYCLING_STATIONS"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{7} else true"/>
+         <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{8} else true"/>
+         <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{9} else true"/>
+         <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{10} else true"/>
+         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{11} else true"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="IDLE_TITLE" type="internal" default="{8888888, 1960}" comment="\033#FFe27100#Trade subscriptions renewal paused\033X"/>
          <param name="IDLE_TIME" text="{8888888, 80}" comment="Idle Time" type="time" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{12} else 600s">
             <input_param name="min" value="60s"/>
             <input_param name="max" value="3600s"/>
@@ -111,14 +115,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_TSE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_TSE_Title" text="$_TSE_Title">
-         <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
-      </substitute_text>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <add_to_group object="$_Ship" groupname="global.$TSE_ShipsGroup"/>
+      <add_to_group groupname="global.$TSE_ShipsGroup" object="$_Ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
@@ -126,51 +123,40 @@
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$SAVE_ORDER_SETTINGS">
-         <create_list name="$_SettingsList"/>
-         <append_list_elements name="$_SettingsList" other="[
-                            $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                            $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS, 
-                            $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES, $OWNERLESS_SECTORS,
-                            $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
-                            $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
-                            $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
-         <do_if value="global.$TradeSubscriptionExplorer_Settings?" negate="true">
-            <create_list name="global.$TradeSubscriptionExplorer_Settings"/>
-            <append_list_elements name="global.$TradeSubscriptionExplorer_Settings" other="$_SettingsList"/>
-         </do_if>
-         <do_else>
-            <do_for_each name="$_Setting" in="global.$TradeSubscriptionExplorer_Settings" counter="$_it">
-               <do_if value="$_Setting != $_SettingsList.{$_it}">
-                  <set_value name="global.$TradeSubscriptionExplorer_Settings.{$_it}" exact="$_SettingsList.{$_it}"/>
-               </do_if>
-            </do_for_each>
-         </do_else>
-         <remove_value name="$_SettingsList"/>
-         <show_help custom="$_TSE_Title + '\n\n' + {8888888, 95}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_TSE_Title" text="{8888888, 95}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$RESET_ORDER_SETTINGS">
-         <remove_value name="global.$TradeSubscriptionExplorer_Settings"/>
-         <show_help custom="$_TSE_Title + '\n\n' + {8888888, 96}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_TSE_Title" text="{8888888, 96}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </init>
 
    <attention min="unknown">
       <actions>
 
-         <do_if value="$SAVE_ORDER_SETTINGS or $RESET_ORDER_SETTINGS">
-            <resume label="FINISH_LBL"/>
-         </do_if>
-
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <do_if value="$SAVE_ORDER_SETTINGS">
+            <create_list name="global.$TradeSubscriptionExplorer_Settings" chance="if global.$TradeSubscriptionExplorer_Settings? then 0 else 100"/>
+            <clear_list list="global.$TradeSubscriptionExplorer_Settings" chance="if global.$TradeSubscriptionExplorer_Settings? then 100 else 0"/>
+            <append_list_elements name="global.$TradeSubscriptionExplorer_Settings"
+                                  other="[$OWNERLESS_SECTORS,
+                                          $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
+                                          $PIRATE_BASES, $RECYCLING_FACILITIES, $DEFENCE_STATIONS,
+                                          $FACTION_HEADQUARTERS, $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
+                                          $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
+                                          $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
+                                          $SHOW_MESSAGES, $WRITE_TO_LOG, $ADD_ORDER_TAG, $DEBUG]"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="{8888888, 95}"/>
+            </run_script>
+            <resume label="FINISH_LBL"/>
+         </do_if>
+
+         <do_if value="$RESET_ORDER_SETTINGS">
+            <remove_value name="global.$TradeSubscriptionExplorer_Settings"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="{8888888, 96}"/>
+            </run_script>
+            <resume label="FINISH_LBL"/>
          </do_if>
 
          <do_if value="$ADD_ORDER_TAG">
@@ -183,9 +169,6 @@
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
@@ -207,44 +190,40 @@
 
          <do_if value="$_FoundStations.count == 0">
             <!-- There are no remaining stations within my defined workspace that require a trade subscription update. -->
-            <show_help custom="$_TSE_Title + '\n\n' + {8888888, 1960} + '\n' + {8888888, 1961}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_TSE_Title" text="{8888888, 1960} + '\n' + {8888888, 1961}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 1961}]"/>
+            </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
 
-         <do_if value="$_FoundStations.count gt 0">
-            <do_for_each name="$_FoundStation" in="$_FoundStations">
-               <create_order object="$_Ship" id="'JP_lib_TSE_UpdateSubscription'" immediate="true">
-                  <param name="SECTOR" value="global.$TSE_SectorBlacklist.{$_Ship}"/>
-                  <param name="STATION" value="$_FoundStation"/>
-               </create_order>
-               <wait exact="1ms"/>
-               <break/>
-            </do_for_each>
-         </do_if>
-
-         <label name="IDLE_LBL"/>
-         <wait exact="1ms"/>
-         <!-- I will switch to idle mode and try again later. -->
-         <show_help custom="$_TSE_Title + '\n\n' + {8888888, 1960} + '\n' + {8888888, 55}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-         <write_to_logbook title="$_TSE_Title" text="{8888888, 1960} + '\n' + {8888888, 55}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
-         <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
-            <param name="IDLE_TIME" value="$IDLE_TIME"/>
-            <param name="IDLE_MOVE_TO" value="$IDLE_MOVE_TO"/>
-            <param name="WHERE_TO_MOVE" value="$WHERE_TO_MOVE"/>
-            <param name="START_POSITION" value="$START_POSITION"/>
-            <param name="IDLE_FOLLOW" value="$IDLE_FOLLOW"/>
-            <param name="WHO_TO_FOLLOW" value="$WHO_TO_FOLLOW"/>
-            <param name="IDLE_DOCKING" value="$IDLE_DOCKING"/>
-            <param name="FIND_STATION" value="$FIND_STATION"/>
-            <param name="WHERE_TO_DOCK" value="$WHERE_TO_DOCK"/>
+         <create_order object="$_Ship" id="'JP_lib_TSE_UpdateSubscription'" immediate="true">
+            <param name="SECTOR" value="global.$TSE_ShipsCurrentSectorTable.{$_Ship}"/>
+            <param name="STATION" value="$_FoundStations.{1}"/>
          </create_order>
          <wait exact="1ms"/>
 
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <label name="IDLE_LBL"/>
+
+         <!-- I will switch to idle mode and try again later. -->
+         <create_order object="$_Ship" id="'JP_lib_IdleReturnHome'" immediate="true">
+            <param name="IDLE_TIME"      value="$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO"   value="$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE"  value="$WHERE_TO_MOVE"/>
+            <param name="START_POSITION" value="$START_POSITION"/>
+            <param name="IDLE_FOLLOW"    value="$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW"  value="$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING"   value="$IDLE_DOCKING"/>
+            <param name="FIND_STATION"   value="$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK"  value="$WHERE_TO_DOCK"/>
+         </create_order>
+         <wait exact="1ms"/>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="END_LBL"/>
+
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
