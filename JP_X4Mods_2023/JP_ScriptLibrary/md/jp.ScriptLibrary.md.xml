@@ -39,7 +39,7 @@
          </actions>
          <cues>
 
-            <cue name="SL_Debug_MD" instantiate="true">
+            <cue name="SL_DebugInfo_MD" instantiate="true">
                <conditions>
                   <event_cue_signalled/>
                </conditions>
@@ -48,7 +48,7 @@
                   <set_value name="$DEBUG" exact="md.JP_ScriptLibrary_MD.SL_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_ScriptLibrary.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'SL_Debug_MD'"/>
+                     <set_value name="$_DebugScriptName" exact="'SL_DebugInfo_MD'"/>
                      <set_value name="$_DebugFileName" exact="'sl.Debug.md.xml.log'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -139,7 +139,7 @@
             <cue name="SL_Timer_MD" instantiate="true" checkinterval="1s">
                <actions>
                   <signal_cue_instantly cue="SL_ManageIdleReturnHome_MD"/>
-                  <signal_cue_instantly cue="SL_Debug_MD"/>
+                  <signal_cue_instantly cue="SL_DebugInfo_MD"/>
                </actions>
             </cue>
 
