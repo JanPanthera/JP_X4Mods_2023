@@ -32,6 +32,7 @@
             <input_param name="playerreadonly" value="true"/>
          </param>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="IDLE_TITLE" type="internal" default="{8888888, 960}" comment="\033#FFe27100#Datavault Marking Paused\033X"/>
          <param name="SHOW_MESSAGES" text="{8888888, 90}" comment="Show Messages?" type="number" default="1">
             <input_param name="min" value="0"/>
             <input_param name="max" value="3"/>
@@ -83,14 +84,7 @@
    <init>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
-      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_DVE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_DVE_Title" text="$_DVE_Title">
-         <replace string="'\033#FFA95908##DVE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##DVE-G\033X ~ '" with="''"/>
-      </substitute_text>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <add_to_group object="$_Ship" groupname="global.$DVE_ShipsGroup"/>
+      <add_to_group groupname="global.$DVE_ShipsGroup" object="$_Ship"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
@@ -104,7 +98,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -122,7 +115,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="RESUME_LBL"/>
-         <wait exact="1ms"/>
 
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
@@ -130,8 +122,9 @@
          <do_if value="$_Ship.ammostorage.{ware.waypointmarker_01.objectmacro}.count == 0">
             <do_if value="not $RESTOCK_NAV_BEACONS">
                <!-- There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled. -->
-               <show_help custom="$_DVE_Title + '\n\n' + {8888888, 960} + '\n' + {8888888, 961}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-               <write_to_logbook title="$_DVE_Title" text="{8888888, 960} + '\n' + {8888888, 961}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+               <run_script name="'jp.lib.MessageLog'">
+                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 961}]"/>
+               </run_script>
                <resume label="HOME_LBL"/>
             </do_if>
             <set_value name="$_DeployablesTable" exact="table[]"/>
@@ -139,12 +132,12 @@
             <run_script name="'jp.lib.RestockDeployables'" result="$_Result">
                <param name="DEPLOYABLE_TABLE" value="$_DeployablesTable"/>
                <param name="FORCE_RERSTOCK" value="true"/>
-               <param name="RESTOCK_TITLE" value="$_DVE_Title"/>
             </run_script>
             <!-- The restock equipment order has failed. More detail is available in the logbook. -->
             <do_if value="$_Result == 'Failed'">
-               <show_help custom="$_DVE_Title + '\n\n' + {8888888, 960} + '\n' +  {8888888, 54}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-               <write_to_logbook title="$_DVE_Title" text="{8888888, 960} + '\n' + {8888888, 54}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+               <run_script name="'jp.lib.MessageLog'">
+                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 54}]"/>
+               </run_script>
                <resume label="HOME_LBL"/>
             </do_if>
          </do_if>
@@ -156,8 +149,9 @@
 
          <do_if value="$_FoundDataVaults.count == 0">
             <!-- Currently, there are no datavaults left that we can reach or need to mark. -->
-            <show_help custom="$_DVE_Title + '\n\n' + {8888888, 960} + '\n' + {8888888, 962}" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 1 then 100 else 0"/>
-            <write_to_logbook title="$_DVE_Title" text="{8888888, 960} + '\n' + {8888888, 962}" category="upkeep" interaction="showonmap" object="$_Ship" chance="if $WRITE_TO_LOG ge 1 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 962}]"/>
+            </run_script>
             <resume label="HOME_LBL"/>
          </do_if>
 
@@ -170,18 +164,18 @@
          <resume label="RESUME_LBL"/>
 
          <label name="HOME_LBL"/>
-         <create_order object="$_Ship" id="'MoveWait'" default="true">
-            <param name="destination" value="$HOME_POSITION"/>
-         </create_order>
-         <wait exact="1ms"/>
+         <run_script name="'jp.lib.MoveToPosition'">
+            <param name="SECTOR" value="$HOME_POSITION.{1}"/>
+            <param name="POSITION" value="$HOME_POSITION.{2}"/>
+            <param name="FORCE_POSITION" value="true"/>
+            <param name="FINISH_ON_APPROACH" value="true"/>
+         </run_script>
 
-         <label name="END_LBL"/>
-         <wait exact="1ms"/>
+         <label name="FINISH_LBL"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
+         <label name="END_LBL"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
