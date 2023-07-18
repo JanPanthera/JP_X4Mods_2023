@@ -19,6 +19,10 @@
    <!-- the entry will only appear in the logbook of the ship when its idcode is inside the title -->
    <write_to_logbook title="'Title %1'.[$_Ship.idcode]" text="$_Text" category="upkeep" interaction="showonmap" object="$_Ship" chance="100"/>
 
+   <set_value name="$_MaxWaitTime" exact="(12000 - 1000) / 100"/>
+   <set_value name="$_MaxWaitTime" exact="12000 - $_Ship.combinedskill * $_MaxWaitTime"/>
+   <wait exact="($_MaxWaitTime)ms"/>
+
 </diff>
 
 <!--
