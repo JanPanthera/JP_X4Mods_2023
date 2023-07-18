@@ -57,168 +57,165 @@
             </do_if>
 
          </actions>
-         <cues>
+      </cue>
 
-            <cue name="TSE_DebugInfo_MD" instantiate="true">
-               <conditions>
-                  <event_cue_signalled/>
-               </conditions>
-               <actions>
-
-                  <set_value name="$DEBUG" exact="md.JP_TradeSubscriptionExplorer_MD.TSE_Setup_MD.$DEBUG"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'TSE_DebugInfo_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'tse.Debug.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+      <!-- Cleanup when the ship got destroyed -->
+      <cue name="TSE_EventObjectDestroyed_MD" instantiate="true">
+         <conditions>
+            <event_object_destroyed group="global.$TSE_ShipsGroup"/>
+         </conditions>
+         <actions>
+            <signal_cue_instantly cue="TSE_ClearBlacklist_MD" param="event.object"/>
+            <do_if value="event.object.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <signal_cue_instantly cue="TSE_ClearBlacklist_MD" param="$_Subordinate"/>
+                     <signal_cue_instantly cue="TSE_ResetName_MD" param="$_Subordinate"/>
+                     <cancel_all_orders object="$_Subordinate"/>
                   </do_if>
+               </do_for_each>
+            </do_if>
+         </actions>
+      </cue>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0 and @global.$TSE_ShipsGroup != null">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_ShipsGroup.count %1'.[global.$TSE_ShipsGroup.count]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" in="global.$TSE_ShipsGroup">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
-                     </do_for_each>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+      <!-- Cancel all orders if any of the ships orders parameters hase been changed -->
+      <cue name="TSE_EventObjectOrderReady1_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_any>
+               <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerS'"/>
+               <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerG'"/>
+            </check_any>
+            <check_value value="global.$TSE_ShipsGroup.indexof.{event.object}"/>
+         </conditions>
+         <actions>
+            <cancel_all_orders object="event.object"/>
+            <do_if value="event.param.id == 'JP_TradeSubscriptionExplorerG' and event.object.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="event.object.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <cancel_all_orders object="$_Subordinate"/>
                   </do_if>
+               </do_for_each>
+            </do_if>
+         </actions>
+      </cue>
 
-                  <do_if value="$DEBUG gt 0 and @global.$TSE_SectorsBlacklistGroup != null">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_SectorsBlacklistGroup.count %1'.[global.$TSE_SectorsBlacklistGroup.count]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Sector" in="global.$TSE_SectorsBlacklistGroup">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
-                     </do_for_each>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+      <!-- Cleanup when JP_TradeSubscriptionExplorerS or JP_TradeSubscriptionExplorerG is cancelled -->
+      <cue name="TSE_EventObjectOrderReady2_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_any>
+               <check_all>
+                  <check_value value="@event.object.defaultorder.id != 'JP_TradeSubscriptionExplorerS'"/>
+                  <check_value value="@event.object.defaultorder.id != 'JP_TradeSubscriptionExplorerG'"/>
+                  <check_value value="@event.object.defaultorder.id != 'Assist'"/>
+                  <check_value value="global.$TSE_ShipsGroup.indexof.{@event.object}"/>
+               </check_all>
+               <check_all>
+                  <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_TradeSubscriptionExplorerG'"/>
+               </check_all>
+            </check_any>
+         </conditions>
+         <actions>
+            <set_value name="$_Ship" exact="event.object"/>
+            <signal_cue_instantly cue="TSE_ClearBlacklist_MD" param="$_Ship"/>
+            <signal_cue_instantly cue="TSE_ResetName_MD" param="$_Ship"/>
+            <cancel_all_orders object="$_Ship"/>
+            <do_if value="$_Ship.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <signal_cue_instantly cue="TSE_ClearBlacklist_MD" param="$_Subordinate"/>
+                     <signal_cue_instantly cue="TSE_ResetName_MD" param="$_Subordinate"/>
+                     <cancel_all_orders object="$_Subordinate"/>
                   </do_if>
+               </do_for_each>
+            </do_if>
+            <remove_value name="$_Ship"/>
+         </actions>
+      </cue>
 
-                  <do_if value="$DEBUG gt 0 and @global.$TSE_ShipsCurrentSectorTable != null">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_ShipsCurrentSectorTable.keys.count %1'.[global.$TSE_ShipsCurrentSectorTable.keys.count]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$TSE_ShipsCurrentSectorTable">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
-                     </do_for_each>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
+      <!-- Clear the blacklists when called -->
+      <cue name="TSE_ClearBlacklist_MD" instantiate="true">
+         <conditions>
+            <event_cue_signalled/>
+         </conditions>
+         <actions>
+            <do_if value="@global.$TSE_ShipsCurrentSectorTable.{event.param} != null">
+               <remove_from_group group="global.$TSE_SectorsBlacklistGroup" object="global.$TSE_ShipsCurrentSectorTable.{event.param}"/>
+            </do_if>
+            <remove_value name="global.$TSE_ShipsCurrentSectorTable.{event.param}"/>
+            <remove_from_group group="global.$TSE_ShipsGroup" object="event.param"/>
+         </actions>
+      </cue>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- Reset the name of the ship when called -->
+      <cue name="TSE_ResetName_MD" instantiate="true">
+         <conditions>
+            <event_cue_signalled/>
+         </conditions>
+         <actions>
+            <substitute_text source="event.param.knownname" text="$_ResultName">
+               <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
+               <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
+            </substitute_text>
+            <set_object_name object="event.param" name="$_ResultName"/>
+            <remove_value name="$_ResultName"/>
+         </actions>
+      </cue>
 
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
+      <!-- Debug Info ~ instantiate="false" when publishing -->
+      <cue name="TSE_DebugInfo_MD" instantiate="false" checkinterval="1s">
+         <actions>
 
-               </actions>
-            </cue>
+            <set_value name="$DEBUG" exact="md.JP_TradeSubscriptionExplorer_MD.TSE_Setup_MD.$DEBUG"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'TSE_DebugInfo_MD'"/>
+               <set_value name="$_DebugFileName" exact="'tse.Debug.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
 
-            <cue name="TSE_Cleanup_MD" instantiate="true">
-               <conditions>
-                  <event_cue_signalled/>
-                  <check_value value="global.$TSE_ShipsGroup.count"/>
-               </conditions>
-               <actions>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <set_value name="$DEBUG" exact="md.JP_TradeSubscriptionExplorer_MD.TSE_Setup_MD.$DEBUG"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_TradeSubscriptionExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'TSE_Cleanup_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'tse.Cleanup.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
+            <do_if value="$DEBUG gt 0 and @global.$TSE_ShipsGroup != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_ShipsGroup.count %1'.[global.$TSE_ShipsGroup.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Ship" in="global.$TSE_ShipsGroup">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <do_if value="$DEBUG gt 0 and @global.$TSE_SectorsBlacklistGroup != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_SectorsBlacklistGroup.count %1'.[global.$TSE_SectorsBlacklistGroup.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Sector" in="global.$TSE_SectorsBlacklistGroup">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-                  <do_for_each name="$_Ship" in="global.$TSE_ShipsGroup" reverse="true">
-                     <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_TradeSubscriptionExplorerG'">
-                        <continue/>
-                     </do_if>
-                     <do_if value="$_Ship.defaultorder.id" list="['JP_TradeSubscriptionExplorerG', 'JP_TradeSubscriptionExplorerS']">
-                        <continue/>
-                     </do_if>
-                     <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                        <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                        <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
-                     </substitute_text>
-                     <set_object_name object="$_Ship" name="$_ResultName"/>
-                     <cancel_all_orders object="$_Ship"/>
-                     <do_if value="global.$TSE_ShipsCurrentSectorTable.{$_Ship} != null">
-                        <remove_from_group group="global.$TSE_SectorsBlacklistGroup" object="global.$TSE_ShipsCurrentSectorTable.{$_Ship}"/>
-                     </do_if>
-                     <remove_value name="global.$TSE_ShipsCurrentSectorTable.{$_Ship}"/>
-                     <remove_from_group group="global.$TSE_ShipsGroup" object="$_Ship"/>
-                  </do_for_each>
+            <do_if value="$DEBUG gt 0 and @global.$TSE_ShipsCurrentSectorTable != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$TSE_ShipsCurrentSectorTable.keys.count %1'.[global.$TSE_ShipsCurrentSectorTable.keys.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Ship" valuename="$_Sector" in="global.$TSE_ShipsCurrentSectorTable">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-               </actions>
-            </cue>
-
-            <cue name="TSE_EventObjectDestroyed_MD" instantiate="true">
-               <conditions>
-                  <event_object_destroyed group="global.$TSE_ShipsGroup"/>
-               </conditions>
-               <actions>
-                  <remove_value name="global.$TSE_ShipsCurrentSectorTable.{event.object}"/>
-                  <remove_from_group group="global.$TSE_ShipsGroup" object="event.object"/>
-               </actions>
-            </cue>
-
-            <cue name="TSE_EventObjectOrderReady_MD" instantiate="true">
-               <conditions>
-                  <event_object_order_ready group="global.$TSE_ShipsGroup"/>
-                  <check_any>
-                     <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerS'"/>
-                     <check_value value="@event.param.id == 'JP_TradeSubscriptionExplorerG'"/>
-                  </check_any>
-               </conditions>
-               <actions>
-                  <set_value name="$_Ship" exact="event.object"/>
-                  <do_if value="global.$TSE_ShipsCurrentSectorTable.{$_Ship}?">
-                     <remove_value name="global.$TSE_ShipsCurrentSectorTable.{$_Ship}"/>
-                  </do_if>
-                  <cancel_all_orders object="$_Ship"/>
-                  <do_if value="$_Ship.subordinates.count gt 0">
-                     <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
-                        <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
-                           <do_if value="global.$TSE_ShipsCurrentSectorTable.{$_Subordinate}?">
-                              <remove_value name="global.$TSE_ShipsCurrentSectorTable.{$_Subordinate}"/>
-                           </do_if>
-                           <cancel_all_orders object="$_Subordinate"/>
-                           <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
-                              <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                              <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
-                           </substitute_text>
-                           <set_object_name object="$_Subordinate" name="$_ResultName"/>
-                        </do_if>
-                     </do_for_each>
-                  </do_if>
-                  <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                     <replace string="'\033#FFA95908##TSE-S\033X ~ '" with="''"/>
-                     <replace string="'\033#FFA95908##TSE-G\033X ~ '" with="''"/>
-                  </substitute_text>
-                  <set_object_name object="$_Ship" name="$_ResultName"/>
-               </actions>
-            </cue>
-
-            <cue name="TSE_Timer_MD" instantiate="true" checkinterval="1s">
-               <actions>
-                  <signal_cue_instantly cue="TSE_Cleanup_MD"/>
-                  <signal_cue_instantly cue="TSE_DebugInfo_MD"/>
-               </actions>
-            </cue>
-
-         </cues>
+         </actions>
       </cue>
 
    </cues>
