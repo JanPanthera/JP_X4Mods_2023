@@ -6,6 +6,9 @@
          <set_value name="$added"/>
          <run_script name="$scriptname">
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="PRIORITIZE_GATES"     value="$order.$PRIORITIZE_GATES"/>
             <param name="PLACE_SATELLITES_MK1" value="$order.$PLACE_SATELLITES_MK1"/>
             <param name="PLACE_SATELLITES_MK2" value="$order.$PLACE_SATELLITES_MK2"/>
             <param name="RESTOCK_SATELLITES"   value="$order.$RESTOCK_SATELLITES"/>
@@ -32,8 +35,6 @@
             <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>
             <param name="CONSTRUCTION_SITES"   value="$order.$CONSTRUCTION_SITES"/>
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>

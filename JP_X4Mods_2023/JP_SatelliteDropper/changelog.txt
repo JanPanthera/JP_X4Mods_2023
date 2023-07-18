@@ -36,6 +36,7 @@ v1.0.6 -- Current Development Version
 ~ Added: The mod now utilizes the JP_ScriptLibrary for some functions, reducing code volume and streamlining the addition and fixing of code.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Added: More logging and notifications.
+~ Added: Option to enablee/disable the prioritization of gates.
 ~ Fixed: There was an issue with the function that checks whether a station has enough resources to build all the necessary satellites. 
          This issue caused the ship to dock and wait for resources, potentially for an extended period of time, depending on when the station was resupplied with resources.
 ~ Fixed: Rare case where the Sector selection could fail.

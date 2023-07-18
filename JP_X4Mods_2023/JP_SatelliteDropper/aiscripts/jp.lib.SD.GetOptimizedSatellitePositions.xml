@@ -24,8 +24,8 @@
       <append_to_list name="$_SatelliteRadarRanges" exact="75km" chance="if $PLACE_SATELLITES_MK2 then 100 else 0"/>
       <append_to_list name="$_SatelliteRadarRanges" exact="30km" chance="if $PLACE_SATELLITES_MK1 then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value   name="$_SatelliteMacroToUse" exact="$_SatelliteMacros.{1}"/>
-      <set_value   name="$_MostCoveringObject" exact="null"/>
+      <set_value name="$_SatelliteMacroToUse" exact="$_SatelliteMacros.{1}"/>
+      <set_value name="$_MostCoveringObject" exact="null"/>
       <create_list name="$_MostCoveringObjectObjects"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
@@ -42,7 +42,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -123,7 +122,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
