@@ -63,7 +63,7 @@
          <do_if value="$CREATE_ORDERS">
             <set_value name="this.$MoveOrdersCreated"/>
             <do_if value="$IN_TO_OUT">
-               <do_for_each name="$_Position" in="$POSITIONS" reverse="true">
+               <do_for_each name="$_Position" in="$POSITIONS">
                   <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
                      <param name="SECTOR" value="$SECTOR"/>
                      <param name="POSITION" value="$_Position"/>
@@ -72,7 +72,7 @@
                </do_for_each>
             </do_if>
             <do_else>
-               <do_for_each name="$_Position" in="$POSITIONS">
+               <do_for_each name="$_Position" in="$POSITIONS" reverse="true">
                   <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
                      <param name="SECTOR" value="$SECTOR"/>
                      <param name="POSITION" value="$_Position"/>
