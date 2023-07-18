@@ -6,6 +6,8 @@
          <set_value name="$added"/>
          <run_script name="$scriptname">
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="COLLECT_REGULAR_MINES"       value="$order.$COLLECT_REGULAR_MINES"/>
             <param name="COLLECT_TRACKER_MINES"       value="$order.$COLLECT_TRACKER_MINES"/>
             <param name="COLLECT_FRIENDFOE_MINES"     value="$order.$COLLECT_FRIENDFOE_MINES"/>
@@ -26,8 +28,6 @@
             <param name="SELL_ADVANCED_SATELLITES" value="$order.$SELL_ADVANCED_SATELLITES"/>
             <param name="SELL_NAVIGATION_BEACONS"  value="$order.$SELL_NAVIGATION_BEACONS"/>
             <param name="SELL_RESOURCE_PROBES"     value="$order.$SELL_RESOURCE_PROBES"/>
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>
