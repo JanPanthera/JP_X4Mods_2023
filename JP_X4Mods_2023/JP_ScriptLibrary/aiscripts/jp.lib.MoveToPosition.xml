@@ -8,6 +8,7 @@
          <param name="SECTOR"                   type="internal" default="this.ship.sector"/>
          <param name="POSITION"                 type="internal" default="position.[0, 0, 0]" comment="In same Sector and in Sector coordinates"/>
          <param name="POSITIONS"                type="internal" default="[]"                 comment="In same Sector and in Sector coordinates"/>
+         <param name="POSITIONS_REVERSED"       type="internal" default="false"/>
          <param name="ROTATION"                 type="internal" default="null"/>
          <param name="FORCE_POSITION"           type="internal" default="true"/>
          <param name="FORCE_ROTATION"           type="internal" default="false"/>
@@ -78,6 +79,16 @@
                <param name="SECTOR" value="$SECTOR"/>
             </create_order>
             <wait exact="1ms"/>
+         </do_if>
+
+         <do_if value="$POSITIONS_REVERSED">
+            <create_list name="$_TempPositions"/>
+            <do_for_each name="$_Pos" in="$POSITIONS" reverse="true">
+               <append_to_list name="$_TempPositions" exact="$_Pos"/>
+            </do_for_each>
+            <clear_list list="$POSITIONS"/>
+            <append_list_elements name="$POSITIONS" other="$_TempPositions"/>
+            <remove_value name="$_TempPositions"/>
          </do_if>
 
          <do_for_each name="$POSITION" in="$POSITIONS">
