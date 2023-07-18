@@ -6,6 +6,8 @@
          <set_value name="$added"/>
          <run_script name="$scriptname">
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="WHARFS"               value="$order.$WHARFS"/>
             <param name="SHIPYARDS"            value="$order.$SHIPYARDS"/>
             <param name="EQUIPMENTDOCKS"       value="$order.$EQUIPMENTDOCKS"/>
@@ -16,8 +18,6 @@
             <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>
             <param name="CONSTRUCTION_SITES"   value="$order.$CONSTRUCTION_SITES"/>
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>
@@ -38,5 +38,5 @@
          </run_script>
       </do_if>
    </add>
-   
+
 </diff>
