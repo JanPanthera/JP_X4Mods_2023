@@ -32,6 +32,8 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="40">Idle</t>
       <t id="41">Move to Sector</t>
+      <t id="42">Move to Position</t>
+      <t id="43">Move to Object</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="50">Currently, there are no available stations where we could restock our desired equipment.</t>
       <t id="51">Currently, all available stations lack the required resources to manufacture the necessary equipment.\nI will go to the nearest station, place a request for restocking, and then await the next resource replenishment.</t>
@@ -99,8 +101,8 @@
       <t id="162">No marines are available for automatic ship boarding.</t>
       <t id="163">Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed.</t>
       <t id="164">I will start scout for abandoned ships in sector %2%1\033X.</t>
-      <t id="165">Marked: %1\nSector: %3%2\033X</t>
-      <t id="166">Boarded: %1\nSector: %3%2\033X</t>
+      <t id="165">Marked: %1 [%2]\nSector: %4%3\033X</t>
+      <t id="166">Boarded: %1 [%2]\nSector: %4%3\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="171">Uncovers, marks, or boards abandoned ships scattered across the galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -265,12 +267,19 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!-- JP_SpiralExplorer -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="1000">Center position</t>
-      <t id="1001">In to Out?</t>
-      <t id="1002">Radar range</t>
-      <t id="1003">Start orbit</t>
-      <t id="1004">Orbit count</t>
-      <t id="1005">Orbit precision</t>
+      <t id="1000">Spiral precision</t>
+      <t id="1001">Inner Radius</t>
+      <t id="1002">Outer Radius</t>
+      <t id="1003">In to Out?</t>
+      <t id="1004">Create Orders?</t>
+      <t id="1005">Find Inner Radius?</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1040">Uncover Sector</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="1060">\033#FFe27100#Spiral uncovering Paused\033X</t>
+      <t id="1061">There are no remaining sectors that we need to uncover, or that we know of or can reach.</t>
+      <t id="1062">I will start uncovering the sector %2%1\033X.</t>
+      <t id="1063">Uncovered Sector: %2%1\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="1070">Uncovers the fog within a specific sector.</t>
       <t id="1071">Uncovers the fog within sectors throughout the entire galaxy.</t>
