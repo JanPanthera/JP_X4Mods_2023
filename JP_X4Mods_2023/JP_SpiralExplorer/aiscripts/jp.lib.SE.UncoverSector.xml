@@ -30,14 +30,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_SE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_SE_Title" text="$_SE_Title">
-         <replace string="'\033#FFA95908##SE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
       <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
@@ -52,7 +45,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -61,6 +53,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <set_command command="command.explore"/>
+         <set_command_action commandaction="commandaction.calculating"/>
 
          <do_if value="this.$MoveOrdersCreated?">
             <remove_value name="this.$MoveOrdersCreated"/>
@@ -70,7 +63,7 @@
          <do_if value="$CREATE_ORDERS">
             <set_value name="this.$MoveOrdersCreated"/>
             <do_if value="$IN_TO_OUT">
-               <do_for_each name="$_Position" in="$POSITIONS">
+               <do_for_each name="$_Position" in="$POSITIONS" reverse="true">
                   <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
                      <param name="SECTOR" value="$SECTOR"/>
                      <param name="POSITION" value="$_Position"/>
@@ -79,7 +72,7 @@
                </do_for_each>
             </do_if>
             <do_else>
-               <do_for_each name="$_Position" in="$POSITIONS" reverse="true">
+               <do_for_each name="$_Position" in="$POSITIONS">
                   <create_order id="'JP_lib_MoveToPosition'" object="$_Ship" immediate="true">
                      <param name="SECTOR" value="$SECTOR"/>
                      <param name="POSITION" value="$_Position"/>
@@ -87,32 +80,18 @@
                   </create_order>
                </do_for_each>
             </do_else>
+            <wait exact="1ms"/>
          </do_if>
          <do_else>
-            <do_if value="$IN_TO_OUT">
-               <do_for_each name="$_Position" in="$POSITIONS" reverse="true">
-                  <run_script name="'jp.lib.MoveToPosition'">
-                     <param name="SECTOR" value="$SECTOR"/>
-                     <param name="POSITION" value="$_Position"/>
-                     <param name="USE_LOCAL_HIGHWAY" value="false"/>
-                  </run_script>
-               </do_for_each>
-            </do_if>
-            <do_else>
-               <do_for_each name="$_Position" in="$POSITIONS">
-                  <run_script name="'jp.lib.MoveToPosition'">
-                     <param name="SECTOR" value="$SECTOR"/>
-                     <param name="POSITION" value="$_Position"/>
-                     <param name="USE_LOCAL_HIGHWAY" value="false"/>
-                  </run_script>
-               </do_for_each>
-            </do_else>
+            <run_script name="'jp.lib.MoveToPosition'">
+               <param name="SECTOR" value="$SECTOR"/>
+               <param name="POSITIONS" value="$POSITIONS"/>
+               <param name="POSITIONS_REVERSED" value="$IN_TO_OUT"/>
+               <param name="USE_LOCAL_HIGHWAY" value="false"/>
+            </run_script>
          </do_else>
 
          <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
-
-         <set_command_action commandaction="commandaction.standingby"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -121,9 +100,14 @@
          </run_script>
 
          <!-- Uncovered Sector: %2%1\033X -->
-         <set_value name="$_Text" exact="{8888888, 1063}.[$SECTOR.knownname,  $_ObjectSectorOwnerColor]"/>
-         <show_help custom="$_SE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
-         <write_to_logbook title="$_SE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+         <set_value name="$_Text" exact="{8888888, 1063}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+
+         <run_script name="'jp.lib.MessageLog'">
+            <param name="TEXT"               value="$_Text"/>
+            <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+            <param name="MESSAGE_CHANCE"     value="3"/>
+            <param name="LOG_CHANCE"         value="3"/>
+         </run_script>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -133,7 +117,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

@@ -17,20 +17,13 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
-      <set_value name="$_SE_Title" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
-      <substitute_text source="$_SE_Title" text="$_SE_Title">
-         <replace string="'\033#FFA95908##SE-S\033X ~ '" with="''"/>
-         <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
-      </substitute_text>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <create_list name="$_Sectors"/>
       <set_value name="$_InnerRadius" exact="null"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
-      <set_value name="$WRITE_TO_LOG"  exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
-      <set_value name="$DEBUG"         exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -44,7 +37,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -55,39 +47,22 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_while value="global.$SEGetSectorToUncoverAlreadyProcessing?">
-            <wait exact="1ms" comment="Game will freeze when no wait is added!"/>
-         </do_while>
+         <label name="RESUME_LBL"/>
+
+         <do_if value="global.$SEGetSectorToUncoverAlreadyProcessing?">
+            <wait exact="1ms"/>
+            <resume label="RESUME_LBL"/>
+         </do_if>
          <set_value name="global.$SEGetSectorToUncoverAlreadyProcessing"/>
 
          <include_interrupt_actions ref="GetBlacklistgroup"/>
 
          <do_if value="$SECTOR == null">
-            <do_if value="$OWNERLESS_SECTORS">
-               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
-                  <match knownto="$_Ship.owner"/>
-                  <match_gate_distance object="$_Ship" min="0"/>
-                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
-               </find_sector>
-            </do_if>
-            <do_else>
-               <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
-                  <match knownto="$_Ship.owner"/>
-                  <match owner="faction.ownerless" negate="true"/>
-                  <match_gate_distance object="$_Ship" min="0"/>
-                  <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
-               </find_sector>
-            </do_else>
-            <do_if value="global.$SE_SectorBlacklist.keys.count gt 0">
-               <create_list name="$_BlacklistedSectors"/>
-               <do_for_each name="$__Ship" valuename="$__Sector" in="global.$SE_SectorBlacklist">
-                  <do_if value="$__Ship != $_Ship and @$__Sector != null">
-                     <append_to_list name="$_BlacklistedSectors" exact="$__Sector"/>
-                  </do_if>
-               </do_for_each>
-               <remove_from_list name="$_Sectors" list="$_BlacklistedSectors"/>
-               <remove_value name="$_BlacklistedSectors"/>
-            </do_if>
+            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+               <match knownto="$_Ship.owner"/>
+               <match_gate_distance object="$_Ship" min="0"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+            </find_sector>
             <do_if value="$_Sectors.count gt 1">
                <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_Sectors">
                   <param name="LIST" value="$_Sectors"/>
@@ -97,33 +72,56 @@
 
          <set_value name="$_SectorFound" exact="false"/>
          <do_for_each name="$_Sector" in="$_Sectors">
+
+            <do_if value="@global.$SE_SectorsBlacklistGroup.indexof.{$_Sector} and @global.$SE_ShipsCurrentSectorTable.{$_Ship} != $_Sector">
+               <continue/>
+            </do_if>
+
+            <do_if value="$_Sector.owner == faction.ownerless and not $OWNERLESS_SECTORS">
+               <continue/>
+            </do_if>
+
             <find_closest_undiscovered_position result="$_ClosestCoveredPosition" sector="$_Sector" range="$OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))">
                <position value="$_Sector.coreposition"/>
                <rangecenter value="$_Sector.coreposition"/>
             </find_closest_undiscovered_position>
             <do_if value="@$_ClosestCoveredPosition != null and ($_ClosestCoveredPosition.distanceto.{$_Sector.coreposition} lt ($OUTER_RADIUS * cos(pi / (360 / $SPIRAL_PRECISION))))">
-               <set_value name="$_InnerRadius" exact="$_ClosestCoveredPosition.distanceto.{$_Sector.coreposition}"/>
                <set_value name="$SECTOR" exact="$_Sector"/>
+               <set_value name="$_InnerRadius" exact="$_ClosestCoveredPosition.distanceto.{$_Sector.coreposition}"/>
                <set_value name="$_SectorFound" exact="true"/>
                <break/>
             </do_if>
+
          </do_for_each>
 
          <do_if value="not $_SectorFound and @global.$SE_SectorBlacklist.{$_Ship} != null">
             <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="null"/>
          </do_if>
 
-         <do_if value="$_SectorFound and
-                      (@global.$SE_SectorBlacklist.{$_Ship} == null or
-                       @global.$SE_SectorBlacklist.{$_Ship} != null and @global.$SE_SectorBlacklist.{$_Ship} != $SECTOR)">
-            <set_value name="global.$SE_SectorBlacklist.{$_Ship}" exact="$SECTOR"/>
+         <!-- Removing sector from blacklist if no covered positions found -->
+         <do_if value="not $_SectorFound and @global.$SE_ShipsCurrentSectorTable.{$_Ship} != null">
+            <remove_from_group group="global.$SE_SectorsBlacklistGroup" object="global.$SE_ShipsCurrentSectorTable.{$_Ship}"/>
+            <set_value name="global.$SE_ShipsCurrentSectorTable.{$_Ship}" exact="null"/>
+         </do_if>
+
+         <!-- Adding sector to blacklist if covered positions found and sector not same as current -->
+         <do_if value="$_SectorFound and @global.$SE_ShipsCurrentSectorTable.{$_Ship} != $SECTOR">
+            <!-- If we had previously blacklisted a sector, remove it from blacklist -->
+            <do_if value="@global.$SE_ShipsCurrentSectorTable.{$_Ship} != null">
+               <remove_from_group group="global.$SE_SectorsBlacklistGroup" object="global.$SE_ShipsCurrentSectorTable.{$_Ship}"/>
+            </do_if>
+            <add_to_group groupname="global.$SE_SectorsBlacklistGroup" object="$SECTOR"/>
+            <set_value name="global.$SE_ShipsCurrentSectorTable.{$_Ship}" exact="$SECTOR"/>
             <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
                <param name="FACTION" value="$SECTOR.owner"/>
             </run_script>
             <!-- I will start uncover the sector %2%1\033X. -->
-            <set_value name="$_Text" exact="{8888888, 1062}.[$SECTOR.knownname,  $_ObjectSectorOwnerColor]"/>
-            <show_help custom="$_SE_Title + '\n\n' + $_Text" position="1" allowclose="true" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
-            <write_to_logbook title="$_SE_Title" text="$_Text" category="upkeep" interaction="showonmap" object="$SECTOR" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="{8888888, 1062}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+               <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+               <param name="MESSAGE_CHANCE"     value="2"/>
+               <param name="LOG_CHANCE"         value="2"/>
+            </run_script>
          </do_if>
 
          <remove_value name="global.$SEGetSectorToUncoverAlreadyProcessing"/>
@@ -131,7 +129,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

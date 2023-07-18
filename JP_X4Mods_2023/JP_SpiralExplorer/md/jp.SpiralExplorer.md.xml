@@ -12,7 +12,7 @@
          </conditions>
          <actions>
 
-            <set_value name="$DEBUG" exact="0"/>
+            <set_value name="$DEBUG" exact="100"/>
             <do_if value="$DEBUG gt 0">
                <set_value name="$_DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
                <set_value name="$_DebugScriptName" exact="'SE_Setup_MD'"/>
@@ -23,10 +23,31 @@
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-            <create_group groupname="global.$SE_ShipsGroup" chance="(if not global.$SE_ShipsGroup? then 100 else 0)"/>
+            <!-- a safety check if the count of parameters changes -->
+            <do_if value="@global.$SpiralExplorer_Settings.count != 19">
+               <remove_value name="global.$SpiralExplorer_Settings"/>
+            </do_if>
 
-            <!-- [ [$_Ship, $_Sector] ] -->
-            <set_value name="global.$SE_SectorBlacklist" exact="table[]" chance="(if not global.$SE_SectorBlacklist? then 100 else 0)"/>
+            <!-- group ~ [$_Ship, $_Ship, ...] -->
+            <do_if value="global.$SE_ShipsGroup? and typeof global.$SE_ShipsGroup != datatype.group">
+               <remove_value name="global.$SE_ShipsGroup"/>
+            </do_if>
+            <create_group groupname="global.$SE_ShipsGroup" chance="if not global.$SE_ShipsGroup? then 100 else 0"/>
+
+            <!-- group ~ [$_Sector, $_Sector, ...] -->
+            <do_if value="global.$SE_SectorsBlacklistGroup? and typeof global.$SE_SectorsBlacklistGroup != datatype.group">
+               <remove_value name="global.$SE_SectorsBlacklistGroup"/>
+            </do_if>
+            <create_group groupname="global.$SE_SectorsBlacklistGroup" chance="if not global.$SE_SectorsBlacklistGroup? then 100 else 0"/>
+
+            <!-- table[] ~ key = Ship, value = Sector -->
+            <do_if value="global.$SE_ShipsCurrentSectorTable? and typeof global.$SE_ShipsCurrentSectorTable != datatype.table">
+               <remove_value name="global.$SE_ShipsCurrentSectorTable"/>
+            </do_if>
+            <set_value name="global.$SE_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$SE_ShipsCurrentSectorTable? then 100 else 0)"/>
+
+            <!-- Cleanup of unused global ~ remove in a future version -->
+            <remove_value name="global.$SE_SectorBlacklist" chance="if global.$SE_SectorBlacklist? then 100 else 0"/>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -38,13 +59,16 @@
          </actions>
          <cues>
 
-            <cue name="SE_Debug_MD" instantiate="false" checkinterval="1s">
+            <cue name="SE_DebugInfo_MD" instantiate="true">
+               <conditions>
+                  <event_cue_signalled/>
+               </conditions>
                <actions>
 
                   <set_value name="$DEBUG" exact="md.JP_SpiralExplorer_MD.SE_Setup_MD.$DEBUG"/>
                   <do_if value="$DEBUG gt 0">
                      <set_value name="$_DebugFolderName" exact="'JP_SpiralExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'SE_Debug_MD'"/>
+                     <set_value name="$_DebugScriptName" exact="'SE_DebugInfo_MD'"/>
                      <set_value name="$_DebugFileName" exact="'se.Debug.md.xml.log'"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -62,11 +86,21 @@
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
                   </do_if>
 
-                  <do_if value="$DEBUG gt 0 and @global.$SE_SectorBlacklist != null">
+                  <do_if value="$DEBUG gt 0 and @global.$SE_SectorsBlacklistGroup != null">
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SE_SectorBlacklist.keys.count %1'.[global.$SE_SectorBlacklist.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SE_SectorsBlacklistGroup.count %1'.[global.$SE_SectorsBlacklistGroup.count]"/>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$SE_SectorBlacklist">
+                     <do_for_each name="$_Sector" in="global.$SE_SectorsBlacklistGroup">
+                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
+                     </do_for_each>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+                  </do_if>
+
+                  <do_if value="$DEBUG gt 0 and @global.$SE_ShipsCurrentSectorTable != null">
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$SE_ShipsCurrentSectorTable.keys.count %1'.[global.$SE_ShipsCurrentSectorTable.keys.count]"/>
+                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+                     <do_for_each name="$_Ship" valuename="$_Sector" in="global.$SE_ShipsCurrentSectorTable">
                         <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
                      </do_for_each>
                      <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
@@ -82,13 +116,10 @@
                </actions>
             </cue>
 
-            <cue name="SE_Cleanup_MD" instantiate="true" checkinterval="1s">
+            <cue name="SE_Cleanup_MD" instantiate="true">
                <conditions>
-                  <check_any>
-                     <check_value value="global.$SE_ShipsGroup?"/>
-                     <check_value value="global.$SE_SectorBlacklist?"/>
-                     <check_value value="global.$SpiralExplorer_Settings?"/>
-                  </check_any>
+                  <event_cue_signalled/>
+                  <check_value value="global.$SE_ShipsGroup.count"/>
                </conditions>
                <actions>
 
@@ -103,37 +134,25 @@
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <do_if value="@global.$SE_ShipsGroup.count gt 0">
-                     <do_for_each name="$_Ship" in="global.$SE_ShipsGroup" reverse="true">
-                        <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_SpiralExplorerG'">
-                           <continue/>
-                        </do_if>
-                        <do_if value="$_Ship.defaultorder.id" list="['JP_SpiralExplorerG', 'JP_SpiralExplorerS']">
-                           <continue/>
-                        </do_if>
-                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                           <replace string="'\033#FFA95908##SE-S\033X ~ '" with="''"/>
-                           <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
-                        </substitute_text>
-                        <set_object_name object="$_Ship" name="$_ResultName"/>
-                        <cancel_all_orders object="$_Ship"/>
-                        <remove_value name="global.$SE_SectorBlacklist.{$_Ship}"/>
-                        <remove_from_group group="global.$SE_ShipsGroup" object="$_Ship"/>
-                     </do_for_each>
-                  </do_if>
-
-                  <do_if value="@global.$SE_SectorBlacklist != null">
-                     <do_for_each name="$_Ship" in="global.$SE_SectorBlacklist">
-                        <do_if value="$_Ship.iswreck or not $_Ship.isoperational">
-                           <remove_value name="global.$SE_SectorBlacklist.{$_Ship}"/>
-                        </do_if>
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$SpiralExplorer_Settings.count != 19">
-                     <remove_value name="global.$SpiralExplorer_Settings"/>
-                  </do_if>
+                  <do_for_each name="$_Ship" in="global.$SE_ShipsGroup" reverse="true">
+                     <do_if value="@$_Ship.defaultorder.id == 'Assist' and $_Ship.commander.defaultorder.id == 'JP_SpiralExplorerG'">
+                        <continue/>
+                     </do_if>
+                     <do_if value="$_Ship.defaultorder.id" list="['JP_SpiralExplorerG', 'JP_SpiralExplorerS']">
+                        <continue/>
+                     </do_if>
+                     <substitute_text source="$_Ship.knownname" text="$_ResultName">
+                        <replace string="'\033#FFA95908##SE-S\033X ~ '" with="''"/>
+                        <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
+                     </substitute_text>
+                     <set_object_name object="$_Ship" name="$_ResultName"/>
+                     <cancel_all_orders object="$_Ship"/>
+                     <do_if value="global.$SE_ShipsCurrentSectorTable.{$_Ship} != null">
+                        <remove_from_group group="global.$SE_SectorsBlacklistGroup" object="global.$SE_ShipsCurrentSectorTable.{$_Ship}"/>
+                     </do_if>
+                     <remove_value name="global.$SE_ShipsCurrentSectorTable.{$_Ship}"/>
+                     <remove_from_group group="global.$SE_ShipsGroup" object="$_Ship"/>
+                  </do_for_each>
 
                   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -145,7 +164,17 @@
                </actions>
             </cue>
 
-            <cue name="SE_EventOrderStarted_MD" instantiate="true">
+            <cue name="SE_EventObjectDestroyed_MD" instantiate="true">
+               <conditions>
+                  <event_object_destroyed group="global.$SE_ShipsGroup"/>
+               </conditions>
+               <actions>
+                  <remove_value name="global.$SE_ShipsCurrentSectorTable.{event.object}"/>
+                  <remove_from_group group="global.$SE_ShipsGroup" object="event.object"/>
+               </actions>
+            </cue>
+
+            <cue name="SE_EventObjectOrderReady_MD" instantiate="true">
                <conditions>
                   <event_object_order_ready group="global.$SE_ShipsGroup"/>
                   <check_any>
@@ -155,15 +184,15 @@
                </conditions>
                <actions>
                   <set_value name="$_Ship" exact="event.object"/>
-                  <do_if value="global.$SE_SectorBlacklist.{$_Ship}?">
-                     <remove_value name="global.$SE_SectorBlacklist.{$_Ship}"/>
+                  <do_if value="global.$SE_ShipsCurrentSectorTable.{$_Ship}?">
+                     <remove_value name="global.$SE_ShipsCurrentSectorTable.{$_Ship}"/>
                   </do_if>
                   <cancel_all_orders object="$_Ship"/>
                   <do_if value="$_Ship.subordinates.count gt 0">
                      <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
                         <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
-                           <do_if value="global.$SE_SectorBlacklist.{$_Subordinate}?">
-                              <remove_value name="global.$SE_SectorBlacklist.{$_Subordinate}"/>
+                           <do_if value="global.$SE_ShipsCurrentSectorTable.{$_Subordinate}?">
+                              <remove_value name="global.$SE_ShipsCurrentSectorTable.{$_Subordinate}"/>
                            </do_if>
                            <cancel_all_orders object="$_Subordinate"/>
                            <substitute_text source="$_Subordinate.knownname" text="$_ResultName">
@@ -179,6 +208,13 @@
                      <replace string="'\033#FFA95908##SE-G\033X ~ '" with="''"/>
                   </substitute_text>
                   <set_object_name object="$_Ship" name="$_ResultName"/>
+               </actions>
+            </cue>
+
+            <cue name="SE_Timer_MD" instantiate="true" checkinterval="1s">
+               <actions>
+                  <signal_cue_instantly cue="SE_Cleanup_MD"/>
+                  <signal_cue_instantly cue="SE_DebugInfo_MD"/>
                </actions>
             </cue>
 

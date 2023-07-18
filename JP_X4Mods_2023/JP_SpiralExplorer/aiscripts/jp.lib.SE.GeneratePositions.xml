@@ -40,7 +40,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -85,7 +84,7 @@
 
             <set_value name="$_CurrentCircleRadius" exact="$OUTER_RADIUS"/>
             <do_while value="$_CurrentCircleRadius ge $INNER_RADIUS - 1">
-               <wait exact="1ms"/>
+
                <do_all exact="$_SpiralPrecision + 1" counter="$_it">
                   <set_value name="$_Angle" exact="$_StartAngle + ($_it - 1) * (2 * pi / $_SpiralPrecision)"/>
                   <create_position name="$_Position" x="$CENTER_POSITION.x + $_CurrentCircleRadius * cos($_Angle)"
@@ -98,13 +97,9 @@
             </do_while>
          </do_else>
 
-         <label name="FINISH_LBL"/>
-         <wait exact="1ms"/>
-
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

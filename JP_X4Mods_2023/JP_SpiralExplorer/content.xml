@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_SpiralExplorer" name="JP_SpiralExplorer" description="Uncovers the fog within a specific sector as well as sectors throughout the entire galaxy." author="JanPanthera" version="110" date="2023-07-06" save="0" enabled="1">
+<content id="JP_SpiralExplorer" name="JP_SpiralExplorer" description="Uncovers the fog within a specific sector as well as sectors throughout the entire galaxy." author="JanPanthera" version="110" date="2023-07-18" save="0" enabled="1">
    <text language="7"  name="JP_SpiralExplorer" description="Разгоняет туман в конкретном секторе, а также в секторах по всей галактике." author="JanPanthera"/>
    <text language="33" name="JP_SpiralExplorer" description="Dissipe le brouillard dans un secteur spécifique ainsi que dans les secteurs de toute la galaxie." author="JanPanthera"/>
    <text language="34" name="JP_SpiralExplorer" description="Despeja la niebla dentro de un sector específico así como en sectores en toda la galaxia." author="JanPanthera"/>

@@ -6,13 +6,13 @@
          <set_value name="$added"/>
          <run_script name="$scriptname">
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="SPIRAL_PRECISION" value="$order.$SPIRAL_PRECISION"/>
             <param name="INNER_RADIUS"     value="$order.$INNER_RADIUS"/>
             <param name="OUTER_RADIUS"     value="$order.$OUTER_RADIUS"/>
             <param name="IN_TO_OUT"        value="$order.$IN_TO_OUT"/>
             <param name="CREATE_ORDERS"    value="$order.$CREATE_ORDERS"/>
-            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>
