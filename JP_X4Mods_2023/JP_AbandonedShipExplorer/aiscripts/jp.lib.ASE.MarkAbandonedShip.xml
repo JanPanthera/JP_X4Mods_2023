@@ -43,7 +43,6 @@
       <actions>
 
          <label name="INIT_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -54,22 +53,12 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <do_if value="$_Ship.distanceto.{$ABANDONED_SHIP} gt 5km">
-            <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
-               <param name="OBJECT" value="$ABANDONED_SHIP"/>
-               <param name="DIRECTION_ORIENTATION" value="'align'"/>
-               <param name="DIRECTION_OBJECT" value="$ABANDONED_SHIP"/>
-               <param name="DIRECTION_OFFSET" value="position.[0, 1km, 0]"/>
-               <param name="ORIENTATION" value="'sector'"/>
-               <param name="IGNORE_DANGEROUS_REGIONS" value="true"/>
-            </create_order>
-            <wait exact="1ms"/>
-         </do_if>
-
-         <set_command_action commandaction="commandaction.standingby"/>
-
-         <stop_moving object="$_Ship"/>
-         <wait exact="1000ms"/>
+         <run_script name="'jp.lib.MoveToObject'">
+            <param name="OBJECT" value="$ABANDONED_SHIP"/>
+            <param name="POSITION_OFFSET" value="position.[0, 1km, 0]"/>
+            <param name="FORCE_POSITION" value="true"/>
+            <param name="FINISH_ON_APPROACH" value="true"/>
+         </run_script>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -99,7 +88,6 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <label name="END_LBL"/>
-         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>

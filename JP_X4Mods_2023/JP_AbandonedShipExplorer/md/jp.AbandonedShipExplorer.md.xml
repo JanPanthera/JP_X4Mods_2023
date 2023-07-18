@@ -23,7 +23,11 @@
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-            <create_group groupname="global.$ASE_ShipsGroup" chance="(if not global.$ASE_ShipsGroup? then 100 else 0)"/>
+            <!-- group ~ [$_Ship, $_Ship, ...] -->
+            <do_if value="global.$ASE_ShipsGroup? and typeof global.$ASE_ShipsGroup != datatype.group">
+               <remove_value name="global.$ASE_ShipsGroup"/>
+            </do_if>
+            <create_group groupname="global.$ASE_ShipsGroup" chance="if not global.$ASE_ShipsGroup? then 100 else 0"/>
 
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -33,109 +37,95 @@
             </do_if>
 
          </actions>
-         <cues>
+      </cue>
 
-            <cue name="ASE_Debug_MD" instantiate="false" checkinterval="1s">
-               <actions>
+      <!-- Cleanup when the ship got destroyed -->
+      <cue name="ASE_EventObjectDestroyed_MD" instantiate="true">
+         <conditions>
+            <event_object_destroyed group="global.$ASE_ShipsGroup"/>
+         </conditions>
+         <actions>
+            <remove_from_group group="global.$ASE_ShipsGroup" object="event.param"/>
+         </actions>
+      </cue>
 
-                  <set_value name="$DEBUG" exact="md.JP_AbandonedShipExplorer_MD.ASE_Setup_MD.$DEBUG"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'ASE_Debug_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'ase.Debug.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
+      <!-- Cancel all orders if any of the orders parameter has been changed -->
+      <cue name="ASE_EventObjectOrderReady1_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_any>
+               <check_value value="@event.param.id == 'JP_AbandonedShipExplorerG'"/>
+            </check_any>
+            <check_value value="global.$ASE_ShipsGroup.indexof.{event.object}"/>
+         </conditions>
+         <actions>
+            <cancel_all_orders object="event.object"/>
+         </actions>
+      </cue>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- Cleanup when JP_AbandonedShipExplorerG is cancelled -->
+      <cue name="ASE_EventObjectOrderReady2_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_all>
+               <check_value value="@event.object.defaultorder.id != 'JP_AbandonedShipExplorerG'"/>
+               <check_value value="global.$ASE_ShipsGroup.indexof.{@event.object}"/>
+            </check_all>
+         </conditions>
+         <actions>
+            <signal_cue_instantly cue="ASE_ResetName_MD" param="event.object"/>
+            <cancel_all_orders object="event.object"/>
+            <remove_from_group group="global.$ASE_ShipsGroup" object="event.object"/>
+         </actions>
+      </cue>
 
-                  <do_if value="$DEBUG gt 0 and @global.$ASE_ShipsGroup != null">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$ASE_ShipsGroup.count %1'.[global.$ASE_ShipsGroup.count]"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
-                     <do_for_each name="$_Ship" in="global.$ASE_ShipsGroup">
-                        <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
-                     </do_for_each>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
+      <!-- Reset the name of the ship when called -->
+      <cue name="ASE_ResetName_MD" instantiate="true">
+         <conditions>
+            <event_cue_signalled/>
+         </conditions>
+         <actions>
+            <substitute_text source="event.param.knownname" text="$_ResultName">
+               <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
+            </substitute_text>
+            <set_object_name object="event.param" name="$_ResultName"/>
+            <remove_value name="$_ResultName"/>
+         </actions>
+      </cue>
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!-- Debug Info ~ instantiate="false" when publishing -->
+      <cue name="ASE_DebugInfo_MD" instantiate="false" checkinterval="1s">
+         <actions>
 
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
+            <set_value name="$DEBUG" exact="md.JP_AbandonedShipExplorer_MD.ASE_Setup_MD.$DEBUG"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'ASE_DebugInfo_MD'"/>
+               <set_value name="$_DebugFileName" exact="'ase.Debug.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
 
-               </actions>
-            </cue>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-            <cue name="ASE_Cleanup_MD" instantiate="true" checkinterval="1s">
-               <conditions>
-                  <check_any>
-                     <check_value value="global.$ASE_ShipsGroup?"/>
-                     <check_value value="global.$AbandonedShipExplorer_Settings?"/>
-                  </check_any>
-               </conditions>
-               <actions>
+            <do_if value="$DEBUG gt 0 and @global.$ASE_ShipsGroup != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$ASE_ShipsGroup.count %1'.[global.$ASE_ShipsGroup.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Ship" in="global.$ASE_ShipsGroup">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-                  <set_value name="$DEBUG" exact="md.JP_AbandonedShipExplorer_MD.ASE_Setup_MD.$DEBUG"/>
-                  <do_if value="$DEBUG gt 0">
-                     <set_value name="$_DebugFolderName" exact="'JP_AbandonedShipExplorer.logs'"/>
-                     <set_value name="$_DebugScriptName" exact="'ASE_Cleanup_MD'"/>
-                     <set_value name="$_DebugFileName" exact="'ase.Cleanup.md.xml.log'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
-                  </do_if>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
 
-                  <do_if value="@global.$ASE_ShipsGroup.count gt 0">
-                     <do_for_each name="$_Ship" in="global.$ASE_ShipsGroup" reverse="true">
-                        <do_if value="$_Ship.defaultorder.id" list="['JP_AbandonedShipExplorerG']">
-                           <continue/>
-                        </do_if>
-                        <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                           <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
-                        </substitute_text>
-                        <set_object_name object="$_Ship" name="$_ResultName"/>
-                        <cancel_all_orders object="$_Ship"/>
-                        <remove_from_group group="global.$ASE_ShipsGroup" object="$_Ship"/>
-                     </do_for_each>
-                  </do_if>
-
-                  <!-- a safety check if the count of parameters changes -->
-                  <do_if value="@global.$AbandonedShipExplorer_Settings.count != 22">
-                     <remove_value name="global.$AbandonedShipExplorer_Settings"/>
-                  </do_if>
-
-                  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-                  <do_if value="$DEBUG gt 0">
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
-                     <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
-                  </do_if>
-
-               </actions>
-            </cue>
-
-            <cue name="ASE_EventOrderStarted_MD" instantiate="true">
-               <conditions>
-                  <event_object_order_ready group="global.$ASE_ShipsGroup"/>
-                  <check_any>
-                     <check_value value="@event.param.id == 'JP_AbandonedShipExplorerG'"/>
-                  </check_any>
-               </conditions>
-               <actions>
-                  <set_value name="$_Ship" exact="event.object"/>
-                  <cancel_all_orders object="$_Ship"/>
-                  <substitute_text source="$_Ship.knownname" text="$_ResultName">
-                     <replace string="'\033#FFA95908##ASE-G\033X ~ '" with="''"/>
-                  </substitute_text>
-                  <set_object_name object="$_Ship" name="$_ResultName"/>
-               </actions>
-            </cue>
-
-         </cues>
+         </actions>
       </cue>
 
    </cues>
