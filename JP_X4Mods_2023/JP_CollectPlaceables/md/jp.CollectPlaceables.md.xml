@@ -12,7 +12,7 @@
          </conditions>
          <actions>
 
-            <set_value name="$DEBUG" exact="100"/>
+            <set_value name="$DEBUG" exact="0"/>
             <do_if value="$DEBUG gt 0">
                <set_value name="$_DebugFolderName" exact="'JP_CollectPlaceables.logs'"/>
                <set_value name="$_DebugScriptName" exact="'CP_Setup_MD'"/>
