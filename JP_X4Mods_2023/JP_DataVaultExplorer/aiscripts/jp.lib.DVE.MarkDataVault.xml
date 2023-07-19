@@ -55,15 +55,17 @@
 
          <run_script name="'jp.lib.MoveToObject'">
             <param name="OBJECT" value="$DATA_VAULT"/>
-            <param name="POSITION_OFFSET" value="position.[0, 2km, 0]"/>
+            <param name="POSITION_SPACE" value="'sector_space'"/>
+            <param name="POSITION_OFFSET" value="position.[0, $DATA_VAULT.size + 1km, 0]"/>
+            <param name="ROTATION_ORIENTATION" value="'align'"/>
             <param name="FORCE_POSITION" value="true"/>
             <param name="FINISH_ON_APPROACH" value="true"/>
          </run_script>
 
-         <wait exact="2s"/>
+         <wait exact="3s"/>
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
          <set_object_name object="$_NavBeacon" name="'\033#FF00CC66#' + '{20109,8901}' + '\033X\033#FF00CCCC#' + ' ~ ' + $SECTOR.knownname + '\033X'"/>
-         <wait exact="2s"/>
+         <wait exact="3s"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
