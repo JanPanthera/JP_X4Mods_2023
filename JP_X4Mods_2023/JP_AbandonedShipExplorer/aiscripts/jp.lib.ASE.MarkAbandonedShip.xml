@@ -11,6 +11,7 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
+      <location object="this.$LOCATION.{1}" position="this.$LOCATION.{2}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} != null"/>
       <location object="$ABANDONED_SHIP" condition="@$ABANDONED_SHIP != null"/>
    </order>
 
@@ -55,15 +56,18 @@
 
          <run_script name="'jp.lib.MoveToObject'">
             <param name="OBJECT" value="$ABANDONED_SHIP"/>
-            <param name="POSITION_OFFSET" value="position.[0, 1km, 0]"/>
+            <param name="POSITION_SPACE" value="'sector_space'"/>
+            <param name="POSITION_OFFSET" value="position.[0, $ABANDONED_SHIP.size + 1km, 0]"/>
+            <param name="ROTATION_ORIENTATION" value="'align'"/>
             <param name="FORCE_POSITION" value="true"/>
             <param name="FINISH_ON_APPROACH" value="true"/>
          </run_script>
 
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+         <wait exact="3ms"/>
          <launch_navbeacon object="$_Ship" category="deployablecategory.navbeacon" name="$_NavBeacon"/>
-         <wait exact="2000ms"/>
+         <wait exact="3ms"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
          <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
             <param name="FACTION" value="$SECTOR.owner"/>
