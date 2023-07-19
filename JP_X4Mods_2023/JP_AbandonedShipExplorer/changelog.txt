@@ -3,15 +3,17 @@
 v2.0.0
 ~ Initial re-release
 
-v2.0.1 -- Current Published Version
+v2.0.1
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
 
-v2.0.2 -- Current Development Version
+v2.0.2 -- Current Published Version
 ~ Added: Czech translation
 ~ Added: More notifications and logging to the logbook
 ~ Added: Ability to choose where the claimed ship should dock at for safety -- "Safe Station"
 ~ Added: Ability to choose which class (S, M, L, XL) of abandoned ships the ship should include -- "Include S Ships?", "Include M Ships?", "Include L Ships?", "Include XL Ships?"
 ~ Changed: Now only sectors that are known to the ship (player) will be scanned for abandoned ships.
 ~ Updated: Several code clean up and translations changes.
+
+v2.0.3 -- Current Development Version

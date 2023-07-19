@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_AbandonedShipExplorer" name="JP_AbandonedShipExplorer" description="This script enables your spaceship to find, mark, or board abandoned ships across the entire galaxy." author="JanPanthera" version="202" date="2023-07-18" save="0" enabled="1">
+<content id="JP_AbandonedShipExplorer" name="JP_AbandonedShipExplorer" description="This script enables your spaceship to find, mark, or board abandoned ships across the entire galaxy." author="JanPanthera" version="202" date="2023-07-19" save="0" enabled="1">
    <text language="7"  name="JP_AbandonedShipExplorer" description="Этот сценарий позволяет вашему космическому кораблю находить, помечать или бортить заброшенные корабли по всей галактике."/>
    <text language="33" name="JP_AbandonedShipExplorer" description="Ce script permet à votre vaisseau spatial de trouver, de marquer ou de monter à bord des vaisseaux abandonnés dans toute la galaxie."/>
    <text language="34" name="JP_AbandonedShipExplorer" description="Este script permite que tu nave espacial encuentre, marque o aborde naves abandonadas en toda la galaxia."/>
@@ -14,5 +14,5 @@
    <text language="82" name="JP_AbandonedShipExplorer" description="이 스크립트는 여러분의 우주선이 전체 은하계에서 버려진 우주선을 찾아 표시하거나 탑승할 수 있게 합니다."/>
    <text language="86" name="JP_AbandonedShipExplorer" description="这个脚本使你的宇宙飞船可以在整个银河系中找到、标记或登上被遗弃的飞船。"/>
    <text language="88" name="JP_AbandonedShipExplorer" description="這個腳本使你的宇宙飛船可以在整個銀河系中找到、標記或登上被遺棄的飛船。"/>
-   <dependency id="JP_ScriptLibrary" version="103" optional="false"/>
+   <dependency id="JP_ScriptLibrary" optional="false"/>
 </content>
