@@ -1,10 +1,12 @@
 #CollectPlaceables
 
-v2.0.0 -- Current Published Version
+v2.0.0
 ~ Initial re-release
 
-v2.0.1 -- Current Development Version
+v2.0.1 -- Current Published Version
 ~ Added: Czech translation.
 ~ Added: More Notifications and logging to the logbook
 ~ Fixed: Rare case where the Sector selection could fail.
 ~ Updated: Several code clean up and translations changes.
+
+v2.0.2 -- Current Development Version

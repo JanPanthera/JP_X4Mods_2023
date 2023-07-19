@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<content id="JP_CollectPlaceables" name="JP_CollectPlaceables" description="Collects placeable items such as satellites or mines in a single sector or throughout the entire galaxy." author="JanPanthera" version="201" date="2023-07-18" save="0" enabled="1">
+<content id="JP_CollectPlaceables" name="JP_CollectPlaceables" description="Collects placeable items such as satellites or mines in a single sector or throughout the entire galaxy." author="JanPanthera" version="201" date="2023-07-19" save="0" enabled="1">
    <text language="7"  name="JP_CollectPlaceables" description="Собирает размещаемые предметы, такие как спутники или мины, в одном секторе или по всей галактике."/>
    <text language="33" name="JP_CollectPlaceables" description="Recueille des objets placables tels que des satellites ou des mines dans un seul secteur ou dans toute la galaxie."/>
    <text language="34" name="JP_CollectPlaceables" description="Recoge objetos colocables como satélites o minas en un solo sector o en toda la galaxia."/>
@@ -14,5 +14,5 @@
    <text language="82" name="JP_CollectPlaceables" description="위성이나 지뢰와 같은 배치 가능한 아이템을 단일 섹터 또는 전체 은하에서 수집합니다."/>
    <text language="86" name="JP_CollectPlaceables" description="收集在单个区域或整个星系中放置的物品，如卫星或地雷。"/>
    <text language="88" name="JP_CollectPlaceables" description="收集在單個區域或整個星系中放置的物品，如衛星或地雷。"/>
-   <dependency id="JP_ScriptLibrary" version="103" optional="false"/>
+   <dependency id="JP_ScriptLibrary" optional="false"/>
 </content>
