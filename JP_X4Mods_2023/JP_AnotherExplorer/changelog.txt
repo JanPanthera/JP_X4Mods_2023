@@ -40,15 +40,17 @@ v1.0.5
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Updated: Some minor code and translation changes.
 
-v1.0.6 -- Current Published Version
+v1.0.6
 ~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Fixed: "Construction Sites?" and "Ownerless Sectors?" parameter of fleet subordinates were not inherited from the leader.
 ~ Updated: Some minor code and translation changes.
 
-v1.0.7 -- Current Development Version
+v1.0.7 -- Current Published Version
 ~ Added: Czech translation.
 ~ Added: More logging and notifications.
 ~ Fixed: Rare case where the Sector selection could fail.
 ~ Updated: The move logic now uses the new jp.lib.MoveToObject.xml script.
 ~ Updated: Several code clean up and translations changes.
+
+v1.0.8 -- Current Development Version
