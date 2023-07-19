@@ -109,12 +109,12 @@
                   <check_value value="@event.object.defaultorder.id != 'JP_SpiralExplorerS'"/>
                   <check_value value="@event.object.defaultorder.id != 'JP_SpiralExplorerG'"/>
                   <check_value value="@event.object.defaultorder.id != 'Assist'"/>
-                  <check_value value="global.$SE_ShipsGroup.indexof.{@event.object}"/>
                </check_all>
                <check_all>
                   <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_SpiralExplorerG'"/>
                </check_all>
             </check_any>
+            <check_value value="global.$SE_ShipsGroup.indexof.{@event.object}"/>
          </conditions>
          <actions>
             <set_value name="$_Ship" exact="event.object"/>
