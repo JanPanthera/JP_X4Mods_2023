@@ -48,6 +48,7 @@
 
             <!-- Cleanup of unused global ~ remove in a future version -->
             <remove_value name="global.$CP_SectorBlacklist" chance="if global.$CP_SectorBlacklist? then 100 else 0"/>
+
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
             <do_if value="$DEBUG gt 0">
@@ -108,12 +109,12 @@
                   <check_value value="@event.object.defaultorder.id != 'JP_CollectPlaceablesS'"/>
                   <check_value value="@event.object.defaultorder.id != 'JP_CollectPlaceablesG'"/>
                   <check_value value="@event.object.defaultorder.id != 'Assist'"/>
-                  <check_value value="global.$CP_ShipsGroup.indexof.{@event.object}"/>
                </check_all>
                <check_all>
                   <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_CollectPlaceablesG'"/>
                </check_all>
             </check_any>
+            <check_value value="global.$CP_ShipsGroup.indexof.{@event.object} gt 0"/>
          </conditions>
          <actions>
             <set_value name="$_Ship" exact="event.object"/>

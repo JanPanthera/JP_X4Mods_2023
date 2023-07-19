@@ -59,7 +59,8 @@
          <create_position name="$POSITION" space="$SECTOR" object="$PLACEABLE"/>
 
          <do_if value="$PLACEABLE.isclass.{class.mine}">
-            <set_value name="$_Distance" exact="160m"/>
+            <!-- Mines trigger on 150m.. 160 should be safe -->
+            <set_value name="$_Distance" exact="160m" />
          </do_if>
          <do_else>
             <set_value name="$_Distance" exact="10m"/>
