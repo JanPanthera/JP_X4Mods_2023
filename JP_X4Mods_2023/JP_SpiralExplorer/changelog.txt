@@ -3,7 +3,7 @@
 v1.0.0
 ~ Initial Release
 
-v1.1.0 -- Current Development Version
+v1.1.0 -- Current Published Version
 ~ Added: The mod now utilizes the JP_ScriptLibrary for certain functions, thereby reducing code volume and streamlining the process of adding and fixing code.
 ~ Added: Experience gain feature after successfully uncovering a sector.
 ~ Added: Galaxy version.
@@ -13,3 +13,5 @@ v1.1.0 -- Current Development Version
 ~ Added: IdleReturnHome feature.
 ~ Added: Ability to choose whether or not the movement orders are visible on the map or the ui.
 ~ Added: Czech translation.
+
+v1.1.1 -- Current Development Version
