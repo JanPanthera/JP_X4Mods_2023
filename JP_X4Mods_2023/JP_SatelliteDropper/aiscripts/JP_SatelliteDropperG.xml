@@ -287,7 +287,7 @@
             <do_for_each name="$_FoundObject" in="$_FoundObjects">
                <do_if value="$_FoundObject.class == class.gate or $_FoundObject.class == class.highwayentrygate">
                   <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-                     <param name="SECTOR" value="global.$SD_SectorBlacklist.{$_Ship}"/>
+                     <param name="SECTOR" value="global.$SD_ShipsCurrentSectorTable.{$_Ship}"/>
                      <param name="OBJECT" value="$_FoundObject"/>
                      <param name="SATELLITE_MACRO" value="if $PLACE_SATELLITES_MK2 then $_SatelliteMacroMk2 else $_SatelliteMacroMk1"/>
                   </create_order>
@@ -301,7 +301,7 @@
             <param name="PLACE_SATELLITES_MK2" value="$PLACE_SATELLITES_MK2"/>
          </run_script>
          <create_order object="$_Ship" id="'JP_lib_SD_PlaceSatelliteToObject'" immediate="true">
-            <param name="SECTOR" value="global.$SD_SectorBlacklist.{$_Ship}"/>
+            <param name="SECTOR" value="global.$SD_ShipsCurrentSectorTable.{$_Ship}"/>
             <param name="OBJECT" value="$_FoundObjects.{1}"/>
             <param name="SATELLITE_MACRO" value="$_FoundObjects.{2}"/>
          </create_order>

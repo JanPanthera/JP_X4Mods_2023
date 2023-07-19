@@ -109,12 +109,12 @@
                   <check_value value="@event.object.defaultorder.id != 'JP_SatelliteDropperS'"/>
                   <check_value value="@event.object.defaultorder.id != 'JP_SatelliteDropperG'"/>
                   <check_value value="@event.object.defaultorder.id != 'Assist'"/>
-                  <check_value value="global.$SD_ShipsGroup.indexof.{@event.object}"/>
                </check_all>
                <check_all>
                   <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_SatelliteDropperG'"/>
                </check_all>
             </check_any>
+            <check_value value="global.$SD_ShipsGroup.indexof.{@event.object}"/>
          </conditions>
          <actions>
             <set_value name="$_Ship" exact="event.object"/>

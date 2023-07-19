@@ -103,13 +103,12 @@
             <do_if value="$JUMP_GATES and ($ACTIVE_JUMP_GATES or $INACTIVE_JUMP_GATES)">
                <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                   <match accelerator="false"/>
-                  <match knownto="$_Ship.owner" negate="true"/>
+                  <match knownto="$_Ship.owner"/>
                   <match_any>
                      <match active="$ACTIVE_JUMP_GATES"/>
                      <match active="$INACTIVE_JUMP_GATES" negate="true"/>
                   </match_any>
                   <match class="class.gate"/>
-                  <match_distance object="$_Ship" min="$_Ship.maxradarrange"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
             </do_if>
@@ -117,26 +116,24 @@
             <do_if value="$ACCELERATORS and ($ACTIVE_ACCELERATORS or $INACTIVE_ACCELERATORS)">
                <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
                   <match accelerator="true"/>
-                  <match knownto="$_Ship.owner" negate="true"/>
+                  <match knownto="$_Ship.owner"/>
                   <match_any>
                      <match active="$ACTIVE_ACCELERATORS"/>
                      <match active="$INACTIVE_ACCELERATORS" negate="true"/>
                   </match_any>
                   <match class="class.gate"/>
-                  <match_distance object="$_Ship" min="$_Ship.maxradarrange"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
             </do_if>
 
             <do_if value="$SUPER_HIGHWAYS and ($ACTIVE_SUPER_HIGHWAYS or $INACTIVE_SUPER_HIGHWAYS)">
                <find_object name="$_FoundObjects" space="$_Sector" multiple="true" append="true">
-                  <match knownto="$_Ship.owner" negate="true"/>
+                  <match knownto="$_Ship.owner"/>
                   <match_any>
                      <match active="$ACTIVE_SUPER_HIGHWAYS"/>
                      <match active="$INACTIVE_SUPER_HIGHWAYS" negate="true"/>
                   </match_any>
                   <match class="class.highwayentrygate"/>
-                  <match_distance object="$_Ship" min="$_Ship.maxradarrange"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
             </do_if>
@@ -146,7 +143,6 @@
                <find_object name="$_Stations" space="$_Sector" multiple="true" checkoperational="false">
                   <match knownto="$_Ship.owner"/>
                   <match exactclass="class.station"/>
-                  <match_distance object="$_Ship" min="$_Ship.maxradarrange"/>
                   <match_use_blacklist object="$_Ship" type="blacklisttype.sectoractivity" group="$blacklistgroup"/>
                </find_object>
                <do_for_each name="$_Station" in="$_Stations" reverse="true">
