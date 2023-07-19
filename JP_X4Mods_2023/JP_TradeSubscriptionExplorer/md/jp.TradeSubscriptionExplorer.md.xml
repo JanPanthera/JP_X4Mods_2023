@@ -78,7 +78,7 @@
          </actions>
       </cue>
 
-      <!-- Cancel all orders if any of the ships orders parameters hase been changed -->
+      <!-- Cancel all orders if any of the orders parameter has been changed -->
       <cue name="TSE_EventObjectOrderReady1_MD" instantiate="true">
          <conditions>
             <event_object_order_ready group="global.$SL_PlayerShips"/>
@@ -109,12 +109,12 @@
                   <check_value value="@event.object.defaultorder.id != 'JP_TradeSubscriptionExplorerS'"/>
                   <check_value value="@event.object.defaultorder.id != 'JP_TradeSubscriptionExplorerG'"/>
                   <check_value value="@event.object.defaultorder.id != 'Assist'"/>
-                  <check_value value="global.$TSE_ShipsGroup.indexof.{@event.object}"/>
                </check_all>
                <check_all>
                   <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_TradeSubscriptionExplorerG'"/>
                </check_all>
             </check_any>
+            <check_value value="global.$TSE_ShipsGroup.indexof.{@event.object} gt 0"/>
          </conditions>
          <actions>
             <set_value name="$_Ship" exact="event.object"/>

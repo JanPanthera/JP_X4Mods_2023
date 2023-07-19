@@ -30,10 +30,6 @@
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <do_if value="$STATION.isconstruction">
-         <set_value name="$STATION" exact="$STATION.buildstorage"/>
-      </do_if>
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
@@ -58,15 +54,17 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
+         <set_value name="$_Station" exact="(if $STATION.isconstruction then $STATION.buildstorage else $STATION)"/>
+
          <run_script name="'jp.lib.MoveToObject'">
-            <param name="OBJECT" value="$STATION"/>
+            <param name="OBJECT" value="$_Station"/>
             <param name="POSITION_SPACE" value="$_Ship"/>
             <param name="DISTANCE_TO_OBJECT" value="($_Ship.maxradarrange * 0.75)"/>
             <param name="FORCE_POSITION" value="false"/>
             <param name="FINISH_ON_APPROACH" value="true"/>
          </run_script>
 
-         <do_while value="not $STATION.hastradesubscription">
+         <do_while value="not $_Station.hastradesubscription">
             <wait exact="5s"/>
          </do_while>
 

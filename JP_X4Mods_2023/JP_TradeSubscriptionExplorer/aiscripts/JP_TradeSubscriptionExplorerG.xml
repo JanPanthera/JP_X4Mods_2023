@@ -29,7 +29,7 @@
          <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{8} else true"/>
          <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{9} else true"/>
          <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{10} else true"/>
-         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{11} else true"/>
+         <param name="CONSTRUCTION_SITES"   text="- {8888888, 20}" comment="Construction Sites?"          type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{11} else false"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_996" text="----------------------------------" type="object" default="null">
             <input_param name="class" value="[]"/>
