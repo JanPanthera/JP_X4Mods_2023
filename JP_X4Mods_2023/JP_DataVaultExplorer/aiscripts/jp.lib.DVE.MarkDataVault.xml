@@ -11,6 +11,8 @@
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
+      <location object="this.$LOCATION.{1}" position="this.$LOCATION.{2}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} != null"/>
+      <location object="$DATA_VAULT" condition="@$DATA_VAULT != null"/>
    </order>
 
    <interrupts>
