@@ -57,7 +57,7 @@
          <run_script name="'jp.lib.MoveToObject'">
             <param name="OBJECT" value="(if $OBJECT.isconstruction then $OBJECT.buildstorage else $OBJECT)"/>
             <param name="POSITION_SPACE" value="$_Ship"/>
-            <param name="DISTANCE_TO_OBJECT" value="($_Ship.maxradarrange * 0.75)"/>
+            <param name="DISTANCE_TO_OBJECT" value="($_Ship.maxradarrange * 0.65)"/>
             <param name="FORCE_POSITION" value="false"/>
             <param name="FINISH_ON_APPROACH" value="true"/>
          </run_script>
