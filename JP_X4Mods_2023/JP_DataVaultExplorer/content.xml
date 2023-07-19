@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <content id="JP_DataVaultExplorer" name="JP_DataVaultExplorer" description="Will mark all datavaults with navigation beacons." author="JanPanthera" version="203" date="2023-07-18" save="0" enabled="1">
-   <text language="7"  name="JP_DataVaultExplorer" description="Пометит все дата-хранилища навигационными маяками." author="JanPanthera"/>
-   <text language="33" name="JP_DataVaultExplorer" description="Marquera toutes les chambres fortes de données avec des balises de navigation." author="JanPanthera"/>
-   <text language="34" name="JP_DataVaultExplorer" description="Marcará todas las bóvedas de datos con balizas de navegación." author="JanPanthera"/>
-   <text language="39" name="JP_DataVaultExplorer" description="Segnerà tutti i depositi dati con boe di navigazione." author="JanPanthera"/>
-   <text language="44" name="JP_DataVaultExplorer" description="Will mark all datavaults with navigation beacons." author="JanPanthera"/>
-   <text language="48" name="JP_DataVaultExplorer" description="Oznaczy wszystkie skrytki danych za pomocą boi nawigacyjnych." author="JanPanthera"/>
-   <text language="49" name="JP_DataVaultExplorer" description="Markiert alle Datentresore mit Navigationsbaken." author="JanPanthera"/>
-   <text language="55" name="JP_DataVaultExplorer" description="Marcará todos os cofres de dados com bóias de navegação." author="JanPanthera"/>
-   <text language="81" name="JP_DataVaultExplorer" description="ナビゲーションビーコンを使用してすべてのデータヴォールトにマークします。" author="JanPanthera"/>
-   <text language="82" name="JP_DataVaultExplorer" description="모든 데이터 볼트를 네비게이션 비컨으로 표시합니다." author="JanPanthera"/>
-   <text language="86" name="JP_DataVaultExplorer" description="用导航信标标记所有数据保险库。" author="JanPanthera"/>
-   <text language="88" name="JP_DataVaultExplorer" description="用導航信標標記所有數據保險庫。" author="JanPanthera"/>
-   <dependency id="JP_ScriptLibrary"/>
+   <text language="7"  name="JP_DataVaultExplorer" description="Пометит все дата-хранилища навигационными маяками."/>
+   <text language="33" name="JP_DataVaultExplorer" description="Marquera toutes les chambres fortes de données avec des balises de navigation."/>
+   <text language="34" name="JP_DataVaultExplorer" description="Marcará todas las bóvedas de datos con balizas de navegación."/>
+   <text language="39" name="JP_DataVaultExplorer" description="Segnerà tutti i depositi dati con boe di navigazione."/>
+   <text language="42" name="JP_DataVaultExplorer" description="Oznaczy wszystkie skrytki danych za pomocą boi nawigacyjnych."/>
+   <text language="44" name="JP_DataVaultExplorer" description="Will mark all datavaults with navigation beacons."/>
+   <text language="48" name="JP_DataVaultExplorer" description="Oznaczy wszystkie skrytki danych za pomocą boi nawigacyjnych."/>
+   <text language="49" name="JP_DataVaultExplorer" description="Markiert alle Datentresore mit Navigationsbaken."/>
+   <text language="55" name="JP_DataVaultExplorer" description="Marcará todos os cofres de dados com bóias de navegação."/>
+   <text language="81" name="JP_DataVaultExplorer" description="ナビゲーションビーコンを使用してすべてのデータヴォールトにマークします。"/>
+   <text language="82" name="JP_DataVaultExplorer" description="모든 데이터 볼트를 네비게이션 비컨으로 표시합니다."/>
+   <text language="86" name="JP_DataVaultExplorer" description="用导航信标标记所有数据保险库。"/>
+   <text language="88" name="JP_DataVaultExplorer" description="用導航信標標記所有數據保險庫。"/>
+   <dependency id="JP_ScriptLibrary" version="103" optional="false"/>
 </content>
