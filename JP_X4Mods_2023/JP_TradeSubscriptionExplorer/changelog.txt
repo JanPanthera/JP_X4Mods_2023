@@ -20,7 +20,7 @@ v2.0.2
          Given the sorting process via estimate_time, the ship might choose to go to another sector even though it had work remaining in its current sector.
 ~ Changed: The script now calculates its own safe position instead of using the 'get_safe_pos' command from Egosoft, which hasn't been working properly in some cases.
 
-v2.0.3 -- Current Published Version
+v2.0.3
 ~ Added: A option to ignore ownerless sectors.
 ~ Added: Option to enable/disable notifications and logging in logbook.
 ~ Added: Message and logbook entry when the ship has uncovered an Object. (Optional)
@@ -28,10 +28,12 @@ v2.0.3 -- Current Published Version
 ~ Added: A variable has been added to store the ship's initial position/sector when the script is activated. This ensures that the ship will return to its starting position/sector when no Idle option is selected.
 ~ Updated: Some minor code and translation changes.
 
-v2.0.4 -- Current Development Version
+v2.0.4 -- Current Published Version
 ~ Added: Czech translation.
 ~ Added: More logging and notifications.
 ~ Added: A option to update trade subscriptions from construction sites.
 ~ Fixed: Rare case where the Sector selection could fail.
 ~ Updated: The move logic now uses the new jp.lib.MoveToObject.xml script.
 ~ Updated: Several code clean up and translations changes.
+
+v2.0.5 -- Current Development Version
