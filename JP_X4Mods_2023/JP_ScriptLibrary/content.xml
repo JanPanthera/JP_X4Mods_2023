@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <content id="JP_ScriptLibrary" name="JP_ScriptLibrary" description="This is a library of scripts utilized by JP mods." author="JanPanthera" version="103" date="2023-07-17" save="0" enabled="1">
-   <text language="7"  name="JP_ScriptLibrary" description="Это библиотека скриптов, используемых модами JP." author="JanPanthera"/>
-   <text language="33" name="JP_ScriptLibrary" description="Il s'agit d'une bibliothèque de scripts utilisés par les mods JP." author="JanPanthera"/>
-   <text language="34" name="JP_ScriptLibrary" description="Esta es una biblioteca de scripts utilizada por los mods JP." author="JanPanthera"/>
-   <text language="39" name="JP_ScriptLibrary" description="Questa è una biblioteca di script utilizzata dai mod JP." author="JanPanthera"/>
-   <text language="44" name="JP_ScriptLibrary" description="This is a library of scripts utilized by JP mods." author="JanPanthera"/>
-   <text language="48" name="JP_ScriptLibrary" description="To jest biblioteka skryptów wykorzystywanych przez modyfikacje JP." author="JanPanthera"/>
-   <text language="49" name="JP_ScriptLibrary" description="Dies ist eine Bibliothek von Skripten, die von JP-Mods genutzt werden." author="JanPanthera"/>
-   <text language="55" name="JP_ScriptLibrary" description="Esta é uma biblioteca de scripts utilizada por mods JP." author="JanPanthera"/>
-   <text language="81" name="JP_ScriptLibrary" description="これはJPのmodによって使用されるスクリプトのライブラリーです。" author="JanPanthera"/>
-   <text language="82" name="JP_ScriptLibrary" description="이것은 JP 모드에서 사용하는 스크립트 라이브러리입니다." author="JanPanthera"/>
-   <text language="86" name="JP_ScriptLibrary" description="Simplified Chinese: 这是JP模组使用的脚本库。" author="JanPanthera"/>
-   <text language="88" name="JP_ScriptLibrary" description="Traditional Chinese: 這是JP模組使用的腳本庫。" author="JanPanthera"/>
+   <text language="7"  name="JP_ScriptLibrary" description="Это библиотека скриптов, используемых модами JP."/>
+   <text language="33" name="JP_ScriptLibrary" description="Il s'agit d'une bibliothèque de scripts utilisés par les mods JP."/>
+   <text language="34" name="JP_ScriptLibrary" description="Esta es una biblioteca de scripts utilizada por los mods JP."/>
+   <text language="39" name="JP_ScriptLibrary" description="Questa è una biblioteca di script utilizzata dai mod JP."/>
+   <text language="42" name="JP_ScriptLibrary" description="To jest biblioteka skryptów wykorzystywanych przez modyfikacje JP."/>
+   <text language="44" name="JP_ScriptLibrary" description="This is a library of scripts utilized by JP mods."/>
+   <text language="48" name="JP_ScriptLibrary" description="To jest biblioteka skryptów wykorzystywanych przez modyfikacje JP."/>
+   <text language="49" name="JP_ScriptLibrary" description="Dies ist eine Bibliothek von Skripten, die von JP-Mods genutzt werden."/>
+   <text language="55" name="JP_ScriptLibrary" description="Esta é uma biblioteca de scripts utilizada por mods JP."/>
+   <text language="81" name="JP_ScriptLibrary" description="これはJPのmodによって使用されるスクリプトのライブラリーです。"/>
+   <text language="82" name="JP_ScriptLibrary" description="이것은 JP 모드에서 사용하는 스크립트 라이브러리입니다."/>
+   <text language="86" name="JP_ScriptLibrary" description="Simplified Chinese: 这是JP模组使用的脚本库。"/>
+   <text language="88" name="JP_ScriptLibrary" description="Traditional Chinese: 這是JP模組使用的腳本庫。"/>
 </content>
