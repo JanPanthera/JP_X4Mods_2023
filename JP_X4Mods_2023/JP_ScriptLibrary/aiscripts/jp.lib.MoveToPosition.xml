@@ -74,6 +74,8 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <set_command_action commandaction="commandaction.flying"/>
+
          <do_if value="not $SKIP_SECTOR_CHECK and $_Ship.sector != $SECTOR">
             <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
                <param name="SECTOR" value="$SECTOR"/>
@@ -97,6 +99,7 @@
             <get_zone_at_position name="$_PositionZone" sector="$SECTOR" value="$POSITION"/>
             <do_if value="$_Ship.zone != $_PositionZone">
                <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" ignoredangerousregions="$IGNORE_DANGEROUS_REGIONS" comment="Make sure $POSITION is still safe."/>
+               <set_value name="this.$LOCATION" exact="[$SECTOR, $POSITION]"/>
                <move_to object="$_Ship" destination="$SECTOR" forceposition="false" finishonapproach="true" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
                   <position space="$SECTOR" object="$SECTOR" value="$POSITION"/>
                   <interrupt>
@@ -110,6 +113,7 @@
 
             <!-- Short distance travel -->
             <get_safe_pos result="$POSITION" sector="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" ignoredangerousregions="$IGNORE_DANGEROUS_REGIONS" comment="Make sure $POSITION is still safe."/>
+            <set_value name="this.$LOCATION" exact="[$SECTOR, $POSITION]"/>
             <do_if value="@$ROTATION == null">
                <move_to object="$_Ship" destination="$SECTOR" forceposition="$FORCE_POSITION" finishonapproach="$FINISH_ON_APPROACH" uselocalhighways="$USE_LOCAL_HIGHWAY" travel="$USE_TRAVEL_DRIVE">
                   <position space="$SECTOR" object="$SECTOR" value="$POSITION"/>
@@ -125,7 +129,7 @@
          </do_for_each>
 
          <label name="FINISH_LBL"/>
-         <stop_moving object="$_Ship"/>
+         <stop_moving object="$_Ship" immediate="true"/>
          <stop_boost object="$_Ship"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -140,7 +144,7 @@
    </attention>
 
    <on_abort>
-      <stop_moving object="$_Ship"/>
+      <stop_moving object="$_Ship" immediate="true"/>
       <stop_boost object="$_Ship"/>
    </on_abort>
 

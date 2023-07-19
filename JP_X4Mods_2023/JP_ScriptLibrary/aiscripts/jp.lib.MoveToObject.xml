@@ -91,12 +91,6 @@
             </do_if>
          </do_if>
 
-         <do_if value="$_Ship.sector != $SECTOR">
-            <run_script name="'jp.lib.MoveToSector'">
-               <param name="SECTOR" value="$SECTOR"/>
-            </run_script>
-         </do_if>
-
          <!-- Create a new position by applying $POSITION_OFFSET to either object_space or sector_space -->
          <do_if value="@$POSITION_SPACE == 'object_space'">
             <create_position name="$POSITION" space="$SECTOR" object="$OBJECT" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
@@ -157,6 +151,9 @@
             <create_rotation name="$ROTATION" value="$_Ship.rotation"/>
          </do_else>
 
+         <set_value name="this.$LOCATION" exact="[$SECTOR, $POSITION]"/>
+
+         <set_command command="command.move" param="$OBJECT"/>
          <run_script name="'jp.lib.MoveToPosition'">
             <param name="SECTOR"                   value="$SECTOR"/>
             <param name="POSITION"                 value="$POSITION"/>
@@ -171,7 +168,7 @@
          </run_script>
 
          <label name="FINISH_LBL"/>
-         <stop_moving object="$_Ship"/>
+         <stop_moving object="$_Ship" immediate="true"/>
          <stop_boost object="$_Ship"/>
 
          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -186,7 +183,7 @@
    </attention>
 
    <on_abort>
-      <stop_moving object="$_Ship"/>
+      <stop_moving object="$_Ship" immediate="true"/>
       <stop_boost object="$_Ship"/>
    </on_abort>
 
