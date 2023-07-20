@@ -57,13 +57,18 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
+         <show_help allowclose="true" duration="2s" custom="'TEST: %1'.[$OBJECT.height]"/>
+
          <run_script name="'jp.lib.MoveToObject'">
             <param name="OBJECT" value="$OBJECT"/>
             <param name="POSITION_SPACE" value="'sector_space'"/>
-            <param name="POSITION_OFFSET" value="position.[0, $OBJECT.size + 1km, 0]"/>
+            <param name="POSITION_OFFSET" value="position.[0, 4km, 0]"/>
+            <!--<param name="GET_SAFE_POS" value="true"/>
+            <param name="SAFE_POS_DIRECTION" value="'up'"/>
+            <param name="SAFE_POS_OFFSET" value="position.[0, 1km, 0]"/>-->
             <param name="ROTATION_ORIENTATION" value="'align'"/>
             <param name="FORCE_POSITION" value="true"/>
-            <param name="FINISH_ON_APPROACH" value="true"/>
+            <param name="FINISH_ON_APPROACH" value="false"/>
          </run_script>
 
          <wait exact="3s"/>

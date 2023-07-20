@@ -30,7 +30,7 @@
             <param name="EQUIPMENTDOCKS"       value="$order.$EQUIPMENTDOCKS"/>
             <param name="TRADING_STATIONS"     value="$order.$TRADING_STATIONS"/>
             <param name="PIRATE_BASES"         value="$order.$PIRATE_BASES"/>
-            <param name="RECYCLING_STATIONS"   value="$order.$RECYCLING_STATIONS"/>
+            <param name="RECYCLING_FACILITIES" value="$order.$RECYCLING_FACILITIES"/>
             <param name="DEFENCE_STATIONS"     value="$order.$DEFENCE_STATIONS"/>
             <param name="FACTION_HEADQUARTERS" value="$order.$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS" value="$order.$NON_SPECIAL_STATIONS"/>

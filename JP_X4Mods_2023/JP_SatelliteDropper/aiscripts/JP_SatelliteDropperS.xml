@@ -60,7 +60,7 @@
          <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{19} else true"/>
          <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{20} else true"/>
          <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{21} else true"/>
-         <param name="RECYCLING_STATIONS"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{22} else true"/>
+         <param name="RECYCLING_FACILITIES" text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{22} else true"/>
          <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{23} else true"/>
          <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{24} else true"/>
          <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$SatelliteDropper_Settings? then global.$SatelliteDropper_Settings.{25} else true"/>
@@ -155,7 +155,7 @@
       <set_value name="$_RadarRange" exact="if $PLACE_SATELLITES_MK1 then 30km else 75km"/>
       <set_value name="$_SatelliteMacroMk1" exact="ware.satellite_mk1.objectmacro"/>
       <set_value name="$_SatelliteMacroMk2" exact="ware.satellite_mk2.objectmacro"/>
-      <set_value name="$_MultiSatMode" exact="if $_SatelliteMacroMk1 and $_SatelliteMacroMk2 then 100 else 0"/>
+      <set_value name="$_MultiSatMode" exact="if $PLACE_SATELLITES_MK1 and $PLACE_SATELLITES_MK2 then 100 else 0"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="$DEBUG_FOLDER_NAME"/>
@@ -185,7 +185,7 @@
                                           $ACCELERATORS, $ACTIVE_ACCELERATORS, $INACTIVE_ACCELERATORS,
                                           $SUPER_HIGHWAYS, $ACTIVE_SUPER_HIGHWAYS, $INACTIVE_SUPER_HIGHWAYS,
                                           $STATIONS, $WHARFS, $SHIPYARDS, $EQUIPMENTDOCKS, $TRADING_STATIONS,
-                                          $PIRATE_BASES, $RECYCLING_STATIONS, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS,
+                                          $PIRATE_BASES, $RECYCLING_FACILITIES, $DEFENCE_STATIONS, $FACTION_HEADQUARTERS,
                                           $NON_SPECIAL_STATIONS, $CONSTRUCTION_SITES,
                                           $IDLE_TIME, $IDLE_MOVE_TO, $WHERE_TO_MOVE, $IDLE_FOLLOW,
                                           $WHO_TO_FOLLOW, $IDLE_DOCKING, $FIND_STATION, $WHERE_TO_DOCK,
@@ -268,7 +268,7 @@
             <param name="EQUIPMENTDOCKS"          value="$EQUIPMENTDOCKS"/>
             <param name="TRADING_STATIONS"        value="$TRADING_STATIONS"/>
             <param name="PIRATE_BASES"            value="$PIRATE_BASES"/>
-            <param name="RECYCLING_STATIONS"      value="$RECYCLING_STATIONS"/>
+            <param name="RECYCLING_FACILITIES"      value="$RECYCLING_FACILITIES"/>
             <param name="DEFENCE_STATIONS"        value="$DEFENCE_STATIONS"/>
             <param name="FACTION_HEADQUARTERS"    value="$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS"    value="$NON_SPECIAL_STATIONS"/>

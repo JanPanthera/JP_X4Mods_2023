@@ -23,7 +23,7 @@
       <param name="EQUIPMENTDOCKS"       default="false"/>
       <param name="TRADING_STATIONS"     default="false"/>
       <param name="PIRATE_BASES"         default="false"/>
-      <param name="RECYCLING_STATIONS"   default="false"/>
+      <param name="RECYCLING_FACILITIES" default="false"/>
       <param name="DEFENCE_STATIONS"     default="false"/>
       <param name="FACTION_HEADQUARTERS" default="false"/>
       <param name="NON_SPECIAL_STATIONS" default="false"/>
