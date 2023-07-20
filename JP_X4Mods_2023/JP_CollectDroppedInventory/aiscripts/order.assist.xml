@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<diff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://x4dynlib.access.ly\libraries\aiscripts.xsd">
+
+   <add sel="//do_if[@value='not $order.requiredskill or (this.combinedskill ge $order.requiredskill)']">
+      <do_if value="$order.id == 'JP_CollectDroppedInventoryG'">
+         <set_value name="$added"/>
+         <run_script name="$scriptname">
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="STORE_TO_HQ"     value="$order.$STORE_TO_HQ"/>
+            <param name="STORE_THRESHOLD" value="$order.$STORE_THRESHOLD"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
+            <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>
+            <param name="WHERE_TO_MOVE"  value="$order.$WHERE_TO_MOVE"/>
+            <param name="START_POSITION" value="[this.ship.sector, this.ship.position]"/>
+            <param name="IDLE_FOLLOW"    value="$order.$IDLE_FOLLOW"/>
+            <param name="WHO_TO_FOLLOW"  value="$order.$WHO_TO_FOLLOW"/>
+            <param name="IDLE_DOCKING"   value="$order.$IDLE_DOCKING"/>
+            <param name="FIND_STATION"   value="$order.$FIND_STATION"/>
+            <param name="WHERE_TO_DOCK"  value="$order.$WHERE_TO_DOCK"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="SHOW_MESSAGES" value="$order.$SHOW_MESSAGES"/>
+            <param name="WRITE_TO_LOG"  value="$order.$WRITE_TO_LOG"/>
+            <param name="ADD_ORDER_TAG" value="$order.$ADD_ORDER_TAG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="DEBUG" value="$order.$DEBUG"/>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         </run_script>
+      </do_if>
+   </add>
+
+</diff>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<content id="JP_CollectDroppedInventory" name="JP_CollectDroppedInventory" description="Collects dropped inventory items such as AGI Processors or Carbon Filters in a single sector or throughout the entire galaxy." author="JanPanthera" version="200" date="2023-07-20" save="0" enabled="1">
+   <text language="7"  name="JP_CollectDroppedInventory" description="Собирает выброшенные предметы инвентаря, такие как процессоры AGI или угольные фильтры, в одном секторе или по всей галактике."/>
+   <text language="33" name="JP_CollectDroppedInventory" description="Collecte les objets d'inventaire déposés tels que les processeurs AGI ou les filtres à carbone dans un seul secteur ou dans toute la galaxie."/>
+   <text language="34" name="JP_CollectDroppedInventory" description="Recolecta objetos de inventario caídos como procesadores AGI o filtros de carbono en un solo sector o en toda la galaxia."/>
+   <text language="39" name="JP_CollectDroppedInventory" description="Raccoglie oggetti dell'inventario caduti come processori AGI o filtri al carbonio in un singolo settore o in tutta la galassia."/>
+   <text language="42" name="JP_CollectDroppedInventory" description="Sbírá vypuštěné položky inventáře, jako jsou procesory AGI nebo uhlíkové filtry, v jednom sektoru nebo po celé galaxii."/>
+   <text language="44" name="JP_CollectDroppedInventory" description="Collects dropped inventory items such as AGI Processors or Carbon Filters in a single sector or throughout the entire galaxy."/>
+   <text language="48" name="JP_CollectDroppedInventory" description="Zbiera porzucone przedmioty z inwentarza, takie jak procesory AGI czy filtry węglowe, w jednym sektorze lub na całej galaktyce."/>
+   <text language="49" name="JP_CollectDroppedInventory" description="Sammelt fallengelassene Inventargegenstände wie AGI-Prozessoren oder Kohlefilter in einem einzelnen Sektor oder in der gesamten Galaxie."/>
+   <text language="55" name="JP_CollectDroppedInventory" description="Coleta itens de inventário largados, como processadores AGI ou filtros de carbono, em um único setor ou em toda a galáxia."/>
+   <text language="81" name="JP_CollectDroppedInventory" description="AGIプロセッサーやカーボンフィルターなどのドロップしたインベントリアイテムを、単一のセクターまたは全銀河で収集します。"/>
+   <text language="82" name="JP_CollectDroppedInventory" description="단일 섹터 또는 전체 은하계에서 드롭한 인벤토리 아이템인 AGI 프로세서 또는 카본 필터를 수집합니다."/>
+   <text language="86" name="JP_CollectDroppedInventory" description="收集在单个区域或整个银河系中掉落的库存物品，如AGI处理器或碳过滤器。"/>
+   <text language="88" name="JP_CollectDroppedInventory" description="收集在單一區域或整個銀河系中掉落的庫存物品，如AGI處理器或碳過濾器。"/>
+   <dependency id="JP_ScriptLibrary" optional="false"/>
+</content>

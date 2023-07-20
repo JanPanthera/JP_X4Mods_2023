@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<mdscript name="JP_CollectDroppedInventory_MD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd">
+   <cues>
+
+      <cue name="CDI_Setup_MD" instantiate="true">
+         <conditions>
+            <check_any>
+               <event_game_started/>
+               <event_game_loaded/>
+            </check_any>
+         </conditions>
+         <actions>
+
+            <set_value name="$DEBUG" exact="100"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_CollectDroppedInventory.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'CDI_Setup_MD'"/>
+               <set_value name="$_DebugFileName" exact="'cdi.Setup.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <!-- a safety check if the count of parameters changes -->
+            <do_if value="@global.$CollectDroppedInventory_Settings.count != 15">
+               <remove_value name="global.$CollectDroppedInventory_Settings"/>
+            </do_if>
+
+            <!-- group ~ [$_Ship, $_Ship, ...] -->
+            <do_if value="global.$CDI_ShipsGroup? and typeof global.$CDI_ShipsGroup != datatype.group">
+               <remove_value name="global.$CDI_ShipsGroup"/>
+            </do_if>
+            <create_group groupname="global.$CDI_ShipsGroup" chance="if not global.$CDI_ShipsGroup? then 100 else 0"/>
+
+            <!-- group ~ [$_Sector, $_Sector, ...] -->
+            <do_if value="global.$CDI_SectorsBlacklistGroup? and typeof global.$CDI_SectorsBlacklistGroup != datatype.group">
+               <remove_value name="global.$CDI_SectorsBlacklistGroup"/>
+            </do_if>
+            <create_group groupname="global.$CDI_SectorsBlacklistGroup" chance="if not global.$CDI_SectorsBlacklistGroup? then 100 else 0"/>
+
+            <!-- table[] ~ key = Ship, value = Sector -->
+            <do_if value="global.$CDI_ShipsCurrentSectorTable? and typeof global.$CDI_ShipsCurrentSectorTable != datatype.table">
+               <remove_value name="global.$CDI_ShipsCurrentSectorTable"/>
+            </do_if>
+            <set_value name="global.$CDI_ShipsCurrentSectorTable" exact="table[]" chance="(if not global.$CDI_ShipsCurrentSectorTable? then 100 else 0)"/>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+      </cue>
+
+      <!-- Cleanup when the ship got destroyed -->
+      <cue name="CDI_EventObjectDestroyed_MD" instantiate="true">
+         <conditions>
+            <event_object_destroyed group="global.$CDI_ShipsGroup"/>
+         </conditions>
+         <actions>
+            <signal_cue_instantly cue="CDI_ClearBlacklist_MD" param="event.object"/>
+            <do_if value="event.object.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <signal_cue_instantly cue="CDI_ClearBlacklist_MD" param="$_Subordinate"/>
+                     <signal_cue_instantly cue="CDI_ResetName_MD" param="$_Subordinate"/>
+                     <cancel_all_orders object="$_Subordinate"/>
+                  </do_if>
+               </do_for_each>
+            </do_if>
+         </actions>
+      </cue>
+
+      <!-- Cancel all orders if any of the orders parameter has been changed -->
+      <cue name="CDI_EventObjectOrderReady1_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_any>
+               <check_value value="@event.param.id == 'JP_CollectDroppedInventoryS'"/>
+               <check_value value="@event.param.id == 'JP_CollectDroppedInventoryG'"/>
+            </check_any>
+            <check_value value="global.$CDI_ShipsGroup.indexof.{event.object}"/>
+         </conditions>
+         <actions>
+            <cancel_all_orders object="event.object"/>
+            <do_if value="event.param.id == 'JP_CollectDroppedInventoryG' and event.object.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="event.object.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <cancel_all_orders object="$_Subordinate"/>
+                  </do_if>
+               </do_for_each>
+            </do_if>
+         </actions>
+      </cue>
+
+      <!-- Cleanup when JP_CollectDroppedInventoryS or JP_CollectDroppedInventoryG is cancelled -->
+      <cue name="CDI_EventObjectOrderReady2_MD" instantiate="true">
+         <conditions>
+            <event_object_order_ready group="global.$SL_PlayerShips"/>
+            <check_any>
+               <check_all>
+                  <check_value value="@event.object.defaultorder.id != 'JP_CollectDroppedInventoryS'"/>
+                  <check_value value="@event.object.defaultorder.id != 'JP_CollectDroppedInventoryG'"/>
+                  <check_value value="@event.object.defaultorder.id != 'Assist'"/>
+               </check_all>
+               <check_all>
+                  <check_value value="@event.object.defaultorder.id == 'Assist' and @event.object.commander.defaultorder.id != 'JP_CollectDroppedInventoryG'"/>
+               </check_all>
+            </check_any>
+            <check_value value="global.$CDI_ShipsGroup.indexof.{@event.object} gt 0"/>
+         </conditions>
+         <actions>
+            <set_value name="$_Ship" exact="event.object"/>
+            <signal_cue_instantly cue="CDI_ClearBlacklist_MD" param="$_Ship"/>
+            <signal_cue_instantly cue="CDI_ResetName_MD" param="$_Ship"/>
+            <cancel_all_orders object="$_Ship"/>
+            <do_if value="$_Ship.subordinates.count gt 0">
+               <do_for_each name="$_Subordinate" in="$_Ship.subordinates">
+                  <do_if value="$_Subordinate.defaultorder.id == 'Assist'">
+                     <signal_cue_instantly cue="CDI_ClearBlacklist_MD" param="$_Subordinate"/>
+                     <signal_cue_instantly cue="CDI_ResetName_MD" param="$_Subordinate"/>
+                     <cancel_all_orders object="$_Subordinate"/>
+                  </do_if>
+               </do_for_each>
+            </do_if>
+            <remove_value name="$_Ship"/>
+         </actions>
+      </cue>
+
+      <!-- Clear the blacklists when called -->
+      <cue name="CDI_ClearBlacklist_MD" instantiate="true">
+         <conditions>
+            <event_cue_signalled/>
+         </conditions>
+         <actions>
+            <do_if value="@global.$CDI_ShipsCurrentSectorTable.{event.param} != null">
+               <remove_from_group group="global.$CDI_SectorsBlacklistGroup" object="global.$CDI_ShipsCurrentSectorTable.{event.param}"/>
+            </do_if>
+            <remove_value name="global.$CDI_ShipsCurrentSectorTable.{event.param}"/>
+            <remove_from_group group="global.$CDI_ShipsGroup" object="event.param"/>
+         </actions>
+      </cue>
+
+      <!-- Reset the name of the ship when called -->
+      <cue name="CDI_ResetName_MD" instantiate="true">
+         <conditions>
+            <event_cue_signalled/>
+         </conditions>
+         <actions>
+            <substitute_text source="event.param.knownname" text="$_ResultName">
+               <replace string="'\033#FFA95908##CDI-S\033X ~ '" with="''"/>
+               <replace string="'\033#FFA95908##CDI-G\033X ~ '" with="''"/>
+            </substitute_text>
+            <set_object_name object="event.param" name="$_ResultName"/>
+            <remove_value name="$_ResultName"/>
+         </actions>
+      </cue>
+
+      <!-- Debug Info ~ instantiate="false" when publishing -->
+      <cue name="CDI_DebugInfo_MD" instantiate="true" checkinterval="1s">
+         <actions>
+
+            <set_value name="$DEBUG" exact="md.JP_CollectDroppedInventory_MD.CDI_Setup_MD.$DEBUG"/>
+            <do_if value="$DEBUG gt 0">
+               <set_value name="$_DebugFolderName" exact="'JP_CollectDroppedInventory.logs'"/>
+               <set_value name="$_DebugScriptName" exact="'CDI_DebugInfo_MD'"/>
+               <set_value name="$_DebugFileName" exact="'cdi.Debug.md.xml.log'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0 and @global.$CDI_ShipsGroup != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CDI_ShipsGroup.count %1'.[global.$CDI_ShipsGroup.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Ship" in="global.$CDI_ShipsGroup">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2]'.[$_Ship.knownname, $_Ship.idcode]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+            <do_if value="$DEBUG gt 0 and @global.$CDI_SectorsBlacklistGroup != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CDI_SectorsBlacklistGroup.count %1'.[global.$CDI_SectorsBlacklistGroup.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Sector" in="global.$CDI_SectorsBlacklistGroup">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Sector: %1'.[$_Sector.knownname]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+            <do_if value="$DEBUG gt 0 and @global.$CDI_ShipsCurrentSectorTable != null">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'global.$CDI_ShipsCurrentSectorTable.keys.count %1'.[global.$CDI_ShipsCurrentSectorTable.keys.count]"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'"/>
+               <do_for_each name="$_Ship" valuename="$_Sector" in="global.$CDI_ShipsCurrentSectorTable">
+                  <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'$_Ship: %1 [%2] ~ %3'.[$_Ship.knownname, $_Ship.idcode, @$_Sector.knownname]"/>
+               </do_for_each>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <do_if value="$DEBUG gt 0">
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+               <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+            </do_if>
+
+         </actions>
+      </cue>
+
+   </cues>
+</mdscript>

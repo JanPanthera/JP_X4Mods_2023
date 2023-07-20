@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.CDI.GetInventoryToCollect" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <params>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="SECTOR"            default="null"/>
+      <param name="OWNERLESS_SECTORS" default="true"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <param name="debugchance" default="0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </params>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <create_list name="$_Sectors"/>
+      <create_list name="$_FoundInventoryDrops"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <append_to_list name="$_Sectors" exact="$SECTOR" chance="if @$SECTOR != null then 100 else 0"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.CDI.GetInventoryToCollect'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.scan"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <label name="RESUME_LBL"/>
+
+         <do_if value="global.$CDIGetInventoryToCollectAlreadyProcessing?">
+            <wait exact="1ms"/>
+            <resume label="RESUME_LBL"/>
+         </do_if>
+         <set_value name="global.$CDIGetInventoryToCollectAlreadyProcessing"/>
+
+         <include_interrupt_actions ref="GetBlacklistgroup"/>
+
+         <do_if value="$SECTOR == null">
+            <find_sector name="$_Sectors" space="player.galaxy" multiple="true" accessgrantedto="$_Ship.owner">
+               <match knownto="$_Ship.owner"/>
+               <match_gate_distance object="$_Ship" min="0"/>
+               <match_use_blacklist object="$_Ship" type="blacklisttype.sectortravel" group="$blacklistgroup"/>
+            </find_sector>
+            <do_if value="$_Sectors.count gt 1">
+               <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_Sectors">
+                  <param name="LIST" value="$_Sectors"/>
+               </run_script>
+            </do_if>
+         </do_if>
+
+         <do_for_each name="$_Sector" in="$_Sectors">
+
+            <do_if value="@global.$CDI_SectorsBlacklistGroup.indexof.{$_Sector} and @global.$CDI_ShipsCurrentSectorTable.{$_Ship} != $_Sector">
+               <continue/>
+            </do_if>
+
+            <do_if value="$_Sector.owner == faction.ownerless and not $OWNERLESS_SECTORS">
+               <continue/>
+            </do_if>
+
+            <create_list name="$_FoundDrops"/>
+            <find_object name="$_FoundDrops" space="$_Sectors" multiple="true">
+               <match class="class.drop"/>
+            </find_object>
+
+            <!-- Remove all items that's not a inventory item -->
+            <do_for_each name="$_FoundDrop" in="$_FoundDrops">
+               <do_for_each name="$_Ware" in="$_FoundDrop.wares.list">
+                  <do_if value="not $_Ware.isinventory">
+                     <continue/>
+                  </do_if>
+                  <append_to_list name="$_FoundInventoryDrops" exact="$_FoundDrop"/>
+               </do_for_each>
+            </do_for_each>
+
+            <do_if value="$_FoundInventoryDrops.count gt 0">
+               <do_if value="$_FoundInventoryDrops.count gt 1">
+                  <run_script name="'jp.lib.SortByEstimatedTravelTime'" result="$_FoundInventoryDrops">
+                     <param name="LIST" value="$_FoundInventoryDrops"/>
+                  </run_script>
+               </do_if>
+               <set_value name="$SECTOR" exact="$_Sector"/>
+               <break/>
+            </do_if>
+
+         </do_for_each>
+
+         <!-- Removing sector from blacklist if no inventory found -->
+         <do_if value="$_FoundInventoryDrops.count == 0 and @global.$CDI_ShipsCurrentSectorTable.{$_Ship} != null">
+            <remove_from_group group="global.$CDI_SectorsBlacklistGroup" object="global.$CDI_ShipsCurrentSectorTable.{$_Ship}"/>
+            <set_value name="global.$CDI_ShipsCurrentSectorTable.{$_Ship}" exact="null"/>
+         </do_if>
+
+         <!-- Adding sector to blacklist if inventory found and sector not same as current -->
+         <do_if value="$_FoundInventoryDrops.count and @global.$CDI_ShipsCurrentSectorTable.{$_Ship} != $SECTOR">
+            <!-- If we had previously blacklisted a sector, remove it from blacklist -->
+            <do_if value="@global.$CDI_ShipsCurrentSectorTable.{$_Ship} != null">
+               <remove_from_group group="global.$CDI_SectorsBlacklistGroup" object="global.$CDI_ShipsCurrentSectorTable.{$_Ship}"/>
+            </do_if>
+            <add_to_group groupname="global.$CDI_SectorsBlacklistGroup" object="$SECTOR"/>
+            <set_value name="global.$CDI_ShipsCurrentSectorTable.{$_Ship}" exact="$SECTOR"/>
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
+               <param name="FACTION" value="$SECTOR.owner"/>
+            </run_script>
+            <!-- I will start collecting dropped inventory items in sector %2%1\033X. -->
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="{8888888, 2063}.[$SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+               <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+               <param name="MESSAGE_CHANCE"     value="2"/>
+               <param name="LOG_CHANCE"         value="2"/>
+            </run_script>
+         </do_if>
+
+         <remove_value name="global.$CDIGetInventoryToCollectAlreadyProcessing"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="END_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+         <return value="$_FoundInventoryDrops"/>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+      <remove_value name="global.$CDIGetInventoryToCollectAlreadyProcessing"/>
+   </on_abort>
+
+</aiscript>

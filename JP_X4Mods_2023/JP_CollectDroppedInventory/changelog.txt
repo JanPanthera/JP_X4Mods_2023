@@ -1,0 +1,7 @@
+#CollectDroppedInventory
+
+v1.1.0 -- Current Published Version
+~ Old Mod
+
+v2.0.0 -- Current Development Version
+~ Re-Written from scratch
