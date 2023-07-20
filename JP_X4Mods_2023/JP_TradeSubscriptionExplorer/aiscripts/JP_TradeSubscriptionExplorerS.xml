@@ -25,7 +25,7 @@
          <param name="EQUIPMENTDOCKS"       text="- {8888888, 13}" comment="Equipment docks?"             type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{4} else true"/>
          <param name="TRADING_STATIONS"     text="- {8888888, 14}" comment="Trading stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{5} else true"/>
          <param name="PIRATE_BASES"         text="- {8888888, 15}" comment="Pirate bases?"                type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{6} else true"/>
-         <param name="RECYCLING_STATIONS"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{7} else true"/>
+         <param name="RECYCLING_FACILITIES"   text="- {8888888, 16}" comment="Scrap processing facilities?" type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{7} else true"/>
          <param name="DEFENCE_STATIONS"     text="- {8888888, 17}" comment="Defense stations?"            type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{8} else true"/>
          <param name="FACTION_HEADQUARTERS" text="- {8888888, 18}" comment="Faction Headquarters?"        type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{9} else true"/>
          <param name="NON_SPECIAL_STATIONS" text="- {8888888, 19}" comment="Factories?"                   type="bool" default="if global.$TradeSubscriptionExplorer_Settings? then global.$TradeSubscriptionExplorer_Settings.{10} else true"/>
@@ -181,7 +181,7 @@
             <param name="EQUIPMENTDOCKS"          value="$EQUIPMENTDOCKS"/>
             <param name="TRADING_STATIONS"        value="$TRADING_STATIONS"/>
             <param name="PIRATE_BASES"            value="$PIRATE_BASES"/>
-            <param name="RECYCLING_STATIONS"      value="$RECYCLING_STATIONS"/>
+            <param name="RECYCLING_FACILITIES"      value="$RECYCLING_FACILITIES"/>
             <param name="DEFENCE_STATIONS"        value="$DEFENCE_STATIONS"/>
             <param name="FACTION_HEADQUARTERS"    value="$FACTION_HEADQUARTERS"/>
             <param name="NON_SPECIAL_STATIONS"    value="$NON_SPECIAL_STATIONS"/>
