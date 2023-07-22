@@ -219,7 +219,7 @@
          <set_command_action commandaction="commandaction.calculating"/>
 
          <set_value name="$_GoRestock" exact="false"/>
-         <do_if value="($_MultiSatMode and ($_Ship.ammostorage.{$_SatelliteMacroMk1}.count == 0 or $_Ship.ammostorage.{$_SatelliteMacroMk2}.count == 0)) or
+         <do_if value="($_MultiSatMode == 100 and ($_Ship.ammostorage.{$_SatelliteMacroMk1}.count == 0 or $_Ship.ammostorage.{$_SatelliteMacroMk2}.count == 0)) or
                        ($PLACE_SATELLITES_MK1 and $_Ship.ammostorage.{$_SatelliteMacroMk1}.count == 0) or
                        ($PLACE_SATELLITES_MK2 and $_Ship.ammostorage.{$_SatelliteMacroMk2}.count == 0)">
             <set_value name="$_GoRestock" exact="true"/>
@@ -233,6 +233,7 @@
                </run_script>
                <resume label="IDLE_LBL"/>
             </do_if>
+            <set_value name="$_RestockAmount" exact="$RESTOCK_AMOUNT_CAP"/>
             <set_value name="$_RestockAmount" exact="($RESTOCK_AMOUNT_CAP / 2)i" chance="$_MultiSatMode"/>
             <set_value name="$_RestockEquipmentTable" exact="table[]"/>
             <set_value name="$_RestockEquipmentTable.{$_SatelliteMacroMk1}" exact="$_RestockAmount" chance="$PLACE_SATELLITES_MK1"/>

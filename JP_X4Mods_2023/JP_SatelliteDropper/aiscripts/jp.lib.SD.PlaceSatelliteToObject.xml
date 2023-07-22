@@ -57,8 +57,6 @@
          <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <show_help allowclose="true" duration="2s" custom="'TEST: %1'.[$OBJECT.height]"/>
-
          <run_script name="'jp.lib.MoveToObject'">
             <param name="OBJECT" value="$OBJECT"/>
             <param name="POSITION_SPACE" value="'sector_space'"/>

@@ -46,5 +46,6 @@ v2.0.6
 
 v2.0.7 -- Current Published Version
 ~ Fixed: Single satellite placement was not working properly.
+~ Fixed: Restocking of satellites was not working properly.
 
 v2.0.8 -- Current Development Version
