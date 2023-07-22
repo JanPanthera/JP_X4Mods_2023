@@ -7,6 +7,8 @@
       <param name="GENERATE_TITLE"       default="true"/>
       <param name="TITLE"                default="''"/>
       <param name="TEXT"                 default="''"/>
+      <param name="MESSAGE_TEXT"         default="''"/>
+      <param name="LOG_TEXT"             default="''"/>
       <param name="INTERACTION_OBJECT"   default="this.ship"/>
       <param name="INTERACTION_POSITION" default="position.[0, 0, 0]"/>
       <param name="MESSAGE_POSITION"     default="1"/>
@@ -24,6 +26,12 @@
       <set_value name="$_Ship" exact="this.ship"/>
       <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$MESSAGE_TEXT == ''">
+         <set_value name="$MESSAGE_TEXT" exact="$TEXT"/>
+      </do_if>
+      <do_if value="$LOG_TEXT == ''">
+         <set_value name="$LOG_TEXT" exact="$TEXT"/>
+      </do_if>
       <do_if value="$GENERATE_TITLE and $TITLE == ''">
          <set_value name="$TITLE" exact="'%1 ~ %2 [%3]'.[$_DefaultOrderParamRef.name, $_Ship.knownname, $_Ship.idcode]"/>
          <substitute_text source="$TITLE" text="$TITLE">
@@ -69,54 +77,54 @@
          <set_value name="$_ShowMessages" exact="if $SHOW_MESSAGES ge $MESSAGE_CHANCE then 100 else 0"/>
          <set_value name="$_WriteToLog"   exact="if $WRITE_TO_LOG ge $LOG_CHANCE then 100 else 0"/>
 
-         <show_help custom="$TITLE + '\n\n' + $TEXT" position="$MESSAGE_POSITION" allowclose="true" chance="$_ShowMessages"/>
+         <show_help custom="$TITLE + '\n\n' + $MESSAGE_TEXT" position="$MESSAGE_POSITION" allowclose="true" chance="$_ShowMessages"/>
 
          <do_if value="$CATEGORY == 'general'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="general" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="general" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="general" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="general" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_if>
          <do_elseif value="$CATEGORY == 'missions'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="missions" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="missions" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="missions" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="missions" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_elseif>
          <do_elseif value="$CATEGORY == 'news'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="news" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="news" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="news" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="news" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_elseif>
          <do_elseif value="$CATEGORY == 'upkeep'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="upkeep" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="upkeep" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="upkeep" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="upkeep" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_elseif>
          <do_elseif value="$CATEGORY == 'alerts'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="alerts" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="alerts" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="alerts" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="alerts" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_elseif>
          <do_elseif value="$CATEGORY == 'tips'">
             <do_if value="$INTERACTION == 'showonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="tips" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="tips" interaction="showonmap" object="$INTERACTION_OBJECT" chance="$_WriteToLog"/>
             </do_if>
             <do_elseif value="$INTERACTION == 'showlocationonmap'">
-               <write_to_logbook title="$TITLE" text="$TEXT" category="tips" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
+               <write_to_logbook title="$TITLE" text="$LOG_TEXT" category="tips" interaction="showlocationonmap" object="$INTERACTION_OBJECT" position="$INTERACTION_POSITION" chance="$_WriteToLog"/>
             </do_elseif>
          </do_elseif>
 

@@ -8,18 +8,20 @@
          <!--DISTANCE_TO_OBJECT - used if $POSITION_SPACE is of class object
              POSITION_SPACE - 'sector_space', 'object_space', any object
              ROTATION_SPACE - 'sector_space', 'object_space', any object
-             ROTATION_ORIENTATION - 'align', 'look_at', 'look_away', 'align_left', 'align_right'-->
+             ROTATION_ORIENTATION - 'align', 'look_at', 'look_away', 'align_left', 'align_right'
+             SAFE_POS_DIRECTION - 'up', 'down', 'left', 'right', 'forward', 'backward' -->
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="OBJECT"                   type="internal" default="null"/>
          <param name="POSITION_SPACE"           type="internal" default="'object_space'"/>
          <param name="POSITION_OFFSET"          type="internal" default="position.[0, 0, 0]"/>
-         <param name="DISTANCE_TO_OBJECT"       type="internal" default="10km"/>
-
+         <param name="DISTANCE_TO_OBJECT"       type="internal" default="10m"/>
          <param name="ROTATION_SPACE"           type="internal" default="'object_space'"/>
          <param name="ROTATION_ORIENTATION"     type="internal" default="'look_at'"/>
-
          <param name="FORCE_POSITION"           type="internal" default="true"/>
          <param name="FORCE_ROTATION"           type="internal" default="true"/>
+         <param name="GET_SAFE_POS"             type="internal" default="false"/>
+         <param name="SAFE_POS_DIRECTION"       type="internal" default="'up'"/>
+         <param name="SAFE_POS_OFFSET"          type="internal" default="position.[0, 0, 0]"/>
          <param name="USE_LOCAL_HIGHWAY"        type="internal" default="this.ship.canenterhighway"/>
          <param name="USE_TRAVEL_DRIVE"         type="internal" default="true"/>
          <param name="FINISH_ON_APPROACH"       type="internal" default="false"/>
@@ -91,26 +93,46 @@
             </do_if>
          </do_if>
 
-         <!-- Create a new position by applying $POSITION_OFFSET to either object_space or sector_space -->
-         <do_if value="@$POSITION_SPACE == 'object_space'">
-            <create_position name="$POSITION" space="$SECTOR" object="$OBJECT" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
+         <do_if value="not $SKIP_SECTOR_CHECK and $_Ship.sector != $SECTOR">
+            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+               <param name="SECTOR" value="$SECTOR"/>
+            </create_order>
+            <wait exact="1ms"/>
          </do_if>
-         <do_elseif value="@$POSITION_SPACE == 'sector_space'">
-            <create_position name="$POSITION" space="$SECTOR" object="$OBJECT"/>
-            <create_position name="$POSITION" space="$SECTOR" object="$SECTOR" value="$POSITION" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
-         </do_elseif>
-         <!-- If $POSITION_SPACE is an object, create a position towards it -->
-         <do_elseif value="@$POSITION_SPACE.isclass.object">
-            <create_position name="$_DirectionObjectPos" space="$SECTOR" object="$POSITION_SPACE"/>
-            <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
-            <create_orientation name="$DIRECTION" orientation="look_at" refposition="$_DirectionObjectPos">
-               <position space="$SECTOR" value="$_ObjectPos"/>
-            </create_orientation>
-            <create_position name="$POSITION" space="$SECTOR" value="$_ObjectPos"
-                             x="$DISTANCE_TO_OBJECT * sin($DIRECTION.yaw)"
-                             y="$DISTANCE_TO_OBJECT * sin($DIRECTION.pitch)"
-                             z="$DISTANCE_TO_OBJECT * cos($DIRECTION.yaw)"/>
-         </do_elseif>
+
+         <do_if value="$GET_SAFE_POS">
+            <do_if value="@$POSITION_SPACE == 'object_space'">
+               <get_safe_pos result="$POSITION" sector="$SECTOR" object="$OBJECT" radius="$_Ship.size" ignored="$_Ship" direction="$SAFE_POS_DIRECTION"
+                             x="$SAFE_POS_OFFSET.x" y="$SAFE_POS_OFFSET.y" z="$SAFE_POS_OFFSET.z"/>
+            </do_if>
+            <do_elseif value="@$POSITION_SPACE == 'sector_space'">
+               <create_position name="$POSITION" space="$SECTOR" object="$OBJECT"/>
+               <get_safe_pos result="$POSITION" sector="$SECTOR" object="$SECTOR" value="$POSITION" radius="$_Ship.size" ignored="$_Ship" direction="$SAFE_POS_DIRECTION"
+                             x="$SAFE_POS_OFFSET.x" y="$SAFE_POS_OFFSET.y" z="$SAFE_POS_OFFSET.z"/>
+            </do_elseif>
+         </do_if>
+         <do_else>
+            <!-- Create a new position by applying $POSITION_OFFSET to either object_space or sector_space -->
+            <do_if value="@$POSITION_SPACE == 'object_space'">
+               <create_position name="$POSITION" space="$SECTOR" object="$OBJECT" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
+            </do_if>
+            <do_elseif value="@$POSITION_SPACE == 'sector_space'">
+               <create_position name="$POSITION" space="$SECTOR" object="$OBJECT"/>
+               <create_position name="$POSITION" space="$SECTOR" object="$SECTOR" value="$POSITION" x="$POSITION_OFFSET.x" y="$POSITION_OFFSET.y" z="$POSITION_OFFSET.z"/>
+            </do_elseif>
+            <!-- If $POSITION_SPACE is an object, create a position towards it -->
+            <do_elseif value="@$POSITION_SPACE.isclass.object">
+               <create_position name="$_DirectionObjectPos" space="$SECTOR" object="$POSITION_SPACE"/>
+               <create_position name="$_ObjectPos" space="$SECTOR" object="$OBJECT"/>
+               <create_orientation name="$DIRECTION" orientation="look_at" refposition="$_DirectionObjectPos">
+                  <position space="$SECTOR" value="$_ObjectPos"/>
+               </create_orientation>
+               <create_position name="$POSITION" space="$SECTOR" value="$_ObjectPos"
+                                x="$DISTANCE_TO_OBJECT * sin($DIRECTION.yaw)"
+                                y="$DISTANCE_TO_OBJECT * sin($DIRECTION.pitch)"
+                                z="$DISTANCE_TO_OBJECT * cos($DIRECTION.yaw)"/>
+            </do_elseif>
+         </do_else>
 
          <!-- If $ROTATION_SPACE is an object, create a rotation towards it -->
          <do_if value="@$ROTATION_SPACE.isclass.object">
@@ -161,7 +183,6 @@
             <param name="USE_LOCAL_HIGHWAY"        value="$USE_LOCAL_HIGHWAY"/>
             <param name="USE_TRAVEL_DRIVE"         value="$USE_TRAVEL_DRIVE"/>
             <param name="FINISH_ON_APPROACH"       value="$FINISH_ON_APPROACH"/>
-            <param name="SKIP_SECTOR_CHECK"        value="$SKIP_SECTOR_CHECK"/>
             <param name="FORCE_POSITION"           value="$FORCE_POSITION"/>
             <param name="FORCE_ROTATION"           value="$FORCE_ROTATION"/>
             <param name="IGNORE_DANGEROUS_REGIONS" value="$IGNORE_DANGEROUS_REGIONS"/>
