@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.CDI.TransferInventoryToObject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <order id="JP_lib_CDI_TransferInventoryToObject" name="JP_lib_CDI_TransferInventoryToObject" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="RECIEVER" type="internal" default="player.headquarters"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="debugchance" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+   </order>
+
+   <interrupts>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$SHOW_MESSAGES" exact="@$_DefaultOrderParamRef.$SHOW_MESSAGES"/>
+      <set_value name="$WRITE_TO_LOG" exact="@$_DefaultOrderParamRef.$WRITE_TO_LOG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.CDI.TransferInventoryToObject'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.scan"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <!-- Move to the $RECIEVER.. also handels the sector transition -->
+         <do_if value="$_Ship.distanceto.{$RECIEVER} gt 10km">
+            <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
+               <param name="OBJECT" value="$RECIEVER"/>
+               <param name="POSITION_SPACE" value="$_Ship"/>
+               <param name="DISTANCE_TO_OBJECT" value="2km"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
+            </create_order>
+            <wait exact="1ms"/>
+         </do_if>
+
+         <!-- Dock at the $RECIEVER if allowed, if not allowed, move as close as possible to the $RECIEVER -->
+         <do_if value="$RECIEVER.dockingallowed.{$_Ship}">
+            <do_if value="not @$_Ship.hascontext.{$RECIEVER}">
+               <set_command command="command.dockat" param="$RECIEVER"/>
+               <set_command_action commandaction="commandaction.docking"/>
+               <run_script name="'order.dock'">
+                  <param name="destination" value="$RECIEVER"/>
+                  <param name="trading" value="true"/>
+                  <param name="allowplayeronly" value="this.isplayerowned"/>
+                  <param name="callerid" value="this.assignedcontrolled.order"/>
+                  <param name="dockfollowers" value="false"/>
+               </run_script>
+               <wait exact="1ms"/>
+            </do_if>
+         </do_if>
+         <do_elseif value="$_Ship.distanceto.{$RECIEVER} gt 1km">
+            <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
+               <param name="OBJECT" value="$RECIEVER"/>
+               <param name="POSITION_SPACE" value="$_Ship"/>
+               <param name="DISTANCE_TO_OBJECT" value="$_Ship.size"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
+            </create_order>
+            <wait exact="1ms"/>
+         </do_elseif>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <!-- Transfer the Inventory items to the $RECIEVER's Control Entity -->
+         <set_value name="$_RecieverEntity" exact="$RECIEVER.assignedcontrolentity.default"/>
+         <set_value name="$_TotalInventoryItemsAmount" exact="0"/>
+         <set_value name="$__MessageText" exact="''"/>
+         <set_value name="$__LogText" exact="''"/>
+         <do_for_each name="$_InventoryItem" in="this.inventory.list" reverse="true">
+            <set_value name="$_ItemCount" exact="this.inventory.{$_InventoryItem}.count"/>
+            <set_value name="$_TotalInventoryItemsAmount" exact="$_ItemCount" operation="add"/>
+            <set_value name="$__MessageText" exact="'\n%1 x %2'.[$_ItemCount, $_InventoryItem]" operation="add" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+            <set_value name="$__LogText" exact="'\n%1 x %2'.[$_ItemCount, $_InventoryItem]" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+            <add_inventory entity="$_RecieverEntity" ware="$_InventoryItem" exact="$_ItemCount"/>
+            <remove_inventory entity="this" ware="$_InventoryItem" exact="$_ItemCount"/>
+            <wait exact="100ms"/>
+         </do_for_each>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <!-- Create the text for the message and log -->
+         <set_value name="$_MessageText" exact="''"/>
+         <set_value name="$_MessageText" exact="{8888888, 2056}.[$_TotalInventoryItemsAmount, $RECIEVER.knownname, $RECIEVER.idcode]" operation="add" chance="if $SHOW_MESSAGES ge 2 then 100 else 0"/>
+         <set_value name="$_MessageText" exact="'.'" operation="add" chance="if $SHOW_MESSAGES == 2 then 100 else 0"/>
+         <set_value name="$_MessageText" exact="':'" operation="add" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+         <set_value name="$_MessageText" exact="$__MessageText" operation="add" chance="if $SHOW_MESSAGES ge 3 then 100 else 0"/>
+
+         <set_value name="$_LogText" exact="''"/>
+         <set_value name="$_LogText" exact="{8888888, 2056}.[$_TotalInventoryItemsAmount, $RECIEVER.knownname, $RECIEVER.idcode]" operation="add" chance="if $WRITE_TO_LOG ge 2 then 100 else 0"/>
+         <set_value name="$_LogText" exact="'.'" operation="add" chance="if $WRITE_TO_LOG == 2 then 100 else 0"/>
+         <set_value name="$_LogText" exact="':'" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+         <set_value name="$_LogText" exact="$__LogText" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
+
+         <run_script name="'jp.lib.MessageLog'">
+            <param name="MESSAGE_TEXT" value="$_MessageText"/>
+            <param name="LOG_TEXT" value="$_LogText"/>
+            <param name="MESSAGE_CHANCE" value="2"/>
+            <param name="LOG_CHANCE" value="2"/>
+         </run_script>
+
+         <wait exact="3s"/>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="END_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<aiscript name="jp.lib.CDI.CollectInventoryDrop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+<aiscript name="jp.lib.CDI.TransferInventoryToStation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
 
-   <order id="JP_lib_CDI_CollectInventoryDrop" name="{8888888, 2040}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+   <order id="JP_lib_CDI_TransferInventoryToStation" name="{8888888, 2042}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="SECTOR"           type="internal" default="null"/>
-         <param name="INVENTORY_DROP"   type="internal" default="null"/>
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-         <param name="POSITION"    type="internal" default="null"/>
+         <param name="RECIEVER" type="internal" default="null"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="debugchance" type="internal" default="0"/>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
-      <location object="$INVENTORY_DROP" condition="@$INVENTORY_DROP != null"/>
       <location object="this.$LOCATION.{1}" position="this.$LOCATION.{2}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} != null"/>
    </order>
 
    <interrupts>
-      <handler>
-         <conditions>
-            <event_object_destroyed object="$INVENTORY_DROP"/>
-         </conditions>
-         <actions>
-            <abort_called_scripts resume="END_LBL"/>
-         </actions>
-      </handler>
       <handler ref="AttackHandler"/>
       <handler ref="MissileLockHandler" />
       <handler ref="ScannedHandler"/>
@@ -45,7 +33,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
-         <set_value name="$_DebugScriptName" exact="'jp.lib.CDI.CollectInventoryDrop'"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.CDI.TransferInventoryToStation'"/>
          <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
       </do_if>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -65,48 +53,33 @@
          <set_command command="command.scan"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
-         <create_position name="$POSITION" space="$SECTOR" object="$INVENTORY_DROP"/>
-
-         <run_script name="'jp.lib.MoveToObject'">
-            <param name="OBJECT" value="$INVENTORY_DROP"/>
-            <param name="POSITION_SPACE" value="$_Ship"/>
-            <param name="DISTANCE_TO_OBJECT" value="1m"/>
-            <param name="FORCE_POSITION" value="true"/>
-            <param name="FINISH_ON_APPROACH" value="true"/>
-         </run_script>
-
-         <do_if value="not $INVENTORY_DROP.exists">
+         <do_if value="not $RECIEVER.isoperational or $RECIEVER.iswreck">
+            <!-- The station is either destroyed or not operational.
+                 We will continue with the inventory collection. -->
+            <set_value name="$_Text" exact="'%1\n%2'.[{8888888, 2052}, {8888888, 2059}]"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT" value="$_Text"/>
+            </run_script>
+            <edit_order_param order="$CALLER_ID" param="'STORING_FAILED'" value="'TEST_FAILED'"/>
             <resume label="END_LBL"/>
          </do_if>
 
-         <set_command command="command.collect" param="$INVENTORY_DROP"/>
-         <set_value name="$_InventoryName" exact="$INVENTORY_DROP.knownname"/>
+         <do_if value="@$_Ship.pilot == null">
+            <!-- The station lacks a manager and therefore cannot receive the inventory items.
+                 We will continue with the inventory collection. -->
+            <set_value name="$_Text" exact="'%1\n%2'.[{8888888, 2053}, {8888888, 2059}]"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT" value="$_Text"/>
+            </run_script>
+            <edit_order_param order="$CALLER_ID" param="'STORING_FAILED'" value="'TEST_FAILED'"/>
+            <resume label="END_LBL"/>
+         </do_if>
 
-         <wait exact="3s"/>
-         <set_command command="command.investigate"/>
-         <collect_drop object="$_Ship" drop="$INVENTORY_DROP"/>
-         <wait exact="3s"/>
-
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
-            <param name="FACTION" value="$SECTOR.owner"/>
+         <run_script name="'jp.lib.CDI.TransferInventoryToObject'">
+            <param name="RECIEVER" value="$RECIEVER"/>
          </run_script>
 
-         <!-- Collected: %1\nSector: %3%2\033X -->
-         <set_value name="$_Text" exact="{8888888, 2069}.[$_InventoryName, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
-
-         <run_script name="'jp.lib.MessageLog'">
-            <param name="TEXT"               value="$_Text"/>
-            <param name="INTERACTION_OBJECT" value="$SECTOR"/>
-            <param name="MESSAGE_CHANCE"     value="3"/>
-            <param name="LOG_CHANCE"         value="3"/>
-         </run_script>
-
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_INVENTORY_COLLECTED'"/>
-         <apply_experience object="$_Ship" experience="'JP_SHIP_INVENTORY_COLLECTED'" role="entityrole.service"/>
+         <wait exact="3s"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
