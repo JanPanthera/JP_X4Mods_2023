@@ -38,8 +38,7 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <set_value name="global.$SL_IdleShips.{$_Ship}" exact="player.age"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <set_value name="$IDLE_TITLE" exact="@$_DefaultOrderParamRef.$IDLE_TITLE"/>
-      <set_value name="$DEBUG"      exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <do_if value="$DEBUG gt 0">
          <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
@@ -71,10 +70,6 @@
          </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-         <run_script name="'jp.lib.MessageLog'">
-            <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 55}]"/>
-         </run_script>
 
          <set_command_action commandaction="commandaction.standingby"/>
 
