@@ -284,7 +284,7 @@
       <t id="1070">Uncovers the fog within a specific sector.</t>
       <t id="1071">Uncovers the fog within sectors throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      
+
       <!-- JP_MultiRename -->
       <t id="1100">Add Tag?</t>
       <t id="1101">Tag position</t>
@@ -433,25 +433,42 @@
       <t id="1971">Renews trade subscriptions for stations throughout the entire galaxy.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
-      <t id="2080">Idle Time</t>
-      <t id="2081">Idle: Follow?</t>
-      <t id="2082">Who to follow?</t>
-      <t id="2083">Idle: Docking?</t>
-      <t id="2084">Where to dock?</t>
-      <t id="2085">Idle: Random movement?</t>
-      <t id="2086">In which sector?</t>
-      <t id="2087">Idle: Move to?</t>
-      <t id="2088">Where to move?</t>
-      <t id="2091">Add Order tag?</t>
-      <t id="2092">Order tag position</t>
-      <t id="2093">Save Order Settings?</t>
-      <t id="2094">Reset Order Settings?</t>
-      <t id="2095">Order settings saved.</t>
-      <t id="2096">Order settings resetted.</t>
-      <t id="2097">\033#B600CCCC#</t>
-      <t id="2098">\033#FF00CC66#</t>
-      <t id="2099">\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2000">Store to Headquarters?</t>
+      <t id="2001">Store to Station?</t>
+      <t id="2002">Store to Ship?</t>
+      <t id="2003">Reciever</t>
+      <t id="2004">Store Threshold</t>
+      <t id="2005">Use collecting radius?</t>
+      <t id="2006">Collecting radius</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2040">Collect Dropped Inventory</t>
+      <t id="2041">Transfer Inventory to Headquarters</t>
+      <t id="2042">Transfer Inventory to Station</t>
+      <t id="2043">Transfer Inventory to Ship</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2050">The Headquarters is either destroyed or not operational.</t>
+      <t id="2051">The Headquarters lacks a manager and therefore cannot receive the inventory items.</t>
+      <t id="2052">The station is either destroyed or not operational.</t>
+      <t id="2053">The station lacks a manager and therefore cannot receive the inventory items.</t>
+      <t id="2054">The ship is either destroyed or not operational.</t>
+      <t id="2055">The ship lacks a pilot and therefore cannot receive the inventory items.</t>
+      <t id="2056">Transfered %1 inventory items to %2 [%3]</t>
+      <t id="2059">We will continue with the inventory collection.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Inventory Collection Paused\033X</t>
+      <t id="2061">I am proceeding to deposit the gathered inventory items at the Headquarters %1 [%2].</t>
+      <t id="2062">I am proceeding to deposit the gathered inventory items at Station %1 [%2].</t>
+      <t id="2063">I am proceeding to deposit the gathered inventory items at Ship %1 [%2].</t>
+      <t id="2067">No remaining dropped inventory items are left within my defined workspace to collect.</t>
+      <t id="2068">I am starting the collection of dropped inventory items in sector %2%1\033X.</t>
+      <t id="2069">Collected: %1\nSector: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
+      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
       <!-- JP_CollectMyScatteredInventoryItems -->
       <t id="2180">Idle Time</t>
