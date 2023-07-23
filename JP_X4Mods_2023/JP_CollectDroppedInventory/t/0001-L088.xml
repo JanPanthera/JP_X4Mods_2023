@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">存儲到總部嗎？</t>
+      <t id="2001">存儲到站點嗎？</t>
+      <t id="2002">存儲到船上嗎？</t>
+      <t id="2003">接收者</t>
+      <t id="2004">存儲閾值</t>
+      <t id="2005">使用收集半徑嗎？</t>
+      <t id="2006">收集半徑</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">收集掉落的庫存</t>
+      <t id="2041">將庫存轉移至總部</t>
+      <t id="2042">將庫存轉移至站點</t>
+      <t id="2043">將庫存轉移至船上</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">總部已被破壞或無法運營。</t>
+      <t id="2051">總部缺少管理者，因此無法接收庫存物品。</t>
+      <t id="2052">站點已被破壞或無法運營。</t>
+      <t id="2053">站點缺少管理者，因此無法接收庫存物品。</t>
+      <t id="2054">船只已被破壞或無法運營。</t>
+      <t id="2055">船只缺少駕駛員，因此無法接收庫存物品。</t>
+      <t id="2056">已將%1的庫存物品轉移到%2 [%3]</t>
+      <t id="2059">我們將繼續收集庫存。</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#庫存收集暫停\033X</t>
+      <t id="2061">我正在繼續將收集的庫存物品存放在總部%1 [%2]。</t>
+      <t id="2062">我正在繼續將收集的庫存物品存放在站點%1 [%2]。</t>
+      <t id="2063">我正在繼續將收集的庫存物品存放在船%1 [%2]。</t>
+      <t id="2067">在我定義的工作空間內沒有剩餘的掉落庫存物品可供收集。</t>
+      <t id="2068">我正在開始在扇區%2%1\033X收集掉落的庫存物品。</t>
+      <t id="2069">收集： %1\n扇區：%3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">收集特定扇區掉落的庫存物品，如AGI處理器或碳過濾器。</t>
+      <t id="2071">在整個銀河系中收集掉落的庫存物品，如AGI處理器或碳過濾器。</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

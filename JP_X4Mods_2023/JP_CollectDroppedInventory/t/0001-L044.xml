@@ -6,13 +6,35 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">Store to Headquarters?</t>
+      <t id="2001">Store to Station?</t>
+      <t id="2002">Store to Ship?</t>
+      <t id="2003">Reciever</t>
+      <t id="2004">Store Threshold</t>
+      <t id="2005">Use collecting radius?</t>
+      <t id="2006">Collecting radius</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">Collect Dropped Inventory</t>
+      <t id="2041">Transfer Inventory to Headquarters</t>
+      <t id="2042">Transfer Inventory to Station</t>
+      <t id="2043">Transfer Inventory to Ship</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2050">The Headquarters is either destroyed or not operational.</t>
+      <t id="2051">The Headquarters lacks a manager and therefore cannot receive the inventory items.</t>
+      <t id="2052">The station is either destroyed or not operational.</t>
+      <t id="2053">The station lacks a manager and therefore cannot receive the inventory items.</t>
+      <t id="2054">The ship is either destroyed or not operational.</t>
+      <t id="2055">The ship lacks a pilot and therefore cannot receive the inventory items.</t>
+      <t id="2056">Transfered %1 inventory items to %2 [%3]</t>
+      <t id="2059">We will continue with the inventory collection.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Inventory Collection Paused\033X</t>
+      <t id="2061">I am proceeding to deposit the gathered inventory items at the Headquarters %1 [%2].</t>
+      <t id="2062">I am proceeding to deposit the gathered inventory items at Station %1 [%2].</t>
+      <t id="2063">I am proceeding to deposit the gathered inventory items at Ship %1 [%2].</t>
+      <t id="2067">No remaining dropped inventory items are left within my defined workspace to collect.</t>
+      <t id="2068">I am starting the collection of dropped inventory items in sector %2%1\033X.</t>
+      <t id="2069">Collected: %1\nSector: %3%2\033X</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
       <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>

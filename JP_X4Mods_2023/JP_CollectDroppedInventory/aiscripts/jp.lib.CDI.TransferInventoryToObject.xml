@@ -36,6 +36,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
+         <wait exact="1ms"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -43,20 +44,25 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.scan"/>
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
          <!-- Move to the $RECIEVER.. also handels the sector transition -->
-         <do_if value="$_Ship.distanceto.{$RECIEVER} gt 10km">
+         <set_value name="$_RandomX" min="-2000m" max="2000m"/>
+         <set_value name="$_RandomZ" min="-2000m" max="2000m"/>
+         <do_if value="$_Ship.distanceto.{$RECIEVER} gt 20km">
             <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
                <param name="OBJECT" value="$RECIEVER"/>
-               <param name="POSITION_SPACE" value="$_Ship"/>
-               <param name="DISTANCE_TO_OBJECT" value="2km"/>
+               <param name="POSITION_SPACE" value="'sector_space'"/>
+               <param name="POSITION_OFFSET" value="position.[$_RandomX, ([$RECIEVER.height, 1km].max + 1km), $_RandomZ]"/>
+               <param name="ROTATION_ORIENTATION" value="'align'"/>
                <param name="FORCE_POSITION" value="true"/>
                <param name="FINISH_ON_APPROACH" value="true"/>
             </create_order>
             <wait exact="1ms"/>
          </do_if>
+
+         <set_value name="this.$LOCATION" exact="[$RECIEVER, null]"/>
 
          <!-- Dock at the $RECIEVER if allowed, if not allowed, move as close as possible to the $RECIEVER -->
          <do_if value="$RECIEVER.dockingallowed.{$_Ship}">
@@ -77,17 +83,28 @@
             <create_order object="$_Ship" id="'JP_lib_MoveToObject'" immediate="true">
                <param name="OBJECT" value="$RECIEVER"/>
                <param name="POSITION_SPACE" value="$_Ship"/>
-               <param name="DISTANCE_TO_OBJECT" value="$_Ship.size"/>
+               <param name="DISTANCE_TO_OBJECT" value="10m"/>
                <param name="FORCE_POSITION" value="true"/>
                <param name="FINISH_ON_APPROACH" value="true"/>
             </create_order>
             <wait exact="1ms"/>
          </do_elseif>
 
+         <wait min="1000ms" max="3000ms" profile="bell"/>
+
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+         <set_command command="command.trade" param="$RECIEVER"/>
+         <set_command_action commandaction="commandaction.executingtrade"/>
+
          <!-- Transfer the Inventory items to the $RECIEVER's Control Entity -->
-         <set_value name="$_RecieverEntity" exact="$RECIEVER.assignedcontrolentity.default"/>
+         <do_if value="$RECIEVER == player.headquarters or $RECIEVER.isclass.ship">
+            <set_value name="$_RecieverEntity" exact="$RECIEVER.assignedcontrolentity.default"/>
+         </do_if>
+         <do_elseif value="$RECIEVER.isclass.station">
+            <set_value name="$_RecieverEntity" exact="$RECIEVER.assignedcontrolentity.{controlpost.manager}"/>
+         </do_elseif>
+
          <set_value name="$_TotalInventoryItemsAmount" exact="0"/>
          <set_value name="$__MessageText" exact="''"/>
          <set_value name="$__LogText" exact="''"/>
@@ -98,7 +115,8 @@
             <set_value name="$__LogText" exact="'\n%1 x %2'.[$_ItemCount, $_InventoryItem]" operation="add" chance="if $WRITE_TO_LOG ge 3 then 100 else 0"/>
             <add_inventory entity="$_RecieverEntity" ware="$_InventoryItem" exact="$_ItemCount"/>
             <remove_inventory entity="this" ware="$_InventoryItem" exact="$_ItemCount"/>
-            <wait exact="100ms"/>
+            <!-- A short delay to simulate the time it takes to transfer the items -->
+            <wait min="100ms" max="300ms" profile="bell"/>
          </do_for_each>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -123,7 +141,10 @@
             <param name="LOG_CHANCE" value="2"/>
          </run_script>
 
-         <wait exact="3s"/>
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <wait min="1000ms" max="2000ms" profile="bell"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

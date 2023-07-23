@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- German ~~ Deutsch -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedInventory -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2000">Zum Hauptquartier übertragen?</t>
+      <t id="2001">Zur Station übertragen?</t>
+      <t id="2002">Zum Schiff übertragen?</t>
+      <t id="2003">Empfänger</t>
+      <t id="2004">Übertragungsschwelle</t>
+      <t id="2005">Sammelradius verwenden?</t>
+      <t id="2006">Sammelradius</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2040">Fallengelassenes Inventar aufnehmen</t>
+      <t id="2041">Inventar zum Hauptquartier übertragen</t>
+      <t id="2042">Inventar zur Station übertragen</t>
+      <t id="2043">Inventar zum Schiff übertragen</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2050">Das Hauptquartier ist entweder zerstört oder nicht betriebsbereit.</t>
+      <t id="2051">Im Hauptquartier fehlt ein Manager und kann daher die Inventarobjekte nicht erhalten.</t>
+      <t id="2052">Die Station ist entweder zerstört oder nicht betriebsbereit.</t>
+      <t id="2053">Auf der Station fehlt ein Manager und kann daher die Inventarobjekte nicht erhalten.</t>
+      <t id="2054">Das Schiff ist entweder zerstört oder nicht betriebsbereit.</t>
+      <t id="2055">Dem Schiff fehlt ein Pilot und kann daher die Inventarobjekte nicht erhalten.</t>
+      <t id="2056">Übertragen von %1 Inventargegenstände zu %2 [%3]</t>
+      <t id="2059">Wir setzen die Inventarsammlung fort.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Inventarsammlung pausiert\033X</t>
+      <t id="2061">Ich gehe nun zum Hauptquartier %1 [%2], um die gesammelten Inventargegenstände abzuliefern.</t>
+      <t id="2062">Ich gehe nun zur Station %1 [%2], um die gesammelten Inventargegenstände abzuliefern.</t>
+      <t id="2063">Ich gehe nun zum Schiff %1 [%2], um die gesammelten Inventargegenstände abzuliefern.</t>
+      <t id="2067">Es sind keine verbleibenden fallengelassene Inventargegenstände mehr in meinem definierten Arbeitsbereich vorhanden.</t>
+      <t id="2068">Ich beginne mit dem Sammeln von fallengelassene Inventargegenständen im Sektor %2%1\033X.</t>
+      <t id="2069">Gesammelt: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Sammelt fallengelassene Inventargegenstände, wie AGI-Prozessoren oder Kohlefilter, in einem bestimmten Sektor.</t>
+      <t id="2071">Sammelt fallengelassene Inventargegenstände, wie AGI-Prozessoren oder Kohlefilter, in der gesamten Galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

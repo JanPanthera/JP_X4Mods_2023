@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">본부에 저장하시겠습니까?</t>
+      <t id="2001">스테이션에 저장하시겠습니까?</t>
+      <t id="2002">선박에 저장하시겠습니까?</t>
+      <t id="2003">수신자</t>
+      <t id="2004">저장 임계값</t>
+      <t id="2005">수집 반경을 사용하시겠습니까?</t>
+      <t id="2006">수집 반경</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">드롭된 인벤토리 수집</t>
+      <t id="2041">본부로 인벤토리 전송</t>
+      <t id="2042">스테이션으로 인벤토리 전송</t>
+      <t id="2043">선박으로 인벤토리 전송</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">본부가 파괴되었거나 운영되고 있지 않습니다.</t>
+      <t id="2051">본부에는 관리자가 없어 인벤토리 항목을 받을 수 없습니다.</t>
+      <t id="2052">스테이션이 파괴되었거나 운영되고 있지 않습니다.</t>
+      <t id="2053">스테이션에는 관리자가 없어 인벤토리 항목을 받을 수 없습니다.</t>
+      <t id="2054">선박이 파괴되었거나 운영되고 있지 않습니다.</t>
+      <t id="2055">선박에는 조종사가 없어 인벤토리 항목을 받을 수 없습니다.</t>
+      <t id="2056">%2 [%3]로 %1의 인벤토리 아이템을 전송했습니다</t>
+      <t id="2059">인벤토리 수집을 계속하겠습니다.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#인벤토리 수집 일시 중지\033X</t>
+      <t id="2061">수집한 인벤토리 아이템을 본부 %1 [%2]에 보관하기 위해 진행합니다.</t>
+      <t id="2062">수집한 인벤토리 아이템을 스테이션 %1 [%2]에 보관하기 위해 진행합니다.</t>
+      <t id="2063">수집한 인벤토리 아이템을 선박 %1 [%2]에 보관하기 위해 진행합니다.</t>
+      <t id="2067">나의 정의된 작업 공간 내에 더 이상 수집할 수 있는 드랍된 인벤토리 아이템이 남아있지 않습니다.</t>
+      <t id="2068">섹터 %2%1\033X에서 드랍된 인벤토리 아이템 수집을 시작하겠습니다.</t>
+      <t id="2069">수집됨: %1\n섹터: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">특정 섹터에서 드랍된 인벤토리 아이템, 예를 들어 AGI 프로세서나 카본 필터 등을 수집합니다.</t>
+      <t id="2071">전체 은하계를 통틀어 드랍된 인벤토리 아이템, 예를 들어 AGI 프로세서나 카본 필터 등을 수집합니다.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

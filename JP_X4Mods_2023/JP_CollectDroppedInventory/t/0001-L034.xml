@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">¿Almacenar en la Sede Central?</t>
+      <t id="2001">¿Almacenar en la estación?</t>
+      <t id="2002">¿Almacenar en la nave?</t>
+      <t id="2003">Receptor</t>
+      <t id="2004">Umbral de almacenamiento</t>
+      <t id="2005">¿Usar radio de recolección?</t>
+      <t id="2006">Radio de recolección</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">Recoger inventario caído</t>
+      <t id="2041">Transferir inventario a la Sede Central</t>
+      <t id="2042">Transferir inventario a la estación</t>
+      <t id="2043">Transferir inventario a la nave</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">La Sede Central está destruida o no operativa.</t>
+      <t id="2051">A la Sede Central le falta un gerente y por lo tanto no puede recibir los artículos de inventario.</t>
+      <t id="2052">La estación está destruida o no operativa.</t>
+      <t id="2053">A la estación le falta un gerente y por lo tanto no puede recibir los artículos de inventario.</t>
+      <t id="2054">La nave está destruida o no operativa.</t>
+      <t id="2055">A la nave le falta un piloto y por lo tanto no puede recibir los artículos de inventario.</t>
+      <t id="2056">Transferidos %1 artículos de inventario a %2 [%3]</t>
+      <t id="2059">Continuaremos con la recolección de inventario.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Recolección de Inventario Pausada\033X</t>
+      <t id="2061">Estoy procediendo a depositar los artículos de inventario recogidos en la Sede Central %1 [%2].</t>
+      <t id="2062">Estoy procediendo a depositar los artículos de inventario recogidos en la Estación %1 [%2].</t>
+      <t id="2063">Estoy procediendo a depositar los artículos de inventario recogidos en la Nave %1 [%2].</t>
+      <t id="2067">No quedan más artículos de inventario caídos en mi área de trabajo definida para recolectar.</t>
+      <t id="2068">Estoy comenzando la recolección de artículos de inventario caídos en el sector %2%1\033X.</t>
+      <t id="2069">Recolectado: %1\nSector: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Recolecta artículos de inventario caídos, como Procesadores AGI o Filtros de Carbono, dentro de un sector específico.</t>
+      <t id="2071">Recolecta artículos de inventario caídos, como Procesadores AGI o Filtros de Carbono, en toda la galaxia.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

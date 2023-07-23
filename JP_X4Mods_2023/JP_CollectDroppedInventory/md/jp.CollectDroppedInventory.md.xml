@@ -24,7 +24,7 @@
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
             <!-- a safety check if the count of parameters changes -->
-            <do_if value="@global.$CollectDroppedInventory_Settings.count != 15">
+            <do_if value="@global.$CollectDroppedInventory_Settings.count != 20">
                <remove_value name="global.$CollectDroppedInventory_Settings"/>
             </do_if>
 

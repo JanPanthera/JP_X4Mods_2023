@@ -21,9 +21,19 @@
       <handler>
          <conditions>
             <event_object_destroyed object="$INVENTORY_DROP"/>
+            <check_value value="event.param2 != killmethod.collected"/>
          </conditions>
          <actions>
             <abort_called_scripts resume="END_LBL"/>
+         </actions>
+      </handler>
+      <handler>
+         <conditions>
+            <event_object_destroyed object="$INVENTORY_DROP"/>
+            <check_value value="event.param2 == killmethod.collected"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="FINISH_LBL"/>
          </actions>
       </handler>
       <handler ref="AttackHandler"/>
@@ -62,51 +72,68 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.scan"/>
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
          <create_position name="$POSITION" space="$SECTOR" object="$INVENTORY_DROP"/>
 
-         <run_script name="'jp.lib.MoveToObject'">
-            <param name="OBJECT" value="$INVENTORY_DROP"/>
-            <param name="POSITION_SPACE" value="$_Ship"/>
-            <param name="DISTANCE_TO_OBJECT" value="1m"/>
-            <param name="FORCE_POSITION" value="true"/>
-            <param name="FINISH_ON_APPROACH" value="true"/>
-         </run_script>
-
-         <do_if value="not $INVENTORY_DROP.exists">
+         <!-- Inventory drop is no more -->
+         <do_if value="not $INVENTORY_DROP.exists or @$INVENTORY_DROP.iswreck">
             <resume label="END_LBL"/>
          </do_if>
 
-         <set_command command="command.collect" param="$INVENTORY_DROP"/>
-         <set_value name="$_InventoryName" exact="$INVENTORY_DROP.knownname"/>
+         <set_command_action commandaction="commandaction.flying"/>
+         <do_if value="$_Ship.distanceto.{$INVENTORY_DROP} gt 10km">
+            <run_script name="'jp.lib.MoveToObject'">
+               <param name="OBJECT" value="$INVENTORY_DROP"/>
+               <param name="POSITION_SPACE" value="$_Ship"/>
+               <param name="DISTANCE_TO_OBJECT" value="1000m"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
+            </run_script>
+         </do_if>
+         <do_else>
+            <set_value name="$_InventoryName" exact="$INVENTORY_DROP.wares.{1}.name"/>
+            <create_position name="$_Position" space="$SECTOR" object="$INVENTORY_DROP"/>
+            <run_script name="'jp.lib.MoveToPosition'">
+               <param name="SECTOR" value="$SECTOR"/>
+               <param name="POSITION" value="$_Position"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="IGNORE_SAFE_POS_CHECKS" value="true"/>
+            </run_script>
+         </do_else>
 
-         <wait exact="3s"/>
-         <set_command command="command.investigate"/>
-         <collect_drop object="$_Ship" drop="$INVENTORY_DROP"/>
-         <wait exact="3s"/>
+         <!-- Still not collected? ~ Then "cheat" collect it -->
+         <do_if value="@$INVENTORY_DROP.exists and not @$INVENTORY_DROP.iswreck">
+            <collect_drop object="$_Ship" drop="$INVENTORY_DROP"/>
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
-            <param name="FACTION" value="$SECTOR.owner"/>
-         </run_script>
+         <label name="FINISH_LBL"/>
 
-         <!-- Collected: %1\nSector: %3%2\033X -->
-         <set_value name="$_Text" exact="{8888888, 2069}.[$_InventoryName, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+         <do_if value="@$_InventoryName != null">
 
-         <run_script name="'jp.lib.MessageLog'">
-            <param name="TEXT"               value="$_Text"/>
-            <param name="INTERACTION_OBJECT" value="$SECTOR"/>
-            <param name="MESSAGE_CHANCE"     value="3"/>
-            <param name="LOG_CHANCE"         value="3"/>
-         </run_script>
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
+               <param name="FACTION" value="$SECTOR.owner"/>
+            </run_script>
 
-         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- Collected: %1\nSector: %3%2\033X -->
+            <set_value name="$_Text" exact="{8888888, 2069}.[$_InventoryName, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
 
-         <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_INVENTORY_COLLECTED'"/>
-         <apply_experience object="$_Ship" experience="'JP_SHIP_INVENTORY_COLLECTED'" role="entityrole.service"/>
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="$_Text"/>
+               <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+               <param name="MESSAGE_CHANCE"     value="3"/>
+               <param name="LOG_CHANCE"         value="3"/>
+            </run_script>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_INVENTORY_COLLECTED'"/>
+            <apply_experience object="$_Ship" experience="'JP_SHIP_INVENTORY_COLLECTED'" role="entityrole.service"/>
+
+         </do_if>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

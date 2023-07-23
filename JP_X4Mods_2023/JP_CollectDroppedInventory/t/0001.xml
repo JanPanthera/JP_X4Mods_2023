@@ -11,6 +11,8 @@
       <t id="2002">Store to Ship?</t>
       <t id="2003">Reciever</t>
       <t id="2004">Store Threshold</t>
+      <t id="2005">Use collecting radius?</t>
+      <t id="2006">Collecting radius</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <t id="2040">Collect Dropped Inventory</t>
       <t id="2041">Transfer Inventory to Headquarters</t>

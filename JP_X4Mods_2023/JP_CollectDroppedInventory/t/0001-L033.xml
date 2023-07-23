@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">Stocker au Quartier Général?</t>
+      <t id="2001">Stocker à la Station?</t>
+      <t id="2002">Stocker au Vaisseau?</t>
+      <t id="2003">Récepteur</t>
+      <t id="2004">Seuil de stockage</t>
+      <t id="2005">Utiliser le rayon de collecte?</t>
+      <t id="2006">Rayon de collecte</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">Collecter l'inventaire abandonné</t>
+      <t id="2041">Transférer l'inventaire au Quartier Général</t>
+      <t id="2042">Transférer l'inventaire à la Station</t>
+      <t id="2043">Transférer l'inventaire au Vaisseau</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">Le Quartier Général est soit détruit, soit non opérationnel.</t>
+      <t id="2051">Le Quartier Général manque d'un gestionnaire et ne peut donc pas recevoir les articles d'inventaire.</t>
+      <t id="2052">La station est soit détruite, soit non opérationnelle.</t>
+      <t id="2053">La station manque d'un gestionnaire et ne peut donc pas recevoir les articles d'inventaire.</t>
+      <t id="2054">Le vaisseau est soit détruit, soit non opérationnel.</t>
+      <t id="2055">Le vaisseau manque d'un pilote et ne peut donc pas recevoir les articles d'inventaire.</t>
+      <t id="2056">Transféré %1 articles d'inventaire à %2 [%3]</t>
+      <t id="2059">Nous continuerons avec la collecte de l'inventaire.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Collection d'Inventaire en Pause\033X</t>
+      <t id="2061">Je vais déposer les articles d'inventaire collectés au Quartier Général %1 [%2].</t>
+      <t id="2062">Je vais déposer les articles d'inventaire collectés à la Station %1 [%2].</t>
+      <t id="2063">Je vais déposer les articles d'inventaire collectés au Vaisseau %1 [%2].</t>
+      <t id="2067">Il ne reste plus d'articles d'inventaire abandonnés à collecter dans mon espace de travail défini.</t>
+      <t id="2068">Je commence la collecte des articles d'inventaire abandonnés dans le secteur %2%1\033X.</t>
+      <t id="2069">Collecté: %1\nSecteur: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Collecte des articles d'inventaire abandonnés, tels que les processeurs AGI ou les filtres à charbon, dans un secteur spécifique.</t>
+      <t id="2071">Collecte des articles d'inventaire abandonnés, tels que les processeurs AGI ou les filtres à charbon, dans toute la galaxie.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

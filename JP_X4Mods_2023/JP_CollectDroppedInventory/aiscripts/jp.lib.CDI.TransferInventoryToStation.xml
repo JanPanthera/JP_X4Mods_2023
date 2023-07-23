@@ -11,6 +11,7 @@
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       </params>
       <location object="this.$LOCATION.{1}" position="this.$LOCATION.{2}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} != null"/>
+      <location object="this.$LOCATION.{1}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} == null"/>
    </order>
 
    <interrupts>
@@ -50,7 +51,7 @@
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-         <set_command command="command.scan"/>
+         <set_command command="command.investigate"/>
          <set_command_action commandaction="commandaction.calculating"/>
 
          <do_if value="not $RECIEVER.isoperational or $RECIEVER.iswreck">
@@ -78,8 +79,6 @@
          <run_script name="'jp.lib.CDI.TransferInventoryToObject'">
             <param name="RECIEVER" value="$RECIEVER"/>
          </run_script>
-
-         <wait exact="3s"/>
 
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

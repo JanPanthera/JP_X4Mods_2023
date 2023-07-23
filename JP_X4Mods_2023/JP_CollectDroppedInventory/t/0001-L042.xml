@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">Skladovat do centrály?</t>
+      <t id="2001">Skladovat na stanici?</t>
+      <t id="2002">Skladovat na lodi?</t>
+      <t id="2003">Příjemce</t>
+      <t id="2004">Prah skladování</t>
+      <t id="2005">Použít sběrný rádius?</t>
+      <t id="2006">Sběrný rádius</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">Sebrat padlý inventář</t>
+      <t id="2041">Přenést inventář do centrály</t>
+      <t id="2042">Přenést inventář na stanici</t>
+      <t id="2043">Přenést inventář na loď</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">Centrála je zničená nebo nefunkční.</t>
+      <t id="2051">Centrále chybí správce a proto nemůže přijímat položky z inventáře.</t>
+      <t id="2052">Stanice je zničená nebo nefunkční.</t>
+      <t id="2053">Stanici chybí správce a proto nemůže přijímat položky z inventáře.</t>
+      <t id="2054">Loď je zničená nebo nefunkční.</t>
+      <t id="2055">Lodi chybí pilot a proto nemůže přijímat položky z inventáře.</t>
+      <t id="2056">Přeneseno %1 položek inventáře na %2 [%3]</t>
+      <t id="2059">Pokračujeme v sběru inventáře.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Sběr inventáře pozastaven\033X</t>
+      <t id="2061">Pokračuji ve vkládání nasbíraných položek inventáře do centrály %1 [%2].</t>
+      <t id="2062">Pokračuji ve vkládání nasbíraných položek inventáře na stanici %1 [%2].</t>
+      <t id="2063">Pokračuji ve vkládání nasbíraných položek inventáře na loď %1 [%2].</t>
+      <t id="2067">V mém definovaném pracovním prostoru již nejsou žádné zbývající položky padlého inventáře k sebrání.</t>
+      <t id="2068">Začínám se sběrem padlého inventáře v sektoru %2%1\033X.</t>
+      <t id="2069">Sebráno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Sbírá padlé položky inventáře, jako jsou procesory AGI nebo uhlíkové filtry, v určitém sektoru.</t>
+      <t id="2071">Sbírá padlé položky inventáře, jako jsou procesory AGI nebo uhlíkové filtry, po celé galaxii.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>

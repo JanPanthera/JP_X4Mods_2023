@@ -6,16 +6,38 @@
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <!--  JP_CollectDroppedInventory -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2040">Collect inventory item</t>
+      <t id="2000">Przechowuj w siedzibie głównej?</t>
+      <t id="2001">Przechowuj na stacji?</t>
+      <t id="2002">Przechowuj na statku?</t>
+      <t id="2003">Odbiorca</t>
+      <t id="2004">Próg składowania</t>
+      <t id="2005">Użyć promienia zbierania?</t>
+      <t id="2006">Promień zbierania</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2060">\033#FFe27100#Dropped Inventory Collecting Paused\033X</t>
-      <t id="2061">I will proceed to store my collected inventory items at the Headquarter.</t>
-      <t id="2062">There are no remaining dropped inventory items within my defined workspace left that we need to collect.</t>
-      <t id="2063">I will start collecting dropped inventory items in sector %2%1\033X.</t>
-      <t id="2064">Collected: %1\nSector: %3%2\033X</t>
+      <t id="2040">Zbierz upuszczony inwentarz</t>
+      <t id="2041">Prześlij inwentarz do siedziby głównej</t>
+      <t id="2042">Prześlij inwentarz do stacji</t>
+      <t id="2043">Prześlij inwentarz do statku</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-      <t id="2070">Collects dropped inventory items, like AGI Processors or Carbon Filters, within a specified sector.</t>
-      <t id="2071">Collects dropped inventory items, like AGI Processors or Carbon Filters, throughout the entire galaxy.</t>
+      <t id="2050">Siedziba główna jest zniszczona lub nieczynna.</t>
+      <t id="2051">Siedziba główna nie ma menedżera i dlatego nie może odbierać przedmiotów z inwentarza.</t>
+      <t id="2052">Stacja jest zniszczona lub nieczynna.</t>
+      <t id="2053">Stacja nie ma menedżera i dlatego nie może odbierać przedmiotów z inwentarza.</t>
+      <t id="2054">Statek jest zniszczony lub nieczynny.</t>
+      <t id="2055">Statek nie ma pilota i dlatego nie może odbierać przedmiotów z inwentarza.</t>
+      <t id="2056">Przeniesiono %1 przedmiotów z inwentarza do %2 [%3]</t>
+      <t id="2059">Kontynuujemy zbieranie inwentarza.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2060">\033#FFe27100#Zbieranie inwentarza wstrzymane\033X</t>
+      <t id="2061">Przejdę do siedziby głównej %1 [%2], aby zdeponować zebrane przedmioty z inwentarza.</t>
+      <t id="2062">Przejdę do stacji %1 [%2], aby zdeponować zebrane przedmioty z inwentarza.</t>
+      <t id="2063">Przejdę do statku %1 [%2], aby zdeponować zebrane przedmioty z inwentarza.</t>
+      <t id="2067">Nie ma już więcej upuszczonych przedmiotów do zebrania w moim wyznaczonym obszarze pracy.</t>
+      <t id="2068">Rozpoczynam zbieranie upuszczonych przedmiotów z inwentarza w sektorze %2%1\033X.</t>
+      <t id="2069">Zebrano: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="2070">Zbiera upuszczone przedmioty z inwentarza, takie jak procesory AGI czy filtry węglowe, w określonym sektorze.</t>
+      <t id="2071">Zbiera upuszczone przedmioty z inwentarza, takie jak procesory AGI czy filtry węglowe, w całej galaktyce.</t>
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
    </page>
 </language>
