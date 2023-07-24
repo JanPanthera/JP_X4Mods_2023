@@ -2,7 +2,7 @@
 
 <aiscript name="JP_CollectPlaceablesG" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd" version="1">
 
-   <order id="JP_CollectPlaceablesG" name="_{8888888, 97}CollectPlaceables - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 871}" category="navigation" infinite="true" allowinloop="false">
+   <order id="JP_CollectPlaceablesG" name="_{8888888, 97}CollectPlaceables - {8888888, 99}{8888888, 98}{20001, 901}{8888888, 99}" description="{8888888, 871}" category="salvage" infinite="true" allowinloop="false">
       <params>
          <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
          <param name="PLACE_HOLDER_000" text="----------------------------------" type="object" default="null">
@@ -218,7 +218,7 @@
             <do_if value="not $SELL_PLACEABLES">
                <!-- There is no more storage left for collecting additional placeables, and I'm not allowed to empty my deployable storage myself. -->
                <run_script name="'jp.lib.MessageLog'">
-                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 862}]"/>
+                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 862} + '\n' + {8888888, 55})]"/>
                </run_script>
                <resume label="IDLE_LBL"/>
             </do_if>
@@ -259,7 +259,7 @@
             </do_if>
             <!-- There are no remaining placeables within my defined workspace left that we need to collect. -->
             <run_script name="'jp.lib.MessageLog'">
-               <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 864}]"/>
+               <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 864} + '\n' + {8888888, 55})]"/>
             </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
