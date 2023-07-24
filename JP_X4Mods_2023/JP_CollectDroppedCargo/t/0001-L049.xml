@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- German ~~ Deutsch -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">In einer eigenen Station einlagern?</t>
+      <t id="701">Im eigenen Schiff einlagern?</t>
+      <t id="702">Empfänger</t>
+      <t id="703">Gesammelte Ladung verkaufen?</t>
+      <t id="704">Sammelradius verwenden?</t>
+      <t id="705">Sammelradius</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Ausgeworfene Fracht sammeln</t>
+      <t id="741">Fracht zur Station transferieren</t>
+      <t id="742">Fracht zum Schiff transferieren</t>
+      <t id="743">Gesammelte Fracht verkaufen</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Frachtsammlung pausiert\033X</t>
+      <t id="761">Ich beginne mit der Einlagerung der gesammelten Frachtgegenstände in die Station %1 [%2].</t>
+      <t id="762">Ich beginne mit der Einlagerung der gesammelten Frachtgegenstände in das Schiff %1 [%2].</t>
+      <t id="767">Es sind keine ausgeworfenen Frachtgegenstände mehr in meinem definierten Arbeitsbereich zum Sammeln übrig.</t>
+      <t id="768">Ich beginne mit der Sammlung von ausgeworfenen Frachtgegenständen im Sektor %2%1\033X.</t>
+      <t id="769">Gesammelt: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Sammelt ausgeworfene Frachtgegenstände, wie Rumpfteile oder Energiezellen, in einem bestimmten Sektor.</t>
+      <t id="771">Sammelt ausgeworfene Frachtgegenstände, wie Rumpfteile oder Energiezellen, in der gesamten Galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

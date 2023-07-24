@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<content id="JP_CollectDroppedCargo" name="JP_CollectDroppedCargo" description="Collects dropped cargo items such as hull parts or energy cells in a single sector or throughout the entire galaxy." author="JanPanthera" version="200" date="2023-07-24" save="0" enabled="1">
+   <text language="7"  name="JP_CollectDroppedCargo" description="Собирает брошенные грузовые предметы, такие как части корпуса или энергетические ячейки, в одном секторе или по всей галактике."/>
+   <text language="33" name="JP_CollectDroppedCargo" description="Collecte des articles de cargaison abandonnés tels que des pièces de coque ou des cellules d'énergie dans un seul secteur ou à travers toute la galaxie."/>
+   <text language="34" name="JP_CollectDroppedCargo" description="Recolecta artículos de carga caídos, como partes del casco o Celdas de Energía, en un solo sector o en toda la galaxia."/>
+   <text language="39" name="JP_CollectDroppedCargo" description="Raccoglie oggetti di carico caduti come parti dello scafo o celle energetiche in un singolo settore o in tutta la galassia."/>
+   <text language="42" name="JP_CollectDroppedCargo" description="Sbírá padlé nákladní položky, jako jsou části trupu nebo energetické buňky, v jednom sektoru nebo po celé galaxii."/>
+   <text language="44" name="JP_CollectDroppedCargo" description="Collects dropped cargo items such as hull parts or energy cells in a single sector or throughout the entire galaxy."/>
+   <text language="48" name="JP_CollectDroppedCargo" description="Zbiera porzucone przedmioty ładunkowe, takie jak części kadłuba czy komórki energetyczne, w jednym sektorze lub na terenie całej galaktyki."/>
+   <text language="49" name="JP_CollectDroppedCargo" description="Sammelt fallengeelassene Frachtgegenstände wie Rumpfteile oder Energiezellen in einem einzigen Sektor oder in der gesamten Galaxie."/>
+   <text language="55" name="JP_CollectDroppedCargo" description="Coleta itens de carga caídos, como partes do casco ou Células de Energia, em um único setor ou em toda a galáxia."/>
+   <text language="81" name="JP_CollectDroppedCargo" description="単一のセクターや全銀河系で船体部品やエネルギーセルなどの落下した貨物アイテムを収集します。"/>
+   <text language="82" name="JP_CollectDroppedCargo" description="단일 섹터 또는 전체 은하계에서 선체 부품이나 에너지 셀 등의 떨어진 화물 아이템을 수집합니다."/>
+   <text language="86" name="JP_CollectDroppedCargo" description="在单个区域或整个星系中收集掉落的货物项目，如船体部件或能源单元。"/>
+   <text language="88" name="JP_CollectDroppedCargo" description="在單一區域或整個銀河系中收集掉落的貨物項目，如船體部件或能源單元。"/>
+   <dependency id="JP_ScriptLibrary" optional="false"/>
+</content>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Portuguese (Brazil) ~~ Português (Brasil) -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Armazenar na Estação possuída?</t>
+      <t id="701">Armazenar no Navio possuído?</t>
+      <t id="702">Receptor</t>
+      <t id="703">Vender a carga coletada?</t>
+      <t id="704">Usar raio de coleta?</t>
+      <t id="705">Raio de coleta</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Coletar Carga Abandonada</t>
+      <t id="741">Transferir Carga para a Estação</t>
+      <t id="742">Transferir Carga para o Navio</t>
+      <t id="743">Vender a carga coletada</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Coleta de Carga Pausada\033X</t>
+      <t id="761">Estou procedendo para depositar os itens de carga coletados na Estação %1 [%2].</t>
+      <t id="762">Estou procedendo para depositar os itens de carga coletados no Navio %1 [%2].</t>
+      <t id="767">Não há mais itens de carga abandonados para coletar dentro do meu espaço de trabalho definido.</t>
+      <t id="768">Estou começando a coleta de itens de carga abandonados no setor %2%1\033X.</t>
+      <t id="769">Coletado: %1\nSetor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Coleta itens de carga abandonados, como partes do casco ou células de energia, dentro de um setor especificado.</t>
+      <t id="771">Coleta itens de carga abandonados, como partes do casco ou células de energia, em toda a galáxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

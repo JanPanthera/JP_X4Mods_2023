@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- French ~~ Français -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Stocker à la station possédée?</t>
+      <t id="701">Stocker au vaisseau possédé?</t>
+      <t id="702">Destinataire</t>
+      <t id="703">Vendre la cargaison collectée?</t>
+      <t id="704">Utiliser le rayon de collecte?</t>
+      <t id="705">Rayon de collecte</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Collecter la cargaison abandonnée</t>
+      <t id="741">Transférer la cargaison à la station</t>
+      <t id="742">Transférer la cargaison au vaisseau</t>
+      <t id="743">Vendre la cargaison collectée</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Collecte de cargaison en pause\033X</t>
+      <t id="761">Je procède au dépôt des articles de cargaison collectés à la Station %1 [%2].</t>
+      <t id="762">Je procède au dépôt des articles de cargaison collectés au Vaisseau %1 [%2].</t>
+      <t id="767">Il ne reste plus d'articles de cargaison abandonnés dans mon espace de travail défini à collecter.</t>
+      <t id="768">Je commence la collecte d'articles de cargaison abandonnés dans le secteur %2%1\033X.</t>
+      <t id="769">Collecté : %1\nSecteur : %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Collecte les articles de cargaison abandonnés, comme des pièces de coque ou des cellules d'énergie, dans un secteur spécifié.</t>
+      <t id="771">Collecte les articles de cargaison abandonnés, comme des pièces de coque ou des cellules d'énergie, dans toute la galaxie.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

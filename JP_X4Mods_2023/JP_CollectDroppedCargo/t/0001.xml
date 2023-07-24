@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Default ~~ English -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Use collecting radius?</t>
+      <t id="701">Collecting radius</t>
+      <t id="702">Store to owned Station?</t>
+      <t id="703">Store to owned Ship?</t>
+      <t id="704">Reciever</t>
+      <t id="705">Sell collected Cargo?</t>
+      <t id="706">Sell range</t>
+      <t id="707">Use whitelist?</t>
+      <t id="708">Use blacklist?</t>
+      <t id="709">Wares Whitelist</t>
+      <t id="710">Wares Blacklist</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Collect Dropped Cargo</t>
+      <t id="741">Transfer Cargo to Station</t>
+      <t id="742">Transfer Cargo to Ship</t>
+      <t id="743">Sell collected Cargo</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Cargo Collection Paused\033X</t>
+      <t id="761">I am proceeding to deposit the gathered cargo items at Station %1 [%2].</t>
+      <t id="762">I am proceeding to deposit the gathered cargo items at Ship %1 [%2].</t>
+      <t id="767">No remaining dropped cargo items are left within my defined workspace to collect.</t>
+      <t id="768">I am starting the collection of dropped cargo items in sector %2%1\033X.</t>
+      <t id="769">Collected: %1\nSector: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Collects dropped cargo items, like hull parts or energy cells, within a specified sector.</t>
+      <t id="771">Collects dropped cargo items, like hull parts or energy cells, throughout the entire galaxy.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

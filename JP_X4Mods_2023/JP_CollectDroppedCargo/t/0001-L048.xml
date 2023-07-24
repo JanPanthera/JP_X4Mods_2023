@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Polish ~~ Polski -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Przechowaj na własnej stacji?</t>
+      <t id="701">Przechowaj na własnym statku?</t>
+      <t id="702">Odbiorca</t>
+      <t id="703">Sprzedaj zebrany ładunek?</t>
+      <t id="704">Użyć promienia zbierania?</t>
+      <t id="705">Promień zbierania</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Zbierz porzucony ładunek</t>
+      <t id="741">Przenieś ładunek na stację</t>
+      <t id="742">Przenieś ładunek na statek</t>
+      <t id="743">Sprzedaj zebrany ładunek</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Zbieranie ładunku wstrzymane\033X</t>
+      <t id="761">Zaczynam deponować zebrane przedmioty ładunku na Stacji %1 [%2].</t>
+      <t id="762">Zaczynam deponować zebrane przedmioty ładunku na Statku %1 [%2].</t>
+      <t id="767">Nie pozostały żadne porzucone przedmioty ładunku do zebrania w moim zdefiniowanym obszarze pracy.</t>
+      <t id="768">Zaczynam zbieranie porzuconych przedmiotów ładunku w sektorze %2%1\033X.</t>
+      <t id="769">Zebrano: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Zbiera porzucone przedmioty ładunku, takie jak części kadłuba czy ogniwa energetyczne, w określonym sektorze.</t>
+      <t id="771">Zbiera porzucone przedmioty ładunku, takie jak części kadłuba czy ogniwa energetyczne, w całej galaktyce.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

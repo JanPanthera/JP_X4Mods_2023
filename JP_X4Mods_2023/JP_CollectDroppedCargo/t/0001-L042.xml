@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Czech ~~ čeština -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Uložit do vlastní stanice?</t>
+      <t id="701">Uložit do vlastní lodi?</t>
+      <t id="702">Příjemce</t>
+      <t id="703">Prodat nasbíraný náklad?</t>
+      <t id="704">Použít sběrný rádius?</t>
+      <t id="705">Sběrný rádius</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Sbírat upuštěný náklad</t>
+      <t id="741">Převést náklad na stanici</t>
+      <t id="742">Převést náklad na loď</t>
+      <t id="743">Prodat nasbíraný náklad</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Sběr nákladu je pozastaven\033X</t>
+      <t id="761">Pokračuji v ukládání nasbíraných nákladních předmětů na stanici %1 [%2].</t>
+      <t id="762">Pokračuji v ukládání nasbíraných nákladních předmětů na loď %1 [%2].</t>
+      <t id="767">V mém definovaném pracovním prostoru již nezůstaly žádné zbývající upuštěné nákladní předměty k sebrání.</t>
+      <t id="768">Začínám sbírat upuštěné nákladní předměty v sektoru %2%1\033X.</t>
+      <t id="769">Sebráno: %1\nSektor: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Sbírá upuštěné nákladní předměty, jako jsou části trupu nebo energetické buňky, v určeném sektoru.</t>
+      <t id="771">Sbírá upuštěné nákladní předměty, jako jsou části trupu nebo energetické buňky, po celé galaxii.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

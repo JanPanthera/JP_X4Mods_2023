@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Italian ~~ Italiano -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">Memorizzare nella stazione posseduta?</t>
+      <t id="701">Memorizzare nella nave posseduta?</t>
+      <t id="702">Destinatario</t>
+      <t id="703">Vendere il carico raccolto?</t>
+      <t id="704">Utilizzare il raggio di raccolta?</t>
+      <t id="705">Raggio di raccolta</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Raccogliere il carico abbandonato</t>
+      <t id="741">Trasferire il carico alla stazione</t>
+      <t id="742">Trasferire il carico alla nave</t>
+      <t id="743">Vendere il carico raccolto</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Raccolta del carico in pausa\033X</t>
+      <t id="761">Sto procedendo a depositare gli articoli di carico raccolti alla Stazione %1 [%2].</t>
+      <t id="762">Sto procedendo a depositare gli articoli di carico raccolti alla Nave %1 [%2].</t>
+      <t id="767">Non ci sono più articoli di carico abbandonati nel mio spazio di lavoro definito da raccogliere.</t>
+      <t id="768">Sto iniziando la raccolta di articoli di carico abbandonati nel settore %2%1\033X.</t>
+      <t id="769">Raccolto: %1\nSettore: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Raccoglie articoli di carico abbandonati, come parti dello scafo o celle energetiche, in un settore specificato.</t>
+      <t id="771">Raccoglie articoli di carico abbandonati, come parti dello scafo o celle energetiche, in tutta la galassia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>

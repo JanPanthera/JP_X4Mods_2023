@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<icons>
+   <icon name="order_jp_collectdroppedcargos" texture="assets\fx\gui\textures\order\order_collectdropsinradius.tga" height="32" width="32"></icon>
+   <icon name="order_jp_collectdroppedcargog" texture="assets\fx\gui\textures\order\order_collectdropsinradius.tga" height="32" width="32"></icon>
+   <icon name="order_jp_lib_cdc_collectcargodrop" texture="assets\fx\gui\textures\order\order_collectdropsinradius.tga" height="32" width="32"></icon>
+   <icon name="order_jp_lib_cdc_transfercargotostation" texture="assets\fx\gui\textures\order\order_tradeexchange.tga" height="32" width="32"></icon>
+   <icon name="order_jp_lib_cdc_transfercargotoship" texture="assets\fx\gui\textures\order\order_tradeexchange.tga" height="32" width="32"></icon>
+   <icon name="order_jp_lib_cdc_selllcargo" texture="assets\fx\gui\textures\order\order_traderoutine.tga" height="32" width="32"></icon>
+</icons>

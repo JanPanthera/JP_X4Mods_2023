@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<aiscript name="jp.lib.CDC.CollectCargoDrop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="aiscripts.xsd">
+
+   <order id="JP_lib_CDC_CollectCargoDrop" name="{8888888, 740}" category="internal" infinite="false" allowinloop="false" canplayercancel="true">
+      <params>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="SECTOR"     type="internal" default="null"/>
+         <param name="CARGO_DROP" type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="POSITION"    type="internal" default="null"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+         <param name="debugchance" type="internal" default="0"/>
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      </params>
+      <location object="$CARGO_DROP" condition="@$CARGO_DROP != null"/>
+      <location object="this.$LOCATION.{1}" position="this.$LOCATION.{2}" condition="@this.$LOCATION.{1} != null and @this.$LOCATION.{2} != null"/>
+   </order>
+
+   <interrupts>
+      <handler>
+         <conditions>
+            <event_object_destroyed object="$CARGO_DROP"/>
+            <check_value value="event.param2 != killmethod.collected"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="END_LBL"/>
+         </actions>
+      </handler>
+      <handler>
+         <conditions>
+            <event_object_destroyed object="$CARGO_DROP"/>
+            <check_value value="event.param2 == killmethod.collected"/>
+         </conditions>
+         <actions>
+            <abort_called_scripts resume="FINISH_LBL"/>
+         </actions>
+      </handler>
+      <handler ref="AttackHandler"/>
+      <handler ref="MissileLockHandler" />
+      <handler ref="ScannedHandler"/>
+      <handler ref="InspectedHandler"/>
+      <handler ref="FoundAbandonedHandler"/>
+      <handler ref="FoundLockboxHandler"/>
+      <handler ref="ResupplyHandler"/>
+      <handler ref="TideHandler"/>
+   </interrupts>
+
+   <init>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$_Ship" exact="this.ship"/>
+      <set_value name="$_DefaultOrderParamRef" exact="if $_Ship.defaultorder.id == 'Assist' then $_Ship.commander.defaultorder else $_Ship.defaultorder"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <set_value name="$DEBUG" exact="@$_DefaultOrderParamRef.$DEBUG"/>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <do_if value="$DEBUG gt 0">
+         <set_value name="$_DebugFolderName" exact="@$_DefaultOrderParamRef.$DEBUG_FOLDER_NAME"/>
+         <set_value name="$_DebugScriptName" exact="'jp.lib.CDC.CollectCargoDrop'"/>
+         <set_value name="$_DebugFileName" exact="$_Ship.idcode + '.' + $_DebugScriptName + '.xml.log'"/>
+      </do_if>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </init>
+
+   <attention min="unknown">
+      <actions>
+
+         <label name="INIT_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <set_command command="command.investigate"/>
+         <set_command_action commandaction="commandaction.calculating"/>
+
+         <create_position name="$POSITION" space="$SECTOR" object="$CARGO_DROP"/>
+
+         <!-- Cargo drop is no more -->
+         <do_if value="not $CARGO_DROP.exists or @$CARGO_DROP.iswreck">
+            <resume label="END_LBL"/>
+         </do_if>
+
+         <set_command_action commandaction="commandaction.flying"/>
+         <do_if value="$_Ship.distanceto.{$CARGO_DROP} gt 10km">
+            <run_script name="'jp.lib.MoveToObject'">
+               <param name="OBJECT" value="$CARGO_DROP"/>
+               <param name="POSITION_SPACE" value="$_Ship"/>
+               <param name="DISTANCE_TO_OBJECT" value="1000m"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="FINISH_ON_APPROACH" value="true"/>
+            </run_script>
+         </do_if>
+         <do_else>
+            <set_value name="$_CargoDropName" exact="$CARGO_DROP.wares.{1}.name"/>
+            <create_position name="$_Position" space="$SECTOR" object="$CARGO_DROP"/>
+            <run_script name="'jp.lib.MoveToPosition'">
+               <param name="SECTOR" value="$SECTOR"/>
+               <param name="POSITION" value="$_Position"/>
+               <param name="FORCE_POSITION" value="true"/>
+               <param name="IGNORE_SAFE_POS_CHECKS" value="true"/>
+            </run_script>
+         </do_else>
+
+         <!-- Still not collected? ~ Then "cheat" collect it -->
+         <do_if value="@$CARGO_DROP.exists and not @$CARGO_DROP.iswreck">
+            <collect_drop object="$_Ship" drop="$CARGO_DROP"/>
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="FINISH_LBL"/>
+
+         <do_if value="@$_CargoDropName != null">
+
+            <run_script name="'jp.lib.GetFactionColorCode'" result="$_ObjectSectorOwnerColor">
+               <param name="FACTION" value="$SECTOR.owner"/>
+            </run_script>
+
+            <!-- Collected: %1\nSector: %3%2\033X -->
+            <set_value name="$_Text" exact="{8888888, 769}.[$_CargoDropName, $SECTOR.knownname, $_ObjectSectorOwnerColor]"/>
+
+            <run_script name="'jp.lib.MessageLog'">
+               <param name="TEXT"               value="$_Text"/>
+               <param name="INTERACTION_OBJECT" value="$SECTOR"/>
+               <param name="MESSAGE_CHANCE"     value="3"/>
+               <param name="LOG_CHANCE"         value="3"/>
+            </run_script>
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <apply_experience entity="$_Ship.pilot" experience="'JP_SHIP_CARGO_COLLECTED'"/>
+            <apply_experience object="$_Ship" experience="'JP_SHIP_CARGO_COLLECTED'" role="entityrole.service"/>
+
+         </do_if>
+
+         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+         <label name="END_LBL"/>
+         <do_if value="$DEBUG gt 0">
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_END ~~'"/>
+            <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'"/>
+         </do_if>
+
+      </actions>
+   </attention>
+
+   <on_abort>
+   </on_abort>
+
+</aiscript>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spanish ~~ Español -->
+
+<language>
+   <page id="8888888" voice="no">
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--  JP_CollectDroppedCargo -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="700">¿Almacenar en estación propia?</t>
+      <t id="701">¿Almacenar en nave propia?</t>
+      <t id="702">Receptor</t>
+      <t id="703">¿Vender la carga recogida?</t>
+      <t id="704">¿Usar radio de recolección?</t>
+      <t id="705">Radio de recolección</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="740">Recoger la carga abandonada</t>
+      <t id="741">Transferir carga a la estación</t>
+      <t id="742">Transferir carga a la nave</t>
+      <t id="743">Vender la carga recogida</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="760">\033#FFe27100#Recolección de carga pausada\033X</t>
+      <t id="761">Estoy procediendo a depositar los artículos de carga recogidos en la Estación %1 [%2].</t>
+      <t id="762">Estoy procediendo a depositar los artículos de carga recogidos en la Nave %1 [%2].</t>
+      <t id="767">No quedan artículos de carga abandonados en mi espacio de trabajo definido para recoger.</t>
+      <t id="768">Estoy comenzando la recolección de artículos de carga abandonados en el sector %2%1\033X.</t>
+      <t id="769">Recogido: %1\nSector: %3%2\033X</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <t id="770">Recolecta artículos de carga abandonados, como partes del casco o celdas de energía, en un sector especificado.</t>
+      <t id="771">Recolecta artículos de carga abandonados, como partes del casco o celdas de energía, en toda la galaxia.</t>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   </page>
+</language>
