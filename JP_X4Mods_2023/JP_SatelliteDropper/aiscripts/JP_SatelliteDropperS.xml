@@ -229,7 +229,7 @@
             <do_if value="not $RESTOCK_SATELLITES">
                <!-- There are no or not enough satellites available, and the restocking of satellites is deactivated.\nWhen using both types of satellites, at least one of each type must be available. -->
                <run_script name="'jp.lib.MessageLog'">
-                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 1461}]"/>
+                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 1461} + '\n' + {8888888, 55})]"/>
                </run_script>
                <resume label="IDLE_LBL"/>
             </do_if>
@@ -245,7 +245,7 @@
             <!-- The restock equipment order has failed. More detail is available in the logbook. -->
             <do_if value="$_Result == 'Failed'">
                <run_script name="'jp.lib.MessageLog'">
-                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 54}]"/>
+                  <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 54} + '\n' + {8888888, 55})]"/>
                </run_script>
                <resume label="IDLE_LBL"/>
             </do_if>
@@ -279,7 +279,7 @@
          <do_if value="$_FoundObjects.count == 0">
             <!-- There are no remaining structures left where we need to deploy a satellite. -->
             <run_script name="'jp.lib.MessageLog'">
-               <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, {8888888, 1462}]"/>
+               <param name="TEXT" value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 1462} + '\n' + {8888888, 55})]"/>
             </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
