@@ -6,10 +6,15 @@
          <set_value name="$added"/>
          <run_script name="$scriptname">
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <param name="USE_RADIUS"        value="$order.$USE_RADIUS"/>
+            <param name="RADIUS"            value="$order.$RADIUS"/>
             <param name="OWNERLESS_SECTORS" value="$order.$OWNERLESS_SECTORS"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-            <param name="STORE_TO_HQ"     value="$order.$STORE_TO_HQ"/>
-            <param name="STORE_THRESHOLD" value="$order.$STORE_THRESHOLD"/>
+            <param name="STORE_TO_HQ"      value="$order.$STORE_TO_HQ"/>
+            <param name="STORE_TO_STATION" value="$order.$STORE_TO_STATION"/>
+            <param name="STORE_TO_SHIP"    value="$order.$STORE_TO_SHIP"/>
+            <param name="RECIEVER"         value="$order.$RECIEVER"/>
+            <param name="STORE_THRESHOLD"  value="$order.$STORE_THRESHOLD"/>
             <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
             <param name="IDLE_TIME"      value="$order.$IDLE_TIME"/>
             <param name="IDLE_MOVE_TO"   value="$order.$IDLE_MOVE_TO"/>
