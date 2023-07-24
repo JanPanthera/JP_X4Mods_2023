@@ -94,9 +94,9 @@
          </do_if>
 
          <do_if value="not $SKIP_SECTOR_CHECK and $_Ship.sector != $SECTOR">
-            <create_order object="$_Ship" id="'JP_lib_MoveToSector'" immediate="true">
+            <run_script name="'jp.lib.MoveToSector'">
                <param name="SECTOR" value="$SECTOR"/>
-            </create_order>
+            </run_script>
             <wait exact="1ms"/>
          </do_if>
 
