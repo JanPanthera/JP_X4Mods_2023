@@ -142,6 +142,7 @@
       <actions>
 
          <label name="INIT_LBL"/>
+         <wait exact="1s"/>
          <do_if value="$DEBUG gt 0">
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'" append="false"/>
             <debug_to_file directory="$_DebugFolderName" name="$_DebugFileName" text="'[' + player.systemtime.{'%F - %X'} + '] ' + '~~ ' + $_DebugScriptName + '.xml ~ SCRIPT_START ~~' + '\n'"/>
@@ -190,7 +191,7 @@
                <do_if value="not $RESTOCK_NAV_BEACONS">
                   <!-- There are no or not enough navigation beacons available, and automatic restocking of navigation beacons is disabled. -->
                   <run_script name="'jp.lib.MessageLog'">
-                     <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 161}]"/>
+                     <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 161} + '\n' + {8888888, 55})]"/>
                   </run_script>
                   <resume label="IDLE_LBL"/>
                </do_if>
@@ -203,7 +204,7 @@
                <!-- The restock equipment order has failed. More detail is available in the logbook. -->
                <do_if value="$_Result == 'Failed'">
                   <run_script name="'jp.lib.MessageLog'">
-                     <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 54}]"/>
+                     <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 54} + '\n' + {8888888, 55})]"/>
                   </run_script>
                   <resume label="IDLE_LBL"/>
                </do_if>
@@ -214,7 +215,7 @@
             <do_if value="$_Ship.people.{entityrole.marine}.list.count == 0">
                <!-- No marines are available for automatic ship boarding. -->
                <run_script name="'jp.lib.MessageLog'">
-                  <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 162}]"/>
+                  <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 162} + '\n' + {8888888, 55})]"/>
                </run_script>
                <resume label="IDLE_LBL"/>
             </do_if>
@@ -232,7 +233,7 @@
          <do_if value="$_FoundAbandonedShips.count == 0">
             <!-- Currently, there are no abandoned ships left that we can reach or that need to be marked or claimed. -->
             <run_script name="'jp.lib.MessageLog'">
-               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 163}]"/>
+               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 163} + '\n' + {8888888, 55})]"/>
             </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
