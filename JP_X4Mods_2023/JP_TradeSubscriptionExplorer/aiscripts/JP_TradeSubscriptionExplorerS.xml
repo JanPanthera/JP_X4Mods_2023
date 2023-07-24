@@ -191,7 +191,7 @@
          <do_if value="$_FoundStations.count == 0">
             <!-- There are no remaining stations within my defined workspace that require a trade subscription update. -->
             <run_script name="'jp.lib.MessageLog'">
-               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, {8888888, 1961}]"/>
+               <param name="TEXT"  value="'%1\n%2'.[$IDLE_TITLE, ({8888888, 1961} + '\n' + {8888888, 55})]"/>
             </run_script>
             <resume label="IDLE_LBL"/>
          </do_if>
