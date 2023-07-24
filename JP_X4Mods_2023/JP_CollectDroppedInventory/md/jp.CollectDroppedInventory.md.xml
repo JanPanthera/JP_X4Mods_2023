@@ -12,7 +12,7 @@
          </conditions>
          <actions>
 
-            <set_value name="$DEBUG" exact="100"/>
+            <set_value name="$DEBUG" exact="0"/>
             <do_if value="$DEBUG gt 0">
                <set_value name="$_DebugFolderName" exact="'JP_CollectDroppedInventory.logs'"/>
                <set_value name="$_DebugScriptName" exact="'CDI_Setup_MD'"/>
@@ -161,7 +161,7 @@
       </cue>
 
       <!-- Debug Info ~ instantiate="false" when publishing -->
-      <cue name="CDI_DebugInfo_MD" instantiate="true" checkinterval="1s">
+      <cue name="CDI_DebugInfo_MD" instantiate="false" checkinterval="1s">
          <actions>
 
             <set_value name="$DEBUG" exact="md.JP_CollectDroppedInventory_MD.CDI_Setup_MD.$DEBUG"/>
