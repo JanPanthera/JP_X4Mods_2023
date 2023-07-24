@@ -10,3 +10,4 @@ v2.0.1 -- Current Published Version
 ~ Updated: Several code clean up and translations changes.
 
 v2.0.2 -- Current Development Version
+~ Changed: The default behavior is now sorted in the category "salvage".
